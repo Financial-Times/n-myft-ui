@@ -1,6 +1,6 @@
 //TODO: refactor the massive out of this
 
-const nextButtons = require('../myft-common');
+const nextButtons = require('../../myft-common');
 const nNotification = require('n-notification');
 const Overlay = require('o-overlay');
 const myftClient = require('next-myft-client');
