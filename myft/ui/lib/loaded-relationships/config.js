@@ -1,0 +1,1 @@
+export const assumeNoneTimeout = 5 * 1000;

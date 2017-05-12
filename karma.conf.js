@@ -24,12 +24,16 @@ module.exports = function (karma) {
 				'Promise',
 				'matchMedia',
 				'HTMLPictureElement',
-				// the following polyfills are included pending https://github.com/Financial-Times/polyfill-service/issues/653
-				'CustomEvent|always|gated',
-				'fetch|always|gated',
-				'Array.prototype.find|always|gated',
-				'Array.prototype.findIndex|always|gated'
-			].join(',') + '&excludes=Symbol,Symbol.iterator,Symbol.species,Map,Set',
+				'fetch',
+				'Array.prototype.find',
+				'Array.prototype.findIndex',
+				'Array.prototype.includes',
+				'IntersectionObserver',
+				'Map',
+				'Array.from',
+				'NodeList.prototype.@@iterator',
+				'Array.prototype.@@iterator'
+			].join(','),
 			'myft/**/*.spec.js'
 		],
 
@@ -49,30 +53,27 @@ module.exports = function (karma) {
 						],
 						query: {
 							cacheDirectory: true,
-							presets: ['es2015', 'react'],
-							plugins: [['add-module-exports', {loose: true}], ['transform-es2015-classes', { loose: true }]]
+							presets: ['es2015'],
+							plugins: [['add-module-exports', { loose: true }], ['transform-es2015-classes', { loose: true }]]
 						}
 					},
 					// set 'this' scope to window
 					{
 						test: /cssrelpreload\.js$/,
 						loader: 'imports-loader?this=>window'
-					},
+					}
 				]
 			},
 			plugins: [
-				new BowerWebpackPlugin({ includes: /\.js$/ }),
+				new BowerWebpackPlugin({ includes: /\.js$/ })
 			],
 			resolve: {
-				alias: {
-					'react': 'preact-compat',
-					'react-dom': 'preact-compat'
-				},
 				root: [
 					path.join(__dirname, 'bower_components'),
 					path.join(__dirname, 'node_modules')
 				]
-			}
+			},
+			devtool: 'inline-source-map'
 		},
 
 		// test results reporter to use
@@ -114,11 +115,11 @@ module.exports = function (karma) {
 			require('karma-html-reporter')
 		],
 		client: {
-				mocha: {
-						reporter: 'html',
-						ui: 'bdd',
-						timeout: 0
-				}
+			mocha: {
+				reporter: 'html',
+				ui: 'bdd',
+				timeout: 0
+			}
 		},
 
 		// wait 10 minutes for a browser if we have to...
@@ -140,7 +141,7 @@ module.exports = function (karma) {
 			if (browserName === 'default' || unstableBrowsers.indexOf(browserName) > -1 || whitelistedBrowsers.indexOf(browserName) === -1) {
 				return browserList;
 			}
-			browserList[`${browserName}_sauce`] = Object.assign({base: 'SauceLabs'}, nightwatchBrowsers[browserName].desiredCapabilities);
+			browserList[`${browserName}_sauce`] = Object.assign({ base: 'SauceLabs' }, nightwatchBrowsers[browserName].desiredCapabilities);
 			return browserList;
 		}, {})
 		config.customLaunchers = sauceBrowsers;
