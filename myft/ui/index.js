@@ -311,40 +311,30 @@ function extractMetaData (inputs) {
 }
 
 function getInteractionHandler (relationship) {
-	return function (ev, el) {
+	return function (ev, formEl) {
 		ev.preventDefault();
 
-		const buttonWithValTriggered = !!(el.tagName.toLowerCase() === 'button' && el.name && el.value);
-		const activeButton = (buttonWithValTriggered) ? el : el.querySelector('button');
-		const form = (buttonWithValTriggered) ? el.closest('form') : el;
-		const formButtons = (buttonWithValTriggered) ? $$('button', form) : [activeButton];
-
-		if (formButtons.some((button) => button.hasAttribute('disabled'))) {
+		const button = formEl.querySelector('button');
+		if (button.hasAttribute('disabled')) {
 			return;
 		}
+		button.setAttribute('disabled', '');
 
-		formButtons.forEach((button) => button.setAttribute('disabled', ''));
-
-		const isPressed = activeButton.getAttribute('aria-pressed') === 'true';
-
-		let action;
-		if (buttonWithValTriggered) {
-			action = (activeButton.value === 'delete') ? 'remove' : 'add';
-		} else {
-			action = (isPressed) ? 'remove' : 'add';
-		}
-
-		const id = form.getAttribute(idPropertiesMap.get(relationship));
+		const isPressed = button.getAttribute('aria-pressed') === 'true';
+		const action = isPressed ? 'remove' : 'add';
+		const id = formEl.getAttribute(idPropertiesMap.get(relationship));
 		const type = typesMap.get(relationship);
-		const hiddenFields = $$('input[type="hidden"]', form);
-		const metaFields = (buttonWithValTriggered) ? [activeButton, ...hiddenFields] : hiddenFields;
 
-		let meta = extractMetaData(metaFields);
+		const hiddenFields = $$('input[type="hidden"]', formEl);
+		let meta = extractMetaData([button, ...hiddenFields]);
 
 		if (~['add', 'remove'].indexOf(action)) {
-			const actorId = form.getAttribute('data-actor-id');
+			const actorId = formEl.getAttribute('data-actor-id');
 
-			if (type === 'concept') {
+			if (type === 'concept' && id.includes(',')) {
+
+				// follow collection
+
 				const conceptIds = id.split(',');
 				const taxonomies = meta.taxonomy.split(',');
 				const names = meta.name.split(',');
@@ -410,8 +400,6 @@ export function init (opts) {
 
 			delegate.on('submit', uiSelector, getInteractionHandler(relationship));
 		}
-
-		delegate.on('click', '.n-myft-ui--prefer-group button', getInteractionHandler('preferred'));
 
 		//copy from list to list
 		delegate.on('click', '[data-myft-ui="copy-to-list"]', ev => {
