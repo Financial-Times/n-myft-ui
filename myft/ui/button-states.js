@@ -20,7 +20,7 @@ export function setStateOfManyButtons (relationship, subjectIds, state, context 
 
 	const buttonsSelector = uiSelectorsMap.get(relationship);
 	const idProperty = idPropertiesMap.get(relationship);
-	const forms = Array.from(context.querySelector(buttonsSelector))
+	const forms = Array.from(context.querySelectorAll(buttonsSelector))
 		.map(buttonEl => buttonEl.closest('form'));
 
 	forms.forEach(el => {
