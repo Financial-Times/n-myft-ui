@@ -1,8 +1,7 @@
 /* global expect */
 const buttonStates = require('../../ui/button-states');
-const expect = require('chai').expect;
 
-describe('Buttons', () => {
+describe('Button States', () => {
 
 	let container;
 
