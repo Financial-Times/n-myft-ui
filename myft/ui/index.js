@@ -1,45 +1,24 @@
-//TODO: refactor the massive out of this
-
 const myFtUiButtonStates = require('./button-states');
 const myFtStuffOnPageLoad = require('./myft-stuff-on-page-load');
 const nNotification = require('n-notification');
-const myftClient = require('next-myft-client');
+const myFtClient = require('next-myft-client');
 const Delegate = require('ftdomdelegate');
 const lists = require('./lists');
-
-const delegate = new Delegate(document.body);
-const $$ = require('n-ui-foundations').$$
-
-const subscribeUrl = '/products?segID=400863&segmentID=190b4443-dc03-bd53-e79b-b4b6fbd04e64';
-const signInLink = '/login';
-
-let flags;
-let initialised;
-
 const actorsMap = require('./relationship-maps/actors');
 const uiSelectorsMap = require('./relationship-maps/ui-selectors');
 const idPropertiesMap = require('./relationship-maps/id-properties');
 const typesMap = require('./relationship-maps/types');
 
-const nNotificationMsgs = {
-	followAnon: `Please <a href="${subscribeUrl}" data-trackable="Subscribe">subscribe</a> or <a href="${signInLink}" data-trackable="Sign In">sign in</a> to add this topic to myFT.`,
-	saveAnon: `Please <a href="${subscribeUrl}" data-trackable="Subscribe">subscribe</a> or <a href="${signInLink}" data-trackable="Sign In">sign in</a> to save this article.`,
-	opted: 'You‘ve opted into our new site. You can return to FT.com at any time.'
-};
+const delegate = new Delegate(document.body);
+const $$ = require('n-ui-foundations').$$
 
-function getRelationshipFromEvent (ev) {
-	return ev.type.replace('myft.', '').split('.')[1];
-}
+let flags;
+let initialised;
 
-function actionFromEvent (ev) {
-	const eventType = ev.type.split('.');
-	return eventType[eventType.length - 1];
-}
-
-function updateAfterIO (relationship, detail) {
+function updateAfterIo (relationship, detail) {
 	myFtUiButtonStates.setStateOfButton(relationship, detail.subject, !!detail.results);
 
-	if(relationship === 'saved' && detail.results && flags.get('myftLists')) {
+	if (relationship === 'saved' && detail.results && flags.get('myftLists')) {
 		lists.handleArticleSaved(detail.subject)
 	}
 }
@@ -94,20 +73,65 @@ function getInteractionHandler (relationship) {
 						name: names[i],
 						taxonomy: taxonomies[i]
 					});
-					return myftClient[action](actorsMap.get(relationship), actorId, relationship, type, conceptId, singleMeta);
+					return myFtClient[action](actorsMap.get(relationship), actorId, relationship, type, conceptId, singleMeta);
 				});
 
 				Promise.all(followPromises)
 					.then(() => myFtUiButtonStates.toggleButton(button, action === 'add'));
 
 			} else {
-				myftClient[action](actorsMap.get(relationship), actorId, relationship, type, id, meta);
+				myFtClient[action](actorsMap.get(relationship), actorId, relationship, type, id, meta);
 			}
 
 		} else {
-			myftClient[action](relationship, type, id, meta);
+			myFtClient[action](relationship, type, id, meta);
 		}
 	};
+}
+
+function anonEventListeners () {
+
+	const subscribeUrl = '/products?segID=400863&segmentID=190b4443-dc03-bd53-e79b-b4b6fbd04e64';
+	const signInLink = '/login';
+	const messages = {
+		follow: `Please <a href="${subscribeUrl}" data-trackable="Subscribe">subscribe</a> or <a href="${signInLink}" data-trackable="Sign In">sign in</a> to add this topic to myFT.`,
+		save: `Please <a href="${subscribeUrl}" data-trackable="Subscribe">subscribe</a> or <a href="${signInLink}" data-trackable="Sign In">sign in</a> to save this article.`
+	}
+	const actions = ['follow', 'save'];
+
+	actions.forEach(action => {
+		delegate.on('submit', `.n-myft-ui--${action}`, event => {
+			event.preventDefault();
+			nNotification.show({
+				content: messages[action],
+				trackable: 'myft-anon'
+			});
+		});
+	});
+}
+
+function signedInEventListeners () {
+	for (let [relationship, uiSelector] of uiSelectorsMap) {
+		myFtStuffOnPageLoad.waitForMyFtStuffToLoad(relationship)
+			.then(() => {
+				const loadedRelationships = myFtStuffOnPageLoad.getMyFtStuff(relationship);
+				if (loadedRelationships) {
+					const subjectIds = loadedRelationships.items.map(item => item.uuid);
+					myFtUiButtonStates.setStateOfManyButtons(relationship, subjectIds, true);
+				}
+			});
+
+		['add', 'remove', 'update']
+			.forEach(action => {
+				const eventName = `myft.${actorsMap.get(relationship)}.${relationship}.${typesMap.get(relationship)}.${action}`;
+				document.body.addEventListener(eventName, event => {
+					const relationship = event.type.replace('myft.', '').split('.')[1];
+					updateAfterIo(relationship, event.detail)
+				});
+			})
+
+		delegate.on('submit', uiSelector, getInteractionHandler(relationship));
+	}
 }
 
 export function init (opts) {
@@ -118,36 +142,11 @@ export function init (opts) {
 	flags = opts.flags;
 
 	if (opts && opts.anonymous) {
-		['follow', 'save'].forEach(action => {
-			delegate.on('submit', `.n-myft-ui--${action}`, ev => {
-				ev.preventDefault();
-				nNotification.show({
-					content: nNotificationMsgs[`${action}Anon`],
-					trackable: 'myft-anon'
-				});
-			});
-		});
+		anonEventListeners()
 	} else {
 		personaliseLinks();
-
-		for (let [relationship, uiSelector] of uiSelectorsMap) {
-			myFtStuffOnPageLoad.waitForMyFtStuffToLoad(relationship)
-				.then(() => {
-					const loadedRelationships = myFtStuffOnPageLoad.getMyFtStuff(relationship);
-					if(loadedRelationships) {
-						const subjectIds = loadedRelationships.items.map(item => item.uuid);
-						myFtUiButtonStates.setStateOfManyButtons(relationship, subjectIds, true);
-					}
-				});
-
-			document.body.addEventListener(`myft.${actorsMap.get(relationship)}.${relationship}.${typesMap.get(relationship)}.add`, ev => updateAfterIO(getRelationshipFromEvent(ev), ev.detail, actionFromEvent(ev)));
-			document.body.addEventListener(`myft.${actorsMap.get(relationship)}.${relationship}.${typesMap.get(relationship)}.remove`, ev => updateAfterIO(getRelationshipFromEvent(ev), ev.detail, actionFromEvent(ev)));
-			document.body.addEventListener(`myft.${actorsMap.get(relationship)}.${relationship}.${typesMap.get(relationship)}.update`, ev => updateAfterIO(getRelationshipFromEvent(ev), ev.detail, actionFromEvent(ev)));
-
-			delegate.on('submit', uiSelector, getInteractionHandler(relationship));
-		}
-
-		if(flags.get('myftLists')) {
+		signedInEventListeners();
+		if (flags.get('myftLists')) {
 			lists.init();
 		}
 	}
@@ -161,7 +160,7 @@ export function updateUi (contextEl, ignoreLinks) {
 	for (let relationship of uiSelectorsMap.keys()) {
 		const loadedRelationships = myFtStuffOnPageLoad.getMyFtStuff(relationship);
 		if (loadedRelationships) {
-			const subjectIds = loadedRelationships.items.map(item => item.uuid) // todo not sure if this is right ???
+			const subjectIds = loadedRelationships.items.map(item => item.uuid)
 			myFtUiButtonStates.setStateOfManyButtons(relationship, subjectIds, true, contextEl);
 		}
 	}
@@ -170,7 +169,7 @@ export function updateUi (contextEl, ignoreLinks) {
 export function personaliseLinks (el) {
 	const links = (el && el.nodeName === 'A') ? [el] : $$('a[href^="/myft"]', el);
 	links.forEach(link => {
-		myftClient.personaliseUrl(link.getAttribute('href'))
+		myFtClient.personaliseUrl(link.getAttribute('href'))
 			.then(personalisedUrl => link.setAttribute('href', personalisedUrl));
 	});
 }
