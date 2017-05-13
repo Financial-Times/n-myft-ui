@@ -3,12 +3,11 @@
 const myFtUiButtonStates = require('./button-states');
 const myFtStuffOnPageLoad = require('./myft-stuff-on-page-load');
 const nNotification = require('n-notification');
-const Overlay = require('o-overlay');
 const myftClient = require('next-myft-client');
 const Delegate = require('ftdomdelegate');
+const lists = require('./lists');
 
 const delegate = new Delegate(document.body);
-const uuid = require('n-ui-foundations').uuid;
 const $$ = require('n-ui-foundations').$$
 
 const subscribeUrl = '/products?segID=400863&segmentID=190b4443-dc03-bd53-e79b-b4b6fbd04e64';
@@ -37,184 +36,12 @@ function actionFromEvent (ev) {
 	return eventType[eventType.length - 1];
 }
 
-function openOverlay (html, { name = 'myft-ui', title = '&nbsp;', shaded = true }) {
-	const overlay = new Overlay(name, {
-		heading: { title, shaded },
-		html
-	});
-
-	overlay.open();
-
-	return new Promise(resolve => {
-		document.body.addEventListener('oOverlay.ready', () => resolve(overlay));
-	});
-}
-
-function setUpSaveToExistingListListeners (overlay, contentId) {
-
-	const saveToExistingListButton = overlay.content.querySelector('.js-save-to-existing-list');
-	const listSelect = overlay.content.querySelector('.js-list-select');
-
-	if (saveToExistingListButton) {
-		saveToExistingListButton.addEventListener('click', ev => {
-			ev.preventDefault();
-
-			if (!listSelect.value) {
-				const nameFormGroup = overlay.content.querySelector('.js-uuid-group');
-				nameFormGroup.className += ' o-forms--error n-myft-ui__error--no-name';
-				return;
-			}
-
-			const listId = listSelect.options[listSelect.selectedIndex].value;
-			myftClient.add('list', listId, 'contained', 'content', contentId)
-				.then(detail => {
-					updateAfterIO('contained', detail);
-					overlay.close();
-				});
-		});
-	}
-}
-
-function setUpNewListListeners (overlay, contentId) {
-
-	const createListButton = overlay.content.querySelector('.js-create-list');
-	const nameInput = overlay.content.querySelector('.js-name');
-	const descriptionInput = overlay.content.querySelector('.js-description');
-
-	createListButton.addEventListener('click', ev => {
-		ev.preventDefault();
-
-		if (!nameInput.value) {
-			const nameFormGroup = overlay.content.querySelector('.js-name-group');
-			nameFormGroup.className += ' o-forms--error n-myft-ui__error--no-name';
-			return;
-		}
-
-		const createListData = {
-			name: nameInput.value,
-			description: descriptionInput.value
-		};
-
-		myftClient.add('user', null, 'created', 'list', uuid(), createListData)
-			.then(detail => {
-				if (contentId) {
-					return myftClient.add('list', detail.subject, 'contained', 'content', contentId);
-				} else {
-					return detail;
-				}
-
-			})
-			.then(detail => {
-				if (contentId) {
-					updateAfterIO('contained', detail);
-				}
-				overlay.close();
-			})
-			.catch(err => {
-
-				// TODO: this should use some formalised system for handling generic errors (context: https://github.com/Financial-Times/next-myft-ui/pull/65)
-				nNotification.show({
-					content: contentId ? 'Error adding article to new list' : 'Error creating new list',
-					type: 'error'
-				});
-				throw err;
-			});
-	});
-
-}
-
-function showListsOverlay (overlayTitle, formHtmlUrl, contentId) {
-
-	myftClient.personaliseUrl(formHtmlUrl)
-		.then(url => fetch(url, {
-			credentials: 'same-origin'
-		}))
-		.then(res => res.text())
-		.then(html => openOverlay(html, { title: overlayTitle }))
-		.then(overlay => {
-			setUpSaveToExistingListListeners(overlay, contentId);
-			setUpNewListListeners(overlay, contentId);
-		});
-
-}
-
-function showCopyToListOverlay (contentId, excludeList) {
-	showListsOverlay('Copy to list', `/myft/list?fragment=true&copy=true&contentId=${contentId}&excludeList=${excludeList}`, contentId)
-}
-
-function showArticleSavedOverlay (contentId) {
-	showListsOverlay('Article saved', `/myft/list?fragment=true&fromArticleSaved=true&contentId=${contentId}`, contentId)
-}
-
-function showCreateListOverlay () {
-	showListsOverlay('Create list', '/myft/list?fragment=true');
-}
-
-function getMessage (relationship, detail, href) {
-	detail.data = detail.data || {};
-
-	const messages = {
-		followed:
-		`<a href="/myft" class="myft-ui__logo" data-trackable="myft-logo"><abbr title="myFT" class="myft-ui__icon"></abbr></a>
-			${detail.results ? 'You are following' : 'You unfollowed'} <b>${detail.data.name}</b>.
-			<a href="${href}" data-trackable="alerts">Manage topics</a>`,
-		saved:
-		`<a href="/myft" class="myft-ui__logo" data-trackable="myft-logo"><abbr title="myFT" class="myft-ui__icon"></abbr></a>
-			${detail.results ? 'Article added to your' : 'Article removed from your'}
-			<a href="${href}" data-trackable="saved-cta">saved articles</a>`,
-		contained:
-		`<a href="/myft" class="myft-ui__logo" data-trackable="myft-logo"><abbr title="myFT" class="myft-ui__icon"></abbr></a>
-			${detail.results ? `Article added to your list.
-			<a href="${href}" data-trackable="alerts">View list</a>` : 'Article removed from your list'}`
-	};
-
-	return (messages.hasOwnProperty(relationship)) ? messages[relationship] : '';
-}
-
-function getPersonaliseUrlPromise (page, relationship, detail) {
-	return myftClient.personaliseUrl(`/myft/${page}`)
-		.then(personalisedUrl => ({
-			type: 'default',
-			message: getMessage(relationship, detail, personalisedUrl)
-		}));
-}
-
 function updateAfterIO (relationship, detail) {
-
 	myFtUiButtonStates.setStateOfButton(relationship, detail.subject, !!detail.results);
 
-	let messagePromise = Promise.resolve({});
-	switch (relationship) {
-		case 'saved':
-			if (flags.get('myftLists') && detail.results) {
-				messagePromise = myftClient.getAll('created', 'list')
-					.then(createdLists => createdLists.filter(list => !list.isRedirect))
-					.then(createdLists => {
-						if (createdLists.length) {
-							showArticleSavedOverlay(detail.subject);
-							return { message: null };
-						}
-						return {};
-					});
-			}
-			break;
-		case 'contained':
-			messagePromise = getPersonaliseUrlPromise(`list/${detail.actorId}`, 'contained', detail);
-			break;
+	if(relationship === 'saved' && detail.results && flags.get('myftLists')) {
+		lists.handleArticleSaved(detail.subject)
 	}
-
-	messagePromise
-		.then(({ message = null, type = null }) => {
-			if (!message) {
-				return;
-			}
-			nNotification.show({
-				content: message,
-				type,
-				trackable: 'myft-feedback-notification'
-			});
-		});
-
 }
 
 // extract properties with _rel. prefix into nested object, as expected by the API for relationship props
@@ -320,16 +147,9 @@ export function init (opts) {
 			delegate.on('submit', uiSelector, getInteractionHandler(relationship));
 		}
 
-		//copy from list to list
-		delegate.on('click', '[data-myft-ui="copy-to-list"]', ev => {
-			ev.preventDefault();
-			showCopyToListOverlay(ev.target.getAttribute('data-content-id'), ev.target.getAttribute('data-actor-id'));
-		});
-
-		delegate.on('click', '[data-myft-ui="create-list"]', ev => {
-			ev.preventDefault();
-			showCreateListOverlay();
-		});
+		if(flags.get('myftLists')) {
+			lists.init();
+		}
 	}
 }
 
