@@ -135,4 +135,62 @@ describe('Buttons', () => {
 			buttonStates.setStateOfButton(relationship, subjectId, true, container);
 		});
 	});
+
+	describe('setStateOfManyButtons', () => {
+		
+		beforeEach(() => {
+			container.innerHTML = `
+				<form
+					data-concept-id="foo"
+					data-myft-ui="follow"
+				>
+					<button aria-pressed="false">
+						Concept 1
+					</button>
+				</form>
+				<form
+					data-content-id="some-content-id"
+					data-myft-ui="saved"
+				>
+					<button aria-pressed="false">
+						Content 1
+					</button>
+				</form>
+				<form
+					data-content-id="some-other-content-id"
+					data-myft-ui="saved"
+				>
+					<button aria-pressed="false">
+						Content 2
+					</button>
+				</form>
+				<form
+					data-content-id="some-other-other-content-id"
+					data-myft-ui="saved"
+				>
+					<button aria-pressed="false">
+						Content 3
+					</button>
+				</form>
+			`;
+		})
+
+		it('should set the state of the buttons in the forms that match the relationship and any of the subject IDs', () => {
+
+			const relationship = 'saved';
+			const subjectIds = ['some-other-content-id', 'some-other-other-content-id'];
+
+			buttonStates.setStateOfManyButtons(relationship, subjectIds, true, container);
+
+			const pressedValues = Array.from(container.querySelectorAll('button')).map(buttonEl => buttonEl.getAttribute('aria-pressed'));
+			expect(pressedValues)
+				.to.deep.equal([
+					'false',
+					'false',
+					'true',
+					'true'
+				])
+		});
+
+	});
 });
