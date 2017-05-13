@@ -1,6 +1,7 @@
 //TODO: refactor the massive out of this
 
-const nextButtons = require('../../myft-common');
+const myFtUiButtons = require('./buttons');
+const myFtStuffOnPageLoad = require('./myft-stuff-on-page-load');
 const nNotification = require('n-notification');
 const Overlay = require('o-overlay');
 const myftClient = require('next-myft-client');
@@ -35,65 +36,6 @@ function getRelationshipFromEvent (ev) {
 function actionFromEvent (ev) {
 	const eventType = ev.type.split('.');
 	return eventType[eventType.length - 1];
-}
-
-function getUuid (item) {
-	return item.UUID || item.uuid;
-}
-
-function toggleButton (buttonEl, pressed) {
-	const alreadyPressed = buttonEl.getAttribute('aria-pressed') === 'true';
-
-	if (pressed !== alreadyPressed) {
-		nextButtons.toggleState(buttonEl);
-	}
-	buttonEl.removeAttribute('disabled');
-}
-
-function updateUiForRelationship (opts) {
-	if (!uiSelectorsMap.get(opts.relationship)) {
-		return;
-	}
-
-	const featureForms = $$(uiSelectorsMap.get(opts.relationship), opts.context);
-	const idProperty = idPropertiesMap.get(opts.relationship);
-	const uuids = opts.subjects.map(getUuid);
-
-	// if there are multiple buttons, use the button with the same value as the rel property
-	// if there are no multiple buttons, use opts.state
-	featureForms.forEach(form => {
-		const index = uuids.indexOf(form.getAttribute(idProperty));
-		if (index > -1) {
-			const relBtns = form.querySelectorAll('button[name^="_rel."]');
-			const hasRelBtns = (relBtns.length > 0);
-			let activeMultiButton;
-
-			// if the form has _rel.foo buttons, but there is no _rel.foo in the subject object nor an 'off' ('delete') button, then go to next iteration
-			// this is for when 1 item is changed on a page with > 1 form, and the returned rel object only has a property for the changed item
-			if (hasRelBtns) {
-				activeMultiButton = getActiveMultiButton(relBtns, form, opts.subjects[index]);
-				if (!activeMultiButton) {
-					return;
-				}
-			}
-
-			$$('button', form).forEach(button => {
-				const newButtonState = (hasRelBtns) ? (button === activeMultiButton) : opts.state;
-				toggleButton(button, newButtonState);
-			});
-
-			// add a BEM modifier for on/off-only styling of the form (e.g. show RSS link if RSS pref is on)
-			form.classList.toggle(`myft-ui--${opts.relationship}-on`, !!opts.state);
-		}
-	});
-}
-
-function getActiveMultiButton (relBtns, form, subject) {
-	const relName = relBtns[0].getAttribute('name').replace('_rel.', '');
-	const relValue = subject._rel && subject._rel[relName];
-	// can remove delete button part once old myft alerts page is retired
-	const activeButton = form.querySelector(`button[value="${relValue || 'delete'}"]`);
-	return activeButton;
 }
 
 function openOverlay (html, { name = 'myft-ui', title = '&nbsp;', shaded = true }) {
@@ -240,14 +182,9 @@ function getPersonaliseUrlPromise (page, relationship, detail) {
 
 function updateAfterIO (relationship, detail) {
 
-	updateUiForRelationship({
-		relationship,
-		subjects: [{ uuid: detail.subject, '_rel': detail.data && detail.data._rel }],
-		state: !!detail.results
-	});
+	myFtUiButtons.setStateOfButton(relationship, detail.subject, !!detail.results);
 
 	let messagePromise = Promise.resolve({});
-
 	switch (relationship) {
 		case 'saved':
 			if (flags.get('myftLists') && detail.results) {
@@ -279,17 +216,6 @@ function updateAfterIO (relationship, detail) {
 			});
 		});
 
-}
-
-function onLoad (ev) {
-	const relationship = getRelationshipFromEvent(ev);
-	results[relationship] = ev.detail.Items || ev.detail.items || [];
-
-	updateUiForRelationship({
-		relationship,
-		subjects: results[relationship],
-		state: true
-	});
 }
 
 // extract properties with _rel. prefix into nested object, as expected by the API for relationship props
@@ -331,10 +257,8 @@ function getInteractionHandler (relationship) {
 		if (~['add', 'remove'].indexOf(action)) {
 			const actorId = formEl.getAttribute('data-actor-id');
 
-			if (type === 'concept' && id.includes(',')) {
-
-				// follow collection
-
+			const isActionOnTopicCollection = type === 'concept' && id.includes(',');
+			if (isActionOnTopicCollection) {
 				const conceptIds = id.split(',');
 				const taxonomies = meta.taxonomy.split(',');
 				const names = meta.name.split(',');
@@ -348,7 +272,7 @@ function getInteractionHandler (relationship) {
 				});
 
 				Promise.all(followPromises)
-					.then(() => toggleButton(activeButton, action === 'add'));
+					.then(() => myFtUiButtons.toggleButton(button, action === 'add'));
 
 			} else {
 				myftClient[action](actorsMap.get(relationship), actorId, relationship, type, id, meta);
@@ -381,18 +305,14 @@ export function init (opts) {
 		personaliseLinks();
 
 		for (let [relationship, uiSelector] of uiSelectorsMap) {
-			if (myftClient.loaded[`${relationship}.${typesMap.get(relationship)}`]) {
-				results[relationship] = myftClient.loaded[`${relationship}.${typesMap.get(relationship)}`];
-
-				updateUiForRelationship({
-					relationship,
-					subjects: results[relationship],
-					state: true
+			myFtStuffOnPageLoad.waitForMyFtStuffToLoad(relationship)
+				.then(() => {
+					const loadedRelationships = myFtStuffOnPageLoad.getMyFtStuff(relationship);
+					if(loadedRelationships) {
+						const subjectIds = loadedRelationships.items.map(item => item.uuid);
+						myFtUiButtons.setStateOfManyButtons(relationship, subjectIds, true);
+					}
 				});
-
-			} else {
-				document.body.addEventListener(`myft.user.${relationship}.${typesMap.get(relationship)}.load`, onLoad);
-			}
 
 			document.body.addEventListener(`myft.${actorsMap.get(relationship)}.${relationship}.${typesMap.get(relationship)}.add`, ev => updateAfterIO(getRelationshipFromEvent(ev), ev.detail, actionFromEvent(ev)));
 			document.body.addEventListener(`myft.${actorsMap.get(relationship)}.${relationship}.${typesMap.get(relationship)}.remove`, ev => updateAfterIO(getRelationshipFromEvent(ev), ev.detail, actionFromEvent(ev)));
@@ -414,22 +334,17 @@ export function init (opts) {
 	}
 }
 
-export function updateUi (el, ignoreLinks) {
+export function updateUi (contextEl, ignoreLinks) {
 	if (!ignoreLinks) {
-		personaliseLinks(el);
+		personaliseLinks(contextEl);
 	}
 
 	for (let relationship of uiSelectorsMap.keys()) {
-		if (!results[relationship]) {
-			return;
+		const loadedRelationships = myFtStuffOnPageLoad.getMyFtStuff(relationship);
+		if (loadedRelationships) {
+			const subjectIds = loadedRelationships.items.map(item => item.uuid) // todo not sure if this is right ???
+			myFtUiButtons.setStateOfManyButtons(relationship, subjectIds, true, contextEl);
 		}
-
-		updateUiForRelationship({
-			relationship,
-			subjects: results[relationship],
-			state: true,
-			context: el
-		});
 	}
 }
 
