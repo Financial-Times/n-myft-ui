@@ -63,7 +63,7 @@ describe('Buttons', () => {
 
 	describe('setStateOfButton', () => {
 
-		it('should set the state of the button in the form that matches the relationship and subject ID', () => {
+		beforeEach(() => {
 			container.innerHTML = `
 				<form
 					data-concept-id="foo"
@@ -74,7 +74,7 @@ describe('Buttons', () => {
 					</button>
 				</form>
 				<form
-					data-concept-id="the-right-concept-id"
+					data-concept-id="some-concept-id"
 					data-myft-ui="follow"
 				>
 					<button aria-pressed="false">
@@ -82,7 +82,7 @@ describe('Buttons', () => {
 					</button>
 				</form>
 				<form
-					data-content-id="bar"
+					data-content-id="some-content-id"
 					data-myft-ui="saved"
 				>
 					<button aria-pressed="false">
@@ -90,9 +90,12 @@ describe('Buttons', () => {
 					</button>
 				</form>
 			`;
+		})
+
+		it('should set the state of the button in the form that matches the relationship and subject ID', () => {
 
 			const relationship = 'followed';
-			const subjectId = 'the-right-concept-id';
+			const subjectId = 'some-concept-id';
 
 			buttonStates.setStateOfButton(relationship, subjectId, true, container);
 
@@ -105,8 +108,31 @@ describe('Buttons', () => {
 				])
 		});
 
-		it.skip('should not error when there are no buttons to find', () => {
-			throw new Error('TODO');
+
+		it('not update the states of buttons for forms that are not of the requested relationship, regardless of the ID', () => {
+
+			const relationship = 'followed';
+			const subjectId = 'some-content-id';
+
+			buttonStates.setStateOfButton(relationship, subjectId, true, container);
+
+			const pressedValues = Array.from(container.querySelectorAll('button')).map(buttonEl => buttonEl.getAttribute('aria-pressed'));
+			expect(pressedValues)
+				.to.deep.equal([
+					'false',
+					'false',
+					'false'
+				])
+		});
+
+		it('should not error when there are no buttons to find', () => {
+
+			container.innerHTML = '<p>lol</p>';
+
+			const relationship = 'followed';
+			const subjectId = 'a-concept-id';
+
+			buttonStates.setStateOfButton(relationship, subjectId, true, container);
 		});
 	});
 });
