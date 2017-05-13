@@ -1,6 +1,6 @@
 //TODO: refactor the massive out of this
 
-const myFtUiButtons = require('./buttons');
+const myFtUiButtonStates = require('./button-states');
 const myFtStuffOnPageLoad = require('./myft-stuff-on-page-load');
 const nNotification = require('n-notification');
 const Overlay = require('o-overlay');
@@ -15,7 +15,6 @@ const subscribeUrl = '/products?segID=400863&segmentID=190b4443-dc03-bd53-e79b-b
 const signInLink = '/login';
 
 let flags;
-let results = {};
 let initialised;
 
 const actorsMap = require('./relationship-maps/actors');
@@ -182,7 +181,7 @@ function getPersonaliseUrlPromise (page, relationship, detail) {
 
 function updateAfterIO (relationship, detail) {
 
-	myFtUiButtons.setStateOfButton(relationship, detail.subject, !!detail.results);
+	myFtUiButtonStates.setStateOfButton(relationship, detail.subject, !!detail.results);
 
 	let messagePromise = Promise.resolve({});
 	switch (relationship) {
@@ -272,7 +271,7 @@ function getInteractionHandler (relationship) {
 				});
 
 				Promise.all(followPromises)
-					.then(() => myFtUiButtons.toggleButton(button, action === 'add'));
+					.then(() => myFtUiButtonStates.toggleButton(button, action === 'add'));
 
 			} else {
 				myftClient[action](actorsMap.get(relationship), actorId, relationship, type, id, meta);
@@ -310,7 +309,7 @@ export function init (opts) {
 					const loadedRelationships = myFtStuffOnPageLoad.getMyFtStuff(relationship);
 					if(loadedRelationships) {
 						const subjectIds = loadedRelationships.items.map(item => item.uuid);
-						myFtUiButtons.setStateOfManyButtons(relationship, subjectIds, true);
+						myFtUiButtonStates.setStateOfManyButtons(relationship, subjectIds, true);
 					}
 				});
 
@@ -343,7 +342,7 @@ export function updateUi (contextEl, ignoreLinks) {
 		const loadedRelationships = myFtStuffOnPageLoad.getMyFtStuff(relationship);
 		if (loadedRelationships) {
 			const subjectIds = loadedRelationships.items.map(item => item.uuid) // todo not sure if this is right ???
-			myFtUiButtons.setStateOfManyButtons(relationship, subjectIds, true, contextEl);
+			myFtUiButtonStates.setStateOfManyButtons(relationship, subjectIds, true, contextEl);
 		}
 	}
 }
