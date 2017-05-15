@@ -61,11 +61,11 @@ module.exports = function (karma) {
 					{
 						test: /cssrelpreload\.js$/,
 						loader: 'imports-loader?this=>window'
-					},
+					}
 				]
 			},
 			plugins: [
-				new BowerWebpackPlugin({ includes: /\.js$/ }),
+				new BowerWebpackPlugin({ includes: /\.js$/ })
 			],
 			resolve: {
 				alias: {

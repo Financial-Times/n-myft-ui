@@ -11,7 +11,7 @@ export default function (contextEl, ignoreLinks) {
 	for (let relationshipName of uiSelectorsMap.keys()) {
 		const relationships = loadedRelationships.getRelationships(relationshipName);
 		if (relationships.length > 0) {
-			const subjectIds = relationships.map(item => item.uuid)
+			const subjectIds = relationships.map(item => item.uuid);
 			buttonStates.setStateOfManyButtons(relationshipName, subjectIds, true, contextEl);
 		}
 	}
