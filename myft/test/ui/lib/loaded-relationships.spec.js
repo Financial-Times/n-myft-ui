@@ -1,5 +1,9 @@
 /* global expect */
 
+function rejectAfter(milliseconds) {
+	return new Promise((_, reject) => setTimeout(() => reject(new Error(`Rejected after ${milliseconds}ms`)), milliseconds))
+}
+
 describe('Loaded relationships', () => {
 
 	const mocks = {
@@ -29,7 +33,7 @@ describe('Loaded relationships', () => {
 			};
 			return Promise.race([
 				loadedRelationships.waitForRelationshipsToLoad('followed'),
-				new Promise((_, reject) => setTimeout(() => reject(new Error('Not instant')), 100))
+				rejectAfter(100)
 			]);
 		});
 
@@ -46,7 +50,7 @@ describe('Loaded relationships', () => {
 
 			return Promise.race([
 				loadedRelationships.waitForRelationshipsToLoad('followed'),
-				new Promise((_, reject) => setTimeout(() => reject(new Error('Didn\'t resolve on event')), 100))
+				rejectAfter(100)
 			]);
 		});
 
@@ -54,7 +58,7 @@ describe('Loaded relationships', () => {
 			mocks.myFtClient.loaded = {};
 			return Promise.race([
 				loadedRelationships.waitForRelationshipsToLoad('followed'),
-				new Promise((_, reject) => setTimeout(() => reject(new Error('Didn\'t resolve after assumeNoneTimeout')), 300))
+				rejectAfter(300)
 			]);
 		});
 	});
