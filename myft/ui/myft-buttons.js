@@ -32,7 +32,7 @@ function extractMetaData (inputs) {
 	return meta;
 }
 
-function getInteractionHandler (relationship) {
+function getInteractionHandler (relationshipName) {
 	return function (ev, formEl) {
 		ev.preventDefault();
 
@@ -44,8 +44,8 @@ function getInteractionHandler (relationship) {
 
 		const isPressed = button.getAttribute('aria-pressed') === 'true';
 		const action = isPressed ? 'remove' : 'add';
-		const id = formEl.getAttribute(idPropertiesMap.get(relationship));
-		const type = typesMap.get(relationship);
+		const id = formEl.getAttribute(idPropertiesMap.get(relationshipName));
+		const type = typesMap.get(relationshipName);
 
 		const hiddenFields = $$('input[type="hidden"]', formEl);
 		let meta = extractMetaData([button, ...hiddenFields]);
@@ -64,18 +64,18 @@ function getInteractionHandler (relationship) {
 						name: names[i],
 						taxonomy: taxonomies[i]
 					});
-					return myFtClient[action](actorsMap.get(relationship), actorId, relationship, type, conceptId, singleMeta);
+					return myFtClient[action](actorsMap.get(relationshipName), actorId, relationshipName, type, conceptId, singleMeta);
 				});
 
 				Promise.all(followPromises)
 					.then(() => buttonStates.toggleButton(button, action === 'add'));
 
 			} else {
-				myFtClient[action](actorsMap.get(relationship), actorId, relationship, type, id, meta);
+				myFtClient[action](actorsMap.get(relationshipName), actorId, relationshipName, type, id, meta);
 			}
 
 		} else {
-			myFtClient[action](relationship, type, id, meta);
+			myFtClient[action](relationshipName, type, id, meta);
 		}
 	};
 }
@@ -102,27 +102,27 @@ function anonEventListeners () {
 }
 
 function signedInEventListeners () {
-	for (let [relationship, uiSelector] of uiSelectorsMap) {
-		loadedRelationships.waitForRelationshipsToLoad(relationship)
+	for (let [relationshipName, uiSelector] of uiSelectorsMap) {
+		loadedRelationships.waitForRelationshipsToLoad(relationshipName)
 			.then(() => {
-				const relationships = loadedRelationships.getRelationships(relationship);
+				const relationships = loadedRelationships.getRelationships(relationshipName);
 				if (relationships && relationships.length > 0) {
 					const subjectIds = relationships.map(item => item.uuid);
-					buttonStates.setStateOfManyButtons(relationship, subjectIds, true);
+					buttonStates.setStateOfManyButtons(relationshipName, subjectIds, true);
 				}
 			});
 
 		['add', 'remove', 'update']
 			.forEach(action => {
-				const actor = actorsMap.get(relationship);
-				const type = typesMap.get(relationship);
-				const eventName = `myft.${actor}.${relationship}.${type}.${action}`;
+				const actor = actorsMap.get(relationshipName);
+				const type = typesMap.get(relationshipName);
+				const eventName = `myft.${actor}.${relationshipName}.${type}.${action}`;
 				document.body.addEventListener(eventName, event => {
-					buttonStates.setStateOfButton(relationship, event.detail.subject, !!event.detail.results);
+					buttonStates.setStateOfButton(relationshipName, event.detail.subject, !!event.detail.results);
 				});
 			})
 
-		delegate.on('submit', uiSelector, getInteractionHandler(relationship));
+		delegate.on('submit', uiSelector, getInteractionHandler(relationshipName));
 	}
 }
 

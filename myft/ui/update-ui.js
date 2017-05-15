@@ -7,11 +7,11 @@ export default function (contextEl, ignoreLinks) {
 		personaliseLinks(contextEl);
 	}
 
-	for (let relationship of uiSelectorsMap.keys()) {
-		const relationships = loadedRelationships.getRelationships(relationship);
+	for (let relationshipName of uiSelectorsMap.keys()) {
+		const relationships = loadedRelationships.getRelationships(relationshipName);
 		if (relationships) {
 			const subjectIds = relationships.items.map(item => item.uuid)
-			buttonStates.setStateOfManyButtons(relationship, subjectIds, true, contextEl);
+			buttonStates.setStateOfManyButtons(relationshipName, subjectIds, true, contextEl);
 		}
 	}
 }

@@ -11,15 +11,15 @@ export function toggleButton (buttonEl, pressed) {
 	buttonEl.removeAttribute('disabled');
 }
 
-export function setStateOfManyButtons (relationship, subjectIds, state, context = document) {
+export function setStateOfManyButtons (relationshipName, subjectIds, state, context = document) {
 
-	if (!uiSelectorsMap.get(relationship)) {
-		oErrors.warn(`Unexpected relationship passed to updateButton: ${relationship}`)
+	if (!uiSelectorsMap.get(relationshipName)) {
+		oErrors.warn(`Unexpected relationshipName passed to updateButton: ${relationshipName}`)
 		return;
 	}
 
-	const buttonsSelector = uiSelectorsMap.get(relationship);
-	const idProperty = idPropertiesMap.get(relationship);
+	const buttonsSelector = uiSelectorsMap.get(relationshipName);
+	const idProperty = idPropertiesMap.get(relationshipName);
 	const forms = Array.from(context.querySelectorAll(buttonsSelector))
 		.map(buttonEl => buttonEl.closest('form'));
 
@@ -31,6 +31,6 @@ export function setStateOfManyButtons (relationship, subjectIds, state, context 
 
 }
 
-export function setStateOfButton (relationship, subjectId, state, context = document) {
-	return setStateOfManyButtons(relationship, [subjectId], state, context)
+export function setStateOfButton (relationshipName, subjectId, state, context = document) {
+	return setStateOfManyButtons(relationshipName, [subjectId], state, context)
 }
