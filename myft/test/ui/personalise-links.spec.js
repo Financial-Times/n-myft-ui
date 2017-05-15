@@ -1,6 +1,6 @@
 /* global expect */
 
-function noWhitespace(str) {
+function noWhitespace (str) {
 	return str.replace(/\s/g, '');
 }
 

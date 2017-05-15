@@ -18,7 +18,7 @@ export function waitForRelationshipsToLoad (relationshipName) {
 			return resolve();
 		} else {
 
-			function storeAndResolve() {
+			function storeAndResolve () {
 				relationshipsByName[relationshipName] = myFtClient.loaded[loadedKey].items;
 				resolve();
 			}

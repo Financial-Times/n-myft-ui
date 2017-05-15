@@ -136,7 +136,7 @@ describe('Button States', () => {
 	});
 
 	describe('setStateOfManyButtons', () => {
-		
+
 		beforeEach(() => {
 			container.innerHTML = `
 				<form
