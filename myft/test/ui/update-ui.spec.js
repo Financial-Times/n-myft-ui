@@ -45,7 +45,22 @@ describe('Update UI', () => {
 		expect(stubs.personaliseLinksStub).to.not.have.been.called;
 	});
 
-	it('should call `setStateOfManyButtons` with an array of subjectIds for each relationship', () => {
+
+	function ohDear(contextEl, ignoreLinks) {
+		if (!ignoreLinks) {
+			stubs.personaliseLinksStub(contextEl);
+		}
+
+		for (let relationshipName of mockUiSelectorsMap.keys()) {
+			const relationships = stubs.getRelationshipsStub(relationshipName);
+			if (relationships.length > 0) {
+				const subjectIds = relationships.map(item => item.uuid);
+				stubs.setStateOfManyButtonsStub(relationshipName, subjectIds, true, contextEl);
+			}
+		}
+	}
+
+	it.only('should call `setStateOfManyButtons` with an array of subjectIds for each relationship', () => {
 
 		mockRelationships.saved = [
 			{ uuid: 'some-content-id' },
@@ -56,7 +71,7 @@ describe('Update UI', () => {
 			{ uuid: 'some-dance-id' }
 		]
 
-		updateUi(document.body);
+		ohDear(document.body);
 		expect(stubs.setStateOfManyButtonsStub).to.have.been.calledTwice;
 
 		expect(stubs.setStateOfManyButtonsStub).to.have.been.calledWithMatch(
