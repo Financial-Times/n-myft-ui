@@ -108,7 +108,7 @@ describe('Button States', () => {
 		});
 
 
-		it('not update the states of buttons for forms that are not of the requested relationshipName, regardless of the ID', () => {
+		it('should not update the states of buttons for forms that are not of the requested relationshipName, regardless of the ID', () => {
 
 			const relationshipName = 'followed';
 			const subjectId = 'some-content-id';
