@@ -1,22 +1,18 @@
-const myFtUiButtonStates = require('./button-states');
-const myFtStuffOnPageLoad = require('./myft-stuff-on-page-load');
+const buttonStates = require('./lib/button-states');
+const myFtStuffOnPageLoad = require('./lib/myft-stuff-on-page-load');
 const nNotification = require('n-notification');
 const myFtClient = require('next-myft-client');
 const Delegate = require('ftdomdelegate');
-const actorsMap = require('./relationship-maps/actors');
-const uiSelectorsMap = require('./relationship-maps/ui-selectors');
-const idPropertiesMap = require('./relationship-maps/id-properties');
-const typesMap = require('./relationship-maps/types');
+const actorsMap = require('./lib/relationship-maps/actors');
+const uiSelectorsMap = require('./lib/relationship-maps/ui-selectors');
+const idPropertiesMap = require('./lib/relationship-maps/id-properties');
+const typesMap = require('./lib/relationship-maps/types');
 const personaliseLinks = require('./personalise-links');
 
 const delegate = new Delegate(document.body);
 const $$ = require('n-ui-foundations').$$
 
 let initialised;
-
-function updateAfterIo (relationship, detail) {
-	myFtUiButtonStates.setStateOfButton(relationship, detail.subject, !!detail.results);
-}
 
 // extract properties with _rel. prefix into nested object, as expected by the API for relationship props
 function extractMetaData (inputs) {
@@ -72,7 +68,7 @@ function getInteractionHandler (relationship) {
 				});
 
 				Promise.all(followPromises)
-					.then(() => myFtUiButtonStates.toggleButton(button, action === 'add'));
+					.then(() => buttonStates.toggleButton(button, action === 'add'));
 
 			} else {
 				myFtClient[action](actorsMap.get(relationship), actorId, relationship, type, id, meta);
@@ -112,7 +108,7 @@ function signedInEventListeners () {
 				const loadedRelationships = myFtStuffOnPageLoad.getMyFtStuff(relationship);
 				if (loadedRelationships) {
 					const subjectIds = loadedRelationships.items.map(item => item.uuid);
-					myFtUiButtonStates.setStateOfManyButtons(relationship, subjectIds, true);
+					buttonStates.setStateOfManyButtons(relationship, subjectIds, true);
 				}
 			});
 
@@ -121,7 +117,7 @@ function signedInEventListeners () {
 				const eventName = `myft.${actorsMap.get(relationship)}.${relationship}.${typesMap.get(relationship)}.${action}`;
 				document.body.addEventListener(eventName, event => {
 					const relationship = event.type.replace('myft.', '').split('.')[1];
-					updateAfterIo(relationship, event.detail)
+					buttonStates.setStateOfButton(relationship, event.detail.subject, !!event.detail.results);
 				});
 			})
 
@@ -138,8 +134,8 @@ export function init (opts) {
 		if (opts && opts.anonymous) {
 			anonEventListeners()
 		} else {
-			personaliseLinks();
 			signedInEventListeners();
+			personaliseLinks();
 		}
 	}
 }

@@ -1,6 +1,6 @@
 const personaliseLinks = require('./personalise-links');
-const myFtStuffOnPageLoad = require('./myft-stuff-on-page-load');
-const buttonStates = require('./button-states');
+const myFtStuffOnPageLoad = require('./lib/myft-stuff-on-page-load');
+const buttonStates = require('./lib/button-states');
 
 export default function (contextEl, ignoreLinks) {
 	if (!ignoreLinks) {

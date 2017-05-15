@@ -1,7 +1,7 @@
 const myFtClient = require('next-myft-client');
 const Delegate = require('ftdomdelegate');
 const Overlay = require('o-overlay');
-const myFtUiButtonStates = require('./button-states');
+const myFtUiButtonStates = require('./lib/button-states');
 const nNotification = require('n-notification');
 const uuid = require('n-ui-foundations').uuid;
 

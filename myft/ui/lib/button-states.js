@@ -1,7 +1,7 @@
 const oErrors = require('o-errors')
 const idPropertiesMap = require('./relationship-maps/id-properties');
 const uiSelectorsMap = require('./relationship-maps/ui-selectors');
-const nextButtons = require('../../myft-common');
+const nextButtons = require('../../../myft-common');
 
 export function toggleButton (buttonEl, pressed) {
 	const alreadyPressed = buttonEl.getAttribute('aria-pressed') === 'true';
