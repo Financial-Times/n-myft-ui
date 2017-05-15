@@ -46,7 +46,7 @@ describe('Update UI', () => {
 	});
 
 
-	function ohDear(contextEl, ignoreLinks) {
+	function ohDear (contextEl, ignoreLinks) {
 		if (!ignoreLinks) {
 			stubs.personaliseLinksStub(contextEl);
 		}
