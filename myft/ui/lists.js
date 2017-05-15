@@ -142,7 +142,23 @@ function showArticleSavedOverlay (contentId) {
 	showListsOverlay('Article saved', `/myft/list?fragment=true&fromArticleSaved=true&contentId=${contentId}`, contentId)
 }
 
+function handleArticleSaved (contentId) {
+	return myFtClient.getAll('created', 'list')
+		.then(createdLists => createdLists.filter(list => !list.isRedirect))
+		.then(createdLists => {
+			if (createdLists.length) {
+				showArticleSavedOverlay(contentId);
+			}
+		});
+}
+
 function initialEventListeners () {
+
+	document.body.addEventListener('myft.user.saved.content.add', event => {
+		const contentId = event.detail.subject;
+		handleArticleSaved(contentId);
+	})
+
 	delegate.on('click', '[data-myft-ui="copy-to-list"]', event => {
 		event.preventDefault();
 		showCopyToListOverlay(event.target.getAttribute('data-content-id'), event.target.getAttribute('data-actor-id'));
@@ -151,16 +167,6 @@ function initialEventListeners () {
 		ev.preventDefault();
 		showCreateListOverlay();
 	});
-}
-
-export function handleArticleSaved (contentId) {
-	return myFtClient.getAll('created', 'list')
-		.then(createdLists => createdLists.filter(list => !list.isRedirect))
-		.then(createdLists => {
-			if (createdLists.length) {
-				showArticleSavedOverlay(contentId);
-			}
-		});
 }
 
 export function init () {

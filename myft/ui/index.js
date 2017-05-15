@@ -17,10 +17,6 @@ let initialised;
 
 function updateAfterIo (relationship, detail) {
 	myFtUiButtonStates.setStateOfButton(relationship, detail.subject, !!detail.results);
-
-	if (relationship === 'saved' && detail.results && flags.get('myftLists')) {
-		lists.handleArticleSaved(detail.subject)
-	}
 }
 
 // extract properties with _rel. prefix into nested object, as expected by the API for relationship props
