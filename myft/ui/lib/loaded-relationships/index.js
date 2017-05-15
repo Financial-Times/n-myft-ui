@@ -5,7 +5,7 @@ const config = require('./config');
 const relationshipsByName = {};
 
 export function getRelationships (relationshipName) {
-	return relationshipsByName[relationshipName];
+	return relationshipsByName[relationshipName] || [];
 }
 
 export function waitForRelationshipsToLoad (relationshipName) {

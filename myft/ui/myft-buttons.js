@@ -106,7 +106,7 @@ function signedInEventListeners () {
 		loadedRelationships.waitForRelationshipsToLoad(relationshipName)
 			.then(() => {
 				const relationships = loadedRelationships.getRelationships(relationshipName);
-				if (relationships && relationships.length > 0) {
+				if (relationships.length > 0) {
 					const subjectIds = relationships.map(item => item.uuid);
 					buttonStates.setStateOfManyButtons(relationshipName, subjectIds, true);
 				}

@@ -68,8 +68,8 @@ describe('Loaded relationships', () => {
 			expect(loadedRelationships.getRelationships('followed')).to.deep.equal({ cool: 'cool' });
 		});
 
-		it('should return undefined if the requested relationship has not been loaded', () => {
-			expect(loadedRelationships.getRelationships('followed')).to.be.undefined;
+		it('should return an empty list if the requested relationship has not been loaded', () => {
+			expect(loadedRelationships.getRelationships('followed')).to.deep.equal(][]);
 		});
 	});
 });
