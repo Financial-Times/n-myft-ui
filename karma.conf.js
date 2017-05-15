@@ -32,7 +32,8 @@ module.exports = function (karma) {
 				'Map',
 				'Array.from',
 				'NodeList.prototype.@@iterator',
-				'Array.prototype.@@iterator'
+				'Array.prototype.@@iterator',
+				'Symbol.iterator'
 			].join(','),
 			'myft/**/*.spec.js'
 		],
