@@ -51,7 +51,8 @@ describe('Update UI', () => {
 			stubs.personaliseLinksStub(contextEl);
 		}
 
-		for (let relationshipName of mockUiSelectorsMap.keys()) {
+		const keys = mockUiSelectorsMap.keys();
+		for (let relationshipName of keys) {
 			const relationships = stubs.getRelationshipsStub(relationshipName);
 			if (relationships.length > 0) {
 				const subjectIds = relationships.map(item => item.uuid);
