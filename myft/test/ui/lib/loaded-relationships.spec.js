@@ -1,6 +1,6 @@
 /* global expect */
 
-function rejectAfter(milliseconds) {
+function rejectAfter (milliseconds) {
 	return new Promise((_, reject) => setTimeout(() => reject(new Error(`Rejected after ${milliseconds}ms`)), milliseconds))
 }
 
