@@ -1,5 +1,6 @@
 const myFtClient = require('next-myft-client');
-const typesMap = require('./relationship-maps/types');
+const typesMap = require('../relationship-maps/types');
+const config = require('./config');
 
 const relationshipsByName = {};
 
@@ -25,11 +26,11 @@ export function waitForRelationshipsToLoad (relationshipName) {
 			const loadEvent = `myft.user.${relationshipName}.${nodeType}.load`;
 			document.body.addEventListener(loadEvent, storeAndResolve);
 
-			// if it ain't here after 5 seconds, assume there are none
+			// if it ain't here after n milliseconds, assume there are none
 			setTimeout(() => {
 				document.body.removeEventListener(loadEvent, storeAndResolve);
 				resolve();
-			}, 5 * 1000);
+			}, config.assumeNoneTimeout);
 		}
 	})
 }
