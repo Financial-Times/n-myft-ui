@@ -9,7 +9,7 @@ describe('Update UI', () => {
 	const mockUiSelectorsMap = new Map([
 		['saved', '[data-myft-ui="saved"]'],
 		['followed', '[data-myft-ui="follow"]'],
-		['danced', '[data-myft-ui="danced"]'],
+		['danced', '[data-myft-ui="danced"]']
 	])
 
 	beforeEach(() => {
