@@ -76,7 +76,8 @@ module.exports = function (karma) {
 					path.join(__dirname, 'bower_components'),
 					path.join(__dirname, 'node_modules')
 				]
-			}
+			},
+			devtool: 'inline-source-map'
 		},
 
 		// test results reporter to use
