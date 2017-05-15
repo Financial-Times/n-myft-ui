@@ -1,5 +1,5 @@
 const personaliseLinks = require('./personalise-links');
-const myFtStuffOnPageLoad = require('./lib/myft-stuff-on-page-load');
+const loadedRelationships = require('./lib/loaded-relationships');
 const buttonStates = require('./lib/button-states');
 
 export default function (contextEl, ignoreLinks) {
@@ -8,9 +8,9 @@ export default function (contextEl, ignoreLinks) {
 	}
 
 	for (let relationship of uiSelectorsMap.keys()) {
-		const loadedRelationships = myFtStuffOnPageLoad.getMyFtStuff(relationship);
-		if (loadedRelationships) {
-			const subjectIds = loadedRelationships.items.map(item => item.uuid)
+		const relationships = loadedRelationships.getRelationships(relationship);
+		if (relationships) {
+			const subjectIds = relationships.items.map(item => item.uuid)
 			buttonStates.setStateOfManyButtons(relationship, subjectIds, true, contextEl);
 		}
 	}

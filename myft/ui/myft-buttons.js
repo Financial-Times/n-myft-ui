@@ -1,5 +1,5 @@
 const buttonStates = require('./lib/button-states');
-const myFtStuffOnPageLoad = require('./lib/myft-stuff-on-page-load');
+const loadedRelationships = require('./lib/loaded-relationships');
 const nNotification = require('n-notification');
 const myFtClient = require('next-myft-client');
 const Delegate = require('ftdomdelegate');
@@ -103,20 +103,21 @@ function anonEventListeners () {
 
 function signedInEventListeners () {
 	for (let [relationship, uiSelector] of uiSelectorsMap) {
-		myFtStuffOnPageLoad.waitForMyFtStuffToLoad(relationship)
+		loadedRelationships.waitForRelationshipsToLoad(relationship)
 			.then(() => {
-				const loadedRelationships = myFtStuffOnPageLoad.getMyFtStuff(relationship);
-				if (loadedRelationships) {
-					const subjectIds = loadedRelationships.items.map(item => item.uuid);
+				const relationships = loadedRelationships.getRelationships(relationship);
+				if (relationships && relationships.length > 0) {
+					const subjectIds = relationships.map(item => item.uuid);
 					buttonStates.setStateOfManyButtons(relationship, subjectIds, true);
 				}
 			});
 
 		['add', 'remove', 'update']
 			.forEach(action => {
-				const eventName = `myft.${actorsMap.get(relationship)}.${relationship}.${typesMap.get(relationship)}.${action}`;
+				const actor = actorsMap.get(relationship);
+				const type = typesMap.get(relationship);
+				const eventName = `myft.${actor}.${relationship}.${type}.${action}`;
 				document.body.addEventListener(eventName, event => {
-					const relationship = event.type.replace('myft.', '').split('.')[1];
 					buttonStates.setStateOfButton(relationship, event.detail.subject, !!event.detail.results);
 				});
 			})
