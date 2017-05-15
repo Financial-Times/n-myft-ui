@@ -1,5 +1,5 @@
 /* global expect */
-const buttonStates = require('../../ui/button-states');
+const buttonStates = require('../../../ui/lib/button-states');
 
 describe('Button States', () => {
 
@@ -91,12 +91,12 @@ describe('Button States', () => {
 			`;
 		})
 
-		it('should set the state of the button in the form that matches the relationship and subject ID', () => {
+		it('should set the state of the button in the form that matches the relationshipName and subject ID', () => {
 
-			const relationship = 'followed';
+			const relationshipName = 'followed';
 			const subjectId = 'some-concept-id';
 
-			buttonStates.setStateOfButton(relationship, subjectId, true, container);
+			buttonStates.setStateOfButton(relationshipName, subjectId, true, container);
 
 			const pressedValues = Array.from(container.querySelectorAll('button')).map(buttonEl => buttonEl.getAttribute('aria-pressed'));
 			expect(pressedValues)
@@ -108,12 +108,12 @@ describe('Button States', () => {
 		});
 
 
-		it('not update the states of buttons for forms that are not of the requested relationship, regardless of the ID', () => {
+		it('not update the states of buttons for forms that are not of the requested relationshipName, regardless of the ID', () => {
 
-			const relationship = 'followed';
+			const relationshipName = 'followed';
 			const subjectId = 'some-content-id';
 
-			buttonStates.setStateOfButton(relationship, subjectId, true, container);
+			buttonStates.setStateOfButton(relationshipName, subjectId, true, container);
 
 			const pressedValues = Array.from(container.querySelectorAll('button')).map(buttonEl => buttonEl.getAttribute('aria-pressed'));
 			expect(pressedValues)
@@ -128,10 +128,10 @@ describe('Button States', () => {
 
 			container.innerHTML = '<p>lol</p>';
 
-			const relationship = 'followed';
+			const relationshipName = 'followed';
 			const subjectId = 'a-concept-id';
 
-			buttonStates.setStateOfButton(relationship, subjectId, true, container);
+			buttonStates.setStateOfButton(relationshipName, subjectId, true, container);
 		});
 	});
 
@@ -174,12 +174,12 @@ describe('Button States', () => {
 			`;
 		})
 
-		it('should set the state of the buttons in the forms that match the relationship and any of the subject IDs', () => {
+		it('should set the state of the buttons in the forms that match the relationshipName and any of the subject IDs', () => {
 
-			const relationship = 'saved';
+			const relationshipName = 'saved';
 			const subjectIds = ['some-other-content-id', 'some-other-other-content-id'];
 
-			buttonStates.setStateOfManyButtons(relationship, subjectIds, true, container);
+			buttonStates.setStateOfManyButtons(relationshipName, subjectIds, true, container);
 
 			const pressedValues = Array.from(container.querySelectorAll('button')).map(buttonEl => buttonEl.getAttribute('aria-pressed'));
 			expect(pressedValues)
