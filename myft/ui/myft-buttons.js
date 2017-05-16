@@ -102,7 +102,8 @@ function anonEventListeners () {
 }
 
 function signedInEventListeners () {
-	for (let [relationshipName, uiSelector] of uiSelectorsMap) {
+	uiSelectorsMap.key().forEach(relationshipName => {
+		const uiSelector = uiSelectorsMap.get(relationshipName);
 		loadedRelationships.waitForRelationshipsToLoad(relationshipName)
 			.then(() => {
 				const relationships = loadedRelationships.getRelationships(relationshipName);
@@ -123,7 +124,7 @@ function signedInEventListeners () {
 			})
 
 		delegate.on('submit', uiSelector, getInteractionHandler(relationshipName));
-	}
+	});
 }
 
 export function init (opts) {

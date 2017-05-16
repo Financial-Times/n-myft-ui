@@ -51,14 +51,13 @@ describe('Update UI', () => {
 			stubs.personaliseLinksStub(contextEl);
 		}
 
-		const keys = mockUiSelectorsMap.keys();
-		for (let relationshipName of keys) {
+		mockUiSelectorsMap.keys().forEach(relationshipName => {
 			const relationships = stubs.getRelationshipsStub(relationshipName);
 			if (relationships.length > 0) {
 				const subjectIds = relationships.map(item => item.uuid);
 				stubs.setStateOfManyButtonsStub(relationshipName, subjectIds, true, contextEl);
 			}
-		}
+		});
 	}
 
 	it.only('should call `setStateOfManyButtons` with an array of subjectIds for each relationship', () => {
