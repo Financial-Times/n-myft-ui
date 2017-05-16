@@ -33,6 +33,7 @@ module.exports = function (karma) {
 				'Array.from',
 				'NodeList.prototype.@@iterator',
 				'Array.prototype.@@iterator',
+				'Symbol',
 				'Symbol.iterator'
 			].join(','),
 			'myft/**/*.spec.js'
