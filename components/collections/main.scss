@@ -1,16 +1,20 @@
-@import "./card";
-
-.card--collection {
+.card__collection {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	position: relative;
+	width: auto;
+	padding: 10px;
+	margin-top: oGridGutter();
+	margin-bottom: 8px; // make room for stack effect
+	overflow: visible;
 	background: transparent;
 	border: 1px solid rgba(getColorFor('myft'), 0.4);
-	margin-bottom: 8px; // make room for stack effect
 
-	// .card overrides :(
-	&:before {
-		display: none;
-	}
-	&:after {
-		display: none;
+	@include oGridRespondTo(M) {
+		margin-top: oGridGutter(M);
 	}
 }
 
