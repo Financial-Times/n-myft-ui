@@ -3,11 +3,8 @@ const loadedRelationships = require('./lib/loaded-relationships');
 const buttonStates = require('./lib/button-states');
 const relationshipConfig = require('./lib/relationship-config');
 
-export default function (contextEl, ignoreLinks) {
-	if (!ignoreLinks) {
-		personaliseLinks(contextEl);
-	}
-
+export default function (contextEl) {
+	personaliseLinks(contextEl);
 	Object.keys(relationshipConfig).forEach(relationshipName => {
 		const relationships = loadedRelationships.getRelationships(relationshipName);
 		if (relationships.length > 0) {

@@ -35,16 +35,6 @@ describe('Update UI', () => {
 		})
 	})
 
-	it('should call personaliseLinks if `ignoreLinks` is not truthy', () => {
-		updateUi(document.body);
-		expect(stubs.personaliseLinksStub).to.have.been.called;
-	});
-
-	it('should not call personaliseLinks if `ignoreLinks` is truthy', () => {
-		updateUi(document.body, true);
-		expect(stubs.personaliseLinksStub).to.not.have.been.called;
-	});
-
 	it('should call `setStateOfManyButtons` with an array of subjectIds for each relationship', () => {
 
 		mockRelationships.saved = [
