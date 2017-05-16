@@ -1,7 +1,7 @@
-const personaliseLinks = require('./personalise-links');
-const loadedRelationships = require('./lib/loaded-relationships');
-const buttonStates = require('./lib/button-states');
-const relationshipConfig = require('./lib/relationship-config');
+import personaliseLinks from './personalise-links';
+import * as loadedRelationships from './lib/loaded-relationships';
+import * as buttonStates from './lib/button-states';
+import relationshipConfig from './lib/relationship-config';
 
 export default function (contextEl) {
 	personaliseLinks(contextEl);

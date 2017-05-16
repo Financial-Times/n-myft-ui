@@ -1,14 +1,13 @@
-const buttonStates = require('./lib/button-states');
-const loadedRelationships = require('./lib/loaded-relationships');
-const relationshipConfig = require('./lib/relationship-config');
-const nNotification = require('n-notification');
-const myFtClient = require('next-myft-client');
-const Delegate = require('ftdomdelegate');
-const personaliseLinks = require('./personalise-links');
+import * as buttonStates from './lib/button-states';
+import * as loadedRelationships from './lib/loaded-relationships';
+import relationshipConfig from './lib/relationship-config';
+import myFtClient from 'next-myft-client';
+import nNotification from 'n-notification';
+import Delegate from 'ftdomdelegate';
+import personaliseLinks from './personalise-links';
+import { $$ } from 'n-ui-foundations';
 
 const delegate = new Delegate(document.body);
-const $$ = require('n-ui-foundations').$$
-
 let initialised;
 
 // extract properties with _rel. prefix into nested object, as expected by the API for relationship props

@@ -1,6 +1,6 @@
-const myFtClient = require('next-myft-client');
-const relationshipConfig = require('../relationship-config')
-const config = require('./config');
+import myFtClient from 'next-myft-client';
+import relationshipConfig from '../relationship-config';
+import * as loadedRelationshipsConfig from './config';
 
 const relationshipsByName = {};
 
@@ -30,7 +30,7 @@ export function waitForRelationshipsToLoad (relationshipName) {
 			setTimeout(() => {
 				document.body.removeEventListener(loadEvent, storeAndResolve);
 				resolve();
-			}, config.assumeNoneTimeout);
+			}, loadedRelationshipsConfig.assumeNoneTimeout);
 		}
 	})
 }

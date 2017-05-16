@@ -1,4 +1,4 @@
-export default {
+const relationshipConfig = {
 	saved: {
 		actorType: 'user',
 		idProperty: 'data-content-id',
@@ -24,3 +24,5 @@ export default {
 		uiSelector: '[data-myft-ui="contained"]'
 	}
 }
+
+export default relationshipConfig;

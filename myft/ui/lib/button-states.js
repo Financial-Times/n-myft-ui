@@ -1,6 +1,6 @@
-const oErrors = require('o-errors');
-const relationshipConfig = require('./relationship-config');
-const nextButtons = require('../../../myft-common');
+import oErrors from 'o-errors';
+import relationshipConfig from './relationship-config';
+import * as nextButtons from '../../../myft-common';
 
 export function toggleButton (buttonEl, pressed) {
 	const alreadyPressed = buttonEl.getAttribute('aria-pressed') === 'true';

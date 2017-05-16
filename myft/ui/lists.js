@@ -1,9 +1,9 @@
-const myFtClient = require('next-myft-client');
-const Delegate = require('ftdomdelegate');
-const Overlay = require('o-overlay');
-const myFtUiButtonStates = require('./lib/button-states');
-const nNotification = require('n-notification');
-const uuid = require('n-ui-foundations').uuid;
+import myFtClient from 'next-myft-client';
+import Delegate from 'ftdomdelegate';
+import Overlay from 'o-overlay';
+import * as myFtUiButtonStates from './lib/button-states';
+import nNotification from 'n-notification';
+import { uuid } from 'n-ui-foundations';
 
 const delegate = new Delegate(document.body);
 

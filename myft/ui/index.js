@@ -1,7 +1,7 @@
-const myFtButtons = require('./myft-buttons');
-const lists = require('./lists');
-const personaliseLinks = require('./personalise-links');
-const updateUi = require('./update-ui');
+import * as myFtButtons from './myft-buttons';
+import * as lists from './lists';
+import personaliseLinks from  './personalise-links';
+import updateUi from './update-ui';
 
 function init (opts) {
 	myFtButtons.init(opts);
