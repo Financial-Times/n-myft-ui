@@ -1,12 +1,9 @@
 const buttonStates = require('./lib/button-states');
 const loadedRelationships = require('./lib/loaded-relationships');
+const relationshipConfig = require('./lib/relationship-config');
 const nNotification = require('n-notification');
 const myFtClient = require('next-myft-client');
 const Delegate = require('ftdomdelegate');
-const actorsMap = require('./lib/relationship-maps/actors');
-const uiSelectorsMap = require('./lib/relationship-maps/ui-selectors');
-const idPropertiesMap = require('./lib/relationship-maps/id-properties');
-const typesMap = require('./lib/relationship-maps/types');
 const personaliseLinks = require('./personalise-links');
 
 const delegate = new Delegate(document.body);
@@ -44,8 +41,8 @@ function getInteractionHandler (relationshipName) {
 
 		const isPressed = button.getAttribute('aria-pressed') === 'true';
 		const action = isPressed ? 'remove' : 'add';
-		const id = formEl.getAttribute(idPropertiesMap.get(relationshipName));
-		const type = typesMap.get(relationshipName);
+		const id = formEl.getAttribute(relationshipConfig[relationshipName].idProperty);
+		const subectType = relationshipConfig[relationshipName].subjectType;
 
 		const hiddenFields = $$('input[type="hidden"]', formEl);
 		let meta = extractMetaData([button, ...hiddenFields]);
@@ -53,7 +50,7 @@ function getInteractionHandler (relationshipName) {
 		if (~['add', 'remove'].indexOf(action)) {
 			const actorId = formEl.getAttribute('data-actor-id');
 
-			const isActionOnTopicCollection = type === 'concept' && id.includes(',');
+			const isActionOnTopicCollection = subectType === 'concept' && id.includes(',');
 			if (isActionOnTopicCollection) {
 				const conceptIds = id.split(',');
 				const taxonomies = meta.taxonomy.split(',');
@@ -64,18 +61,20 @@ function getInteractionHandler (relationshipName) {
 						name: names[i],
 						taxonomy: taxonomies[i]
 					});
-					return myFtClient[action](actorsMap.get(relationshipName), actorId, relationshipName, type, conceptId, singleMeta);
+					const actorType = relationshipConfig[relationshipName].actorType;
+					return myFtClient[action](actorType, actorId, relationshipName, subectType, conceptId, singleMeta);
 				});
 
 				Promise.all(followPromises)
 					.then(() => buttonStates.toggleButton(button, action === 'add'));
 
 			} else {
-				myFtClient[action](actorsMap.get(relationshipName), actorId, relationshipName, type, id, meta);
+				const actorType = relationshipConfig[relationshipName].actorType;
+				myFtClient[action](actorType, actorId, relationshipName, subectType, id, meta);
 			}
 
 		} else {
-			myFtClient[action](relationshipName, type, id, meta);
+			myFtClient[action](relationshipName, subectType, id, meta);
 		}
 	};
 }
@@ -102,8 +101,8 @@ function anonEventListeners () {
 }
 
 function signedInEventListeners () {
-	uiSelectorsMap.key().forEach(relationshipName => {
-		const uiSelector = uiSelectorsMap.get(relationshipName);
+	Object.keys(relationshipConfig).forEach(relationshipName => {
+		const uiSelector = relationshipConfig[relationshipName].uiSelector;
 		loadedRelationships.waitForRelationshipsToLoad(relationshipName)
 			.then(() => {
 				const relationships = loadedRelationships.getRelationships(relationshipName);
@@ -115,9 +114,9 @@ function signedInEventListeners () {
 
 		['add', 'remove', 'update']
 			.forEach(action => {
-				const actor = actorsMap.get(relationshipName);
-				const type = typesMap.get(relationshipName);
-				const eventName = `myft.${actor}.${relationshipName}.${type}.${action}`;
+				const actorType = relationshipConfig[relationshipName].actorType;
+				const subjectType = relationshipConfig[relationshipName].subjectType;
+				const eventName = `myft.${actorType}.${relationshipName}.${subjectType}.${action}`;
 				document.body.addEventListener(eventName, event => {
 					buttonStates.setStateOfButton(relationshipName, event.detail.subject, !!event.detail.results);
 				});

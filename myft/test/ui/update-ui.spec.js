@@ -6,11 +6,11 @@ describe('Update UI', () => {
 	let stubs;
 	let mockRelationships;
 
-	const mockUiSelectorsMap = new Map([
-		['saved', '[data-myft-ui="saved"]'],
-		['followed', '[data-myft-ui="follow"]'],
-		['danced', '[data-myft-ui="danced"]']
-	])
+	const mockRelationshipConfig = {
+		saved: {},
+		followed: {},
+		danced: {}
+	}
 
 	beforeEach(() => {
 
@@ -31,7 +31,7 @@ describe('Update UI', () => {
 			'./lib/loaded-relationships': { getRelationships: stubs.getRelationshipsStub },
 			'./lib/button-states': { setStateOfManyButtons: stubs.setStateOfManyButtonsStub },
 			'./personalise-links': stubs.personaliseLinksStub,
-			'./lib/relationship-maps/ui-selectors': mockUiSelectorsMap
+			'./lib/relationship-config': mockRelationshipConfig
 		})
 	})
 

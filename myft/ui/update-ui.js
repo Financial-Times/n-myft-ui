@@ -1,14 +1,14 @@
 const personaliseLinks = require('./personalise-links');
 const loadedRelationships = require('./lib/loaded-relationships');
 const buttonStates = require('./lib/button-states');
-const uiSelectorsMap = require('./lib/relationship-maps/ui-selectors');
+const relationshipConfig = require('./lib/relationship-config');
 
 export default function (contextEl, ignoreLinks) {
 	if (!ignoreLinks) {
 		personaliseLinks(contextEl);
 	}
 
-	uiSelectorsMap.keys().forEach(relationshipName => {
+	Object.keys(relationshipConfig).forEach(relationshipName => {
 		const relationships = loadedRelationships.getRelationships(relationshipName);
 		if (relationships.length > 0) {
 			const subjectIds = relationships.map(item => item.uuid);
