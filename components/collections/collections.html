@@ -1,0 +1,22 @@
+<section class="card__collection" data-trackable="collection" aria-label="{{name}}">
+	<div class="card__collection-stack"></div>
+	<header class="card__collection-header">
+		<h3 class="card__collection-title">{{title}}</h3>
+	</header>
+	<p class="card__collection-sub-heading">Topics included<span class="n-util-visually-hidden"> in {{title}}</span>:</p>
+	<ul class="card__collection-concepts">
+		{{#concepts}}
+			<li class="card__collection-concept">
+				<a class="card__collection-concept-link" href="{{url}}" data-trackable="concept">{{name}}</a>
+			</li>
+		{{/concepts}}
+	</ul>
+	<div class="card__collection-meta">
+		<div class="card__collection-datum" aria-hidden="true">{{concepts.length}}<br/>topics</div>
+			<form method="POST" action="#" data-myft-ui="follow" data-concept-id="{{#concepts}}{{id}}{{#unless @last}},{{/unless}}{{/concepts}}" class="n-myft-ui n-myft-ui--follow card__collection-follow n-util-hide-core">
+				<input type="hidden" name="taxonomy" value="{{#concepts}}{{taxonomy}}{{#unless @last}},{{/unless}}{{/concepts}}" />
+				<input type="hidden" name="name" value="{{#concepts}}{{name}}{{#unless @last}},{{/unless}}{{/concepts}}" />
+				<button type="submit" aria-label="Add all topics in the {{name}} collection to my F T" aria-pressed="false" class="n-myft-ui__button" data-alternate-label="Remove all topics in the {{name}} collection from my F T" data-alternate-text="Added" data-trackable="follow" data-concept-id="{{#concepts}}{{id}}{{#unless @last}},{{/unless}}{{/concepts}}" title="Add all topics in the {{name}} collection to my F T">Add all to myFT</button>
+			</form>
+	</div>
+</section>
