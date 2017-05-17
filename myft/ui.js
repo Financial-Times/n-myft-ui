@@ -1,6 +1,6 @@
 //TODO: refactor the massive out of this
 
-const nextButtons = require('../../myft-common');
+const nextButtons = require('../myft-common');
 const nNotification = require('n-notification');
 const Overlay = require('o-overlay');
 const myftClient = require('next-myft-client');
@@ -17,10 +17,33 @@ let flags;
 let results = {};
 let initialised;
 
-const actorsMap = require('./relationship-maps/actors');
-const uiSelectorsMap = require('./relationship-maps/ui-selectors');
-const idPropertiesMap = require('./relationship-maps/id-properties');
-const typesMap = require('./relationship-maps/types');
+const types = {
+	saved: 'content',
+	followed: 'concept',
+	preferred: 'preference',
+	contained: 'content'
+};
+
+const actors = {
+	saved: 'user',
+	followed: 'user',
+	preferred: 'user',
+	contained: 'list'
+};
+
+const uiSelectors = {
+	saved: '[data-myft-ui="saved"]',
+	followed: '[data-myft-ui="follow"]',
+	preferred: '[data-myft-ui="prefer"]',
+	contained: '[data-myft-ui="contained"]'
+};
+
+const idProperties = {
+	saved: 'data-content-id',
+	followed: 'data-concept-id',
+	preferred: 'data-preference-name',
+	contained: 'data-content-id'
+};
 
 const nNotificationMsgs = {
 	followAnon: `Please <a href="${subscribeUrl}" data-trackable="Subscribe">subscribe</a> or <a href="${signInLink}" data-trackable="Sign In">sign in</a> to add this topic to myFT.`,
@@ -28,7 +51,7 @@ const nNotificationMsgs = {
 	opted: 'You‘ve opted into our new site. You can return to FT.com at any time.'
 };
 
-function getRelationshipFromEvent (ev) {
+function myFtFeatureFromEvent (ev) {
 	return ev.type.replace('myft.', '').split('.')[1];
 }
 
@@ -41,22 +64,23 @@ function getUuid (item) {
 	return item.UUID || item.uuid;
 }
 
-function toggleButton (buttonEl, pressed) {
-	const alreadyPressed = buttonEl.getAttribute('aria-pressed') === 'true';
+function toggleButton (buttonEl, state) {
+	const isPressed = buttonEl.getAttribute('aria-pressed') === 'true';
 
-	if (pressed !== alreadyPressed) {
+	if (state !== isPressed) {
 		nextButtons.toggleState(buttonEl);
 	}
 	buttonEl.removeAttribute('disabled');
 }
 
-function updateUiForRelationship (opts) {
-	if (!uiSelectorsMap.get(opts.relationship)) {
+
+function updateUiForFeature (opts) {
+	if (!uiSelectors[opts.myftFeature]) {
 		return;
 	}
 
-	const featureForms = $$(uiSelectorsMap.get(opts.relationship), opts.context);
-	const idProperty = idPropertiesMap.get(opts.relationship);
+	const featureForms = $$(uiSelectors[opts.myftFeature], opts.context);
+	const idProperty = idProperties[opts.myftFeature];
 	const uuids = opts.subjects.map(getUuid);
 
 	// if there are multiple buttons, use the button with the same value as the rel property
@@ -83,7 +107,7 @@ function updateUiForRelationship (opts) {
 			});
 
 			// add a BEM modifier for on/off-only styling of the form (e.g. show RSS link if RSS pref is on)
-			form.classList.toggle(`myft-ui--${opts.relationship}-on`, !!opts.state);
+			form.classList.toggle(`myft-ui--${opts.myftFeature}-on`, !!opts.state);
 		}
 	});
 }
@@ -118,7 +142,7 @@ function setUpSaveToExistingListListeners (overlay, contentId) {
 		saveToExistingListButton.addEventListener('click', ev => {
 			ev.preventDefault();
 
-			if (!listSelect.value) {
+			if(!listSelect.value) {
 				const nameFormGroup = overlay.content.querySelector('.js-uuid-group');
 				nameFormGroup.className += ' o-forms--error n-myft-ui__error--no-name';
 				return;
@@ -143,7 +167,7 @@ function setUpNewListListeners (overlay, contentId) {
 	createListButton.addEventListener('click', ev => {
 		ev.preventDefault();
 
-		if (!nameInput.value) {
+		if(!nameInput.value) {
 			const nameFormGroup = overlay.content.querySelector('.js-name-group');
 			nameFormGroup.className += ' o-forms--error n-myft-ui__error--no-name';
 			return;
@@ -156,7 +180,7 @@ function setUpNewListListeners (overlay, contentId) {
 
 		myftClient.add('user', null, 'created', 'list', uuid(), createListData)
 			.then(detail => {
-				if (contentId) {
+				if(contentId) {
 					return myftClient.add('list', detail.subject, 'contained', 'content', contentId);
 				} else {
 					return detail;
@@ -164,7 +188,7 @@ function setUpNewListListeners (overlay, contentId) {
 
 			})
 			.then(detail => {
-				if (contentId) {
+				if(contentId){
 					updateAfterIO('contained', detail);
 				}
 				overlay.close();
@@ -214,20 +238,20 @@ function getMessage (relationship, detail, href) {
 
 	const messages = {
 		followed:
-		`<a href="/myft" class="myft-ui__logo" data-trackable="myft-logo"><abbr title="myFT" class="myft-ui__icon"></abbr></a>
+			`<a href="/myft" class="myft-ui__logo" data-trackable="myft-logo"><abbr title="myFT" class="myft-ui__icon"></abbr></a>
 			${detail.results ? 'You are following' : 'You unfollowed'} <b>${detail.data.name}</b>.
 			<a href="${href}" data-trackable="alerts">Manage topics</a>`,
 		saved:
-		`<a href="/myft" class="myft-ui__logo" data-trackable="myft-logo"><abbr title="myFT" class="myft-ui__icon"></abbr></a>
+			`<a href="/myft" class="myft-ui__logo" data-trackable="myft-logo"><abbr title="myFT" class="myft-ui__icon"></abbr></a>
 			${detail.results ? 'Article added to your' : 'Article removed from your'}
 			<a href="${href}" data-trackable="saved-cta">saved articles</a>`,
 		contained:
-		`<a href="/myft" class="myft-ui__logo" data-trackable="myft-logo"><abbr title="myFT" class="myft-ui__icon"></abbr></a>
+			`<a href="/myft" class="myft-ui__logo" data-trackable="myft-logo"><abbr title="myFT" class="myft-ui__icon"></abbr></a>
 			${detail.results ? `Article added to your list.
 			<a href="${href}" data-trackable="alerts">View list</a>` : 'Article removed from your list'}`
 	};
 
-	return (messages.hasOwnProperty(relationship)) ? messages[relationship] : '';
+	return (messages.hasOwnProperty(relationship)) ? messages[relationship]: '';
 }
 
 function getPersonaliseUrlPromise (page, relationship, detail) {
@@ -238,17 +262,17 @@ function getPersonaliseUrlPromise (page, relationship, detail) {
 		}));
 }
 
-function updateAfterIO (relationship, detail) {
+function updateAfterIO (myftFeature, detail) {
 
-	updateUiForRelationship({
-		relationship,
+	updateUiForFeature({
+		myftFeature,
 		subjects: [{ uuid: detail.subject, '_rel': detail.data && detail.data._rel }],
 		state: !!detail.results
 	});
 
 	let messagePromise = Promise.resolve({});
 
-	switch (relationship) {
+	switch (myftFeature) {
 		case 'saved':
 			if (flags.get('myftLists') && detail.results) {
 				messagePromise = myftClient.getAll('created', 'list')
@@ -256,7 +280,7 @@ function updateAfterIO (relationship, detail) {
 					.then(createdLists => {
 						if (createdLists.length) {
 							showArticleSavedOverlay(detail.subject);
-							return { message: null };
+							return {message: null};
 						}
 						return {};
 					});
@@ -268,7 +292,7 @@ function updateAfterIO (relationship, detail) {
 	}
 
 	messagePromise
-		.then(({ message = null, type = null }) => {
+		.then(({message = null, type = null}) => {
 			if (!message) {
 				return;
 			}
@@ -282,12 +306,12 @@ function updateAfterIO (relationship, detail) {
 }
 
 function onLoad (ev) {
-	const relationship = getRelationshipFromEvent(ev);
-	results[relationship] = ev.detail.Items || ev.detail.items || [];
+	const myftFeature = myFtFeatureFromEvent(ev);
+	results[myftFeature] = ev.detail.Items || ev.detail.items || [];
 
-	updateUiForRelationship({
-		relationship,
-		subjects: results[relationship],
+	updateUiForFeature({
+		myftFeature,
+		subjects: results[myftFeature],
 		state: true
 	});
 }
@@ -310,7 +334,7 @@ function extractMetaData (inputs) {
 	return meta;
 }
 
-function getInteractionHandler (relationship) {
+function getInteractionHandler (myftFeature) {
 	return function (ev, el) {
 		ev.preventDefault();
 
@@ -334,8 +358,8 @@ function getInteractionHandler (relationship) {
 			action = (isPressed) ? 'remove' : 'add';
 		}
 
-		const id = form.getAttribute(idPropertiesMap.get(relationship));
-		const type = typesMap.get(relationship);
+		const id = form.getAttribute(idProperties[myftFeature]);
+		const type = types[myftFeature];
 		const hiddenFields = $$('input[type="hidden"]', form);
 		const metaFields = (buttonWithValTriggered) ? [activeButton, ...hiddenFields] : hiddenFields;
 
@@ -354,18 +378,18 @@ function getInteractionHandler (relationship) {
 						name: names[i],
 						taxonomy: taxonomies[i]
 					});
-					return myftClient[action](actorsMap.get(relationship), actorId, relationship, type, conceptId, singleMeta);
+					return myftClient[action](actors[myftFeature], actorId, myftFeature, type, conceptId, singleMeta);
 				});
 
 				Promise.all(followPromises)
 					.then(() => toggleButton(activeButton, action === 'add'));
 
 			} else {
-				myftClient[action](actorsMap.get(relationship), actorId, relationship, type, id, meta);
+				myftClient[action](actors[myftFeature], actorId, myftFeature, type, id, meta);
 			}
 
 		} else {
-			myftClient[action](relationship, type, id, meta);
+			myftClient[action](myftFeature, type, id, meta);
 		}
 	};
 }
@@ -390,26 +414,26 @@ export function init (opts) {
 	} else {
 		personaliseLinks();
 
-		for (let [relationship, uiSelector] of uiSelectorsMap) {
-			if (myftClient.loaded[`${relationship}.${typesMap.get(relationship)}`]) {
-				results[relationship] = myftClient.loaded[`${relationship}.${typesMap.get(relationship)}`];
+		Object.keys(uiSelectors).forEach(myftFeature => {
+			if (myftClient.loaded[`myftFeature.${types[myftFeature]}`]) {
+				results[myftFeature] = myftClient.loaded[`myftFeature.${types[myftFeature]}`];
 
-				updateUiForRelationship({
-					relationship,
-					subjects: results[relationship],
+				updateUiForFeature({
+					myftFeature,
+					subjects: results[myftFeature],
 					state: true
 				});
 
 			} else {
-				document.body.addEventListener(`myft.user.${relationship}.${typesMap.get(relationship)}.load`, onLoad);
+				document.body.addEventListener(`myft.user.${myftFeature}.${types[myftFeature]}.load`, onLoad);
 			}
 
-			document.body.addEventListener(`myft.${actorsMap.get(relationship)}.${relationship}.${typesMap.get(relationship)}.add`, ev => updateAfterIO(getRelationshipFromEvent(ev), ev.detail, actionFromEvent(ev)));
-			document.body.addEventListener(`myft.${actorsMap.get(relationship)}.${relationship}.${typesMap.get(relationship)}.remove`, ev => updateAfterIO(getRelationshipFromEvent(ev), ev.detail, actionFromEvent(ev)));
-			document.body.addEventListener(`myft.${actorsMap.get(relationship)}.${relationship}.${typesMap.get(relationship)}.update`, ev => updateAfterIO(getRelationshipFromEvent(ev), ev.detail, actionFromEvent(ev)));
+			document.body.addEventListener(`myft.${actors[myftFeature]}.${myftFeature}.${types[myftFeature]}.add`, ev => updateAfterIO(myFtFeatureFromEvent(ev), ev.detail, actionFromEvent(ev)));
+			document.body.addEventListener(`myft.${actors[myftFeature]}.${myftFeature}.${types[myftFeature]}.remove`, ev => updateAfterIO(myFtFeatureFromEvent(ev), ev.detail, actionFromEvent(ev)));
+			document.body.addEventListener(`myft.${actors[myftFeature]}.${myftFeature}.${types[myftFeature]}.update`, ev => updateAfterIO(myFtFeatureFromEvent(ev), ev.detail, actionFromEvent(ev)));
 
-			delegate.on('submit', uiSelector, getInteractionHandler(relationship));
-		}
+			delegate.on('submit', uiSelectors[myftFeature], getInteractionHandler(myftFeature));
+		});
 
 		delegate.on('click', '.n-myft-ui--prefer-group button', getInteractionHandler('preferred'));
 
@@ -426,23 +450,23 @@ export function init (opts) {
 	}
 }
 
-export function updateUi (el, ignoreLinks) {
+export function	updateUi (el, ignoreLinks) {
 	if (!ignoreLinks) {
 		personaliseLinks(el);
 	}
 
-	for (let relationship of uiSelectorsMap.keys()) {
-		if (!results[relationship]) {
+	Object.keys(uiSelectors).forEach(myftFeature => {
+		if (!results[myftFeature]) {
 			return;
 		}
 
-		updateUiForRelationship({
-			relationship,
-			subjects: results[relationship],
+		updateUiForFeature({
+			myftFeature,
+			subjects: results[myftFeature],
 			state: true,
 			context: el
 		});
-	}
+	});
 }
 
 export function personaliseLinks (el) {
