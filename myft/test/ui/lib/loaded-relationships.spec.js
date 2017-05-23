@@ -1,7 +1,7 @@
 /* global expect */
 
 function rejectAfter (milliseconds) {
-	return new Promise((_, reject) => setTimeout(() => reject(new Error(`Rejected after ${milliseconds}ms`)), milliseconds))
+	return new Promise((_, reject) => setTimeout(() => reject(new Error(`Rejected after ${milliseconds}ms`)), milliseconds));
 }
 
 describe('Loaded relationships', () => {
@@ -13,7 +13,7 @@ describe('Loaded relationships', () => {
 		config: {
 			assumeNoneTimeout: 200
 		}
-	}
+	};
 
 	let loadedRelationships;
 
@@ -22,9 +22,9 @@ describe('Loaded relationships', () => {
 		loadedRelationships = loadedRelationshipsInjector({
 			'next-myft-client': mocks.myFtClient,
 			'./config': mocks.config
-		})
+		});
 		mocks.myFtClient.loaded = {};
-	})
+	});
 
 	describe('waitForRelationshipsToLoad', () => {
 		it('should return a promise that resolves instantly if the requested relationships have already been loaded', () => {
@@ -46,7 +46,7 @@ describe('Loaded relationships', () => {
 					'followed.concept': { items: [] }
 				};
 				document.body.dispatchEvent(new Event('myft.user.followed.concept.load'));
-			}, 10)
+			}, 10);
 
 			return Promise.race([
 				loadedRelationships.waitForRelationshipsToLoad('followed'),

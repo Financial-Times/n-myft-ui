@@ -7,7 +7,7 @@ describe('Button States', () => {
 
 	beforeEach(() => {
 		container = document.createElement('div');
-	})
+	});
 
 	describe('toggleButton', () => {
 
@@ -89,7 +89,7 @@ describe('Button States', () => {
 					</button>
 				</form>
 			`;
-		})
+		});
 
 		it('should set the state of the button in the form that matches the relationshipName and subject ID', () => {
 
@@ -104,7 +104,7 @@ describe('Button States', () => {
 					'false',
 					'true',
 					'false'
-				])
+				]);
 		});
 
 
@@ -121,7 +121,7 @@ describe('Button States', () => {
 					'false',
 					'false',
 					'false'
-				])
+				]);
 		});
 
 		it('should not error when there are no buttons to find', () => {
@@ -172,7 +172,7 @@ describe('Button States', () => {
 					</button>
 				</form>
 			`;
-		})
+		});
 
 		it('should set the state of the buttons in the forms that match the relationshipName and any of the subject IDs', () => {
 
@@ -188,7 +188,7 @@ describe('Button States', () => {
 					'false',
 					'true',
 					'true'
-				])
+				]);
 		});
 
 	});

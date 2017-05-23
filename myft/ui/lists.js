@@ -131,7 +131,7 @@ function showListsOverlay (overlayTitle, formHtmlUrl, contentId) {
 }
 
 function showCopyToListOverlay (contentId, excludeList) {
-	showListsOverlay('Copy to list', `/myft/list?fragment=true&copy=true&contentId=${contentId}&excludeList=${excludeList}`, contentId)
+	showListsOverlay('Copy to list', `/myft/list?fragment=true&copy=true&contentId=${contentId}&excludeList=${excludeList}`, contentId);
 }
 
 function showCreateListOverlay () {
@@ -139,7 +139,7 @@ function showCreateListOverlay () {
 }
 
 function showArticleSavedOverlay (contentId) {
-	showListsOverlay('Article saved', `/myft/list?fragment=true&fromArticleSaved=true&contentId=${contentId}`, contentId)
+	showListsOverlay('Article saved', `/myft/list?fragment=true&fromArticleSaved=true&contentId=${contentId}`, contentId);
 }
 
 function handleArticleSaved (contentId) {
@@ -157,7 +157,7 @@ function initialEventListeners () {
 	document.body.addEventListener('myft.user.saved.content.add', event => {
 		const contentId = event.detail.subject;
 		handleArticleSaved(contentId);
-	})
+	});
 
 	delegate.on('click', '[data-myft-ui="copy-to-list"]', event => {
 		event.preventDefault();

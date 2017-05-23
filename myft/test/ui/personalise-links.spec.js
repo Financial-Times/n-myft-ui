@@ -11,16 +11,16 @@ describe('Personalise links', () => {
 
 	const stubs = {
 		personaliseUrlStub: (link) => Promise.resolve(`${link}/PERSONAL`)
-	}
+	};
 
 	beforeEach(() => {
 		const personaliseLinksInjector = require('inject-loader!../../ui/personalise-links');
 		personaliseLinks = personaliseLinksInjector({
 			'next-myft-client': { personaliseUrl: stubs.personaliseUrlStub }
-		})
+		});
 
 		container = document.createElement('div');
-	})
+	});
 
 	it('should personalise the href passed in element if it is a link', () => {
 		const link = document.createElement('a');
@@ -28,7 +28,7 @@ describe('Personalise links', () => {
 		return personaliseLinks(link)
 			.then(() => {
 				expect(link.getAttribute('href')).to.equal('/myft/PERSONAL');
-			})
+			});
 	});
 
 	it('should personalise all the myFT links nested in the passed in el if it is not a link', () => {
@@ -49,7 +49,7 @@ describe('Personalise links', () => {
 					<a href="/shrug">Four</a>
 					<a href="/myft/cats/PERSONAL">Five</a>
 				`));
-			})
+			});
 	});
 
 	it('should not freak out if there are no myFT links', () => {
@@ -62,7 +62,7 @@ describe('Personalise links', () => {
 				expect(noWhitespace(container.innerHTML)).to.equal(noWhitespace(`
 					<a href="/whatever">One</a>
 				`));
-			})
+			});
 	});
 
 	it('should not freak out if there are no links', () => {
@@ -75,6 +75,6 @@ describe('Personalise links', () => {
 				expect(noWhitespace(container.innerHTML)).to.equal(noWhitespace(`
 					<p>No links here</p>
 				`));
-			})
+			});
 	});
 });

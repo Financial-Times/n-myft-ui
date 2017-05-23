@@ -13,7 +13,7 @@ export function toggleButton (buttonEl, pressed) {
 export function setStateOfManyButtons (relationshipName, subjectIds, state, context = document) {
 
 	if (!relationshipConfig[relationshipName]) {
-		oErrors.warn(`Unexpected relationshipName passed to updateButton: ${relationshipName}`)
+		oErrors.warn(`Unexpected relationshipName passed to updateButton: ${relationshipName}`);
 		return;
 	}
 
@@ -31,5 +31,5 @@ export function setStateOfManyButtons (relationshipName, subjectIds, state, cont
 }
 
 export function setStateOfButton (relationshipName, subjectId, state, context = document) {
-	return setStateOfManyButtons(relationshipName, [subjectId], state, context)
+	return setStateOfManyButtons(relationshipName, [subjectId], state, context);
 }

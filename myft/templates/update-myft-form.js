@@ -20,7 +20,7 @@ module.exports = class UpdateMyFtForm extends React.Component {
 	renderHidden () {
 		if (this.props.hidden) {
 			return this.props.hidden.map(({name, value}) => {
-				return React.createElement('input', {type:'hidden', name, value})
+				return React.createElement('input', {type:'hidden', name, value});
 			});
 		}
 	}

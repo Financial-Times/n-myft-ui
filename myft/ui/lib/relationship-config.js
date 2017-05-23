@@ -23,6 +23,6 @@ const relationshipConfig = {
 		subjectType: 'content',
 		uiSelector: '[data-myft-ui="contained"]'
 	}
-}
+};
 
 export default relationshipConfig;

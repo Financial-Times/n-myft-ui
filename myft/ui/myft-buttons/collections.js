@@ -16,7 +16,7 @@ function getConceptsData (formEl, rawFormData) {
 			name: names[i],
 			taxonomy: taxonomies[i]
 		})
-	}))
+	}));
 }
 
 export function formIsFollowCollection (relationshipName, formEl) {

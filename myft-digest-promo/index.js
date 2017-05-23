@@ -31,7 +31,7 @@ function shouldShowPromo (conceptId){
 		myFtClient.get('preferred', 'preference', 'email-digest')
 	]).then(([follows, prefers]) => {
 		return follows.length === 0 && prefers.length === 0 && !getDismissState();
-})
+});
 }
 
 function showPromo () {

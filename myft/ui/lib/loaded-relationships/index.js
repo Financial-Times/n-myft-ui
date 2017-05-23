@@ -32,5 +32,5 @@ export function waitForRelationshipsToLoad (relationshipName) {
 				resolve();
 			}, loadedRelationshipsConfig.assumeNoneTimeout);
 		}
-	})
+	});
 }

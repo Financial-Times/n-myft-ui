@@ -24,7 +24,7 @@ function anonEventListeners () {
 	const messages = {
 		follow: `Please <a href="${subscribeUrl}" data-trackable="Subscribe">subscribe</a> or <a href="${signInLink}" data-trackable="Sign In">sign in</a> to add this topic to myFT.`,
 		save: `Please <a href="${subscribeUrl}" data-trackable="Subscribe">subscribe</a> or <a href="${signInLink}" data-trackable="Sign In">sign in</a> to save this article.`
-	}
+	};
 	const actions = ['follow', 'save'];
 
 	actions.forEach(action => {
@@ -58,7 +58,7 @@ function signedInEventListeners () {
 				document.body.addEventListener(eventName, event => {
 					buttonStates.setStateOfButton(relationshipName, event.detail.subject, !!event.detail.results);
 				});
-			})
+			});
 
 		delegate.on('submit', uiSelector, getInteractionHandler(relationshipName));
 	});
@@ -71,7 +71,7 @@ export default function (opts) {
 		initialised = true;
 
 		if (opts && opts.anonymous) {
-			anonEventListeners()
+			anonEventListeners();
 		} else {
 			signedInEventListeners();
 			personaliseLinks();

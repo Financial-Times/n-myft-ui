@@ -13,13 +13,13 @@ describe('Collections', () => {
 			myFtClientAddStub: sinon.stub(),
 			myFtClientRemoveStub: sinon.stub(),
 			toggleButtonStub: sinon.stub()
-		}
+		};
 
 		mockRelationshipConfig = {
 			followed: {
 				idProperty: 'data-followed-subject-id'
 			}
-		}
+		};
 
 		collections = require('inject-loader!../../../ui/myft-buttons/collections')({
 			'next-myft-client': {
@@ -30,10 +30,10 @@ describe('Collections', () => {
 			'../lib/button-states': {
 				toggleButton: stubs.toggleButtonStub
 			}
-		})
+		});
 
 		container = document.createElement('div');
-	})
+	});
 
 	describe('formIsFollowCollection', () => {
 

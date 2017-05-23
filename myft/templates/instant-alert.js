@@ -23,4 +23,4 @@ module.exports = class InstantAlert extends React.Component {
 		Object.assign(attrs, instantAttrs);
 		return React.createElement(UpdateMyFtForm, attrs);
 	}
-}
+};

@@ -8,7 +8,7 @@ describe('Get data from inputs', () => {
 
 	beforeEach(() => {
 		container = document.createElement('div');
-	})
+	});
 
 	it('should return an object with all the info in the passed in input elements', () => {
 		container.innerHTML = `

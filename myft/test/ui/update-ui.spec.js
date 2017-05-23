@@ -10,7 +10,7 @@ describe('Update UI', () => {
 		saved: {},
 		followed: {},
 		danced: {}
-	}
+	};
 
 	beforeEach(() => {
 
@@ -18,13 +18,13 @@ describe('Update UI', () => {
 			saved: [],
 			followed: [],
 			danced: []
-		}
+		};
 
 		stubs = {
 			getRelationshipsStub: relationshipName => mockRelationships[relationshipName],
 			personaliseLinksStub: sinon.stub(),
 			setStateOfManyButtonsStub: sinon.stub()
-		}
+		};
 
 		const updateUiInjector = require('inject-loader!../../ui/update-ui');
 		updateUi = updateUiInjector({
@@ -32,19 +32,19 @@ describe('Update UI', () => {
 			'./lib/button-states': { setStateOfManyButtons: stubs.setStateOfManyButtonsStub },
 			'./personalise-links': stubs.personaliseLinksStub,
 			'./lib/relationship-config': mockRelationshipConfig
-		})
-	})
+		});
+	});
 
 	it('should call `setStateOfManyButtons` with an array of subjectIds for each relationship', () => {
 
 		mockRelationships.saved = [
 			{ uuid: 'some-content-id' },
 			{ uuid: 'some-other-content-id' }
-		]
+		];
 
 		mockRelationships.danced = [
 			{ uuid: 'some-dance-id' }
-		]
+		];
 
 		updateUi(document.body);
 		expect(stubs.setStateOfManyButtonsStub).to.have.been.calledTwice;
@@ -54,13 +54,13 @@ describe('Update UI', () => {
 			sinon.match.array.deepEquals(['some-content-id', 'some-other-content-id']),
 			true,
 			document.body
-		)
+		);
 
 		expect(stubs.setStateOfManyButtonsStub).to.have.been.calledWithMatch(
 			'danced',
 			sinon.match.array.deepEquals(['some-dance-id']),
 			true,
 			document.body
-		)
+		);
 	});
 });

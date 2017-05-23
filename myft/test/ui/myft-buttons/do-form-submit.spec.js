@@ -18,7 +18,7 @@ describe('Do form submit', () => {
 				prop1: 'foo',
 				prop2: 'bar'
 			}),
-		}
+		};
 
 		mockRelationshipConfig = {
 			followed: {
@@ -26,7 +26,7 @@ describe('Do form submit', () => {
 				subjectType: 'followed-subject-type',
 				idProperty: 'data-followed-subject-id'
 			}
-		}
+		};
 
 		doFormSubmit = require('inject-loader!../../../ui/myft-buttons/do-form-submit')({
 			'next-myft-client': {
@@ -39,10 +39,10 @@ describe('Do form submit', () => {
 			},
 			'./get-data-from-inputs': stubs.getDataFromInputsStub,
 			'../lib/relationship-config': mockRelationshipConfig
-		})
+		});
 
 		container = document.createElement('div');
-	})
+	});
 
 	it('should not do anything if the button is disabled', () => {
 		container.innerHTML = `
