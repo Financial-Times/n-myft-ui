@@ -203,6 +203,65 @@ describe('Collections', () => {
 					expect(stubs.toggleButtonStub).to.have.been.calledWith(theButton, false);
 				});
 		});
+
+		it('should should accept `directType` in place of `taxonomy`', () => {
+			container.innerHTML = `
+				<form data-followed-subject-id="id1,id2,id3">
+					<button></button>
+				</form>
+			`;
+
+			const action = 'add';
+			const userId = 'some-actor-id';
+			const formData = {
+				commonProp: 'foo',
+				directType: 'type1,type2,type3',
+				name: 'name1,name2,name3'
+			};
+
+			collections.doAction(action, userId, container.querySelector('form'), formData);
+			expect(stubs.myFtClientAddStub.callCount).to.equal(3);
+			expect(stubs.myFtClientAddStub).to.have.been.calledWith(
+				'user',
+				'some-actor-id',
+				'followed',
+				'concept',
+				'id1',
+				{
+					commonProp: 'foo',
+					directType: 'type1',
+					name: 'name1',
+				}
+			);
+
+			expect(stubs.myFtClientAddStub).to.have.been.calledWith(
+				'user',
+				'some-actor-id',
+				'followed',
+				'concept',
+				'id2',
+				{
+					commonProp: 'foo',
+					directType: 'type2',
+					name: 'name2',
+				}
+			);
+
+			expect(stubs.myFtClientAddStub).to.have.been.calledWith(
+				'user',
+				'some-actor-id',
+				'followed',
+				'concept',
+				'id3',
+				{
+					commonProp: 'foo',
+					directType: 'type3',
+					name: 'name3',
+				}
+			);
+
+		});
+
 	});
 
 

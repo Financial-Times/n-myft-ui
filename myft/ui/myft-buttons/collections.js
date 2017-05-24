@@ -7,16 +7,43 @@ const idProperty = relationshipConfigs['followed'].idProperty;
 
 function getConceptsData (formEl, rawFormData) {
 	const subjectIds = formEl.getAttribute(idProperty).split(',');
-	const taxonomies = rawFormData.taxonomy.split(',');
 	const names = rawFormData.name.split(',');
 
-	return subjectIds.map((id, i) => ({
-		id,
-		formData: Object.assign({}, rawFormData, {
-			name: names[i],
-			taxonomy: taxonomies[i]
-		})
-	}));
+	// CAPI2_CLEANUP
+	let taxonomies = [];
+	if (rawFormData.taxonomy) {
+		taxonomies = rawFormData.taxonomy.split(',');
+	}
+
+	let directTypes = [];
+	if (rawFormData.directType) {
+		directTypes = rawFormData.directType.split(',');
+	}
+
+	return subjectIds.map((id, i) => {
+
+		delete rawFormData.name;
+		delete rawFormData.taxonomy; // CAPI2_CLEANUP
+		delete rawFormData.type;
+
+		const formData = Object.assign({
+			name: names[i]
+		}, rawFormData);
+
+		// CAPI2_CLEANUP
+		if(taxonomies[i]) {
+			formData.taxonomy = taxonomies[i];
+		}
+
+		if(directTypes[i]) {
+			formData.directType = directTypes[i];
+		}
+
+		return {
+			id,
+			formData
+		};
+	});
 }
 
 export function formIsFollowCollection (relationshipName, formEl) {

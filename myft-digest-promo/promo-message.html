@@ -22,7 +22,8 @@
 													data-trackable="digest-promo"
 													title="Add {{title}}"
 													data-title="{{title}}"
-													data-taxonomy="{{taxonomy}}"
+													{{#if taxonomy}}data-taxonomy="{{taxonomy}}"{{/if}} {{! CAPI2_CLEANUP }}
+													{{#if directType}}data-direct-type="{{directType}}"{{/if}}
 													type="submit">
 													Add to myFT Digest
 									</button>

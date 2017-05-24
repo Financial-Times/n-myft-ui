@@ -4,7 +4,13 @@
 		data-concept-id="{{conceptId}}"
 		action="/__myft/api/core/followed/concept/{{conceptId}}?method=put">
 		<input type="hidden" value="{{name}}" name="name">
-		<input type="hidden" value="{{taxonomy}}" name="taxonomy">
+		{{! CAPI2_CLEANUP }}
+		{{#if taxonomy}}
+			<input type="hidden" value="{{taxonomy}}" name="taxonomy">
+		{{/if}}
+		{{#if directType}}
+			<input type="hidden" value="{{directType}}" name="directType">
+		{{/if}}
 		<button
 			aria-label="Get instant alerts for {{name}}"
 			aria-pressed="false"

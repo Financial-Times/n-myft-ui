@@ -55,8 +55,19 @@ function setDismissState () {
 function addToDigest () {
 	const metaConcept = {
 		name: btn.getAttribute('data-title'),
-		taxonomy: btn.getAttribute('data-taxonomy')
 	};
+
+	const taxonomy = btn.getAttribute('data-taxonomy');
+	const directType = btn.getAttribute('data-direct-type');
+
+	// CAPI2_CLEANUP
+	if(taxonomy) {
+		metaConcept.taxonomy = taxonomy;
+	}
+	if(directType) {
+		metaConcept.directType = directType;
+	}
+
 	const metaEmail = {
 		_rel: {
 			type: 'daily',

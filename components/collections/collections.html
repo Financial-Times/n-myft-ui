@@ -14,7 +14,16 @@
 	<div class="card__collection-meta">
 		<div class="card__collection-datum" aria-hidden="true">{{concepts.length}}<br/>topics</div>
 			<form method="POST" action="#" data-myft-ui="follow" data-concept-id="{{#concepts}}{{id}}{{#unless @last}},{{/unless}}{{/concepts}}" class="n-myft-ui n-myft-ui--follow card__collection-follow n-util-hide-core">
-				<input type="hidden" name="taxonomy" value="{{#concepts}}{{taxonomy}}{{#unless @last}},{{/unless}}{{/concepts}}" />
+
+				{{! CAPI2_CLEANUP }}
+				{{#if concepts.0.taxonomy}}
+					<input type="hidden" name="taxonomy" value="{{#concepts}}{{taxonomy}}{{#unless @last}},{{/unless}}{{/concepts}}" />
+				{{/if}}
+
+				{{#if concepts.0.directType}}
+					<input type="hidden" name="directType" value="{{#concepts}}{{directType}}{{#unless @last}},{{/unless}}{{/concepts}}" />
+				{{/if}}
+
 				<input type="hidden" name="name" value="{{#concepts}}{{name}}{{#unless @last}},{{/unless}}{{/concepts}}" />
 				<button type="submit" aria-label="Add all topics in the {{name}} collection to my F T" aria-pressed="false" class="n-myft-ui__button" data-alternate-label="Remove all topics in the {{name}} collection from my F T" data-alternate-text="Added" data-trackable="follow" data-concept-id="{{#concepts}}{{id}}{{#unless @last}},{{/unless}}{{/concepts}}" title="Add all topics in the {{name}} collection to my F T">Add all to myFT</button>
 			</form>
