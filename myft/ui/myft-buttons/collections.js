@@ -8,17 +8,8 @@ const idProperty = relationshipConfigs['followed'].idProperty;
 function getConceptsData (formEl, rawFormData) {
 	const subjectIds = formEl.getAttribute(idProperty).split(',');
 	const names = rawFormData.name.split(',');
-
-	// CAPI2_CLEANUP
-	let taxonomies = [];
-	if (rawFormData.taxonomy) {
-		taxonomies = rawFormData.taxonomy.split(',');
-	}
-
-	let directTypes = [];
-	if (rawFormData.directType) {
-		directTypes = rawFormData.directType.split(',');
-	}
+	const taxonomies = rawFormData.taxonomy ? rawFormData.taxonomy.split(','): []; // CAPI2_CLEANUP
+	const directTypes = rawFormData.directType ? rawFormData.directType.split(',') : [];
 
 	return subjectIds.map((id, i) => {
 
