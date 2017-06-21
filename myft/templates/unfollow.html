@@ -23,11 +23,11 @@
 			data-alternate-text="{{buttonText}}"
 		{{else}}
 			data-alternate-text="
-				{{~#if @root.flags.myFtFollowButtonShorterCopy~}}
+				{{~#ifEquals @root.flags.myFtFollowButtonShorterCopy 'variant'~}}
 					myFT
 				{{~else~}}
 					Follow
-				{{~/if~}}
+				{{~/ifEquals~}}
 			"
 		{{/if}}
 		{{/if}}
@@ -38,10 +38,12 @@
 	>
 			{{~#if buttonText~}}
 				{{buttonText}}
-			{{~else if @root.flags.myFtFollowButtonShorterCopy~}}
-				myFT
 			{{~else~}}
-				Following
+				{{~#ifEquals @root.flags.myFtFollowButtonShorterCopy 'variant'~}}
+					myFT
+				{{~else~}}
+					Following
+				{{~/ifEquals~}}
 			{{~/if~}}
 		</button>
 </form>

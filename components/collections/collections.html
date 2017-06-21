@@ -55,11 +55,11 @@
 				class="n-myft-ui__button"
 				data-alternate-label="Remove all topics in the {{name}} collection from my F T"
 				data-alternate-text="
-					{{~#if @root.flags.myFtFollowButtonShorterCopy~}}
+					{{~#ifEquals @root.flags.myFtFollowButtonShorterCopy 'variant'~}}
 						myFT
 					{{~else~}}
 						Added
-					{{~/if~}}
+					{{~/ifEquals~}}
 				"
 				data-trackable="follow"
 				data-concept-id="
@@ -71,11 +71,11 @@
 					{{~/concepts~}}"
 				title="Add all topics in the {{name}} collection to my F T"
 			>
-				{{~#if @root.flags.myFtFollowButtonShorterCopy~}}
+				{{~#ifEquals @root.flags.myFtFollowButtonShorterCopy 'variant'~}}
 					myFT
 				{{~else~}}
 					Add all to myFT
-				{{~/if~}}
+				{{~/ifEquals~}}
 			</button>
 		</form>
 	</div>
