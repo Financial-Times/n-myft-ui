@@ -22,7 +22,13 @@
 		{{#if buttonText}}
 			data-alternate-text="{{buttonText}}"
 		{{else}}
-			data-alternate-text="Follow"
+			data-alternate-text="
+				{{~#if @root.flags.myFtFollowButtonShorterCopy~}}
+					myFT
+				{{~else~}}
+					Follow
+				{{~/if~}}
+			"
 		{{/if}}
 		{{/if}}
 		data-trackable="follow"

@@ -54,7 +54,13 @@
 				aria-pressed="false"
 				class="n-myft-ui__button"
 				data-alternate-label="Remove all topics in the {{name}} collection from my F T"
-				data-alternate-text="Added"
+				data-alternate-text="
+					{{~#if @root.flags.myFtFollowButtonShorterCopy~}}
+						myFT
+					{{~else~}}
+						Added
+					{{~/if~}}
+				"
 				data-trackable="follow"
 				data-concept-id="
 					{{~#concepts~}}
