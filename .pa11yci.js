@@ -41,7 +41,7 @@ for (const viewport of viewports) {
 				viewport: viewport
 			},
 			screenCapture: `./pa11y_screenCapture/${path}.png`
-		})
+		});
 	}
 };
 

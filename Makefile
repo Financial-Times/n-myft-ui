@@ -29,16 +29,13 @@ test-build:
 test-unit:
 	karma start karma.conf.js
 
-# test-unit-dev is only for development environments.
-test-unit-dev:
-	$(info *)
-	$(info * Developers note: This test will never "complete". It's meant to run in a separate tab. It'll automatically rerun tests whenever one of your files changes.)
-	$(info *)
-	karma start karma.conf.js --single-run false --auto-watch true
+a11y: demo-build
+	@node .pa11yci.js
+	@PA11Y=true node demos/app
+	@$(DONE)
 
-# Note: `run` executes `node _test-server/app`, which fires up exchange, then deploys
-# a test static site to s3, then exits, freeing the process to execute `nightwatch a11y`.
-test: verify test-unit test-build
-
-# Test-dev is only for development environments.
-test-dev: verify test-unit-dev
+test:
+	make verify
+	make test-unit
+	make test-build
+	make a11y
