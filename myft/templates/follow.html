@@ -30,7 +30,15 @@
 			data-trackable="follow"
 			title="Add {{name}}"
 			type="submit"
-		>{{#if buttonText}}{{buttonText}}{{else}}Add to myFT{{/if}}</button>
+		>
+			{{~#if buttonText~}}
+				{{buttonText}}
+			{{~else if @root.flags.myFtFollowButtonShorterCopy~}}
+				myFT
+			{{~else~}}
+				Add to myFT
+			{{~/if~}}
+		</button>
 	</form>
 {{else}}
 	<!-- Add to myFT button hidden due to myFtApiWrite being off -->

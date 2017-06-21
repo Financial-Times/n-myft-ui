@@ -14,7 +14,8 @@ const viewports = [
 ];
 
 const urls = [
-	'http://localhost:5005/'
+	'http://localhost:5005/',
+	'http://localhost:5005/short-copy'
 ];
 
 const config = {

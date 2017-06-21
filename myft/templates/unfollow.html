@@ -29,7 +29,15 @@
 		data-concept-id="{{conceptId}}" {{! duplicated here for tracking}}
 		title="Unfollow {{name}}"
 		type="submit"
-	>{{#if buttonText}}{{buttonText}}{{else}}Following{{/if}}</button>
+	>
+			{{~#if buttonText~}}
+				{{buttonText}}
+			{{~else if @root.flags.myFtFollowButtonShorterCopy~}}
+				myFT
+			{{~else~}}
+				Following
+			{{~/if~}}
+		</button>
 </form>
 {{else}}
 <!-- Unfollow button hidden due to myFtApiWrite being off -->

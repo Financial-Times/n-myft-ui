@@ -3,6 +3,11 @@ const chalk = require('chalk');
 const errorHighlight = chalk.bold.red;
 const highlight = chalk.bold.green;
 
+const fixtures = {
+	followButton: require('./fixtures/follow-button'),
+	collections: require('./fixtures/collections')
+};
+
 const app = module.exports = express({
 	name: 'public',
 	systemCode: 'n-myft-ui-demo',
@@ -26,13 +31,20 @@ app.get('/', (req, res) => {
 		flags: {
 			myFtApi: true,
 			myFtApiWrite: true
-		},
-		followButton: {
-			conceptId: '00000000-0000-0000-0000-000000000000',
-			name: 'Keith inc.',
-			directType: 'http://www.ft.com/ontology/company/PublicCompany'
 		}
-	}));
+	}, fixtures.followButton, fixtures.collections));
+});
+
+app.get('/short-copy', (req, res) => {
+	res.render('demo', Object.assign({
+		title: 'n-myft-ui short copy demo',
+		layout: 'demo-layout',
+		flags: {
+			myFtApi: true,
+			myFtApiWrite: true,
+			myFtFollowButtonShorterCopy: true
+		}
+	}, fixtures.followButton, fixtures.collections));
 });
 
 function runPa11yTests () {
