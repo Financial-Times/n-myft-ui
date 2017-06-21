@@ -11,7 +11,7 @@ run:
 	node _test-server/app
 
 # copy project files into bower components so that we can reference component partials
-# in the same way that app's that use the components do
+# in the same way that apps that use the components do
 demo-build:
 	@rm -rf bower_components/n-myft-ui
 	@mkdir bower_components/n-myft-ui
