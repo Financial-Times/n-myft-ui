@@ -42,7 +42,7 @@ app.get('/short-copy', (req, res) => {
 		flags: {
 			myFtApi: true,
 			myFtApiWrite: true,
-			myFtFollowButtonShorterCopy: true
+			myFtFollowButtonShorterCopy: 'variant'
 		}
 	}, fixtures.followButton, fixtures.collections));
 });
