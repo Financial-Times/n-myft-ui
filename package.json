@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "commit": "commit-wizard"
+    "precommit": "node_modules/.bin/secret-squirrel",
+    "prepush": "make test"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,7 @@
   },
   "homepage": "https://github.com/Financial-Times/n-myft-ui#readme",
   "devDependencies": {
-    "@financial-times/n-gage": "^1.1.5",
+    "@financial-times/n-gage": "^1.8.5",
     "@financial-times/n-heroku-tools": "^6.19.0",
     "@financial-times/n-internal-tool": "^1.2.3",
     "@financial-times/n-webpack": "^3.0.2",
@@ -75,12 +76,5 @@
     "semver": "^5.3.0",
     "sinon": "^2.2.0",
     "sinon-chai": "^2.10.0"
-  },
-  "config": {
-    "pre-git": {
-      "pre-commit": [
-        "node_modules/.bin/secret-squirrel"
-      ]
-    }
   }
 }
