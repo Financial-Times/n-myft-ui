@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/Financial-Times/n-myft-ui#readme",
   "devDependencies": {
-    "@financial-times/n-gage": "^1.8.5",
+    "@financial-times/n-gage": "^1.8.11",
     "@financial-times/n-heroku-tools": "^6.19.0",
     "@financial-times/n-internal-tool": "^1.2.3",
     "@financial-times/n-webpack": "^3.0.2",
