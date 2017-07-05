@@ -11,25 +11,18 @@
 	{{#if alternateText}}
 		data-alternate-text="{{alternateText}}"
 	{{else}}
-		data-alternate-text="
-			{{~#ifEquals @root.flags.myFtSaveButtonLongerCopy 'variant'~}}
-				Saved to myFT
-			{{~else~}}
-				Save
-			{{~/ifEquals~}}
-		"
+		data-alternate-text="Saved"
 	{{/if}}
 	data-content-id="{{contentId}}" {{! duplicated here for tracking}}
+	data-text-variant="save-button-longer-copy"
 	aria-label="{{#if title}}Save {{title}} to myFT for later{{else}}Save this article to myFT for later{{/if}}"
 	title="{{#if title}}Save {{title}} to myFT for later{{else}}Save this article to myFT for later{{/if}}"
 	>
 		{{~#if buttonText~}}
 			{{buttonText}}
 		{{~else~}}
-		{{log @root}}
 			{{~#ifEquals @root.flags.myFtSaveButtonLongerCopy 'variant'~}}
-				<span class="n-myft-ui__button--viewport-large" aria-hidden="true">Save to myFT</span>
-				<span class="n-myft-ui__button--viewport-standard">Save</span>
+				<span id="save-button-longer-copy">Save</span><span class="n-myft-ui__button--viewport-large" aria-hidden="true"> to myFT</span>
 			{{~else~}}
 				<span>Save</span>
 			{{~/ifEquals~}}

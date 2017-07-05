@@ -43,16 +43,16 @@
 	.n-myft-ui__button--viewport-large {
 		display: none;
 		@include oGridRespondTo('L') {
-			display: block;
+			display: inline-block;
 		}
 	}
 
-	.n-myft-ui__button--viewport-standard {
-		display: block;
-		@include oGridRespondTo('L') {
-			display: none;
-		}
-	}
+	// .n-myft-ui__button--viewport-standard {
+	// 	display: block;
+	// 	@include oGridRespondTo('L') {
+	// 		display: none;
+	// 	}
+	// }
 
 	.n-myft-ui__button--inverse {
 		@include oButtonsTheme(inverse);

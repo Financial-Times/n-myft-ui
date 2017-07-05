@@ -12,8 +12,10 @@ module.exports = {
 		const text = btn.textContent || btn.innerText;
 
 		if (text) {
+			const textVariantId = btn.getAttribute('data-text-variant');
+			const textEl = textVariantId ? btn.querySelector(`#${textVariantId}`) : btn;
 			const alternateText = btn.getAttribute('data-alternate-text') || alternateAriaLabel;
-			btn.textContent = alternateText;
+			textEl.textContent = alternateText;
 			btn.setAttribute('data-alternate-text', text);
 		}
 
