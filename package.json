@@ -5,8 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "commit": "commit-wizard",
     "precommit": "node_modules/.bin/secret-squirrel",
-    "prepush": "make test"
+    "prepush": "make verify -j3"
   },
   "repository": {
     "type": "git",

@@ -6,9 +6,10 @@ $icon-width-m: 90px;
 
 	float: none;
 	position: relative;
-	background-color: getColor('warm-5');
-	border-bottom: 1px solid getColor('warm-3');
-	border-top: 1px solid getColor('warm-3');
+	background-color: getColor('white-60');
+	border-bottom: 1px solid getColor('black-20');
+	border-top: 1px solid getColor('black-20');
+	margin-bottom: 20px;
 }
 
 .n-myft-digest-promo--enabled {
@@ -33,7 +34,7 @@ $icon-width-m: 90px;
 	width: 22px;
 
 	&::before {
-		@include oIconsGetIcon('cross', getColor('grey-tint5'), 20, $iconset-version: 1);
+		@include oIconsGetIcon('cross', getColor('black-80'), 20, $iconset-version: 1);
 		position: absolute;
 		top: 0;
 		right: 0;
@@ -69,7 +70,7 @@ $icon-width-m: 90px;
 }
 
 .n-myft-digest-promo__heading {
-	@include oTypographySansBold(m);
+	@include oTypographySansBold($scale: 2);
 
 	margin-top: 0px;
 	margin-bottom: 7px;

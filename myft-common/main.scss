@@ -6,7 +6,7 @@
 	position: relative;
 	padding-left: #{$iconSpace}px;
 	&:before {
-		@include oIconsGetIcon($iconOff, $colorOff, $iconSize);
+		@include oIconsGetIcon($iconOff, $colorOff, $iconSize, $iconset-version: 1);
 		content: ' ';
 		position: absolute;
 		top: 50%;
@@ -14,7 +14,7 @@
 		margin: $topMargin $horizontalMargin 0 0;
 	}
 	&[aria-pressed="true"]:before {
-		@include oIconsGetIcon($iconOn, $colorOn, $iconSize);
+		@include oIconsGetIcon($iconOn, $colorOn, $iconSize, $iconset-version: 1);
 	}
 }
 
@@ -34,7 +34,7 @@
 		@include oButtons();
 
 		&:focus {
-			outline: 3px solid getColor('teal-1');
+			outline: 3px solid getColor('teal-40');
 			outline-offset: 3px;
 		}
 
@@ -59,11 +59,11 @@
 	}
 
 	.n-myft-ui__button--uncolored {
-		@include oButtonsTheme(uncolored);
+		@include oButtonsTheme(mono);
 	}
 
 	.n-myft-ui__button--medium {
-		@include oButtonsSize(medium);
+		@include oButtonsSize(default);
 	}
 
 	.n-myft-ui__button--big {
@@ -77,14 +77,14 @@
 	}
 
 	.n-myft-ui__legend {
-		@include oTypographySans('s', $load-progressively: true);
+		@include oTypographySans(0, $progressive: true);
 		margin-bottom: 10px;
 	}
 
 	.n-myft-ui--follow {
 		position: relative;
 		.n-myft-ui__button {
-			@include buttonWithIcon(26, 24, getColor('link-1'), 'plus', 'tick');
+			@include buttonWithIcon(26, 24, getColor('teal-40'), 'plus', 'tick');
 		}
 
 		.n-myft-ui__button--inverse {
@@ -99,10 +99,10 @@
 	.n-myft-ui--instant {
 		position: relative;
 		.n-myft-ui__button {
-			@include buttonWithIcon(26, 24, getColor('link-1'), 'mail');
+			@include buttonWithIcon(26, 24, getColor('teal-40'), 'mail');
 		}
 		.n-myft-ui__button--inverse {
-			@include buttonWithIcon(26, 24, getColor('link-2'), 'mail');
+			@include buttonWithIcon(26, 24, getColor('teal-80'), 'mail');
 		}
 	}
 

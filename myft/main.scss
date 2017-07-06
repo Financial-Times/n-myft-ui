@@ -53,7 +53,7 @@ $o-overlay-is-silent: true;
 		padding: 0 4px;
 	}
 
-	.o-forms-group {
+	.o-forms {
 		padding: 0px;
 	}
 }
@@ -74,18 +74,18 @@ $o-overlay-is-silent: true;
 //Specificity war with Origami
 .mypage .myft-list-form__message,
 .o-overlay .myft-list-form__message {
-	background: getColor('pink');
+	background: getColor('paper');
 	border-radius: 0;
 	margin: 3px 0 0;
 	padding: $spacing-unit 20px;
 
 	h3 {
-		@include oTypographySansBold(m);
+		@include oTypographySansBold($scale: 2);
 		margin: 0 5px 0 0;
 	}
 
 	p {
-		@include oTypographySans(m);
+		@include oTypographySans($scale: 2);
 	}
 
 	h3,
@@ -100,7 +100,7 @@ $o-overlay-is-silent: true;
 }
 
 .o-overlay .myft-list-form__message {
-	border-top: 1px solid getColor('warm-3');
+	border-top: 1px solid getColor('black-20');
 	margin: 0 -20px;
 
 	&:first-child {
@@ -111,10 +111,10 @@ $o-overlay-is-silent: true;
 
 .myft-list-form__message--success {
 	h3 {
-		color: getColor('green');
+		color: getColor('jade');
 
 		&:before {
-			@include oIconsGetIcon('tick', getColor('green'), 14, $iconset-version: 1);
+			@include oIconsGetIcon('tick', getColor('jade'), 14, $iconset-version: 1);
 			content: '';
 			margin-right: 3px;
 		}
@@ -137,7 +137,7 @@ $o-overlay-is-silent: true;
 	&:after {
 		content: '';
 		display: block;
-		border-top: 1px solid getColor('pink-tint3');
+		border-top: 1px solid getColor('black-20');
 		margin-top: -10px;
 
 		@include oGridRespondTo(M) {
@@ -148,14 +148,14 @@ $o-overlay-is-silent: true;
 			margin-top: 0;
 			margin-left: -18px;
 			border-top: 0;
-			border-left: 1px solid getColor('pink-tint3');
+			border-left: 1px solid getColor('black-20');
 		}
 	}
 }
 
 .myft-list-form-divider__inner {
 	padding: 10px;
-	background-color: getColor('warm-5');
+	background-color: getColor('white-60');
 
 	@include oGridRespondTo(M) {
 		z-index: 10;

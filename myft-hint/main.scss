@@ -17,17 +17,17 @@
 
 .myft-hint__container {
 	background-color: getColor('white');
-	border: 1px solid getColor('pink-tint4');
+	border: 1px solid getColor('black-30');
 	white-space: nowrap;
 	position: relative;
 	border-radius: 5px;
-	box-shadow: -1px 1px getColor('pink-tint4');
+	box-shadow: -1px 1px getColor('black-30');
 	&::before {
 		width: 0;
 		height: 0;
 		border-top: 12px solid transparent;
 		border-bottom: 12px solid transparent;
-		border-left: 12px solid getColor('pink-tint4');
+		border-left: 12px solid getColor('black-30');
 		content: '';
 		position: absolute;
 		top: 33%;
@@ -47,13 +47,12 @@
 }
 
 .myft-hint__content {
-	@include oTypographySans(xs);
+	@include oTypographySans($scale: -2);
 	padding: 0;
 	margin: 8px 12px 8px 8px;
 	width: 100%;
 	text-align: left;
 	text-transform: none;
-	line-height: 120%;
 }
 
 .myft-hint__show {

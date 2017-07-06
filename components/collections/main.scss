@@ -49,21 +49,19 @@
 }
 
 .card__collection-title {
-	@include oTypographySansBold('m', $load-progressively: true);
+	@include oTypographySansBold($scale: 2, $progressive: true);
 	margin: 0;
 	text-align: center;
 }
 
 .card__collection-sub-heading {
-	@include oTypographySansBold('s', $load-progressively: true);
-	//FIXME: stop overriding mixins
-	font-size: 18px;
-	line-height: 1;
+	@include oTypographySansBold($scale: 1, $progressive: true);
 	text-align: center;
 	margin: 10px 0 0;
 }
 
 .card__collection-concepts {
+	@include oTypographySans($scale: 1);
 	flex-grow: 1;
 	list-style: none;
 	margin: 0;
@@ -91,10 +89,8 @@
 }
 
 .card__collection-datum {
-	@include oTypographySansBold('s', $load-progressively: true);
-	//FIXME: stop overriding mixins
-	@include oTypographyFallbackFontSize('sansBold', 13px);
-	line-height: 13px;
+	@include oTypographySansBold($scale: 0, $line-height: 13px, $progressive: true);
+	@include oTypographyProgressiveFontFallback($font: 'sansBold', $scale: -1);
 	float: left;
 	margin-right: 26px;
 }
