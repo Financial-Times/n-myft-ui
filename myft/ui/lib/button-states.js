@@ -11,7 +11,6 @@ export function toggleButton (buttonEl, pressed) {
 }
 
 export function setStateOfManyButtons (relationshipName, subjectIds, state, context = document) {
-
 	if (!relationshipConfig[relationshipName]) {
 		oErrors.warn(`Unexpected relationshipName passed to updateButton: ${relationshipName}`);
 		return;
