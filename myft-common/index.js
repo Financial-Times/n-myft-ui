@@ -12,13 +12,13 @@ module.exports = {
 		const text = btn.textContent || btn.innerText;
 
 		if (text) {
-			const textVariantId = btn.getAttribute('data-text-variant');
-			const textEl = textVariantId ? btn.querySelector(`#${textVariantId}`) : btn;
+			const textVariant = btn.getAttribute('data-text-variant');
+			const textEl = textVariant ? btn.querySelector(`.${textVariant}`) : btn;
 			const alternateText = btn.getAttribute('data-alternate-text') || alternateAriaLabel;
 			textEl.textContent = alternateText;
 			if(btn.querySelector('.save-button-longer-copy')) {
-				const setTo = alternateText.includes('Saved') ? 'Save ' : 'Saved ';
-				btn.setAttribute('data-alternate-text', setTo);
+				const setAltText = alternateText.includes('Saved') ? 'Save ' : 'Saved ';
+				btn.setAttribute('data-alternate-text', setAltText);
 			} else {
 				btn.setAttribute('data-alternate-text', text);
 			}
