@@ -20,6 +20,7 @@
 	aria-label="{{#if title}}Save {{title}} to myFT for later{{else}}Save this article to myFT for later{{/if}}"
 	title="{{#if title}}Save {{title}} to myFT for later{{else}}Save this article to myFT for later{{/if}}"
 	>
+	{{!-- TODO: Tidy up this nested logic once we have the results of our A/B test--}}
 		{{~#if buttonText~}}
 			{{buttonText}}
 		{{~else~}}

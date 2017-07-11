@@ -5,6 +5,7 @@ const highlight = chalk.bold.green;
 
 const fixtures = {
 	followButton: require('./fixtures/follow-button'),
+	saveButton: require('./fixtures/save-button'),
 	collections: require('./fixtures/collections')
 };
 
@@ -32,19 +33,21 @@ app.get('/', (req, res) => {
 			myFtApi: true,
 			myFtApiWrite: true
 		}
-	}, fixtures.followButton, fixtures.collections));
+	}, fixtures.followButton, fixtures.saveButton, fixtures.collections));
 });
 
-app.get('/short-copy', (req, res) => {
+app.get('/alternative-copy', (req, res) => {
 	res.render('demo', Object.assign({
-		title: 'n-myft-ui short copy demo',
+		title: 'n-myft-ui alternative copy demo',
 		layout: 'demo-layout',
 		flags: {
 			myFtApi: true,
 			myFtApiWrite: true,
-			myFtFollowButtonShorterCopy: 'variant'
-		}
-	}, fixtures.followButton, fixtures.collections));
+			myFtFollowButtonShorterCopy: 'variant',
+			myFtSaveButtonLongerCopy: 'variant'
+		},
+		appIsStreamPage: false
+	}, fixtures.followButton, fixtures.saveButton, fixtures.collections));
 });
 
 function runPa11yTests () {
