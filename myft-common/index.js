@@ -16,7 +16,7 @@ module.exports = {
 			const textEl = textVariantId ? btn.querySelector(`#${textVariantId}`) : btn;
 			const alternateText = btn.getAttribute('data-alternate-text') || alternateAriaLabel;
 			textEl.textContent = alternateText;
-			if(btn.querySelector('#save-button-longer-copy')) {
+			if(btn.querySelector('.save-button-longer-copy')) {
 				const setTo = alternateText.includes('Saved') ? 'Save ' : 'Saved ';
 				btn.setAttribute('data-alternate-text', setTo);
 			} else {
