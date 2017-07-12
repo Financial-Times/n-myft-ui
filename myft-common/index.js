@@ -13,10 +13,10 @@ module.exports = {
 
 		if (text) {
 			const textVariant = btn.getAttribute('data-text-variant');
-			const textEl = textVariant ? btn.querySelector(`.${textVariant}`) : btn;
+			const textEl = textVariant ? btn.querySelector('[data-variant-label]') : btn;
 			const alternateText = btn.getAttribute('data-alternate-text') || alternateAriaLabel;
 			textEl.textContent = alternateText;
-			if(btn.querySelector('.save-button-longer-copy')) {
+			if(textVariant) {
 				const setAltText = alternateText.includes('Saved') ? 'Save ' : 'Saved ';
 				btn.setAttribute('data-alternate-text', setAltText);
 			} else {

@@ -11,9 +11,9 @@
 	{{#if buttonText}}
 		data-alternate-text="Save "
 	{{else}}
-		{{~#ifEquals @root.flags.myFtSaveButtonLongerCopy 'variant'~}}
+		{{#ifEquals @root.flags.myFtSaveButtonLongerCopy 'variant'}}
 			data-text-variant="save-button-longer-copy"
-		{{~/ifEquals~}}
+		{{/ifEquals}}
 	{{/if}}
 	{{#if alternateText}}
 		data-alternate-text="{{alternateText}}"
@@ -25,18 +25,18 @@
 	title="{{#if title}}Save {{title}} to myFT for later{{else}}Save this article to myFT for later{{/if}}"
 	>
 	{{!-- TODO: Tidy up this nested logic once we have the results of our A/B test--}}
-		{{~#if buttonText~}}
+		{{#if buttonText}}
 			{{buttonText}}
-		{{~else~}}
-			{{~#ifEquals @root.flags.myFtSaveButtonLongerCopy 'variant'~}}
+		{{else}}
+			{{#ifEquals @root.flags.myFtSaveButtonLongerCopy 'variant'}}
 				{{#unlessEquals appIsStreamPage true}}
-					<span class="save-button-longer-copy">Save </span><span class="n-myft-ui__button--viewport-large" aria-hidden="true">to myFT</span>
-				{{~else~}}
+					<span class="save-button-longer-copy" data-variant-label>Save </span><span class="n-myft-ui__button--viewport-large" aria-hidden="true">to myFT</span>
+				{{else}}
 					<span>Save</span>
 				{{/unlessEquals}}
-			{{~else~}}
+			{{else}}
 				<span>Save</span>
-			{{~/ifEquals~}}
+			{{/ifEquals}}
 		{{/if}}
 		</button>
 	</form>
