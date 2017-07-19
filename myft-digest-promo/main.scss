@@ -47,6 +47,14 @@ $icon-width-m: 90px;
 	padding-left: $icon-width-s;
 	padding-top: $spacing-unit;
 
+	@include oGridRespondTo('M') {
+		padding-left: $icon-width-m;
+
+		&::before {
+			width: $icon-width-m;
+		}
+	}
+
 	&::before {
 		position: absolute;
 		content: '';
@@ -60,13 +68,6 @@ $icon-width-m: 90px;
 		background-position: 10px 0;
 	}
 
-	@include oGridRespondTo('M') {
-		padding-left: $icon-width-m;
-
-		&::before {
-			width: $icon-width-m;
-		}
-	}
 }
 
 .n-myft-digest-promo__heading {

@@ -50,6 +50,20 @@ app.get('/alternative-copy', (req, res) => {
 	}, fixtures.followButton, fixtures.saveButton, fixtures.collections));
 });
 
+// TODO: make sure this is using the correct flag name
+app.get('/digest-on-follow', (req, res) => {
+	res.render('demo', Object.assign({
+		title: 'n-myft-ui digest on follow',
+		layout: 'demo-layout',
+		flags: {
+			myFtApi: true,
+			myFtApiWrite: true,
+			newSubscriber: true
+		},
+		appIsStreamPage: false
+	}, fixtures.followButton));
+});
+
 function runPa11yTests () {
 	const spawn = require('child_process').spawn;
 	const pa11y = spawn('pa11y-ci');

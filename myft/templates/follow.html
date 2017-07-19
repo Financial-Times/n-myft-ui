@@ -2,7 +2,12 @@
 	<form class="n-myft-ui n-myft-ui--follow {{extraClasses}}" method="POST"
 		data-myft-ui="follow"
 		data-concept-id="{{conceptId}}"
+		<!-- TODO: MAKE SURE THIS IS THE CORRECT URL FORMAT AND FLAG NAME -->
+		{{#if @root.flags.newSubscriber}}
+		action="/__myft/api/follow-plus-digest-email/{{conceptId}}?method=put">
+		{{else}}
 		action="/__myft/api/core/followed/concept/{{conceptId}}?method=put">
+		{{/if}}
 		<input type="hidden" value="{{name}}" name="name">
 		{{#if directType}}
 			<input type="hidden" value="{{directType}}" name="directType">
