@@ -5,6 +5,7 @@ const highlight = chalk.bold.green;
 
 const fixtures = {
 	followButton: require('./fixtures/follow-button'),
+	followButtonPlusDigest: require('./fixtures/follow-button-plus-digest'),
 	saveButton: require('./fixtures/save-button'),
 	collections: require('./fixtures/collections')
 };
@@ -50,7 +51,6 @@ app.get('/alternative-copy', (req, res) => {
 	}, fixtures.followButton, fixtures.saveButton, fixtures.collections));
 });
 
-// TODO: make sure this is using the correct flag name
 app.get('/digest-on-follow', (req, res) => {
 	res.render('demo', Object.assign({
 		title: 'n-myft-ui digest on follow',
@@ -58,10 +58,9 @@ app.get('/digest-on-follow', (req, res) => {
 		flags: {
 			myFtApi: true,
 			myFtApiWrite: true,
-			newSubscriber: true
 		},
 		appIsStreamPage: false
-	}, fixtures.followButton));
+	}, fixtures.followButtonPlusDigest));
 });
 
 function runPa11yTests () {
