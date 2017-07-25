@@ -95,9 +95,7 @@ function applyModel () {
 	if (myftClient.loaded && myftClient.loaded['followed.concept']) {
 		myftClient.loaded['followed.concept'].items.forEach((item) => {
 			if (item._rel.instant) {
-				// CAPI2_CLEANUP_NEO4J
 				updateButtons(item.uuid, true);
-				updateButtons(item.uuidV2, true);
 			}
 		});
 	}
