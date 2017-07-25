@@ -2,6 +2,7 @@ import myFtClient from 'next-myft-client';
 import relationshipConfigs from '../lib/relationship-config';
 import getDataFromInputs from './get-data-from-inputs';
 import * as collections from './collections';
+const session = require('next-session-client');
 
 function formButtonIsDisabled (formEl) {
 	return formEl.querySelector('button').hasAttribute('disabled');
@@ -39,6 +40,19 @@ export default function (relationshipName, formEl) {
 
 	if (collections.formIsFollowCollection(relationshipName, formEl)) {
 		return collections.doAction(action, actorId, formEl, formData);
+	} else if (formEl.getAttribute('data-myft-ui-variant') === 'followPlusDigestEmail'
+				&& action === 'add') {
+
+		let conceptId = formEl.getAttribute('data-concept-id');
+		session.uuid()
+		    .then(({ uuid }) => {
+				if (uuid && conceptId) {
+					return fetch('/__myft/api/onsite/' + uuid + '/follow-plus-digest/' + conceptId);
+				} else {
+					throw new Error('Unable to follow-plus-email-digest digest');
+				}
+			});
+
 	} else {
 		const relConfig = relationshipConfigs[relationshipName];
 		const subjectId = formEl.getAttribute(relConfig.idProperty);

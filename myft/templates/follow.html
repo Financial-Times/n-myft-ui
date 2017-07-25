@@ -3,7 +3,8 @@
 		data-myft-ui="follow"
 		data-concept-id="{{conceptId}}"
 		{{#if followPlusDigestEmail}}
-		action="/__myft/api/follow-plus-digest-email/{{conceptId}}?method=put"
+		action="/__myft/api/core/follow-plus-digest-email/{{conceptId}}?method=put"
+		data-myft-ui-variant="followPlusDigestEmail"
 		{{else}}
 		action="/__myft/api/core/followed/concept/{{conceptId}}?method=put"
 		{{/if}}
