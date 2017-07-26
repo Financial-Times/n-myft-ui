@@ -2,7 +2,7 @@ import myFtClient from 'next-myft-client';
 import relationshipConfigs from '../lib/relationship-config';
 import getDataFromInputs from './get-data-from-inputs';
 import * as collections from './collections';
-const session = require('next-session-client');
+import session from 'next-session-client';
 
 function formButtonIsDisabled (formEl) {
 	return formEl.querySelector('button').hasAttribute('disabled');
@@ -24,6 +24,7 @@ function getFormData (formEl) {
 }
 
 export default function (relationshipName, formEl) {
+
 	if (formButtonIsDisabled(formEl)) {
 		return;
 	} else {
@@ -44,7 +45,8 @@ export default function (relationshipName, formEl) {
 				&& action === 'add') {
 
 		let conceptId = formEl.getAttribute('data-concept-id');
-		session.uuid()
+
+		return session.uuid()
 		    .then(({ uuid }) => {
 				if (uuid && conceptId) {
 					return fetch('/__myft/api/onsite/' + uuid + '/follow-plus-digest/' + conceptId);

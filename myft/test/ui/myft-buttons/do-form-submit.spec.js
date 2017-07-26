@@ -1,11 +1,15 @@
 /* global expect sinon */
 
+const fetchMock = require('fetch-mock');
+
 describe('Do form submit', () => {
 
 	let doFormSubmit;
 	let container;
 	let stubs;
 	let mockRelationshipConfig;
+	let testUUID = 'testUuidValue';
+	let testConceptId = 'testConceptIdValue';
 
 	beforeEach(() => {
 
@@ -18,6 +22,8 @@ describe('Do form submit', () => {
 				prop1: 'foo',
 				prop2: 'bar'
 			}),
+			sessionUuid: sinon.stub().resolves({uuid: testUUID}),
+			fetch: fetchMock.mock('/__myft/api/onsite/' + testUUID + '/follow-plus-digest/' + testConceptId, 200)
 		};
 
 		mockRelationshipConfig = {
@@ -38,10 +44,17 @@ describe('Do form submit', () => {
 				doAction: stubs.collectionsDoActionStub
 			},
 			'./get-data-from-inputs': stubs.getDataFromInputsStub,
-			'../lib/relationship-config': mockRelationshipConfig
+			'../lib/relationship-config': mockRelationshipConfig,
+			'next-session-client': {
+				uuid: stubs.sessionUuid
+			}
 		});
 
 		container = document.createElement('div');
+	});
+
+	afterEach( () => {
+		fetchMock.restore();
 	});
 
 	it('should not do anything if the button is disabled', () => {
@@ -92,6 +105,25 @@ describe('Do form submit', () => {
 
 		doFormSubmit('followed', container.querySelector('form'));
 		expect(stubs.myFtClientRemoveStub).to.have.been.called;
+	});
+
+	it('should make a fetch request if certain settings are extant', () => {
+
+		container.innerHTML = `
+			<form
+				data-myft-ui-variant="followPlusDigestEmail"
+				data-concept-id="${testConceptId}""
+			>
+				<button aria-pressed="false"></button>
+			</form>
+		`;
+
+		return doFormSubmit('followed', container.querySelector('form'))
+			.then( () => {
+				expect(stubs.sessionUuid).to.have.been.called;
+				expect(stubs.fetch.called()).to.be.true;
+			});
+
 	});
 
 	it('should make a myFT client call with all the right data', () => {
