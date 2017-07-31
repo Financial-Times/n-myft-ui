@@ -18,8 +18,11 @@ const UI_HOOK = '[data-myft-ui="instant"]';
 let config;
 
 // until API is updated to return modelled response data from create calls, fallback to old raw format
-function apiBackwardsCompatibility (response) {
-	return (response._rel) ? response._rel.instant : response.results[0].rel.properties.instant;
+function getNewInstantState (response) {
+	if(!response._rel && !(response.results && response.results[0])) {
+		return false;
+	}
+	return Boolean(response._rel ? response._rel.instant : response.results[0].rel.properties.instant);
 }
 
 function updateConceptData (subjectId, data) {
@@ -48,7 +51,7 @@ function conceptRemoved (conceptData) {
 }
 
 function conceptUpdated (conceptData) {
-	const newState = apiBackwardsCompatibility(conceptData);
+	const newState = getNewInstantState(conceptData);
 	updateButtons(conceptData.subject, newState);
 }
 
