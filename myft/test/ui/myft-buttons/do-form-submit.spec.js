@@ -23,7 +23,7 @@ describe('Do form submit', () => {
 				prop2: 'bar'
 			}),
 			sessionUuid: sinon.stub().resolves({uuid: testUUID}),
-			fetch: fetchMock.mock('/__myft/api/onsite/' + testUUID + '/follow-plus-digest/' + testConceptId, 200)
+			fetch: fetchMock.mock('/__myft/api/onsite/' + testUUID + '/follow-plus-digest-email/' + testConceptId, 200)
 		};
 
 		mockRelationshipConfig = {
