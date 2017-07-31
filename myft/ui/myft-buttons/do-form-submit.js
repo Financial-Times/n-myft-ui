@@ -49,7 +49,7 @@ export default function (relationshipName, formEl) {
 		return session.uuid()
 		    .then(({ uuid }) => {
 				if (uuid && conceptId) {
-					return fetch('/__myft/api/onsite/' + uuid + '/follow-plus-digest/' + conceptId);
+					return fetch('/__myft/api/onsite/' + uuid + '/follow-plus-digest-email/' + conceptId);
 				} else {
 					throw new Error('Unable to follow-plus-email-digest digest');
 				}
