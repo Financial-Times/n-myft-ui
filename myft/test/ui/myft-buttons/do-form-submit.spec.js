@@ -1,29 +1,26 @@
 /* global expect sinon */
 
-const fetchMock = require('fetch-mock');
-
 describe('Do form submit', () => {
 
 	let doFormSubmit;
 	let container;
 	let stubs;
 	let mockRelationshipConfig;
-	let testUUID = 'testUuidValue';
 	let testConceptId = 'testConceptIdValue';
+	let fakeExtractedFormData = {
+				prop1: 'foo',
+				prop2: 'bar'
+			};
 
 	beforeEach(() => {
 
 		stubs = {
 			myFtClientAddStub: sinon.stub(),
 			myFtClientRemoveStub: sinon.stub(),
+			followPlusDigestEmail: sinon.stub(),
 			formIsFollowCollectionStub: sinon.stub().returns(false),
 			collectionsDoActionStub: sinon.stub(),
-			getDataFromInputsStub: sinon.stub().returns({
-				prop1: 'foo',
-				prop2: 'bar'
-			}),
-			sessionUuid: sinon.stub().resolves({uuid: testUUID}),
-			fetch: fetchMock.mock('/__myft/api/onsite/' + testUUID + '/follow-plus-digest-email/' + testConceptId, 200)
+			getDataFromInputsStub: sinon.stub().returns(fakeExtractedFormData)
 		};
 
 		mockRelationshipConfig = {
@@ -37,24 +34,18 @@ describe('Do form submit', () => {
 		doFormSubmit = require('inject-loader!../../../ui/myft-buttons/do-form-submit')({
 			'next-myft-client': {
 				add: stubs.myFtClientAddStub,
-				remove: stubs.myFtClientRemoveStub
+				remove: stubs.myFtClientRemoveStub,
+				followPlusDigestEmail: stubs.followPlusDigestEmail
 			},
 			'./collections': {
 				formIsFollowCollection: stubs.formIsFollowCollectionStub,
 				doAction: stubs.collectionsDoActionStub
 			},
 			'./get-data-from-inputs': stubs.getDataFromInputsStub,
-			'../lib/relationship-config': mockRelationshipConfig,
-			'next-session-client': {
-				uuid: stubs.sessionUuid
-			}
+			'../lib/relationship-config': mockRelationshipConfig
 		});
 
 		container = document.createElement('div');
-	});
-
-	afterEach( () => {
-		fetchMock.restore();
 	});
 
 	it('should not do anything if the button is disabled', () => {
@@ -118,11 +109,12 @@ describe('Do form submit', () => {
 			</form>
 		`;
 
-		return doFormSubmit('followed', container.querySelector('form'))
-			.then( () => {
-				expect(stubs.sessionUuid).to.have.been.called;
-				expect(stubs.fetch.called()).to.be.true;
-			});
+		doFormSubmit('followed', container.querySelector('form'));
+		expect(stubs.followPlusDigestEmail).to.have.been.called;
+		expect(stubs.followPlusDigestEmail).to.have.been.calledWith(
+			testConceptId,
+			fakeExtractedFormData
+		);
 
 	});
 
@@ -143,10 +135,7 @@ describe('Do form submit', () => {
 			'followed',
 			'followed-subject-type',
 			'some-subject-id',
-			{
-				prop1: 'foo',
-				prop2: 'bar'
-			}
+			fakeExtractedFormData
 		);
 
 	});
@@ -183,10 +172,12 @@ describe('Do form submit', () => {
 		doFormSubmit('followed', container.querySelector('form'));
 		expect(stubs.myFtClientAddStub).to.have.not.been.called;
 		expect(stubs.myFtClientRemoveStub).to.have.not.been.called;
-		expect(stubs.collectionsDoActionStub).to.have.been.calledWith('add', 'some-actor-id', container.querySelector('form'), {
-			prop1: 'foo',
-			prop2: 'bar'
-		});
+		expect(stubs.collectionsDoActionStub).to.have.been.calledWith(
+			'add',
+			'some-actor-id',
+			container.querySelector('form'),
+			fakeExtractedFormData
+		);
 	});
 
 });
