@@ -61,11 +61,6 @@
 	color: getColor('white');
 }
 
-.n-myft-concept-pill--inverse:focus {
-	color: getColor('white');
-	border: 3px solid getColor('claret-90');
-}
-
 .n-myft-concept-pill--inverse.n-myft-concept-pill--add:before {
 	@include oIconsGetIcon('plus', getColor('white'), 10);
 	background-size: 30px;
@@ -103,4 +98,9 @@
 		background-size: 22px;
 		margin-right: 5px;
 	}
+}
+
+.n-myft-concept-pill--inverse:focus {
+	color: getColor('white');
+	border: 3px solid getColor('claret-90');
 }
