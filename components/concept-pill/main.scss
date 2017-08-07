@@ -1,17 +1,16 @@
 .n-myft-concept-pill {
-	display: block;
 	@include oTypographySansBold($scale: 0);
-	font-size: 16px;
 	border: 1px solid getColor('claret');
 	border-radius: 100px;
-	padding: 5px 10px;
-	margin: 8px 13px 8px 2px;
-	white-space: nowrap;
-	max-width: 200px;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
 	color: getColor('claret');
+	display: block;
+	font-size: 16px;
+	margin: 8px 13px 8px 2px;
+	max-width: 200px;
+	overflow: hidden;
+	padding: 5px 10px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .n-myft-concept-pill--add:before {
@@ -45,9 +44,9 @@
 }
 
 .n-myft-concept-pill:focus {
+	border: 3px solid getColor('teal-40');
 	outline-style: none;
 	padding: 3px 8px;
-	border: 3px solid getColor('teal-40');
 }
 
 .n-myft-concept-pill--disabled,
