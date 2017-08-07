@@ -22,6 +22,7 @@
 }
 
 .n-myft-concept-pill--added:before {
+	content: '';
 	@include oIconsGetIcon('tick', getColor('claret'), 10);
 	background-size: 22px;
 	margin-right: 5px;
@@ -66,7 +67,7 @@
 	margin-right: 5px;
 }
 
-.n-myft-concept-pill--inverse.n-myft-concept-pill--add.n-myft-concept-pill--added {
+.n-myft-concept-pill--inverse.n-myft-concept-pill--added {
 	background-color: getColor('claret-90');
 	border: 1px solid getColor('claret-90');
 
