@@ -1,0 +1,40 @@
+<div class="o-grid-container">
+<h1>{{title}}</h1>
+	<div class="o-grid-row">
+		<div data-o-grid-colspan="12">
+			<h2>Follow button</h2>
+
+			{{#followButton}}
+				{{> n-myft-ui/myft/templates/follow }}
+			{{/followButton}}
+
+			<h2>Unfollow button</h2>
+
+			{{#followButton}}
+				{{> n-myft-ui/myft/templates/unfollow }}
+			{{/followButton}}
+
+			<h2>Save button</h2>
+
+			{{#saveButton}}
+				{{> n-myft-ui/myft/templates/save-for-later }}
+			{{/saveButton}}
+
+			<h2>Unsave button</h2>
+
+			{{#saveButton}}
+				{{> n-myft-ui/myft/templates/unsave-for-later }}
+			{{/saveButton}}
+		</div>
+	</div>
+
+	<div class="o-grid-row">
+		<div data-o-grid-colspan="3">
+			<h2>Collections</h2>
+
+			{{#collections}}
+				{{> n-myft-ui/components/collections/collections }}
+			{{/collections}}
+		</div>
+	</div>
+</div>

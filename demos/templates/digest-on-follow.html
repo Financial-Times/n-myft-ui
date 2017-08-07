@@ -1,0 +1,18 @@
+<div class="o-grid-container">
+<h1>{{title}}</h1>
+	<div class="o-grid-row">
+		<div data-o-grid-colspan="12">
+			<h2>Follow button</h2>
+
+			{{#followButton}}
+				{{> n-myft-ui/myft/templates/follow }}
+			{{/followButton}}
+
+			<h2>Unfollow button</h2>
+
+			{{#followButton}}
+				{{> n-myft-ui/myft/templates/unfollow }}
+			{{/followButton}}
+		</div>
+	</div>
+</div>
