@@ -2,3 +2,21 @@
 @import '../../myft-common/main';
 @import '../../myft/main';
 @import '../../components/collections/main';
+@import '../../components/concept-pill/main';
+
+
+.demo-container {
+	margin-bottom: 400px;
+}
+
+.concept-pill-collection {
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	list-style-type: none;
+}
+
+.concept-pill-collection--inverse {
+	background-color: #990F3D;
+};

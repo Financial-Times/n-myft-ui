@@ -1,0 +1,73 @@
+.n-myft-concept-pill {
+	display: block;
+	@include oTypographySansBold($scale: 0);
+	font-size: 16px;
+	border: 1px solid getColor('claret');
+	border-radius: 100px;
+	padding: 5px 10px;
+	margin: 8px 13px 8px 2px;
+	white-space: nowrap;
+	max-width: 200px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: getColor('claret');
+}
+
+.n-myft-concept-pill--add:before {
+	content: '';
+	@include oIconsGetIcon('plus', getColor('claret'), 10);
+	background-size: 30px;
+	margin-right: 5px;
+}
+
+.n-myft-concept-pill--added:before {
+	@include oIconsGetIcon('tick', getColor('claret'), 10);
+	background-size: 22px;
+	margin-right: 5px;
+}
+
+.n-myft-concept-pill:hover {
+	border: 1px solid getColor('claret');
+
+	&:before {
+		@include oIconsGetIcon('plus', getColor('black-70'), 10);
+		background-size: 30px;
+		margin-right: 5px;
+	}
+
+	&.n-myft-concept-pill--added:before {
+		@include oIconsGetIcon('tick', getColor('black-70'), 10);
+		background-size: 22px;
+		margin-right: 5px;
+	}
+}
+
+.n-myft-concept-pill:focus {
+	outline-style: none;
+	padding: 3px 8px;
+	border: 3px solid getColor('teal-40');
+}
+
+.n-myft-concept-pill--disabled,
+.n-myft-concept-pill--disabled:hover {
+	border: 1px solid getColor('black-70');
+	color: getColor('black-70');
+}
+
+.n-myft-concept-pill--inverse {
+	border: 1px solid getColor('white');
+	color: getColor('white');
+}
+
+.n-myft-concept-pill--inverse.n-myft-concept-pill--add:before {
+	@include oIconsGetIcon('plus', getColor('white'), 10);
+	background-size: 30px;
+	margin-right: 5px;
+}
+
+.n-myft-concept-pill--inverse.n-myft-concept-pill--add.n-myft-concept-pill--added:before {
+	@include oIconsGetIcon('tick', getColor('white'), 10);
+	background-size: 22px;
+	margin-right: 5px;
+}

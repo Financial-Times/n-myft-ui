@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/alternative-copy', (req, res) => {
-	res.render('demo', Object.assign({
+	res.render('alternative-copy', Object.assign({
 		title: 'n-myft-ui alternative copy demo',
 		layout: 'demo-layout',
 		flags: {
@@ -52,7 +52,7 @@ app.get('/alternative-copy', (req, res) => {
 });
 
 app.get('/digest-on-follow', (req, res) => {
-	res.render('demo', Object.assign({
+	res.render('digest-on-follow', Object.assign({
 		title: 'n-myft-ui digest on follow',
 		layout: 'demo-layout',
 		flags: {
