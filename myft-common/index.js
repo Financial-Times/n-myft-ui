@@ -10,7 +10,6 @@ module.exports = {
 			btn.setAttribute('data-alternate-label', ariaLabel);
 		}
 		const text = btn.textContent || btn.innerText;
-
 		if (text) {
 			const textVariant = btn.getAttribute('data-text-variant');
 			const textEl = textVariant ? btn.querySelector('[data-variant-label]') : btn;
