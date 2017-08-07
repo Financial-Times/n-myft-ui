@@ -66,8 +66,35 @@
 	margin-right: 5px;
 }
 
-.n-myft-concept-pill--inverse.n-myft-concept-pill--add.n-myft-concept-pill--added:before {
-	@include oIconsGetIcon('tick', getColor('white'), 10);
-	background-size: 22px;
-	margin-right: 5px;
+.n-myft-concept-pill--inverse.n-myft-concept-pill--add.n-myft-concept-pill--added {
+	background-color: getColor('claret-90');
+	border: 1px solid getColor('claret-90');
+
+	&:before {
+		@include oIconsGetIcon('tick', getColor('white'), 10);
+		background-size: 22px;
+		margin-right: 5px;
+	}
+
+	&:focus {
+		border: 3px solid getColor('teal-40');
+	}
+}
+
+.n-myft-concept-pill--inverse:hover {
+	border: 1px solid getColor('white');
+	color: getColor('white');
+	background-color: oColorsMix('claret-90', 'claret-60', 40);
+
+	&:before {
+		@include oIconsGetIcon('plus', getColor('white'), 10);
+		background-size: 30px;
+		margin-right: 5px;
+	}
+
+	&.n-myft-concept-pill--added:before {
+		@include oIconsGetIcon('tick', getColor('white'), 10);
+		background-size: 22px;
+		margin-right: 5px;
+	}
 }
