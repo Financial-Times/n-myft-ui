@@ -45,6 +45,7 @@
 
 .n-myft-concept-pill:focus {
 	border: 3px solid getColor('teal-40');
+	color: getColor('claret');
 	outline-style: none;
 	padding: 3px 8px;
 }
@@ -58,6 +59,11 @@
 .n-myft-concept-pill--inverse {
 	border: 1px solid getColor('white');
 	color: getColor('white');
+}
+
+.n-myft-concept-pill--inverse:focus {
+	color: getColor('white');
+	border: 3px solid getColor('claret-90');
 }
 
 .n-myft-concept-pill--inverse.n-myft-concept-pill--add:before {
@@ -77,7 +83,7 @@
 	}
 
 	&:focus {
-		border: 3px solid getColor('teal-40');
+		border: 3px solid getColor('white');
 	}
 }
 
