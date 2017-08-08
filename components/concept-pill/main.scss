@@ -1,3 +1,20 @@
+@mixin tick-icon($color) {
+	content: '';
+	@include oIconsGetIcon('tick', getColor($color), 16);
+	height: 12px;
+	background-size: 32px;
+	margin-right: 8px;
+}
+
+@mixin plus-icon($color) {
+	content: '';
+	@include oIconsGetIcon('plus', getColor($color), 16);
+	height: 14px;
+	background-size: 38px;
+	margin-right: 7px;
+	margin-bottom: -1px; // bit of sneaky icon v-alignment tweaking
+}
+
 .n-myft-concept-pill {
 	@include oTypographySansBold($scale: 0);
 	border: 1px solid getColor('claret');
@@ -8,38 +25,28 @@
 	margin: 8px 13px 8px 2px;
 	max-width: 200px;
 	overflow: hidden;
-	padding: 8px 20px;
+	padding: 8px 18px;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 
 .n-myft-concept-pill--add:before {
-	content: '';
-	@include oIconsGetIcon('plus', getColor('claret'), 10);
-	background-size: 30px;
-	margin-right: 5px;
+	@include plus-icon('claret');
 }
 
 .n-myft-concept-pill--added:before {
-	content: '';
-	@include oIconsGetIcon('tick', getColor('claret'), 10);
-	background-size: 22px;
-	margin-right: 5px;
+	@include tick-icon('claret');
 }
 
 .n-myft-concept-pill:hover {
 	border: 1px solid getColor('claret');
 
-	&:before {
-		@include oIconsGetIcon('plus', getColor('black-70'), 10);
-		background-size: 30px;
-		margin-right: 5px;
+	&.n-myft-concept-pill--add::before {
+		@include plus-icon('black-70');
 	}
 
 	&.n-myft-concept-pill--added:before {
-		@include oIconsGetIcon('tick', getColor('black-70'), 10);
-		background-size: 22px;
-		margin-right: 5px;
+		@include tick-icon('black-70');
 	}
 }
 
@@ -47,7 +54,7 @@
 	border: 3px solid getColor('teal-40');
 	color: getColor('claret');
 	outline-style: none;
-	padding: 6px 18px;
+	padding: 6px 16px;
 }
 
 .n-myft-concept-pill--disabled,
@@ -62,9 +69,7 @@
 }
 
 .n-myft-concept-pill--inverse.n-myft-concept-pill--add:before {
-	@include oIconsGetIcon('plus', getColor('white'), 10);
-	background-size: 30px;
-	margin-right: 5px;
+	@include plus-icon('white');
 }
 
 .n-myft-concept-pill--inverse.n-myft-concept-pill--added {
@@ -72,9 +77,7 @@
 	border: 1px solid getColor('claret-90');
 
 	&:before {
-		@include oIconsGetIcon('tick', getColor('white'), 10);
-		background-size: 22px;
-		margin-right: 5px;
+		@include tick-icon('white');
 	}
 
 	&:focus {
@@ -87,16 +90,12 @@
 	color: getColor('white');
 	background-color: oColorsMix('claret-90', 'claret-60', 40);
 
-	&:before {
-		@include oIconsGetIcon('plus', getColor('white'), 10);
-		background-size: 30px;
-		margin-right: 5px;
+	&.n-myft-concept-pill--add:before {
+		@include plus-icon('white');
 	}
 
 	&.n-myft-concept-pill--added:before {
-		@include oIconsGetIcon('tick', getColor('white'), 10);
-		background-size: 22px;
-		margin-right: 5px;
+		@include tick-icon('white');
 	}
 }
 
