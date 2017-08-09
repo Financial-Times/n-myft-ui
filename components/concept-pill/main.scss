@@ -73,8 +73,8 @@
 }
 
 .n-myft-concept-pill--inverse.n-myft-concept-pill--added {
-	background-color: getColor('claret-100');
-	border: 1px solid getColor('claret-100');
+	background-color: getColor('claret-90');
+	border: 1px solid getColor('claret-90');
 
 	&:before {
 		@include tick-icon('white');
@@ -88,7 +88,7 @@
 .n-myft-concept-pill--inverse:hover {
 	border: 1px solid getColor('white');
 	color: getColor('white');
-	background-color: oColorsMix('claret-100', 'claret-60', 40);
+	background-color: oColorsMix('claret-90', 'claret-60', 40);
 
 	&.n-myft-concept-pill--add:before {
 		@include plus-icon('white');
@@ -106,5 +106,5 @@
 
 .n-myft-concept-pill--inverse:focus {
 	color: getColor('white');
-	border: 3px solid getColor('claret-100');
+	border: 3px solid getColor('claret-90');
 }
