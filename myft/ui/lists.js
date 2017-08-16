@@ -73,7 +73,6 @@ function setUpCreateListListeners (overlay, contentId) {
 
 	const createListButton = overlay.content.querySelector('.js-create-list');
 	const nameInput = overlay.content.querySelector('.js-name');
-	const descriptionInput = overlay.content.querySelector('.js-description');
 
 	createListButton.addEventListener('click', event => {
 		event.preventDefault();
@@ -85,8 +84,7 @@ function setUpCreateListListeners (overlay, contentId) {
 		}
 
 		const createListData = {
-			name: nameInput.value,
-			description: descriptionInput.value
+			name: nameInput.value
 		};
 
 		myFtClient.add('user', null, 'created', 'list', uuid(), createListData)

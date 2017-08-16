@@ -24,11 +24,13 @@ $o-overlay-is-silent: true;
 	margin-bottom: 10px;
 }
 
-.n-myft-ui__error-message.o-forms-errortext {
-	display: none;
+.n-myft-ui__error-message {
+	@include oFormsErrorText();
 }
-.n-myft-ui__error--no-name {
-	.n-myft-ui__error-message--no-name {
+
+.n-myft-ui__error-message.n-myft-ui__error-message--no-name {
+	display: none;
+	.n-myft-ui__error--no-name & {
 		display: block;
 	}
 }
@@ -58,13 +60,26 @@ $o-overlay-is-silent: true;
 	}
 }
 
+.myft-list-form__label {
+	@include oFormsLabel();
+}
+
+.myft-list-form__input {
+	@include oFormsCommonFieldBase();
+}
 .myft-list-form__select {
+	@include oFormsCommonFieldBase();
+	@include oFormsSelect();
 	@include oGridRespondTo($until: M) {
 		max-width: 478px;
 	}
 	@include oGridRespondTo($from: M) {
 		max-width: 300px;
 	}
+}
+
+.myft-list-form__textarea {
+	@include oFormsTextarea();
 }
 
 .myft-list-form__button {
@@ -74,6 +89,7 @@ $o-overlay-is-silent: true;
 //Specificity war with Origami
 .mypage .myft-list-form__message,
 .o-overlay .myft-list-form__message {
+	@include oFormsMessage();
 	background: getColor('paper');
 	border-radius: 0;
 	margin: 3px 0 0;

@@ -40,11 +40,8 @@ export default function (relationshipName, formEl) {
 
 	if (collections.formIsFollowCollection(relationshipName, formEl)) {
 		return collections.doAction(action, actorId, formEl, formData);
-	} else if (formEl.getAttribute('data-myft-ui-variant') === 'followPlusDigestEmail'
-				&& action === 'add') {
-
-		myFtClient.followPlusDigestEmail(formEl.getAttribute('data-concept-id'), formData);
-
+	} else if (formEl.getAttribute('data-myft-ui-variant') === 'followPlusDigestEmail' && action === 'add') {
+		return myFtClient.followPlusDigestEmail(formEl.getAttribute('data-concept-id'), formData);
 	} else {
 		const relConfig = relationshipConfigs[relationshipName];
 		const subjectId = formEl.getAttribute(relConfig.idProperty);
