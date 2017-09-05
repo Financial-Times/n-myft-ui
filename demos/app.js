@@ -37,19 +37,6 @@ app.get('/', (req, res) => {
 	}, fixtures.followButton, fixtures.saveButton, fixtures.collections));
 });
 
-app.get('/alternative-copy', (req, res) => {
-	res.render('alternative-copy', Object.assign({
-		title: 'n-myft-ui alternative copy demo',
-		layout: 'demo-layout',
-		flags: {
-			myFtApi: true,
-			myFtApiWrite: true,
-			myFtFollowButtonShorterCopy: 'variant'
-		},
-		appIsStreamPage: false
-	}, fixtures.followButton, fixtures.collections));
-});
-
 app.get('/digest-on-follow', (req, res) => {
 	res.render('digest-on-follow', Object.assign({
 		title: 'n-myft-ui digest on follow',

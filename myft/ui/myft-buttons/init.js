@@ -1,4 +1,5 @@
 import * as buttonStates from '../lib/button-states';
+import * as tracking from '../lib/tracking';
 import * as loadedRelationships from '../lib/loaded-relationships';
 import relationshipConfig from '../lib/relationship-config';
 import nNotification from 'n-notification';
@@ -57,6 +58,12 @@ function signedInEventListeners () {
 				const eventName = `myft.${actorType}.${relationshipName}.${subjectType}.${action}`;
 				document.body.addEventListener(eventName, event => {
 					buttonStates.setStateOfButton(relationshipName, event.detail.subject, !!event.detail.results);
+					tracking.custom({
+						subjectType,
+						action,
+						subjectId: event.detail.subject,
+						postedData: event.detail.data
+					});
 				});
 			});
 

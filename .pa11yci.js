@@ -14,8 +14,7 @@ const viewports = [
 ];
 
 const urls = [
-	'http://localhost:5005/',
-	'http://localhost:5005/alternative-copy'
+	'http://localhost:5005/'
 ];
 
 const config = {

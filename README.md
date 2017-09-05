@@ -20,7 +20,8 @@ As of August 2017, The following apps use n-myft-ui:
 * next-article
 * next-myft-page
 * next-tour-page
-* next-video
+* next-video-page
+* next-search-page
 
 When you merge to master, you should make a new release and then roll it out to the apps, plus n-concept which contains a reference to this so that there aren't missing dependencies.
 

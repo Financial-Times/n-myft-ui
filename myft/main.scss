@@ -4,6 +4,7 @@ $o-forms-is-silent: false;
 @import 'o-forms/main';
 $o-forms-is-silent: true;
 
+$n-notification-is-silent: false;
 @import 'n-notification/main';
 
 $o-overlay-is-silent: false;
