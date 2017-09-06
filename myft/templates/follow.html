@@ -5,7 +5,6 @@
 		{{#if followPlusDigestEmail}}
 		action="/__myft/api/core/follow-plus-digest-email/{{conceptId}}?method=put"
 		data-myft-ui-variant="followPlusDigestEmail"
-		data-trackable-messaging="followPlusEmail"
 		{{else}}
 		action="/__myft/api/core/followed/concept/{{conceptId}}?method=put"
 		{{/if}}
@@ -33,6 +32,9 @@
 				{{/if}}
 			{{/if}}
 			data-concept-id="{{conceptId}}" {{! duplicated here for tracking}}
+			{{#if followPlusDigestEmail}}
+			data-trackable-context-messaging="add-to-myft-plus-digest"
+			{{/if}}
 			data-trackable="follow"
 			title="Add {{name}}"
 			type="submit"
