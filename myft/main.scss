@@ -1,4 +1,5 @@
 @import 'o-buttons/main';
+@import 'myft-buttons/main';
 
 $o-forms-is-silent: false;
 @import 'o-forms/main';
@@ -11,7 +12,8 @@ $o-overlay-is-silent: false;
 @import 'o-overlay/main';
 $o-overlay-is-silent: true;
 
-
+// experimental flash animation on header icon
+@include myftHeaderIconFlash;
 
 // 'unfollow' button
 .myft-ui__button--manage,
