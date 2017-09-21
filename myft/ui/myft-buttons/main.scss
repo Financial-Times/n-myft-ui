@@ -1,18 +1,8 @@
 @mixin myftHeaderIconFlash {
 
-	@-webkit-keyframes myft-flash {
-		25% { opacity: 1; }
-		50% { opacity: 1; }
-	}
-
 	@keyframes myft-flash {
 		25% { opacity: 1; }
 		50% { opacity: 1; }
-	}
-
-	@-webkit-keyframes myfy-flash-white {
-		10% { -webkit-filter: brightness(0) invert(1); }
-		75% { -webkit-filter: brightness(0) invert(1); }
 	}
 
 	@keyframes myft-flash-white {
@@ -41,12 +31,10 @@
 				width: 100px;
 			}
 
-			-webkit-animation: myft-flash linear 1.2s;
 			animation: myft-flash linear 1.2s;
 		}
 
 		.o-header__top-link--myft:before {
-			-webkit-animation: myft-flash-white linear 1.2s;
 			animation: myft-flash-white linear 1.2s;
 		}
 	}
