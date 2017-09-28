@@ -190,6 +190,6 @@ $o-overlay-is-silent: true;
 	.o-overlay--myft-ui {
 		@include oOverlayFullscreen($fill: 'width');
 		@include oOverlayFullscreen($fill: 'height');
-		@include nUiIndexFor('overlay');
+		@include nUiZIndexFor('overlay');
 	}
 }
