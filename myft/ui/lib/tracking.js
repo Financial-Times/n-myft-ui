@@ -43,8 +43,8 @@ const getAction = (subjectType, action, postedData, resultData) => {
 	if (action === 'update' && subjectType === 'concept') {
 		const updateState = (postedData && postedData._rel && postedData._rel.instant && postedData._rel.instant === 'true') ? 'on' : 'off';
 	  return `instant-alert-${updateState}`;
-	} else if (action === 'add' && subjectType === 'content') {
-		return (resultData && resultData.rel && resultData.rel.type && resultData.rel.type === 'contained') ? 'list' : 'save';
+	} else if (resultData && resultData.rel && resultData.rel.type && resultData.rel.type === 'contained') {
+		return `${action}-to-list-success`;
 	} else {
 		return customDataSettings[subjectType][action];
 	}
