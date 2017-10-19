@@ -62,7 +62,8 @@ function signedInEventListeners () {
 						subjectType,
 						action,
 						subjectId: event.detail.subject,
-						postedData: event.detail.data
+						postedData: event.detail.data,
+						resultData: event.detail.results[0]
 					});
 				});
 			});
