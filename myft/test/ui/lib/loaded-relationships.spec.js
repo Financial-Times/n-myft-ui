@@ -76,4 +76,22 @@ describe('Loaded relationships', () => {
 			expect(loadedRelationships.getRelationships('followed')).to.deep.equal([]);
 		});
 	});
+
+    describe('addRelationship', () => {
+    	it('should add a relationship to the list', () => {
+            const loadedRelationships = require('../../../ui/lib/loaded-relationships');
+            loadedRelationships.addRelationship('foo', {uuid: 123});
+            expect(loadedRelationships.getRelationships('foo')).to.deep.equal([{uuid: 123}]);
+		});
+	});
+
+    describe('removeRelationship', () => {
+        it('should remove a relationship from the list', () => {
+            const loadedRelationships = require('../../../ui/lib/loaded-relationships');
+            loadedRelationships.addRelationship('foo', {uuid: 123});
+            expect(loadedRelationships.getRelationships('foo')).to.deep.equal([{uuid: 123}]);
+            loadedRelationships.removeRelationship('foo', 123);
+            expect(loadedRelationships.getRelationships('foo')).to.deep.equal([]);
+		});
+	});
 });
