@@ -38,19 +38,22 @@ export function waitForRelationshipsToLoad (relationshipName) {
 export function addRelationship (relationshipName, data) {
     if (relationshipsByName[relationshipName]) {
         const relationshipIdx = findRelationship(relationshipName, data.uuid);
-        if(relationshipIdx === -1) relationshipsByName[relationshipName].push(data);
+        if(relationshipIdx === -1) {
+        	relationshipsByName[relationshipName].push(data);
+        }
 
-	}
-    else {
+	} else {
         relationshipsByName[relationshipName] = [data];
 	}
 }
 
 export function removeRelationship (relationshipName, uuid) {
     const relationshipIdx = findRelationship(relationshipName, uuid);
-    if(relationshipIdx !== -1) relationshipsByName[relationshipName].splice(relationshipIdx, 1);
+    if(relationshipIdx !== -1) {
+    	relationshipsByName[relationshipName].splice(relationshipIdx, 1);
+    }
 }
 
 const findRelationship = (relationshipName, uuid) => {
-	return relationshipsByName[relationshipName].findIndex(x => x.uuid === uuid);
+	return relationshipsByName[relationshipName].findIndex(relationship => relationship.uuid === uuid);
 };

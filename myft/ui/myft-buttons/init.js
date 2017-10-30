@@ -57,7 +57,7 @@ function signedInEventListeners () {
 				const subjectType = relationshipConfig[relationshipName].subjectType;
 				const eventName = `myft.${actorType}.${relationshipName}.${subjectType}.${action}`;
 				document.body.addEventListener(eventName, event => {
-                    const resultData = event.detail.results && event.detail.results[0];
+					const resultData = event.detail.results && event.detail.results[0];
 					buttonStates.setStateOfButton(relationshipName, event.detail.subject, !!event.detail.results, undefined, resultData);
                     tracking.custom({
 						subjectType,

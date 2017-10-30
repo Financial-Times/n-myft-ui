@@ -37,8 +37,11 @@ export function setStateOfButton (relationshipName, subjectId, state, context = 
 }
 
 function updateFollowedRelationships (relationshipName, uuid, state, data = {}) {
-	if(relationshipName === 'followed' && true === state &&
-		data.subject && data.subject.properties) loadedRelationships.addRelationship(relationshipName, data.subject.properties);
+	if(relationshipName === 'followed' && true === state && data.subject && data.subject.properties) {
+		loadedRelationships.addRelationship(relationshipName, data.subject.properties);
+    }
 
-    if(relationshipName === 'followed' && false === state) loadedRelationships.removeRelationship(relationshipName, uuid);
+    if(relationshipName === 'followed' && false === state) {
+		loadedRelationships.removeRelationship(relationshipName, uuid);
+    }
 }
