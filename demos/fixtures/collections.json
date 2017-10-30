@@ -1,33 +1,33 @@
 {
-	"collections": [
-		{
-			"title": "European Union",
-			"concepts": [
-				{
-					"id": "00000000-0000-0000-0000-000000000000",
-					"prefLabel": "EU immigration",
-					"directType": "http://www.ft.com/ontology/Topic",
-					"url": "https://www.ft.com/stream/00000000-0000-0000-0000-000000000000"
-				},
-				{
-					"id": "00000000-0000-0000-0000-000000000000",
-					"prefLabel": "Europe Quantitative Easing",
-					"directType": "http://www.ft.com/ontology/Topic",
-					"url": "https://www.ft.com/stream/00000000-0000-0000-0000-000000000000"
-				},
-				{
-					"id": "00000000-0000-0000-0000-000000000000",
-					"prefLabel": "EU financial regulation",
-					"directType": "http://www.ft.com/ontology/Topic",
-					"url": "https://www.ft.com/stream/00000000-0000-0000-0000-000000000000"
-				},
-				{
-					"id": "00000000-0000-0000-0000-000000000000",
-					"prefLabel": "EU trade",
-					"directType": "http://www.ft.com/ontology/Topic",
-					"url": "https://www.ft.com/stream/00000000-0000-0000-0000-000000000000"
-				}
-			]
-		}
-	]
+  "collections": [
+    {
+      "title": "European Union",
+      "concepts": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "prefLabel": "EU immigration",
+          "directType": "http://www.ft.com/ontology/Topic",
+          "url": "https://www.ft.com/stream/00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "prefLabel": "Europe Quantitative Easing",
+          "directType": "http://www.ft.com/ontology/Topic",
+          "url": "https://www.ft.com/stream/00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "prefLabel": "EU financial regulation",
+          "directType": "http://www.ft.com/ontology/Topic",
+          "url": "https://www.ft.com/stream/00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "prefLabel": "EU trade",
+          "directType": "http://www.ft.com/ontology/Topic",
+          "url": "https://www.ft.com/stream/00000000-0000-0000-0000-000000000000"
+        }
+      ]
+    }
+  ]
 }

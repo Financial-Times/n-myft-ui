@@ -16,8 +16,8 @@ const customDataSettings = {
  * @param {Object} customData extra data to send through in the custom event. { action: 'someaction', thingtype_id: 'someid'}
  */
 const sendEvent = (customData) => {
-	const detail = Object.assign({}, customData, { category: 'myFT' });
-	document.body.dispatchEvent(new CustomEvent('oTracking.event', { detail, bubbles: true }));
+	const detail = Object.assign({}, customData, {category: 'myFT'});
+	document.body.dispatchEvent(new CustomEvent('oTracking.event', {detail, bubbles: true}));
 };
 /**
  * getExtraContext. Data team require a keyname for the subject's ID that matches the type of subject
@@ -42,7 +42,7 @@ const getExtraContext = (subjectType, subjectId) => {
 const getAction = (subjectType, action, postedData, resultData) => {
 	if (action === 'update' && subjectType === 'concept') {
 		const updateState = (postedData && postedData._rel && postedData._rel.instant && postedData._rel.instant === 'true') ? 'on' : 'off';
-	  return `instant-alert-${updateState}`;
+		return `instant-alert-${updateState}`;
 	} else if (resultData && resultData.rel && resultData.rel.type && resultData.rel.type === 'contained') {
 		return `${action}-to-list-success`;
 	} else {
@@ -56,7 +56,7 @@ const getAction = (subjectType, action, postedData, resultData) => {
  */
 export function custom (eventData) {
 	if (Object.keys(customDataSettings).indexOf(eventData.subjectType) !== -1) {
-		const options = { action: getAction(eventData.subjectType, eventData.action, eventData.postedData, eventData.resultData) };
+		const options = {action: getAction(eventData.subjectType, eventData.action, eventData.postedData, eventData.resultData)};
 		const extraContext = getExtraContext(eventData.subjectType, eventData.subjectId);
 		Object.assign(options, extraContext);
 		sendEvent(options);

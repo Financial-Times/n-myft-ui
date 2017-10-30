@@ -1,7 +1,7 @@
 {
-	"followButton": {
-		"conceptId": "00000000-0000-0000-0000-000000000000",
-		"name": "Hidden Haiku",
-		"directType": "http://www.ft.com/ontology/product/Brand"
-	}
+  "followButton": {
+    "conceptId": "00000000-0000-0000-0000-000000000000",
+    "name": "Hidden Haiku",
+    "directType": "http://www.ft.com/ontology/product/Brand"
+  }
 }
