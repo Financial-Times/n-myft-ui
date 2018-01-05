@@ -1,0 +1,19 @@
+.n-myft-onboarding-cta {
+	@include oButtons();
+	background: getColor('white');
+	border-color: getColor('white');
+	color: getColor('claret');
+
+	&:not([disabled]):hover {
+		background: oColorsMix(white, claret, 80);
+		border-color: getColor('white');
+		color: getColor('claret');
+	}
+
+	&::after {
+		@include oIconsGetIcon('arrow-right', getColor('claret'), 20, $iconset-version: 1);
+		content: '';
+		vertical-align: middle;
+		margin: -7px -8px -5px 0;
+	}
+}
