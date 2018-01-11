@@ -46,11 +46,10 @@
 		&[disabled],
 		&[disabled]:hover {
 			background: transparent;
-			border: 1px solid getThemeColor(disabled);
-			color: getThemeColor(disabled);
 
 			&::before {
 				@include plusIcon(getThemeColor(disabled));
+				opacity: 0.5;
 			}
 
 			&[aria-pressed="true"]::before {

@@ -4,28 +4,28 @@ $myft-lozenge-themes: (
 		text: getColor('white'),
 		highlight: getColor('claret-50'),
 		pressed-highlight: rgba(black, 0.05),
-		disabled: getColor('black-70')
+		disabled: rgba(getColor('black'), 0.5)
 	),
 	inverse: (
 		background: getColor('white'),
 		text: getColor('claret'),
 		highlight: rgba(white, 0.8),
 		pressed-highlight: rgba(white, 0.2),
-		disabled: getColor('black-20')
+		disabled: rgba(getColor('white'), 0.5)
 	),
 	opinion: (
 		background: getColor('oxford-40'),
 		text: getColor('white'),
 		highlight: getColor('oxford-30'),
 		pressed-highlight: rgba(getColor('oxford-40'), 0.2),
-		disabled: getColor('black-70')
+		disabled: rgba(getColor('black'), 0.5)
 	),
 	monochrome: (
 		background: getColor('white'),
 		text: getColor('black'),
 		highlight: getColor('white-80'),
 		pressed-highlight: rgba(getColor('black'), 0.2),
-		disabled: getColor('black-30')
+		disabled: rgba(getColor('white'), 0.5)
 	)
 );
 
