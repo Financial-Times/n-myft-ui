@@ -8,7 +8,7 @@
 	}
 }
 
-@each $theme in inverse opinion {
+@each $theme in map-keys($myft-lozenge-themes) {
 	.n-myft-concept-pill--#{$theme} {
 		@include myftLozengeTheme($theme);
 

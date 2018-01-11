@@ -4,7 +4,7 @@
 	@include myftLozenge($with-toggle-icon: true, $reverse: true);
 }
 
-@each $theme in inverse opinion {
+@each $theme in map-keys($myft-lozenge-themes) {
 	.n-myft-follow-button--#{theme} {
 		@include myftLozengeTheme($theme, $with-toggle-icon: true, $reverse: true);
 	}
