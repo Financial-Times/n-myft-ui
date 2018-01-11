@@ -79,26 +79,6 @@
 		margin-bottom: 10px;
 	}
 
-	.n-myft-ui--follow {
-		position: relative;
-
-		.n-myft-ui__button {
-			@include buttonWithIcon(26, 24, getColor('teal-40'), 'plus', 'tick', getColor('white'));
-		}
-
-		.n-myft-ui__button--inverse {
-			@include buttonWithIcon(26, 24, getColor('white'), 'plus', 'tick', getColor('black'));
-
-			&[aria-pressed="true"]:hover::before {
-				@include oIconsGetIcon('tick', getColor('white'), 24, $iconset-version: 1);
-			}
-		}
-
-		.n-myft-ui__button--uncolored {
-			@include buttonWithIcon(26, 24, getColor('black'), 'plus', 'tick', getColor('white'));
-		}
-	}
-
 	.n-myft-ui--instant {
 		position: relative;
 
