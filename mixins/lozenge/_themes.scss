@@ -19,6 +19,13 @@ $myft-lozenge-themes: (
 		highlight: getColor('oxford-30'),
 		pressed-highlight: rgba(getColor('oxford-40'), 0.2),
 		disabled: getColor('black-70')
+	),
+	monochrome: (
+		background: getColor('white'),
+		text: getColor('black'),
+		highlight: getColor('white-80'),
+		pressed-highlight: rgba(getColor('black'), 0.2),
+		disabled: getColor('black-30')
 	)
 );
 
