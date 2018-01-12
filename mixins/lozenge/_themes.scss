@@ -24,7 +24,7 @@ $myft-lozenge-themes: (
 		background: getColor('white'),
 		text: getColor('black'),
 		highlight: getColor('white-80'),
-		pressed-highlight: rgba(getColor('black'), 0.2),
+		pressed-highlight: rgba(getColor('white'), 0.2),
 		disabled: rgba(getColor('white'), 0.5)
 	)
 );
