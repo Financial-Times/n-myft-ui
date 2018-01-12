@@ -1,20 +1,19 @@
 @import './themes';
 
-@mixin plusIcon($color) {
-	@include oIconsGetIcon('plus', $color, 10);
+@mixin getIcon($name, $color) {
+	@include oIconsGetIcon($icon-name: $name, $container-width: 10, $color: $color, $iconset-version: 1);
 	content: '';
-	height: 10px;
+}
+
+@mixin plusIcon($color) {
+	@include getIcon('plus', $color);
 	background-size: 25px;
-	margin-right: 7px;
-	margin-bottom: -1px; // bit of sneakeroo icon v-alignment tweaking
+	margin: 0 6px -1px 0;
 }
 
 @mixin tickIcon($color) {
-	@include oIconsGetIcon('tick', $color, 10);
-	content: '';
-	height: 10px;
+	@include getIcon('tick', $color);
 	background-size: 21px;
-	margin-right: 7px;
 }
 
 @mixin myftToggleIcon($theme: standard, $reverse: false) {
