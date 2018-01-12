@@ -5,12 +5,19 @@
 @import '../../components/concept-pill/main';
 @import '../../components/onboarding-cta/main';
 
-
 .demo-container {
 	margin-bottom: 400px;
 }
 
-.concept-pill-collection {
+.concept-collection {
+	padding: 1em;
+}
+
+.concept-collection__title {
+	margin-top: 0;
+}
+
+.concept-collection__list {
 	padding: 0;
 	margin: 0;
 	display: flex;
@@ -18,14 +25,34 @@
 	list-style-type: none;
 }
 
-.concept-pill-collection--inverse {
+.concept-collection--standard {
+	background-color: getColor('paper');
+}
+
+.concept-collection--inverse {
 	background-color: getColor('claret-60');
+	color: getColor('white');
 }
 
-.concept-pill-collection--opinion {
+.concept-collection--opinion {
 	background-color: getColor('sky');
+	color: getColor('oxford');
 }
 
-.concept-pill-collection--monochrome {
+.concept-collection--monochrome {
 	background-color: getColor('black');
+	color: getColor('white');
+}
+
+.demo-section {
+	padding-bottom: 1em;
+}
+
+.demo-section__title {
+	padding-top: 0.5em;
+}
+
+.demo-section__description {
+	font-style: italic;
+	color: getColor('black-80');
 }

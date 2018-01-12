@@ -1,341 +1,378 @@
 <div class="o-grid-container demo-container">
 	<h1>{{title}}</h1>
-	<div class="o-grid-row">
-		<div data-o-grid-colspan="12">
-			<h2>Follow button standard</h2>
 
-			<h3>Follow button</h3>
+	<section class="demo-section">
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<h2 class="demo-section__title">
+					Follow button
+				</h2>
 
-			{{#followButton}}
-				{{> n-myft-ui/myft/templates/follow }}
-			{{/followButton}}
+				{{#followButton}}
+					{{> n-myft-ui/myft/templates/follow }}
+				{{/followButton}}
 
-			<h2>Unfollow button</h2>
+				<h2 class="demo-section__title">
+					Unfollow button
+				</h2>
 
-			{{#followButton}}
-				{{> n-myft-ui/myft/templates/unfollow }}
-			{{/followButton}}
+				{{#followButton}}
+					{{> n-myft-ui/myft/templates/unfollow }}
+				{{/followButton}}
 
-			{{#saveButton}}
-				<h2>Save button</h2>
-				{{> n-myft-ui/myft/templates/save-for-later }}
-			{{/saveButton}}
+				{{#saveButton}}
+					<h2 class="demo-section__title">
+						Save button
+					</h2>
+					{{> n-myft-ui/myft/templates/save-for-later }}
+				{{/saveButton}}
 
-			{{#saveButton}}
-				<h2>Unsave button</h2>
-				{{> n-myft-ui/myft/templates/unsave-for-later }}
-			{{/saveButton}}
+				{{#saveButton}}
+					<h2 class="demo-section__title">
+						Unsave button
+					</h2>
+					{{> n-myft-ui/myft/templates/unsave-for-later }}
+				{{/saveButton}}
+			</div>
 		</div>
-	</div>
+	</section>
 
-	<div class="o-grid-row">
-		<div data-o-grid-colspan="12">
-			<h2>Follow button</h2>
-
-			<ul class="concept-pill-collection">
-				<li>
-					<button class="n-myft-follow-button">
-						Books
-					</button>
-				</li>
-				<li>
-					<button
-						aria-pressed="true"
-						class="n-myft-follow-button">
-						Life &amp; Arts
-					</button>
-				</li>
-				<li>
-					<button
-						class="n-myft-follow-button">
-						Theo Leanse
-					</a>
-				</li>
-				<li>
-					<button
-						aria-pressed="true"
-						disabled
-						class="n-myft-follow-button">
-						Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
-						say that they were perfectly normal, thank you very much.
-					</a>
-				</li>
-			</ul>
+	<section class="demo-section">
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<h2 class="demo-section__title">
+					Follow concept
+				</h2>
+				<div class="concept-collection concept-collection--standard">
+					<h3 class="concept-collection__title">
+						Standard
+					</h3>
+					<ul class="concept-collection__list">
+						<li>
+							<button class="n-myft-follow-button">
+								Books
+							</button>
+						</li>
+						<li>
+							<button
+								aria-pressed="true"
+								class="n-myft-follow-button">
+								Life &amp; Arts
+							</button>
+						</li>
+						<li>
+							<button
+								class="n-myft-follow-button">
+								Theo Leanse
+							</a>
+						</li>
+						<li>
+							<button
+								aria-pressed="true"
+								disabled
+								class="n-myft-follow-button">
+								Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
+								say that they were perfectly normal, thank you very much.
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
-	</div>
 
-	<div class="o-grid-row">
-		<div data-o-grid-colspan="12">
-			<h2>Follow button inverse</h2>
-			<ul class="concept-pill-collection concept-pill-collection--inverse">
-				<li>
-					<button
-						class="n-myft-follow-button n-myft-follow-button--inverse">
-						Books
-					</button>
-				</li>
-				<li>
-					<button
-						aria-pressed="true"
-						class="n-myft-follow-button n-myft-follow-button--inverse">
-						Life &amp; Arts
-					</button>
-				</li>
-				<li>
-					<button
-						class="n-myft-follow-button n-myft-follow-button--inverse">
-						Theo Leanse
-					</button>
-				</li>
-				<li>
-					<button
-						aria-pressed="true"
-						disabled
-						class="n-myft-follow-button n-myft-follow-button--inverse">
-						Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
-						say that they were perfectly normal, thank you very much.
-					</button>
-				</li>
-			</ul>
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<div class="concept-collection concept-collection--inverse">
+					<h3 class="concept-collection__title">
+						Inverse
+					</h3>
+					<ul class="concept-collection__list">
+						<li>
+							<button
+								class="n-myft-follow-button n-myft-follow-button--inverse">
+								Books
+							</button>
+						</li>
+						<li>
+							<button
+								aria-pressed="true"
+								class="n-myft-follow-button n-myft-follow-button--inverse">
+								Life &amp; Arts
+							</button>
+						</li>
+						<li>
+							<button
+								class="n-myft-follow-button n-myft-follow-button--inverse">
+								Theo Leanse
+							</button>
+						</li>
+						<li>
+							<button
+								aria-pressed="true"
+								disabled
+								class="n-myft-follow-button n-myft-follow-button--inverse">
+								Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
+								say that they were perfectly normal, thank you very much.
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
-	</div>
 
-	<div class="o-grid-row">
-		<div data-o-grid-colspan="12">
-			<h2>Follow button monochrome</h2>
-
-			<ul class="concept-pill-collection concept-pill-collection--monochrome">
-				<li>
-					<button
-						class="n-myft-follow-button n-myft-follow-button--monochrome"
-						aria-pressed="false">
-						Theo Leanse
-					</button>
-				</li>
-				<li>
-					<button
-						class="n-myft-follow-button n-myft-follow-button--monochrome"
-						aria-pressed="true">
-						Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
-						say that they were perfectly normal, thank you very much.
-					</button>
-				</li>
-				<li>
-					<button
-						disabled
-						class="n-myft-follow-button n-myft-follow-button--monochrome"
-						aria-pressed="true">
-						chee
-					</button>
-				</li>
-			</ul>
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<div class="concept-collection concept-collection--monochrome">
+					<h3 class="concept-collection__title">
+						Monochrome
+					</h3>
+					<ul class="concept-collection__list">
+						<li>
+							<button
+								class="n-myft-follow-button n-myft-follow-button--monochrome"
+								aria-pressed="false">
+								Theo Leanse
+							</button>
+						</li>
+						<li>
+							<button
+								class="n-myft-follow-button n-myft-follow-button--monochrome"
+								aria-pressed="true">
+								Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
+								say that they were perfectly normal, thank you very much.
+							</button>
+						</li>
+						<li>
+							<button
+								disabled
+								class="n-myft-follow-button n-myft-follow-button--monochrome"
+								aria-pressed="true">
+								chee
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
-	</div>
 
-	<div class="o-grid-row">
-		<div data-o-grid-colspan="12">
-			<h2>Follow button opinion</h2>
-
-			<ul class="concept-pill-collection concept-pill-collection--opinion">
-				<li>
-					<button
-						class="n-myft-follow-button n-myft-follow-button--opinion"
-						aria-pressed="false">
-						Theo Leanse
-					</button>
-				</li>
-				<li>
-					<button
-						class="n-myft-follow-button n-myft-follow-button--opinion"
-						aria-pressed="true">
-						Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
-						say that they were perfectly normal, thank you very much.
-					</button>
-				</li>
-				<li>
-					<button
-						disabled
-						class="n-myft-follow-button n-myft-follow-button--opinion"
-						aria-pressed="false">
-						chee
-					</button>
-				</li>
-			</ul>
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<div class="concept-collection concept-collection--opinion">
+					<h3 class="concept-collection__title">
+						Opinion topper
+					</h3>
+					<ul class="concept-collection__list">
+						<li>
+							<button
+								class="n-myft-follow-button n-myft-follow-button--opinion"
+								aria-pressed="false">
+								Theo Leanse
+							</button>
+						</li>
+						<li>
+							<button
+								class="n-myft-follow-button n-myft-follow-button--opinion"
+								aria-pressed="true">
+								Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
+								say that they were perfectly normal, thank you very much.
+							</button>
+						</li>
+						<li>
+							<button
+								disabled
+								class="n-myft-follow-button n-myft-follow-button--opinion"
+								aria-pressed="false">
+								chee
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
-	</div>
+	</section>
 
-	<div class="o-grid-row">
-		<div data-o-grid-colspan="3">
-			<h2>Collections</h2>
+	<section class="demo-section">
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<h2 class="demo-section__title">
+					Onboarding call to action
+				</h2>
 
-			{{#collections}}
-				{{> n-myft-ui/components/collections/collections }}
-			{{/collections}}
+				<a class="n-myft-onboarding-cta" href="#">
+					See stories
+				</a>
+			</div>
 		</div>
-	</div>
+	</section>
 
-	<div class="o-grid-row">
-		<div data-o-grid-colspan="12">
-			<h2>Onboarding call to action</h2>
-
-			<a class="n-myft-onboarding-cta" href="#">
-				See stories
-			</a>
+	<section class="demo-section">
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<h2 class="demo-section__title">
+					Concept pill
+				</h2>
+				<div class="concept-collection concept-collection--standard">
+					<h3 class="concept-collection__title">
+						Standard
+					</h3>
+					<ul class="concept-collection__list">
+						<li>
+							<a
+								class="n-myft-concept-pill"
+								href="#">
+								Books
+							</a>
+						</li>
+						<li>
+							<a
+								class="n-myft-concept-pill"
+								href="#">
+								Life &amp; Arts
+							</a>
+						</li>
+						<li>
+							<a
+								class="n-myft-concept-pill"
+								href="#">
+								Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
+								say that they were perfectly normal, thank you very much.
+							</a>
+						</li>
+						<li>
+							<button
+								class="n-myft-concept-pill"
+								disabled>
+								Books
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
-	</div>
 
-	<div class="o-grid-row">
-		<div data-o-grid-colspan="12">
-			<h2>Concept pill</h2>
-
-			<ul class="concept-pill-collection">
-				<li>
-					<a
-						class="n-myft-concept-pill"
-						href="#">
-						Books
-					</a>
-				</li>
-				<li>
-					<a
-						class="n-myft-concept-pill"
-						href="#">
-						Life &amp; Arts
-					</a>
-				</li>
-				<li>
-					<a
-						class="n-myft-concept-pill"
-						href="#">
-						Theo Leanse
-					</a>
-				</li>
-				<li>
-					<a
-						class="n-myft-concept-pill"
-						href="#">
-						Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
-						say that they were perfectly normal, thank you very much.
-					</a>
-				</li>
-				<li>
-					<button
-						class="n-myft-concept-pill"
-						disabled>
-						Books
-					</button>
-				</li>
-			</ul>
-
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<div class="concept-collection concept-collection--inverse">
+					<h3 class="concept-collection__title">
+						Inverse
+					</h3>
+					<ul class="concept-collection__list">
+						<li>
+							<a
+								class="n-myft-concept-pill n-myft-concept-pill--inverse"
+								href="#">
+								Books
+							</a>
+						</li>
+						<li>
+							<a
+								class="n-myft-concept-pill n-myft-concept-pill--inverse"
+								href="#">
+								Life &amp; Arts
+							</a>
+						</li>
+						<li>
+							<a
+								class="n-myft-concept-pill n-myft-concept-pill--inverse"
+								href="#">
+								Theo Leanse
+							</a>
+						</li>
+						<li>
+							<button
+								class="n-myft-concept-pill n-myft-concept-pill--inverse"
+								disabled>
+								Books
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
-	</div>
 
-	<div class="o-grid-row">
-		<div data-o-grid-colspan="12">
-			<h2>Concept pill inverse</h2>
-			<ul class="concept-pill-collection concept-pill-collection--inverse">
-				<li>
-					<a
-						class="n-myft-concept-pill n-myft-concept-pill--inverse"
-						href="#">
-						Books
-					</a>
-				</li>
-				<li>
-					<a
-						class="n-myft-concept-pill n-myft-concept-pill--inverse"
-						href="#">
-						Life &amp; Arts
-					</a>
-				</li>
-				<li>
-					<a
-						class="n-myft-concept-pill n-myft-concept-pill--inverse"
-						href="#">
-						Theo Leanse
-					</a>
-				</li>
-				<li>
-					<a
-						aria-pressed="true"
-						class="n-myft-concept-pill n-myft-concept-pill--inverse"
-						href="#">
-						Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
-						say that they were perfectly normal, thank you very much.
-					</a>
-				</li>
-				<li>
-					<button
-						class="n-myft-concept-pill n-myft-concept-pill--inverse"
-						disabled>
-						Books
-					</button>
-				</li>
-			</ul>
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<div class="concept-collection concept-collection--monochrome">
+					<h3 class="concept-collection__title">
+						Monochrome
+					</h3>
+
+					<ul class="concept-collection__list">
+						<li>
+							<a
+								class="n-myft-concept-pill n-myft-concept-pill--monochrome"
+								aria-pressed="false">
+								Theo Leanse
+							</a>
+						</li>
+						<li>
+							<a
+								class="n-myft-concept-pill n-myft-concept-pill--monochrome"
+								aria-pressed="false">
+								Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
+								say that they were perfectly normal, thank you very much.
+							</a>
+						</li>
+						<li>
+							<a
+								disabled
+								class="n-myft-concept-pill n-myft-concept-pill--monochrome"
+								aria-pressed="true">
+								chee
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
-	</div>
 
-	<div class="o-grid-row">
-		<div data-o-grid-colspan="12">
-			<h2>Concept pill monochrome</h2>
-
-			<ul class="concept-pill-collection concept-pill-collection--monochrome">
-				<li>
-					<a
-						class="n-myft-concept-pill n-myft-concept-pill--monochrome"
-						aria-pressed="false">
-						Theo Leanse
-					</a>
-				</li>
-				<li>
-					<a
-						class="n-myft-concept-pill n-myft-concept-pill--monochrome"
-						aria-pressed="false">
-						Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
-						say that they were perfectly normal, thank you very much.
-					</a>
-				</li>
-				<li>
-					<a
-						disabled
-						class="n-myft-concept-pill n-myft-concept-pill--monochrome"
-						aria-pressed="true">
-						chee
-					</a>
-				</li>
-			</ul>
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<div class="concept-collection concept-collection--opinion">
+					<h3 class="concept-collection__title">
+						Opinion topper
+					</h3>
+					<ul class="concept-collection__list">
+						<li>
+							<a
+								class="n-myft-concept-pill n-myft-concept-pill--opinion"
+								aria-pressed="false">
+								Theo Leanse
+							</a>
+						</li>
+						<li>
+							<a
+								class="n-myft-concept-pill n-myft-concept-pill--opinion"
+								aria-pressed="false">
+								Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
+								say that they were perfectly normal, thank you very much.
+							</a>
+						</li>
+						<li>
+							<a
+								disabled
+								class="n-myft-concept-pill n-myft-concept-pill--opinion"
+								aria-pressed="true">
+								chee
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
-	</div>
+	</section>
 
-	<div class="o-grid-row">
-		<div data-o-grid-colspan="12">
-			<h2>Concept pill opinion</h2>
+	<section class="demo-section">
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="5">
+				<h2 class="demo-section__title">
+					Collections
+				</h2>
 
-			<ul class="concept-pill-collection concept-pill-collection--opinion">
-				<li>
-					<a
-						class="n-myft-concept-pill n-myft-concept-pill--opinion"
-						aria-pressed="false">
-						Theo Leanse
-					</a>
-				</li>
-				<li>
-					<a
-						class="n-myft-concept-pill n-myft-concept-pill--opinion"
-						aria-pressed="false">
-						Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
-						say that they were perfectly normal, thank you very much.
-					</a>
-				</li>
-				<li>
-					<a
-						disabled
-						class="n-myft-concept-pill n-myft-concept-pill--opinion"
-						aria-pressed="true">
-						chee
-					</a>
-				</li>
-			</ul>
+				{{#collections}}
+					{{> n-myft-ui/components/collections/collections }}
+				{{/collections}}
+			</div>
 		</div>
-	</div>
+	</section>
 </div>
