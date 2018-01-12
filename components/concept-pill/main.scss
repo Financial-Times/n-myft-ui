@@ -2,18 +2,10 @@
 
 .n-myft-concept-pill {
 	@include myftLozenge();
-
-	&.n-myft-concept-pill--add {
-		@include myftLozengeTheme($theme: standard, $with-toggle-icon: true, $reverse: true);
-	}
 }
 
 @each $theme in map-keys($myft-lozenge-themes) {
 	.n-myft-concept-pill--#{$theme} {
 		@include myftLozengeTheme($theme);
-
-		&.n-myft-concept-pill--add {
-			@include myftLozengeTheme($theme, $with-toggle-icon: true, $reverse: true);
-		}
 	}
 }
