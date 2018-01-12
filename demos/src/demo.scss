@@ -46,13 +46,16 @@
 
 .demo-section {
 	padding-bottom: 1em;
+	font-family: MetricWeb, sans-serif;
 }
 
 .demo-section__title {
-	padding-top: 0.5em;
+	padding-top: 0.2em;
 }
 
 .demo-section__description {
 	font-style: italic;
-	color: getColor('black-80');
+	font-size: 1.2em;
+	margin: 12px 0;
+	color: getColor('black-50');
 }
