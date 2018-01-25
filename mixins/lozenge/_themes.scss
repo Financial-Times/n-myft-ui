@@ -3,7 +3,7 @@ $myft-lozenge-themes: (
 		background: getColor('claret'),
 		text: getColor('white'),
 		highlight: getColor('claret-50'),
-		pressed-highlight: rgba(black, 0.05),
+		pressed-highlight: rgba(getColor('black'), 0.05),
 		disabled: rgba(getColor('black'), 0.5)
 	),
 	inverse: (

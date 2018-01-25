@@ -16,29 +16,15 @@
 	background-size: 21px;
 }
 
-@mixin myftToggleIcon($theme: standard, $reverse: false) {
-	$theme-map: map-get($myft-lozenge-themes, $theme) !global;
-
+@mixin myftToggleIcon($theme: standard) {
 	@include withTheme($theme) {
-		@if $reverse == true {
-			&::before {
-				@include plusIcon(getThemeColor(background));
-			}
+		&::before {
+			@include plusIcon(getThemeColor(background));
+		}
 
-			&[aria-pressed="true"] {
-				&::before {
-					@include tickIcon(getThemeColor(text));
-				}
-			}
-		} @else {
+		&[aria-pressed="true"] {
 			&::before {
-				@include plusIcon(getThemeColor(text));
-			}
-
-			&[aria-pressed="true"] {
-				&::before {
-					@include tickIcon(getThemeColor(background));
-				}
+				@include tickIcon(getThemeColor(text));
 			}
 		}
 
