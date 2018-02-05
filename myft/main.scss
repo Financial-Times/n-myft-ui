@@ -196,11 +196,35 @@ $o-overlay-is-silent: true;
 	}
 }
 
-.myft-ui__button--pin {
+.myft-ui__instant-alert-button,
+.myft-ui__pin-button {
 	@include oButtons();
 	@include oButtonsIconButton($icon-name: pin, $is-icon-only: true);
-	margin-left: 2px;
-	&[aria-pressed="true"]::before {
-		@include oIconsGetIcon('cross', getColor('white'), 28, $iconset-version: 1);
+	background-color: transparent;
+	border: 0;
+	padding: 0;
+	min-width: 28px;
+	&[aria-pressed=true],
+	&:not([disabled]):hover {
+		background-color: transparent;
+		border: 0;
+	}
+}
+
+.myft-ui__pin-button {
+	$icon-width: 28;
+	@include oIconsGetIcon('pin', #66625f, $icon-width, $iconset-version: 1);
+	&[aria-pressed=true],
+	&:not([disabled]):hover {
+		@include oIconsGetIcon('pin', #990f3d, $icon-width, $iconset-version: 1);
+	}
+}
+
+.myft-ui__instant-alert-button {
+	$icon-width: 28;
+	@include oIconsGetIcon('mail', #66625f, $icon-width, $iconset-version: 1);
+	&[aria-pressed=true],
+	&:not([disabled]):hover {
+		@include oIconsGetIcon('mail', #990f3d, $icon-width, $iconset-version: 1);
 	}
 }

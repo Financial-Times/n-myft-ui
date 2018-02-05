@@ -9,12 +9,11 @@
 		{{else}}
 			<input type="hidden" value="http://www.ft.com/ontology/concept/Concept" name="directType">
 		{{/if}}
+		{{#if buttonText}}{{buttonText}}{{else}}Instant alerts off{{/if}}
 		<button
 			aria-label="Get instant alerts for {{name}}"
 			aria-pressed="false"
-			class="n-myft-ui__button
-				{{#variant}} n-myft-ui__button--{{this}}{{/variant}}
-				{{#size}} n-myft-ui__button--{{this}}{{/size}}"
+			class="myft-ui__instant-alert-button"
 			data-alternate-label="Stop instant alerts for {{name}}"
 			{{#if alternateText}}
 				data-alternate-text="{{alternateText}}"
@@ -31,7 +30,9 @@
 			name="_rel.instant"
 			value="true"
 			type="submit"
-		>{{#if buttonText}}{{buttonText}}{{else}}Instant alerts off{{/if}}</button>
+		>
+		<span class="o-buttons-icon__label">{{#if buttonText}}{{buttonText}}{{else}}Instant alerts off{{/if}}</span>
+	</button>
 	</form>
 {{else}}
 	<!-- Instant alert button hidden due to myFtApiWrite being off -->
