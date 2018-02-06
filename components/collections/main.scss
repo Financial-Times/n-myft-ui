@@ -8,7 +8,7 @@
 	padding: 12px;
 	margin-top: oGridGutter();
 	overflow: visible;
-	background: getColor('claret-80');
+	background: getColor('claret');
 
 	@include oGridRespondTo(M) {
 		margin-top: oGridGutter(M);
@@ -60,6 +60,10 @@
 	color: getColor('white');
 	border-bottom: 0;
 	flex: 5;
+
+	&:hover {
+		color: rgba(getColor('white'), 0.8);
+	}
 }
 
 .card__collection-concept-follow {
