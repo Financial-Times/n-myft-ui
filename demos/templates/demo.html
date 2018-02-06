@@ -386,7 +386,7 @@
 		id="collections"
 		class="demo-section">
 		<div class="o-grid-row">
-			<div data-o-grid-colspan="5">
+			<div data-o-grid-colspan="12">
 				<h2 class="demo-section__title">
 					Collections
 				</h2>
@@ -394,11 +394,13 @@
 				<p class="demo-section__description">
 					Curated collections of topics to follow.
 				</p>
-
-				{{#collections}}
-					{{> n-myft-ui/components/collections/collections }}
-				{{/collections}}
 			</div>
+
+			{{#collections}}
+				<div data-o-grid-colspan="4">
+					{{> n-myft-ui/components/collections/collections }}
+				</div>
+			{{/collections}}
 		</div>
 	</section>
 </div>
