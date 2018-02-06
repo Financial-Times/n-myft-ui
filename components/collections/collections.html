@@ -1,71 +1,29 @@
-<section class="card__collection" data-trackable="collection">
-	<div class="card__collection-stack"></div>
+<section
+	class="card__collection"
+	data-trackable="collection">
 	<header class="card__collection-header">
-		<h2 class="card__collection-title">{{title}}</h2>
+		<h2 class="card__collection-title">
+			<span class="card__collection-title-prefix">
+				Topic Collection
+			</span>
+			{{title}}
+		</h2>
 	</header>
-	<p class="card__collection-sub-heading">Topics included<span class="o-normalise-visually-hidden"> in {{title}}</span>:</p>
 	<ul class="card__collection-concepts">
 		{{#concepts}}
 			<li class="card__collection-concept">
-				<a class="card__collection-concept-link" href="{{url}}" data-trackable="concept">{{prefLabel}}</a>
+				<a
+					class="card__collection-concept-link"
+					href="{{url}}"
+					data-trackable="concept">
+					{{prefLabel}}
+				</a>
+				<div class="card__collection-concept-follow">
+					{{>	n-myft-ui/myft/templates/follow
+						variant="inverse"
+					}}
+				</div>
 			</li>
 		{{/concepts}}
 	</ul>
-	<div class="card__collection-meta">
-		<div class="card__collection-datum" aria-hidden="true">{{concepts.length}}<br/>topics</div>
-		<form
-			method="POST"
-			action="#"
-			data-myft-ui="follow"
-			data-concept-id="
-				{{~#concepts~}}
-					{{id}}
-					{{~#unless @last~}}
-						,
-					{{~/unless~}}
-				{{~/concepts~}}"
-			class="n-myft-ui n-myft-ui--follow card__collection-follow n-ui-hide-core"
-		>
-			<input
-				type="hidden"
-				name="directType"
-				value="
-					{{~#concepts~}}
-						{{directType}}
-						{{~#unless @last~}}
-							,
-						{{~/unless~}}
-					{{~/concepts~}}"
-			/>
-			<input
-				type="hidden"
-				name="name"
-				value="
-					{{~#concepts~}}
-						{{prefLabel}}
-					{{~#unless @last~}}
-						,
-					{{~/unless~}}
-				{{~/concepts~}}"
-			/>
-			<button
-				type="submit"
-				aria-label="Add all topics in the {{name}} collection to my F T"
-				aria-pressed="false"
-				class="n-myft-ui__button"
-				data-alternate-label="Remove all topics in the {{name}} collection from my F T"
-				data-alternate-text="Added"
-				data-trackable="follow"
-				data-concept-id="
-					{{~#concepts~}}
-						{{id}}
-						{{~#unless @last~}}
-							,
-						{{~/unless~}}
-					{{~/concepts~}}"
-				title="Add all topics in the {{name}} collection to my F T">
-				Add all to myFT
-			</button>
-		</form>
-	</div>
 </section>
