@@ -196,7 +196,7 @@ $o-overlay-is-silent: true;
 	}
 }
 
-.myft-ui__pin-button {
+.myft-pin-button {
 	@include oButtons();
 	background-color: transparent;
 	border: 0;
@@ -209,7 +209,7 @@ $o-overlay-is-silent: true;
 	}
 }
 
-.myft-ui__pin-button {
+.myft-pin-button {
 	$icon-width: 36;
 	@include oButtonsIconButton($icon-name: pin, $is-icon-only: true);
 	@include oIconsGetIcon('pin', getColor('black-40'), $icon-width, $iconset-version: 1);
