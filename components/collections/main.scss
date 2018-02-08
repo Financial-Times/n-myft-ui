@@ -1,4 +1,4 @@
-.card__collection {
+.collection {
 	display: flex;
 	flex: 1 1 auto;
 	flex-flow: column nowrap;
@@ -15,7 +15,7 @@
 	}
 }
 
-.card__collection-header {
+.collection__header {
 	color: getColor('white');
 	overflow: hidden;
 
@@ -29,16 +29,16 @@
 	}
 }
 
-.card__collection-title-prefix {
-	font-weight: normal;
-}
-
-.card__collection-title {
+.collection__title {
 	@include oTypographySansBold($scale: 1, $progressive: true);
 	margin: 0;
 }
 
-.card__collection-concepts {
+.collection__title-prefix {
+	font-weight: normal;
+}
+
+.collection__concepts {
 	@include oTypographySans($scale: 1);
 	flex-grow: 1;
 	list-style: none;
@@ -49,13 +49,13 @@
 	border-bottom: 1px solid rgba(getColor('white'), 0.5);
 }
 
-.card__collection-concept {
+.collection__concept {
 	display: flex;
 	align-items: center;
 	margin: 8px 0;
 }
 
-.card__collection-concept-link {
+.collection__concept-link {
 	@include oTypographySansBold($scale: 1, $progressive: true);
 	color: getColor('white');
 	border-bottom: 0;
@@ -66,6 +66,6 @@
 	}
 }
 
-.card__collection-concept-follow {
+.collection__concept-follow {
 	flex: 1;
 }

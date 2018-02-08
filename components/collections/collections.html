@@ -1,24 +1,24 @@
 <section
-	class="card__collection"
+	class="collection"
 	data-trackable="collection">
-	<header class="card__collection-header">
-		<h2 class="card__collection-title">
-			<span class="card__collection-title-prefix">
+	<header class="collection__header">
+		<h2 class="collection__title">
+			<span class="collection__title-prefix">
 				Topic Collection
 			</span>
 			{{title}}
 		</h2>
 	</header>
-	<ul class="card__collection-concepts">
+	<ul class="collection__concepts">
 		{{#concepts}}
-			<li class="card__collection-concept">
+			<li class="collection__concept">
 				<a
-					class="card__collection-concept-link"
+					class="collection__concept-link"
 					href="{{url}}"
 					data-trackable="concept">
 					{{prefLabel}}
 				</a>
-				<div class="card__collection-concept-follow">
+				<div class="collection__concept-follow">
 					{{>	n-myft-ui/myft/templates/follow
 						variant="inverse"
 					}}
