@@ -69,6 +69,41 @@
           "url": "https://www.ft.com/stream/00000000-0000-0000-0000-000000000000"
         }
       ]
+    },
+    {
+      "title": "Reallylongcollectionnamethatisallonewordwithoutspaces",
+      "concepts": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "prefLabel": "Long topic name with spaces in sensible places nobody minds",
+          "directType": "http://www.ft.com/ontology/Topic",
+          "url": "https://www.ft.com/stream/00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "prefLabel": "Longtopicnamewithoutspacesthatjustgoesonandonandneverstopspleaseletme",
+          "directType": "http://www.ft.com/ontology/Topic",
+          "url": "https://www.ft.com/stream/00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "prefLabel": "Dog houses",
+          "directType": "http://www.ft.com/ontology/Topic",
+          "url": "https://www.ft.com/stream/00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "prefLabel": "Candlesticks",
+          "directType": "http://www.ft.com/ontology/Topic",
+          "url": "https://www.ft.com/stream/00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "prefLabel": "Sandwiches for strangers",
+          "directType": "http://www.ft.com/ontology/Topic",
+          "url": "https://www.ft.com/stream/00000000-0000-0000-0000-000000000000"
+        }
+      ]
     }
   ]
 }
