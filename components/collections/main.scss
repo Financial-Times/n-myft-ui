@@ -35,10 +35,6 @@
 	margin: 0;
 }
 
-.collection__title-prefix {
-	font-weight: normal;
-}
-
 .collection__concepts {
 	@include oTypographySans($scale: 1);
 	flex-grow: 1;
@@ -67,4 +63,16 @@
 
 .collection__concept-follow {
 	flex: 1;
+}
+
+.collection__meta {
+	border-top: 1px solid rgba(getColor('white'), 0.8);
+	margin-top: 12px;
+	padding-top: 12px;
+	display: flex;
+	justify-content: flex-end;
+
+	.n-myft-follow-button {
+		margin: 0;
+	}
 }

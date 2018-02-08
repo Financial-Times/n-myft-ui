@@ -3,9 +3,6 @@
 	data-trackable="collection">
 	<header class="collection__header">
 		<h2 class="collection__title">
-			<span class="collection__title-prefix">
-				Topic Collection
-			</span>
 			{{title}}
 		</h2>
 	</header>
@@ -21,9 +18,66 @@
 				<div class="collection__concept-follow">
 					{{>	n-myft-ui/myft/templates/follow
 						variant="inverse"
+						name=prefLabel
+						conceptId=id
 					}}
 				</div>
 			</li>
 		{{/concepts}}
 	</ul>
+	<div class="collection__meta">
+		<form
+			method="POST"
+			action="#"
+			data-myft-ui="follow"
+			data-concept-id="
+				{{~#concepts~}}
+					{{id}}
+					{{~#unless @last~}}
+						,
+					{{~/unless~}}
+				{{~/concepts~}}"
+			class="n-myft-ui n-myft-ui--follow collection__follow-all n-ui-hide-core">
+			<input
+				type="hidden"
+				name="directType"
+				value="
+					{{~#concepts~}}
+						{{directType}}
+						{{~#unless @last~}}
+							,
+						{{~/unless~}}
+					{{~/concepts~}}"
+			/>
+			<input
+				type="hidden"
+				name="name"
+				value="
+					{{~#concepts~}}
+						{{prefLabel}}
+					{{~#unless @last~}}
+						,
+					{{~/unless~}}
+				{{~/concepts~}}"
+			/>
+			<button
+				type="submit"
+				aria-label="Add all topics in the {{name}} collection to my F T"
+				aria-pressed="false"
+				class="n-myft-follow-button n-myft-follow-button--inverse"
+				data-alternate-label="Remove all topics in the {{name}} collection from my F T"
+				data-alternate-text="Added"
+				data-trackable="follow"
+				data-concept-id="
+					{{~#concepts~}}
+						{{id}}
+						{{~#unless @last~}}
+							,
+						{{~/unless~}}
+					{{~/concepts~}}"
+				title="Add all topics in the {{name}} collection to my F T">
+				Add all to myFT
+			</button>
+		</form>
+	</div>
 </section>
