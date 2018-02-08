@@ -66,9 +66,10 @@
 }
 
 .collection__meta {
+	@include oTypographyMargin($top: 3, $bottom: 0);
+	@include oTypographyPadding($top: 3, $bottom: 0);
+
 	border-top: 1px solid rgba(getColor('white'), 0.8);
-	margin-top: 12px;
-	padding-top: 12px;
 	display: flex;
 	justify-content: flex-end;
 
