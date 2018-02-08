@@ -18,6 +18,7 @@
 .collection__header {
 	color: getColor('white');
 	overflow: hidden;
+	word-break: break-word;
 
 	&::after {
 		@include oTypographyMargin($top: 2);
@@ -60,6 +61,7 @@
 	color: getColor('white');
 	border-bottom: 0;
 	flex: 5;
+	word-break: break-word;
 
 	&:hover {
 		color: rgba(getColor('white'), 0.8);
