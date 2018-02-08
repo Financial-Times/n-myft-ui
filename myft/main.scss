@@ -219,11 +219,11 @@ $o-overlay-is-silent: true;
 	}
 }
 
-.n-myft-ui__button--instant.n-myft-ui__button--instant-new {
-	$icon-width: 26;
+.n-myft-ui__button--instant.n-myft-ui__button--instant-light {
+	$icon-width: 36;
 	border: 0;
 	padding-left: 8px;
-	padding-right: 26px;
+	padding-right: 36px;
 	color: getColor('black');
 	background: transparent;
 	&:not([disabled]):hover,
@@ -239,11 +239,13 @@ $o-overlay-is-silent: true;
 		@include oIconsGetIcon('mail', getColor('black-30'), $icon-width, $iconset-version: 1);
 		left: auto;
 		right: 1px;
+		margin-top: -18px;
 	}
 	&:not([disabled]):hover:before,
 	&[aria-pressed="true"]::before {
 		@include oIconsGetIcon('mail', getColor('claret'), $icon-width, $iconset-version: 1);
 		left: auto;
 		right: 1px;
+		margin-top: -18px;
 	}
 }

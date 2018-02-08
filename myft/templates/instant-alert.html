@@ -16,7 +16,7 @@
 				{{#variant}} n-myft-ui__button--{{this}}{{/variant}}
 				{{#size}} n-myft-ui__button--{{this}}{{/size}}
 				{{#if showPrioritiseButton}}n-myft-ui__button--instant
-				n-myft-ui__button--instant-new{{/if}}"
+				n-myft-ui__button--instant-light{{/if}}"
 			data-alternate-label="Stop instant alerts for {{name}}"
 			{{#if alternateText}}
 				data-alternate-text="{{alternateText}}"
@@ -34,7 +34,6 @@
 			value="true"
 			type="submit"
 		>{{#if buttonText}}{{buttonText}}{{else}}Instant alerts off{{/if}}</button>
-	</button>
 	</form>
 {{else}}
 	<!-- Instant alert button hidden due to myFtApiWrite being off -->
