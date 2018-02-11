@@ -219,6 +219,13 @@ $o-overlay-is-silent: true;
 	}
 }
 
+.myft-pin-divider {
+	height: 18px;
+	width: 1px;
+	background: getColor('black-10');
+	margin: 0 1px;
+}
+
 .n-myft-ui__button--instant.n-myft-ui__button--instant-light {
 	$icon-width: 36;
 	border: 0;
