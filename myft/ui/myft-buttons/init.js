@@ -7,7 +7,7 @@ import nNotification from 'n-notification';
 import Delegate from 'ftdomdelegate';
 import personaliseLinks from '../personalise-links';
 import doFormSubmit from './do-form-submit';
-import handlePinning from './pin-button';
+import pinning, {findButton} from './pin-button';
 
 const delegate = new Delegate(document.body);
 let initialised;
@@ -79,7 +79,7 @@ const pinButtonEventListeners = () => {
 	myftApiClient.init().then(() => {
 		delegate.on('click', 'button[data-prioritise-button]', event => {
 			event.preventDefault();
-			handlePinning('SPAN' === event.target.tagName ? event.target.parentNode : event.target);
+			pinning(findButton(event.target));
 		});
 	});
 };
