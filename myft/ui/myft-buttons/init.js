@@ -1,3 +1,4 @@
+import myftApiClient from 'next-myft-client';
 import * as buttonStates from '../lib/button-states';
 import * as tracking from '../lib/tracking';
 import * as loadedRelationships from '../lib/loaded-relationships';
@@ -6,6 +7,7 @@ import nNotification from 'n-notification';
 import Delegate from 'ftdomdelegate';
 import personaliseLinks from '../personalise-links';
 import doFormSubmit from './do-form-submit';
+import handlePinning from './pin-button';
 
 const delegate = new Delegate(document.body);
 let initialised;
@@ -73,6 +75,15 @@ function signedInEventListeners () {
 	});
 }
 
+const pinButtonEventListeners = () => {
+	myftApiClient.init().then(() => {
+		delegate.on('click', 'button[data-prioritise-button]', event => {
+			event.preventDefault();
+			handlePinning('SPAN' === event.target.tagName ? event.target.parentNode : event.target);
+		});
+	});
+};
+
 export default function (opts) {
 	if (initialised) {
 		return;
@@ -84,6 +95,9 @@ export default function (opts) {
 		} else {
 			signedInEventListeners();
 			personaliseLinks();
+			if(opts.flags && opts.flags.get('myftPrioritiseTopics')) {
+				pinButtonEventListeners();
+			}
 		}
 	}
 }
