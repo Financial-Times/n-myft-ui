@@ -1,3 +1,5 @@
+@import '../mixins/lozenge/main';
+
 $icon-width-s: 90px;
 $icon-width-m: 90px;
 
@@ -99,11 +101,17 @@ $icon-width-m: 90px;
 }
 
 .n-myft-digest-promo__cta-btn {
+	@include myftLozenge($with-toggle-icon: true);
 	display: inline-block;
 	text-transform: none;
 	min-width: 134px;
 	width: 134px;
 	margin-left: 80px;
+
+	&[disabled] {
+		min-width: 55px;
+		width: 55px;
+	}
 
 	@include oGridRespondTo('M') {
 		margin-left: 0;

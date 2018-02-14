@@ -76,6 +76,7 @@ return Promise.all([
 	]).then(() => {
 		buttons.toggleState(btn, true);
 		btn.setAttribute('disabled', true);
+		btn.setAttribute('aria-pressed', true);
 	});
 }
 
