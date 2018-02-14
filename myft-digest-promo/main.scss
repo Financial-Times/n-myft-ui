@@ -77,6 +77,7 @@ $icon-width-m: 90px;
 }
 
 .n-myft-digest-promo__para {
+	@include oTypographySans($scale: -1);
 	margin-top: 0;
 }
 
@@ -87,22 +88,24 @@ $icon-width-m: 90px;
 
 .n-myft-digest-promo__cta-wrapper {
 	display: flex;
-	overflow: auto;
 	align-items: flex-end;
-	justify-content: flex-end;
+	justify-content: unset;
 	padding-bottom: $spacing-unit;
 	clear: both;
+
+	@include oGridRespondTo('M') {
+		justify-content: flex-end;
+	}
 }
 
 .n-myft-digest-promo__cta-btn {
 	display: inline-block;
 	text-transform: none;
-	width: 100%;
+	min-width: 134px;
+	width: 134px;
 	margin-left: 80px;
 
 	@include oGridRespondTo('M') {
-		min-width: 150px;
-		width: 150px;
 		margin-left: 0;
 		float: right;
 	}
