@@ -79,8 +79,8 @@ const pinButtonEventListeners = () => {
 	myftApiClient.init().then(() => {
 		delegate.on('click', 'button[data-prioritise-button]', event => {
 			event.preventDefault();
-			pinning(findButton(event.target));
 			setLoading(event.target);
+			pinning(findButton(event.target));
 		});
 	});
 };
