@@ -10,6 +10,7 @@
 	overflow: visible;
 	background: getColor('claret');
 	height: 100%;
+	box-sizing: border-box;
 
 	@include oGridRespondTo(M) {
 		margin-top: oGridGutter(M);
