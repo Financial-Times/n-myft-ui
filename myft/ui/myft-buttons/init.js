@@ -7,7 +7,7 @@ import nNotification from 'n-notification';
 import Delegate from 'ftdomdelegate';
 import personaliseLinks from '../personalise-links';
 import doFormSubmit from './do-form-submit';
-import pinning, {findButton} from './pin-button';
+import pinning, {findButton, setLoading} from './pin-button';
 
 const delegate = new Delegate(document.body);
 let initialised;
@@ -80,6 +80,7 @@ const pinButtonEventListeners = () => {
 		delegate.on('click', 'button[data-prioritise-button]', event => {
 			event.preventDefault();
 			pinning(findButton(event.target));
+			setLoading(event.target);
 		});
 	});
 };

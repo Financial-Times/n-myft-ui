@@ -226,6 +226,36 @@ $o-overlay-is-silent: true;
 	margin: 0 1px;
 }
 
+.myft-pin-button-wrapper.loading {
+	position: relative;
+	form {
+		visibility: hidden;
+	}
+	&:after {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		content: " ";
+		display: block;
+		width: 12px;
+		height: 12px;
+		margin: 0 auto;
+		border-radius: 50%;
+		border: 3px solid getColor('black-40');
+		border-color: getColor('black-40') transparent getColor('black-40') transparent;
+		animation: lds-dual-ring 1.2s linear infinite;
+		@keyframes lds-dual-ring {
+			0% {
+				transform: translate(-50%, -50%) rotate(0deg);
+			}
+			100% {
+				transform: translate(-50%, -50%) rotate(360deg);
+			}
+		}
+	}
+}
+
 .n-myft-ui__button--instant.n-myft-ui__button--instant-light {
 	$icon-width: 36;
 	border: 0;

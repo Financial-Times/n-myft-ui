@@ -1,12 +1,14 @@
 {{#if showPrioritiseButton}}
 <span class="myft-pin-divider"></span>
-<form method="post" action="/__myft/api/core/prioritised/concept/{{id}}?method={{#if prioritised}}delete{{else}}put{{/if}}">
-	<input type="hidden" value="{{name}}" name="name"> {{#if directType}}
-	<input type="hidden" value="{{directType}}" name="directType"> {{else}}
-	<input type="hidden" value="http://www.ft.com/ontology/concept/Concept" name="directType"> {{/if}}
-	<button class="myft-pin-button" data-prioritise-button data-trackable data-concept-id="{{id}}" data-prioritised="{{#if prioritised}}true{{else}}false{{/if}}"
-		{{#if prioritised}}aria-pressed="true" {{/if}}>
-		<span class="o-buttons-icon__label">{{#if prioritised}}Unpin{{else}}Pin{{/if}}</span>
-	</button>
-</form>
+<div class="myft-pin-button-wrapper">
+	<form method="post" action="/__myft/api/core/prioritised/concept/{{id}}?method={{#if prioritised}}delete{{else}}put{{/if}}">
+		<input type="hidden" value="{{name}}" name="name"> {{#if directType}}
+		<input type="hidden" value="{{directType}}" name="directType"> {{else}}
+		<input type="hidden" value="http://www.ft.com/ontology/concept/Concept" name="directType"> {{/if}}
+		<button class="myft-pin-button" data-prioritise-button data-trackable data-concept-id="{{id}}" data-prioritised="{{#if prioritised}}true{{else}}false{{/if}}"
+			{{#if prioritised}}aria-pressed="true" {{/if}}>
+			<span class="o-buttons-icon__label">{{#if prioritised}}Unpin{{else}}Pin{{/if}}</span>
+		</button>
+	</form>
+</div>
 {{/if}}

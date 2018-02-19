@@ -11,6 +11,11 @@ export const findButton = element =>
 		? element
 		: findButton(element.parentNode);
 
+export const setLoading = element =>
+	element && element.classList.contains('myft-pin-button-wrapper')
+		? element.classList.add('loading')
+		: setLoading(element.parentNode);
+
 export default node => {
 	const uuid = node.dataset.conceptId;
 	const action =
