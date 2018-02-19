@@ -43,6 +43,8 @@
 }
 
 .collection__meta {
+	@include oTypographyPadding($top: 4);
+
 	.n-myft-follow-button {
 		margin: 0;
 	}
