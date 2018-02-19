@@ -197,66 +197,6 @@ $o-overlay-is-silent: true;
 	}
 }
 
-.myft-pin-button {
-	@include oButtons();
-	background-color: transparent;
-	border: 0;
-	padding: 0;
-	min-width: 28px;
-	&[aria-pressed=true],
-	&:not([disabled]):hover {
-		background-color: transparent;
-		border: 0;
-	}
-}
-
-.myft-pin-button {
-	$icon-width: 36;
-	@include oButtonsIconButton($icon-name: pin, $is-icon-only: true);
-	@include oIconsGetIcon('pin', getColor('black-40'), $icon-width, $iconset-version: 1);
-	&[aria-pressed=true],
-	&:not([disabled]):hover {
-		@include oIconsGetIcon('pin', getColor('claret'), $icon-width, $iconset-version: 1);
-	}
-}
-
-.myft-pin-divider {
-	height: 18px;
-	width: 1px;
-	background: getColor('black-10');
-	margin: 0 1px;
-}
-
-.myft-pin-button-wrapper.loading {
-	position: relative;
-	form {
-		visibility: hidden;
-	}
-	&:after {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		content: " ";
-		display: block;
-		width: 12px;
-		height: 12px;
-		margin: 0 auto;
-		border-radius: 50%;
-		border: 3px solid getColor('black-40');
-		border-color: getColor('black-40') transparent getColor('black-40') transparent;
-		animation: lds-dual-ring 1.2s linear infinite;
-		@keyframes lds-dual-ring {
-			0% {
-				transform: translate(-50%, -50%) rotate(0deg);
-			}
-			100% {
-				transform: translate(-50%, -50%) rotate(360deg);
-			}
-		}
-	}
-}
-
 .n-myft-ui__button--instant.n-myft-ui__button--instant-light {
 	$icon-width: 36;
 	border: 0;
