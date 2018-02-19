@@ -9,6 +9,7 @@
 	margin-top: oGridGutter();
 	overflow: visible;
 	background: getColor('claret');
+	height: 100%;
 
 	@include oGridRespondTo(M) {
 		margin-top: oGridGutter(M);
@@ -19,15 +20,6 @@
 	color: getColor('white');
 	overflow: hidden;
 	word-break: break-word;
-
-	&::after {
-		@include oTypographyMargin($top: 2);
-		content: '';
-		display: block;
-		width: 85px;
-		height: 4px;
-		background: getColor('white');
-	}
 }
 
 .collection__title {
@@ -37,43 +29,30 @@
 
 .collection__concepts {
 	@include oTypographySans($scale: 1);
+	@include oTypographyPadding($top: 4, $bottom: 0);
+	margin: 0;
+	margin-left: -3px;
+	padding-left: 0;
+	padding-right: 0;
 	flex-grow: 1;
 	list-style: none;
-	margin: 0;
-	padding: 0;
 }
 
 .collection__concept {
-	display: flex;
-	align-items: center;
-	margin: 8px 0;
-}
-
-.collection__concept-link {
-	@include oTypographySansBold($scale: 1, $progressive: true);
-	color: getColor('white');
-	border-bottom: 0;
-	flex: 5;
-	word-break: break-word;
-
-	&:hover {
-		color: rgba(getColor('white'), 0.8);
-	}
-}
-
-.collection__concept-follow {
-	flex: 1;
+	display: inline-block;
 }
 
 .collection__meta {
-	@include oTypographyMargin($top: 3, $bottom: 0);
-	@include oTypographyPadding($top: 3, $bottom: 0);
-
-	border-top: 1px solid rgba(getColor('white'), 0.8);
-	display: flex;
-	justify-content: flex-end;
-
 	.n-myft-follow-button {
 		margin: 0;
 	}
+}
+
+.collection-follow-all__button {
+	@include oButtons();
+	@include oButtonsTheme($theme: (
+		background: 'claret',
+		accent: 'white',
+		colorizer: 'claret'
+	));
 }

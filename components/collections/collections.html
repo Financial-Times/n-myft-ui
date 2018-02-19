@@ -9,19 +9,12 @@
 	<ul class="collection__concepts">
 		{{#concepts}}
 			<li class="collection__concept">
-				<a
-					class="collection__concept-link"
-					href="{{url}}"
-					data-trackable="concept">
-					{{prefLabel}}
-				</a>
-				<div class="collection__concept-follow">
-					{{>	n-myft-ui/myft/templates/follow
-						variant="inverse"
-						name=prefLabel
-						conceptId=id
-					}}
-				</div>
+				{{>	n-myft-ui/myft/templates/follow
+					variant="inverse"
+					name=prefLabel
+					conceptId=id
+					buttonText=prefLabel
+				}}
 			</li>
 		{{/concepts}}
 	</ul>
@@ -37,7 +30,7 @@
 						,
 					{{~/unless~}}
 				{{~/concepts~}}"
-			class="n-myft-ui n-myft-ui--follow collection__follow-all n-ui-hide-core">
+			class="n-myft-ui n-myft-ui--follow n-ui-hide-core collection-follow-all">
 			<input
 				type="hidden"
 				name="directType"
@@ -64,10 +57,10 @@
 				type="submit"
 				aria-label="Add all topics in the {{name}} collection to my F T"
 				aria-pressed="false"
-				class="n-myft-follow-button n-myft-follow-button--inverse"
+				class="collection-follow-all__button"
 				data-alternate-label="Remove all topics in the {{name}} collection from my F T"
 				data-alternate-text="Added"
-				data-trackable="follow"
+				data-trackable="follow all"
 				data-concept-id="
 					{{~#concepts~}}
 						{{id}}
