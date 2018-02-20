@@ -45,7 +45,7 @@
 		margin: 0 auto;
 		border-radius: 50%;
 		border: 3px solid getColor('black-40');
-		border-color: getColor('black-40') transparent getColor('black-40') transparent;
+		border-color: getColor('black-40') transparent;
 		animation: lds-dual-ring 1.2s linear infinite;
 		@keyframes lds-dual-ring {
 			0% {
