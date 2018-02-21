@@ -11,9 +11,7 @@
 			<li class="collection__concept">
 				{{>	n-myft-ui/myft/templates/follow
 					variant="inverse"
-					name=prefLabel
-					conceptId=id
-					buttonText=prefLabel
+					buttonText=name
 				}}
 			</li>
 		{{/concepts}}
@@ -25,7 +23,7 @@
 			data-myft-ui="follow"
 			data-concept-id="
 				{{~#concepts~}}
-					{{id}}
+					{{conceptId}}
 					{{~#unless @last~}}
 						,
 					{{~/unless~}}
@@ -47,7 +45,7 @@
 				name="name"
 				value="
 					{{~#concepts~}}
-						{{prefLabel}}
+						{{name}}
 					{{~#unless @last~}}
 						,
 					{{~/unless~}}
@@ -55,20 +53,20 @@
 			/>
 			<button
 				type="submit"
-				aria-label="Add all topics in the {{name}} collection to my F T"
+				aria-label="Add all topics in the {{title}} collection to my F T"
 				aria-pressed="false"
 				class="collection-follow-all__button"
-				data-alternate-label="Remove all topics in the {{name}} collection from my F T"
+				data-alternate-label="Remove all topics in the {{title}} collection from my F T"
 				data-alternate-text="Added"
 				data-trackable="follow all"
 				data-concept-id="
 					{{~#concepts~}}
-						{{id}}
+						{{conceptId}}
 						{{~#unless @last~}}
 							,
 						{{~/unless~}}
 					{{~/concepts~}}"
-				title="Add all topics in the {{name}} collection to my F T">
+				title="Add all topics in the {{title}} collection to my F T">
 				Add all to myFT
 			</button>
 		</form>
