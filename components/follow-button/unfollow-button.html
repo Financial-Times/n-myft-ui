@@ -3,19 +3,6 @@
 	data-concept-id="{{conceptId}}"
 	action="/__myft/api/core/followed/concept/{{conceptId}}?method=delete">
 	<input type="hidden" value="{{name}}" name="name">
-	{{#if directType}}
-		<input
-			type="hidden"
-			value="{{directType}}"
-			name="directType"
-		/>
-	{{else}}
-		<input
-			type="hidden"
-			value="http://www.ft.com/ontology/concept/Concept"
-			name="directType"
-		/>
-	{{/if}}
 	<button
 		aria-label="Remove {{name}} from myFT"
 		aria-pressed="true"

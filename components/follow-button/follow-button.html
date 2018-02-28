@@ -13,24 +13,6 @@
 			action="/__myft/api/core/followed/concept/{{conceptId}}?method=put"
 		{{/ifAll}}
 	{{/if}}>
-	<input
-		type="hidden"
-		value="{{name}}"
-		name="name"
-	/>
-	{{#if directType}}
-		<input
-			type="hidden"
-			value="{{directType}}"
-			name="directType"
-		/>
-	{{else}}
-		<input
-			type="hidden"
-			value="http://www.ft.com/ontology/concept/Concept"
-			name="directType"
-		/>
-	{{/if}}
 	<button
 		{{#ifAll setFollowButtonStateToSelected @root._locals.cacheablePersonalisedUrl}}
 			aria-label="Remove {{name}} from myFT"
