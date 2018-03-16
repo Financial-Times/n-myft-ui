@@ -1,0 +1,25 @@
+.o-header__top-link--myft__container {
+	.o-tooltip-content {
+		text-align: left;
+		padding-top: 30px;
+	}
+}
+
+.o-header__top-link--myft__dot {
+	display: inline-block;
+	background-color: getColor('crimson');
+	border-radius: 50%;
+	opacity: 0.7;
+	width: 15px;
+	height: 15px;
+	position: absolute;
+	top: 30px;
+	right: 13px;
+	cursor: pointer;
+}
+
+.myft-notification__button--mark-as-read {
+	@include oButtons($theme: mono);
+	@include oTypographyMargin($bottom: 4);
+	float: right;
+}
