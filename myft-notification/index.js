@@ -81,10 +81,10 @@ export default async () => {
 				position: 'below'
 			});
 
-			document.querySelector('.myft-notification__button--mark-as-read').addEventListener('click', () => {
-				document.querySelector('.o-tooltip-close').click();
+			myFtIconContainer.querySelector('.myft-notification__button--mark-as-read').addEventListener('click', () => {
+				myFtIconContainer.querySelector('.o-tooltip-close').click();
 				window.localStorage.setItem('timeUserDismissed', Date.now());
-				document.querySelector('.o-header__top-link--myft__dot').classList.add('hidden');
+				myFtIconContainer.querySelector('.o-header__top-link--myft__dot').classList.add('hidden');
 			});
 		});
 		// .catch(err => {
