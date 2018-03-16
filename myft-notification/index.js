@@ -25,12 +25,17 @@ query MyFT($uuid: String!) {
 	}
 `;
 
-const setNotificationDot = () => {
-	const myFtIconContainer = document.querySelector('.o-header__top-link--myft__container');
-	const notificationDot = document.createElement('div');
-	notificationDot.setAttribute('class', 'o-header__top-link--myft__dot');
-	notificationDot.setAttribute('id', 'myft-notification-tooltip-target');
-	myFtIconContainer.appendChild(notificationDot);
+const setNotificationDot = (container, tooltipTarget) => {
+	const div = document.createElement('div');
+	div.setAttribute('class', 'o-header__top-link--myft__dot');
+	div.setAttribute('id', tooltipTarget);
+	container.appendChild(div);
+};
+
+const setTooltipElementDiv = (container, tooltipEl) => {
+	const div = document.createElement('div');
+	div.setAttribute('class', tooltipEl);
+	container.appendChild(div);
 };
 
 const hasUserDismissedNotification = (data) => {
@@ -63,14 +68,14 @@ export default async () => {
 				return;
 			};
 
-			setNotificationDot();
-			const tooltipEl = document.querySelector('.myft-notification-tooltip-element');
-			if (!tooltipEl) {
-				return;
-			}
+			const myFtIconContainer = document.querySelector('.o-header__top-link--myft__container');
+			const tooltipTarget = 'myft-notification-tooltip-target';
+			const tooltipEl = 'myft-notification-tooltip-element';
+			setNotificationDot(myFtIconContainer, tooltipTarget);
+			setTooltipElementDiv(myFtIconContainer, tooltipEl);
 
-			new Tooltip(tooltipEl, {
-				target: 'myft-notification-tooltip-target',
+			new Tooltip(document.querySelector(`.${tooltipEl}`), {
+				target: tooltipTarget,
 				content: template({items: data.articles}),
 				showOnClick: true,
 				position: 'below'
