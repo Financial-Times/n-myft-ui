@@ -1,7 +1,9 @@
 .o-header__top-link--myft__container {
-	.o-tooltip-content {
-		text-align: left;
-		padding-top: 30px;
+	#myft-notification-tooltip-target + .o-tooltip {
+		.o-tooltip-content {
+			text-align: left;
+			padding-top: 30px;
+		}
 	}
 }
 
