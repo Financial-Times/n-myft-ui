@@ -1,3 +1,6 @@
+$o-tooltip-is-silent : false;
+@import 'o-tooltip/main';
+
 .o-header__top-link--myft__container {
 	#myft-notification-tooltip-target + .o-tooltip {
 		.o-tooltip-content {
