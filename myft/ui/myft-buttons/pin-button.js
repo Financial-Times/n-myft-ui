@@ -1,4 +1,15 @@
 const myftApiClient = require('next-myft-client');
+const trackingMessageId = 'myft-onboarding-pinning-promo';
+
+const trackPinningAction = ({action}) =>
+	new CustomEvent('oTracking.event', {
+		detail: {
+			category: 'component',
+			messaging: trackingMessageId,
+			action
+		},
+		bubbles: true
+	});
 
 const prioritise = uuid =>
 	myftApiClient.add('user', null, 'prioritised', 'concept', uuid);
@@ -21,4 +32,9 @@ export default node => {
 	const action =
 		node.dataset.prioritised === 'true' ? unprioritise : prioritise;
 	action(uuid);
+
+	// These custom events are used by envoy so we know when to show or hide promos
+	document.body.dispatchEvent(trackPinningAction({
+		action: 'act'
+	}));
 };

@@ -6,25 +6,25 @@
 }
 
 .myft-pin-button {
+	$icon-width: 36;
 	@include oButtons();
+	@include oButtonsIconButton($icon-name: pin, $is-icon-only: true);
+	@include oIconsGetIcon('pin', getColor('black-40'), $icon-width, $iconset-version: 1);
 	background-color: transparent;
 	border: 0;
 	padding: 0;
 	min-width: 28px;
 	&[aria-pressed=true],
 	&:not([disabled]):hover {
+		@include oIconsGetIcon('pin', getColor('claret'), $icon-width, $iconset-version: 1);
 		background-color: transparent;
 		border: 0;
 	}
 }
 
-.myft-pin-button {
-	$icon-width: 36;
-	@include oButtonsIconButton($icon-name: pin, $is-icon-only: true);
-	@include oIconsGetIcon('pin', getColor('black-40'), $icon-width, $iconset-version: 1);
-	&[aria-pressed=true],
-	&:not([disabled]):hover {
-		@include oIconsGetIcon('pin', getColor('claret'), $icon-width, $iconset-version: 1);
+.myft-pin-button-wrapper {
+	.o-tooltip {
+		min-width: 287px;
 	}
 }
 

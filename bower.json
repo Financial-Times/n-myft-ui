@@ -21,6 +21,9 @@
     "next-myft-client": "^7.0.0",
     "o-overlay": "^2.0.0",
     "o-forms": "^5.0.0",
-    "o-errors": "^3.5.2"
+    "o-errors": "^3.5.2",
+    "o-tooltip": "^3.1.1",
+    "next-session-client": "^2.3.4",
+    "fetchres": "^1.7.2"
   }
 }

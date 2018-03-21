@@ -6,14 +6,12 @@
 	position: relative;
 	width: auto;
 	padding: 12px;
-	margin-top: oGridGutter();
 	overflow: visible;
 	background: getColor('claret-70');
-	height: 100%;
 	box-sizing: border-box;
 
 	@include oGridRespondTo(M) {
-		margin-top: oGridGutter(M);
+		height: 100%;
 	}
 }
 
