@@ -1,26 +1,38 @@
 $o-tooltip-is-silent : false;
 @import 'o-tooltip/main';
 
-.o-header__top-link--myft__container {
-	#myft-notification-tooltip-target + .o-tooltip {
-		.o-tooltip-content {
-			text-align: left;
-			padding-top: 30px;
-		}
+#header__myft-notification-tooltip--target + .o-tooltip {
+	.o-tooltip-content {
+		text-align: left;
+		padding-top: 30px;
 	}
 }
 
-.o-header__top-link--myft__dot {
-	display: inline-block;
-	background-color: getColor('crimson');
-	border-radius: 50%;
-	opacity: 0.7;
-	width: 15px;
-	height: 15px;
-	position: absolute;
-	top: 30px;
-	right: 13px;
+.myft-notification__container--flex {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.myft-notification__icon {
+	position: relative;
 	cursor: pointer;
+	align-self: center;
+	@include oIconsGetIcon('notifications', oColorsGetPaletteColor('black'), 32);
+}
+
+.myft-notification__icon--with-dot {
+	&:after {
+		content: '';
+		background: oColorsGetPaletteColor('claret');
+		border-radius: 50%;
+		width: 8px;
+		height: 8px;
+		display: block;
+		position: absolute;
+		right: 4px;
+		top: 2px;
+	}
 }
 
 .myft-notification__button--mark-as-read {
