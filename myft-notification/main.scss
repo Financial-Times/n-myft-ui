@@ -1,11 +1,8 @@
-$o-tooltip-is-silent : false;
-@import 'o-tooltip/main';
+$o-expander-is-silent : false;
+@import 'o-expander/main';
 
 #header__myft-notification-tooltip--target + .o-tooltip {
-	.o-tooltip-content {
-		text-align: left;
-		padding-top: 30px;
-	}
+
 }
 
 .myft-notification__container--flex {
@@ -14,11 +11,14 @@ $o-tooltip-is-silent : false;
 	align-items: center;
 }
 
-.myft-notification__icon {
+.o-expander__toggle.myft-notification__icon {
 	position: relative;
 	cursor: pointer;
 	align-self: center;
 	@include oIconsGetIcon('notifications', oColorsGetPaletteColor('black'), 32);
+	i {
+		display: none;
+	}
 }
 
 .myft-notification__icon--with-dot {
@@ -35,8 +35,34 @@ $o-tooltip-is-silent : false;
 	}
 }
 
-.myft-notification__button--mark-as-read {
-	@include oButtons($theme: mono);
+.myft-notification__content {
+	background: oColorsGetPaletteColor('white');
+	padding: 20px;
+	text-align: left;
+	white-space: normal;
+	@include nUiZIndexFor('welcome');
+	@include oVisualEffectsShadowsElevation('ultralow', getColor('black'));
+	position: absolute;
+	right: oGridGutter(M);
+	width: 260px;
+
+	h1 {
+		@include oTypographyMargin($top: 0, $bottom: 4);
+		@include oTypographySansBold($scale: 0);
+	}
+	.o-teaser__heading {
+		@include oTypographySans($scale: 0);
+	}
+	.o-teaser--small {
+		border-bottom: 0;
+		border-top: 1px solid oColorsMix(black, white, 20);
+		@include oTypographyPadding($top: 3, $bottom: 0);
+		@include oTypographyMargin($bottom: 3);
+	}
+}
+
+.myft-notification__button--all-stories {
+	width: 260px;
+	@include oButtons($theme: primary);
 	@include oTypographyMargin($bottom: 4);
-	float: right;
 }

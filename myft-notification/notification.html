@@ -1,7 +1,8 @@
-<div data-o-grid-colspan="12">
+<div class="o-expander__toggle o--if-js myft-notification__icon {{#if withDot}}myft-notification__icon--with-dot{{/if}}"></div>
+<div class="o-expander__content myft-notification__content">
+	<h1>MyFT Daily Digest - {{PublishedDateFormatted}}</h1>
 	{{#slice items offset=0 limit=5}}
-		{{>n-teaser/templates/extra-light mods=(array 'small')}}
+		{{>n-teaser/templates/extra-light mods=(array 'small') noTag=true}}
 	{{/slice}}
-
-	<button class="myft-notification__button--mark-as-read">Mark as read</button>
+	<button class="myft-notification__button--all-stories">See all stories</button>
 </div>

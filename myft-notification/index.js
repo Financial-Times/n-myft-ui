@@ -1,6 +1,6 @@
 // !! this feature is for a short experiment only !!
-
-import Tooltip from 'o-tooltip';
+import oExpander from 'o-expander';
+import oDate from 'o-date';
 import getUuidFromSession from './get-uuid-from-session';
 import { fragments as teaserFragments } from '@financial-times/n-teaser';
 import { json as fetchJson } from 'fetchres';
@@ -9,8 +9,6 @@ import template from './notification.html';
 
 const digestQuery = `
 ${teaserFragments.teaserExtraLight}
-${teaserFragments.teaserLight}
-${teaserFragments.teaserStandard}
 
 query MyFT($uuid: String!) {
 		user(uuid: $uuid) {
@@ -19,41 +17,40 @@ query MyFT($uuid: String!) {
 				publishedDate
 				articles {
 					...TeaserExtraLight
-					...TeaserLight
-					...TeaserStandard
 				}
 			}
 		}
 	}
 `;
 
-const insertMyFtNotification = (notification, data, withDot) => {
-	const tooltipTarget = `${notification.place}__myft-notification-tooltip--target`;
-	const tooltipElement = `${notification.place}__myft-notification-tooltip--element`;
-	setNotification(notification.container, tooltipTarget, withDot);
-	setTooltipElementDiv(notification.container, tooltipElement);
-	new Tooltip(document.querySelector(`.${tooltipElement}`), {
-		target: tooltipTarget,
-		content: template({items: data.articles}),
-		toggleOnClick: true,
-		position: 'below'
+// const setDateSuffix = (i) => {
+// 	const j = i % 10;
+// 	if (j === 1) {
+// 		return i + 'st';
+// 	}
+// 	if (j === 2) {
+// 		return i + 'nd';
+// 	}
+// 	if (j === 3) {
+// 		return i + 'rd';
+// 	}
+// 	return i + 'th';
+// }
+
+const insertMyFtNotification = (notification, data, withDot, flags) => {
+	const publishedDate = new Date(Date.parse(data.publishedDate));
+	const PublishedDateFormatted = `${publishedDate.getDate()}/${publishedDate.getMonth()+1}/${publishedDate.getFullYear()}`;
+	const div = document.createElement('div');
+	div.setAttribute('class', 'o-expander myft-notification');
+	div.setAttribute('data-o-component', 'o-expander');
+	div.setAttribute('data-o-expander-shrink-to', 'hidden');
+	notification.container.appendChild(div);
+	notification.container.querySelector('.myft-notification').innerHTML = template({ items: data.articles, PublishedDateFormatted, flags, withDot});
+	oExpander.init(notification.container.querySelector('.myft-notification'), {
+		expandedToggleText: '',
+		collapsedToggleText: '',
+		shrinkTo: 'hidden'
 	});
-};
-
-const setNotification = (container, tooltipTarget, withDot) => {
-	const div = document.createElement('div');
-	div.setAttribute('class', 'myft-notification__icon');
-	if (withDot) {
-		div.classList.add('myft-notification__icon--with-dot');
-	}
-	div.setAttribute('id', tooltipTarget);
-	container.appendChild(div);
-};
-
-const setTooltipElementDiv = (container, tooltipEl) => {
-	const div = document.createElement('div');
-	div.setAttribute('class', tooltipEl);
-	container.appendChild(div);
 };
 
 const hasUserDismissedNotification = (data) => {
@@ -73,7 +70,7 @@ const hasUserClickedNotification = (data) => {
 };
 
 
-export default async () => {
+export default async (flags) => {
 	const myFtIcon = document.querySelector('.o-header__top-link--myft');
 	const userId = await getUuidFromSession();
 
@@ -109,9 +106,9 @@ export default async () => {
 
 			if (notifications.length > 0) {
 				notifications.forEach(notification => {
-					insertMyFtNotification(notification, data, withDot);
-
-					notification.container.querySelector('.o-tooltip').addEventListener('oTooltip.show', () => {
+					insertMyFtNotification(notification, data, withDot, flags);
+					oDate.init(notification.container.querySelector('.myft-notification'));
+					notification.container.querySelector('.o-expander').addEventListener('oExpander.expand', () => {
 						window.localStorage.setItem('timeUserClickedMyftNotification', Date.now());
 						document.querySelectorAll('.myft-notification__icon').forEach(icon => {
 							icon.classList.remove('myft-notification__icon--with-dot');
