@@ -1,23 +1,25 @@
 $o-expander-is-silent : false;
 @import 'o-expander/main';
 
-#header__myft-notification-tooltip--target + .o-tooltip {
-
+.sticky-header__myft-notification,
+.header__myft-notification {
+	align-self: center;
 }
 
 .myft-notification__container--flex {
 	display: flex;
 	justify-content: flex-end;
-	align-items: center;
 }
 
-.o-expander__toggle.myft-notification__icon {
-	position: relative;
-	cursor: pointer;
-	align-self: center;
-	@include oIconsGetIcon('notifications', oColorsGetPaletteColor('black'), 32);
-	i {
-		display: none;
+.myft-notification__icon {
+	&.o-expander__toggle {
+		position: relative;
+		cursor: pointer;
+		align-self: center;
+		@include oIconsGetIcon('notifications', oColorsGetPaletteColor('black'), 32);
+		i {
+			display: none;
+		}
 	}
 }
 
@@ -45,6 +47,14 @@ $o-expander-is-silent : false;
 	position: absolute;
 	right: oGridGutter(M);
 	width: 260px;
+
+	.o-header--sticky & {
+		visibility: hidden;
+	}
+
+	.o-header--sticky-active & {
+		visibility: visible;
+	}
 
 	h1 {
 		@include oTypographyMargin($top: 0, $bottom: 4);

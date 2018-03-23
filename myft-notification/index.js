@@ -6,6 +6,7 @@ import { fragments as teaserFragments } from '@financial-times/n-teaser';
 import { json as fetchJson } from 'fetchres';
 import slimQuery from './slim-query';
 import template from './notification.html';
+import controlNotifications from './control-expand-collapse'
 
 const digestQuery = `
 ${teaserFragments.teaserExtraLight}
@@ -41,12 +42,12 @@ const insertMyFtNotification = (notification, data, withDot, flags) => {
 	const publishedDate = new Date(Date.parse(data.publishedDate));
 	const PublishedDateFormatted = `${publishedDate.getDate()}/${publishedDate.getMonth()+1}/${publishedDate.getFullYear()}`;
 	const div = document.createElement('div');
-	div.setAttribute('class', 'o-expander myft-notification');
+	div.setAttribute('class', `o-expander ${notification.className} myft-notification`);
 	div.setAttribute('data-o-component', 'o-expander');
-	div.setAttribute('data-o-expander-shrink-to', 'hidden');
 	notification.container.appendChild(div);
-	notification.container.querySelector('.myft-notification').innerHTML = template({ items: data.articles, PublishedDateFormatted, flags, withDot});
-	oExpander.init(notification.container.querySelector('.myft-notification'), {
+	const notificationDOM = notification.container.querySelector(`.${notification.className}`);
+	notificationDOM.innerHTML = template({ items: data.articles, PublishedDateFormatted, flags, withDot});
+	oExpander.init(notificationDOM, {
 		expandedToggleText: '',
 		collapsedToggleText: '',
 		shrinkTo: 'hidden'
@@ -98,16 +99,24 @@ export default async (flags) => {
 
 			let notifications = [];
 
+			const myFtIconStickyHeader = document.querySelector('.o-header--sticky .o-header__top-column--right');
+			if (myFtIconStickyHeader) {
+				notifications.push({ container: myFtIconStickyHeader, className: 'sticky-header__myft-notification' });
+			}
+
 			const myFtIconHeader = document.querySelector('.o-header__top-wrapper .o-header__top-link--myft__container');
 			if (myFtIconHeader) {
 				myFtIconHeader.classList.add('myft-notification__container--flex');
-				notifications.push({ container: myFtIconHeader, place: 'header' });
+				notifications.push({ container: myFtIconHeader, className: 'header__myft-notification' });
 			}
 
 			if (notifications.length > 0) {
 				notifications.forEach(notification => {
+
 					insertMyFtNotification(notification, data, withDot, flags);
 					oDate.init(notification.container.querySelector('.myft-notification'));
+					controlNotifications.init();
+
 					notification.container.querySelector('.o-expander').addEventListener('oExpander.expand', () => {
 						window.localStorage.setItem('timeUserClickedMyftNotification', Date.now());
 						document.querySelectorAll('.myft-notification__icon').forEach(icon => {
@@ -115,13 +124,13 @@ export default async (flags) => {
 						});
 					});
 
-					notification.container.querySelector('.myft-notification__button--mark-as-read').addEventListener('click', () => {
-						notification.container.querySelector(`#${notification.place}__myft-notification-tooltip--target + .o-tooltip .o-tooltip-close`).click();
-						window.localStorage.setItem('timeUserDismissedMyftNotification', Date.now());
-						document.querySelectorAll('.myft-notification__icon').forEach(icon => {
-							icon.classList.add('hidden');
-						});
-					});
+					// notification.container.querySelector('.myft-notification__button--mark-as-read').addEventListener('click', () => {
+					// 	notification.container.querySelector(`#${notification.place}__myft-notification-tooltip--target + .o-tooltip .o-tooltip-close`).click();
+					// 	window.localStorage.setItem('timeUserDismissedMyftNotification', Date.now());
+					// 	document.querySelectorAll('.myft-notification__icon').forEach(icon => {
+					// 		icon.classList.add('hidden');
+					// 	});
+					// });
 
 				});
 			}
