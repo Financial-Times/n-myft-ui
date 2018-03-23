@@ -6,7 +6,7 @@ import { fragments as teaserFragments } from '@financial-times/n-teaser';
 import { json as fetchJson } from 'fetchres';
 import slimQuery from './slim-query';
 import template from './notification.html';
-import controlNotifications from './control-expand-collapse'
+import controlNotifications from './control-expand-collapse';
 
 const digestQuery = `
 ${teaserFragments.teaserExtraLight}
