@@ -35,14 +35,13 @@ $o-expander-is-silent : false;
 
 .myft-notification__content {
 	background: getColor('white');
-	padding: 20px;
 	text-align: left;
 	white-space: normal;
 	@include nUiZIndexFor('welcome');
 	@include oVisualEffectsShadowsElevation('ultralow', getColor('black'));
 	position: absolute;
 	right: calc(100%/20);
-	width: 260px;
+	width: 300px;
 
 	//to synchronize the timing when notification content is displayed
 	.o-header--sticky & {
@@ -51,11 +50,39 @@ $o-expander-is-silent : false;
 	.o-header--sticky-active & {
 		visibility: visible;
 	}
+}
 
-	h1 {
-		@include oTypographyMargin($top: 0, $bottom: 4);
-		@include oTypographySansBold($scale: 0);
+.myft-notification__headline__container {
+	height: 36px;
+	background: getColor('claret');
+}
+
+.myft-notification__headline {
+	position: absolute;
+	color: getColor('white');
+	padding: 8px 20px;
+	@include oTypographySans($scale: 0);
+}
+
+.myft-notification__collapse {
+	&:before {
+		@include oIconsGetIcon('arrow-up', getColor('white'), 32, $iconset-version: 1);
+		content: '';
+		position: absolute;
+		right: 6px;
+		top: 2px;
 	}
+
+	width: 44px;
+	height: 36px;
+	float: right;
+	background: getColor('claret-80');
+	cursor: pointer;
+}
+
+.myft-notification__links {
+	padding-left: 20px;
+	padding-right: 20px;
 	.o-teaser__heading {
 		@include oTypographySans($scale: 0);
 	}
@@ -64,6 +91,9 @@ $o-expander-is-silent : false;
 		border-top: 1px solid oColorsMix(black, white, 20);
 		@include oTypographyPadding($top: 3, $bottom: 0);
 		@include oTypographyMargin($bottom: 3);
+	}
+	:first-child {
+		border-top: 0;
 	}
 }
 
@@ -76,6 +106,7 @@ $o-expander-is-silent : false;
 	position: relative;
 	background: getColor('claret');
 	color: getColor('white');
+	@include oTypographyMargin($bottom: 3);
 	@include oTypographySansBold($scale: 0);
 	padding: 8px;
 

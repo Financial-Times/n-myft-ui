@@ -1,10 +1,18 @@
 <div class="o-expander__toggle"></div>
 <div class="o-expander__content myft-notification__content">
-	<h1>MyFT Daily Digest - {{PublishedDateFormatted}}</h1>
-	{{#slice items offset=0 limit=5}}
-		{{>n-teaser/templates/extra-light mods=(array 'small') noTag=true}}
-	{{/slice}}
-	<a href="/myft/digest" class="myft-notification__link">
-		<div class="myft-notification__link--all-stories">See all {{items.length}} stories</div>
-	</a>
+
+	<div class="myft-notification__headline__container">
+		<span class="myft-notification__headline">MyFT Daily Digest - {{PublishedDateFormatted}}</span>
+		<span class="myft-notification__collapse"></span>
+	</div>
+
+	<div class="myft-notification__links">
+		{{#slice items offset=0 limit=5}}
+			{{>n-teaser/templates/extra-light mods=(array 'small') noTag=true}}
+		{{/slice}}
+		<a href="/myft/digest" class="myft-notification__link">
+			<div class="myft-notification__link--all-stories">See all {{items.length}} stories</div>
+		</a>
+	</div>
+
 </div>
