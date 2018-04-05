@@ -1,19 +1,22 @@
-exports.init = () => {
-	getPackageExpanders().forEach(synchroniseExpansion);
+let targetEl;
+
+exports.init = (target) => {
+	targetEl = target;
+	getExpanders().forEach(synchroniseExpansion);
 };
 
-function getPackageExpanders (opts) {
-	const expanders = [...document.querySelectorAll('.myft-notification')];
+function getExpanders (opts) {
+	const expanders = [...document.querySelectorAll(`.${targetEl}`)];
 	const except = opts && opts.except;
 	return except ? expanders.filter(x => x !== except) : expanders;
 }
 
 function synchroniseExpansion (expander) {
 	expander.addEventListener('oExpander.expand', (event) => {
-		getPackageExpanders({ except: event.target }).forEach(expand);
+		getExpanders({ except: event.target }).forEach(expand);
 	});
 	expander.addEventListener('oExpander.collapse', (event) => {
-		getPackageExpanders({ except: event.target }).forEach(collapse);
+		getExpanders({ except: event.target }).forEach(collapse);
 	});
 }
 
