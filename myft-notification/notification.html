@@ -4,5 +4,7 @@
 	{{#slice items offset=0 limit=5}}
 		{{>n-teaser/templates/extra-light mods=(array 'small') noTag=true}}
 	{{/slice}}
-	<a href="/myft/digest" class="myft-notification__button--all-stories">See all {{items.length}} stories</a>
+	<a href="/myft/digest" class="myft-notification__link">
+		<div class="myft-notification__link--all-stories">See all {{items.length}} stories</div>
+	</a>
 </div>
