@@ -138,6 +138,11 @@ export default async (flags) => {
 							icon.classList.remove('myft-notification__icon--with-dot');
 						});
 					});
+
+					notification.contentContainer.querySelector('.myft-notification__collapse').addEventListener('click', () => {
+						notification.contentContainer.querySelector('.myft-notification .o-expander__toggle').click();
+					});
+
 				});
 				synchronizeExpansion.init('myft-notification');
 			}
