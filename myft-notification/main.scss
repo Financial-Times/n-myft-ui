@@ -37,7 +37,7 @@ $o-expander-is-silent : false;
 	background: getColor('white');
 	text-align: left;
 	white-space: normal;
-	@include nUiZIndexFor('welcome');
+	@include nUiZIndexFor('meganav');
 	@include oVisualEffectsShadowsElevation('ultralow', getColor('black'));
 	position: absolute;
 	right: 40px;

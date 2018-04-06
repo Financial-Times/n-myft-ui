@@ -29,6 +29,7 @@ const insertMyFtNotification = ({notification, withDot, data, flags}) => {
 	//have to set Icon and Content in different place
 	setNotificationIcon(notification, withDot);
 	setNotificationContent(notification, data, flags);
+	oDate.init(notification.contentContainer.querySelector('.myft-notification'));
 };
 
 const setNotificationIcon = (notification, withDot) => {
@@ -79,7 +80,7 @@ const toggleNotificationByKeypress = (e, notification) => {
 	if (key === 13) {
 		notification.contentContainer.querySelector('.myft-notification .o-expander__toggle').click();
 	}
-}
+};
 
 const addEventListenersToToggle = (notification) => {
 	// for notification icon
@@ -97,7 +98,7 @@ const addEventListenersToToggle = (notification) => {
 	notification.contentContainer.querySelector('.myft-notification__collapse').addEventListener('keypress', (e) => {
 		toggleNotificationByKeypress(e, notification);
 	});
-}
+};
 
 export default async (flags) => {
 	const myFtIcon = document.querySelector('.o-header__top-link--myft');
@@ -159,7 +160,6 @@ export default async (flags) => {
 							icon.classList.remove('myft-notification__icon--with-dot');
 						});
 					});
-					oDate.init(notification.contentContainer.querySelector('.myft-notification'));
 				});
 				synchronizeExpansion.init('myft-notification');
 			}
