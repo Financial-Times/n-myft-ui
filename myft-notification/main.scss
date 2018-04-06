@@ -50,6 +50,10 @@ $o-expander-is-silent : false;
 	.o-header--sticky-active & {
 		visibility: visible;
 	}
+
+	@include oGridRespondTo($from: XL) {
+		right: calc((100% - 1220px)/2 + 15px);
+	}
 }
 
 .myft-notification__headline__container {
