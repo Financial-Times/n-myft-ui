@@ -34,6 +34,7 @@ const insertMyFtNotification = ({notification, withDot, data, flags}) => {
 const setNotificationIcon = (notification, withDot) => {
 	const div = document.createElement('div');
 	div.setAttribute('tabindex', '0');
+	div.setAttribute('aria-label', 'My F T daily digest notification');
 	div.setAttribute('class', 'myft-notification__icon');
 	if (withDot) {
 		div.classList.add('myft-notification__icon--with-dot');
@@ -80,16 +81,16 @@ const toggleNotificationByKeypress = (e, notification) => {
 	}
 }
 
-const addIconEventListeners = (notification) => {
+const addEventListenersToToggle = (notification) => {
+	// for notification icon
 	notification.iconContainer.querySelector('.myft-notification__icon').addEventListener('click', () => {
 		notification.contentContainer.querySelector('.myft-notification .o-expander__toggle').click();
 	});
 	notification.iconContainer.querySelector('.myft-notification__icon').addEventListener('keypress', (e) => {
 		toggleNotificationByKeypress(e, notification);
 	});
-}
 
-const addCollapseEventListeners = (notification) => {
+	// for collapse icon
 	notification.contentContainer.querySelector('.myft-notification__collapse').addEventListener('click', () => {
 		notification.contentContainer.querySelector('.myft-notification .o-expander__toggle').click();
 	});
@@ -97,7 +98,6 @@ const addCollapseEventListeners = (notification) => {
 		toggleNotificationByKeypress(e, notification);
 	});
 }
-
 
 export default async (flags) => {
 	const myFtIcon = document.querySelector('.o-header__top-link--myft');
@@ -152,8 +152,7 @@ export default async (flags) => {
 			if (notifications.length > 0) {
 				notifications.forEach(notification => {
 					insertMyFtNotification({ notification, withDot, data, flags });
-					addIconEventListeners(notification);
-					addCollapseEventListeners(notification);
+					addEventListenersToToggle(notification);
 					notification.contentContainer.querySelector('.o-expander').addEventListener('oExpander.expand', () => {
 						window.localStorage.setItem('timeUserClickedMyftNotification', Date.now());
 						document.querySelectorAll('.myft-notification__icon').forEach(icon => {
@@ -161,7 +160,6 @@ export default async (flags) => {
 						});
 					});
 					oDate.init(notification.contentContainer.querySelector('.myft-notification'));
-
 				});
 				synchronizeExpansion.init('myft-notification');
 			}
