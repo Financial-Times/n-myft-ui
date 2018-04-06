@@ -45,7 +45,7 @@ const setNotificationIcon = (notification, withDot) => {
 
 const setNotificationContent = (notification, data, flags) => {
 	const publishedDate = new Date(Date.parse(data.publishedDate));
-	const PublishedDateFormatted = `${publishedDate.getDate()}/${publishedDate.getMonth()+1}/${publishedDate.getFullYear()}`;
+	const PublishedDateFormatted = oDate.format(publishedDate, 'd/M/yyyy');
 	const div = document.createElement('div');
 	div.setAttribute('class', `o-expander ${notification.className} myft-notification`);
 	div.setAttribute('data-o-component', 'o-expander');
