@@ -33,6 +33,7 @@ const insertMyFtNotification = ({notification, withDot, data, flags}) => {
 
 const setNotificationIcon = (notification, withDot) => {
 	const div = document.createElement('div');
+	div.setAttribute('tabindex', '0');
 	div.setAttribute('class', 'myft-notification__icon');
 	if (withDot) {
 		div.classList.add('myft-notification__icon--with-dot');
@@ -72,6 +73,31 @@ const hasUserClickedNotification = (data) => {
 	return Date.parse(data.publishedDate) < Number(timeUserClicked);
 };
 
+const toggleNotificationByKeypress = (e, notification) => {
+	const key = e.keyCode;
+	if (key === 13) {
+		notification.contentContainer.querySelector('.myft-notification .o-expander__toggle').click();
+	}
+}
+
+const addIconEventListeners = (notification) => {
+	notification.iconContainer.querySelector('.myft-notification__icon').addEventListener('click', () => {
+		notification.contentContainer.querySelector('.myft-notification .o-expander__toggle').click();
+	});
+	notification.iconContainer.querySelector('.myft-notification__icon').addEventListener('keypress', (e) => {
+		toggleNotificationByKeypress(e, notification);
+	});
+}
+
+const addCollapseEventListeners = (notification) => {
+	notification.contentContainer.querySelector('.myft-notification__collapse').addEventListener('click', () => {
+		notification.contentContainer.querySelector('.myft-notification .o-expander__toggle').click();
+	});
+	notification.contentContainer.querySelector('.myft-notification__collapse').addEventListener('keypress', (e) => {
+		toggleNotificationByKeypress(e, notification);
+	});
+}
+
 
 export default async (flags) => {
 	const myFtIcon = document.querySelector('.o-header__top-link--myft');
@@ -102,23 +128,23 @@ export default async (flags) => {
 
 			let notifications = [];
 
-			const stickyContentContainer = document.querySelector('.o-header--sticky .o-header__row.o-header__top');
-			const stickyIconContainer = document.querySelector('.o-header--sticky .o-header__top-column--right');
-			if (stickyContentContainer && stickyIconContainer) {
+			const stickyHeader = document.querySelector('.o-header--sticky .o-header__row.o-header__top');
+			const stickyHeaderMyFtIconContainer = document.querySelector('.o-header--sticky .o-header__top-column--right');
+			if (stickyHeader && stickyHeaderMyFtIconContainer) {
 				notifications.push({
-					contentContainer: stickyContentContainer,
-					iconContainer: stickyIconContainer,
+					contentContainer: stickyHeader,
+					iconContainer: stickyHeaderMyFtIconContainer,
 					className: 'sticky-header__myft-notification'
 				});
 			}
 
-			const headerContentContainer = document.querySelector('.o-header .o-header__row.o-header__top');
-			const headerIconContainer = document.querySelector('.o-header__top-wrapper .o-header__top-link--myft__container');
-			if (headerContentContainer && headerIconContainer) {
-				headerIconContainer.classList.add('myft-notification__container--flex');
+			const ftHeader = document.querySelector('.o-header .o-header__row.o-header__top');
+			const ftHeaderMyFtIconContainer = document.querySelector('.o-header__top-wrapper .o-header__top-link--myft__container');
+			if (ftHeader && ftHeaderMyFtIconContainer) {
+				ftHeaderMyFtIconContainer.classList.add('myft-notification__container--flex');
 				notifications.push({
-					contentContainer: headerContentContainer,
-					iconContainer: headerIconContainer,
+					contentContainer: ftHeader,
+					iconContainer: ftHeaderMyFtIconContainer,
 					className: 'header__myft-notification'
 				});
 			}
@@ -126,22 +152,15 @@ export default async (flags) => {
 			if (notifications.length > 0) {
 				notifications.forEach(notification => {
 					insertMyFtNotification({ notification, withDot, data, flags });
-					oDate.init(notification.contentContainer.querySelector('.myft-notification'));
-
-					notification.iconContainer.querySelector('.myft-notification__icon').addEventListener('click', () => {
-						notification.contentContainer.querySelector('.myft-notification .o-expander__toggle').click();
-					});
-
+					addIconEventListeners(notification);
+					addCollapseEventListeners(notification);
 					notification.contentContainer.querySelector('.o-expander').addEventListener('oExpander.expand', () => {
 						window.localStorage.setItem('timeUserClickedMyftNotification', Date.now());
 						document.querySelectorAll('.myft-notification__icon').forEach(icon => {
 							icon.classList.remove('myft-notification__icon--with-dot');
 						});
 					});
-
-					notification.contentContainer.querySelector('.myft-notification__collapse').addEventListener('click', () => {
-						notification.contentContainer.querySelector('.myft-notification .o-expander__toggle').click();
-					});
+					oDate.init(notification.contentContainer.querySelector('.myft-notification'));
 
 				});
 				synchronizeExpansion.init('myft-notification');

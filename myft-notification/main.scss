@@ -40,7 +40,7 @@ $o-expander-is-silent : false;
 	@include nUiZIndexFor('welcome');
 	@include oVisualEffectsShadowsElevation('ultralow', getColor('black'));
 	position: absolute;
-	right: calc(100%/20);
+	right: 40px;
 	width: 300px;
 
 	//to synchronize the timing when notification content is displayed
@@ -100,13 +100,14 @@ $o-expander-is-silent : false;
 .myft-notification__link {
 	color: inherit;
 	border-bottom: 0;
+	display: block;
+	@include oTypographyMargin($bottom: 3);
 }
 
 .myft-notification__link--all-stories {
 	position: relative;
 	background: getColor('claret');
 	color: getColor('white');
-	@include oTypographyMargin($bottom: 3);
 	@include oTypographySansBold($scale: 0);
 	padding: 8px;
 
