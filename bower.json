@@ -25,6 +25,7 @@
     "o-errors": "^3.5.2",
     "o-tooltip": "^3.1.1",
     "next-session-client": "^2.3.4",
-    "fetchres": "^1.7.2"
+    "fetchres": "^1.7.2",
+    "o-expander": "^4.4.4"
   }
 }
