@@ -1,15 +1,23 @@
 $o-expander-is-silent : true;
 @import 'o-expander/main';
 
-.myft-notification__container--flex {
+.sticky-header__myft-notification__container {
+	[data-next-app="article"] & {
+		@include oGridRespondTo($until: L) {
+			width: 12.5%;
+		}
+	}
+
+	@include oGridRespondTo($from: L) {
+		margin-top: 4px;
+	}
+}
+
+.myft-notification__container {
 	position: relative;
 	display: flex;
 	justify-content: flex-end;
-	@include oGridRespondTo($from: L) {
-		&.o-header__top-column--right {
-			width: 100%;
-		}
-	}
+	width: 100%;
 }
 
 .myft-notification {

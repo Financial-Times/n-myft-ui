@@ -28,7 +28,7 @@ const insertMyFtNotification = ({notification, withDot, data, flags}) => {
 	const publishedDate = new Date(Date.parse(data.publishedDate));
 	const PublishedDateFormatted = oDate.format(publishedDate, 'd/M/yyyy');
 	const div = document.createElement('div');
-	div.setAttribute('class', 'o-expander myft-notification');
+	div.setAttribute('class', `o-expander myft-notification ${notification.className}`);
 	div.setAttribute('data-o-component', 'o-expander');
 	div.setAttribute('data-o-expander-shrink-to', 'hidden');
 	notification.container.appendChild(div);
@@ -125,7 +125,8 @@ export default async (flags) => {
 
 			if (notifications.length > 0) {
 				notifications.forEach(notification => {
-					notification.container.classList.add('myft-notification__container--flex');
+					notification.container.classList.add('myft-notification__container');
+					notification.container.classList.add(`${notification.className}__container`);
 					insertMyFtNotification({ notification, withDot, data, flags });
 					addEventListenersToToggle(notification);
 					notification.container.querySelector('.o-expander').addEventListener('oExpander.expand', () => {
