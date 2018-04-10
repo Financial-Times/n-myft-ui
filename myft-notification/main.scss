@@ -82,6 +82,13 @@ $o-expander-is-silent : true;
 }
 
 .myft-notification__collapse {
+	width: 44px;
+	height: 36px;
+	float: right;
+	background: getColor('claret-80');
+	cursor: pointer;
+	border: 0;
+
 	&:before {
 		@include oIconsGetIcon('arrow-up', getColor('white'), 32, $iconset-version: 1);
 		content: '';
@@ -89,12 +96,6 @@ $o-expander-is-silent : true;
 		right: 6px;
 		top: 2px;
 	}
-
-	width: 44px;
-	height: 36px;
-	float: right;
-	background: getColor('claret-80');
-	cursor: pointer;
 }
 
 .myft-notification__links {

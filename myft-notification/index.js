@@ -26,18 +26,18 @@ query MyFT($uuid: String!) {
 
 const insertMyFtNotification = ({notification, withDot, data, flags}) => {
 	const publishedDate = new Date(Date.parse(data.publishedDate));
-	const PublishedDateFormatted = oDate.format(publishedDate, 'd/M/yyyy');
-	const div = document.createElement('div');
-	div.setAttribute('class', `o-expander myft-notification ${notification.className}`);
-	div.setAttribute('data-o-component', 'o-expander');
-	div.setAttribute('data-o-expander-shrink-to', 'hidden');
-	notification.container.appendChild(div);
-	notification.container.querySelector('.myft-notification').innerHTML = template({ items: data.articles, PublishedDateFormatted, flags, withDot});
-	oExpander.init(notification.container.querySelector('.myft-notification'), {
+	const publishedDateFormatted = oDate.format(publishedDate, 'd/M/yyyy');
+	const notificationDiv = document.createElement('div');
+	notificationDiv.setAttribute('class', `o-expander myft-notification ${notification.className}`);
+	notificationDiv.setAttribute('data-o-component', 'o-expander');
+	notificationDiv.setAttribute('data-o-expander-shrink-to', 'hidden');
+	notification.container.appendChild(notificationDiv);
+	notificationDiv.innerHTML = template({ items: data.articles, publishedDateFormatted, flags, withDot});
+	oExpander.init(notificationDiv, {
 		expandedToggleText: '',
 		collapsedToggleText: ''
 	});
-	oDate.init(notification.container.querySelector('.myft-notification__content'));
+	oDate.init(notificationDiv);
 };
 
 // const hasUserDismissedNotification = (data) => {
@@ -72,9 +72,6 @@ const addEventListenersToToggle = (notification) => {
 	// for collapse icon
 	notification.container.querySelector('.myft-notification__collapse').addEventListener('click', () => {
 		notification.container.querySelector('.myft-notification .o-expander__toggle').click();
-	});
-	notification.container.querySelector('.myft-notification__collapse').addEventListener('keypress', (e) => {
-		toggleNotificationByKeypress(e, notification);
 	});
 };
 
