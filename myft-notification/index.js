@@ -96,12 +96,14 @@ const toggleExpansion = (notification) => {
 	});
 };
 
+const moveExpanderTo = (el) => el.querySelector('.myft-notification').appendChild(notificationExpander.contentEl);
+
 const synchroniseExpansion = (stickyHeader, stickyHeaderMyFtIconContainer, ftHeaderMyFtIconContainer) => {
 	stickyHeader.addEventListener('oHeader.Sticky', (e) => {
 		if (e.detail && e.detail.isActive) {
-			stickyHeaderMyFtIconContainer.querySelector('.myft-notification').appendChild(notificationExpander.contentEl);
+			moveExpanderTo(stickyHeaderMyFtIconContainer);
 		} else {
-			ftHeaderMyFtIconContainer.querySelector('.myft-notification').appendChild(notificationExpander.contentEl);
+			moveExpanderTo(ftHeaderMyFtIconContainer);
 		}
 	});
 };
