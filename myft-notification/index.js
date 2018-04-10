@@ -24,27 +24,24 @@ query MyFT($uuid: String!) {
 	}
 `;
 
-const setContainerClasses = (targetEl, targetPlace) => {
-	targetEl.classList.add('myft-notification__container');
-	targetEl.classList.add(`${targetPlace}__myft-notification__container`);
+const insertToggleButton = (targetEl, withDot) => {
+	if (targetEl) {
+		targetEl.classList.add('myft-notification__container');
+		const notificationDiv = document.createElement('div');
+		notificationDiv.setAttribute('class', 'myft-notification');
+		notificationDiv.innerHTML = templateIcon({ withDot });
+		notificationDiv.querySelector('.myft-notification__icon').addEventListener('click', toggleHandler);
+		targetEl.appendChild(notificationDiv);
+	}
 };
 
-const insertIcon = (targetEl, targetPlace, withDot) => {
-	setContainerClasses(targetEl, targetPlace);
-	const notificationDiv = document.createElement('div');
-	notificationDiv.setAttribute('class', `myft-notification ${targetPlace}__myft-notification`);
-	notificationDiv.innerHTML = templateIcon({ withDot });
-	targetEl.appendChild(notificationDiv);
-};
-
-const insertExpander = (targetEl, data, flags) => {
+const createExpander = (data, flags) => {
 	const publishedDate = new Date(Date.parse(data.publishedDate));
 	const publishedDateFormatted = oDate.format(publishedDate, 'd/M/yyyy');
 	const oExpanderDiv = document.createElement('div');
 	oExpanderDiv.setAttribute('class', 'o-expander');
 	oExpanderDiv.setAttribute('data-o-component', 'o-expander');
 	oExpanderDiv.setAttribute('data-o-expander-shrink-to', 'hidden');
-	targetEl.appendChild(oExpanderDiv);
 	oExpanderDiv.innerHTML = templateExpander({ items: data.articles, publishedDateFormatted, flags });
 
 	notificationExpander = oExpander.init(oExpanderDiv, {
@@ -84,33 +81,20 @@ const deleteDot = () => {
 	}
 };
 
-const toggleExpansion = (notification) => {
-	notification.querySelector('.myft-notification__icon').addEventListener('click', (e) => {
-		if (notificationExpander.isCollapsed()) {
-			notificationExpander.expand();
-			e.path[1].appendChild(notificationExpander.contentEl);
-			deleteDot();
-		} else {
-			notificationExpander.collapse();
-		}
-	});
+const toggleHandler = (e) => {
+	if (notificationExpander.isCollapsed()) {
+		notificationExpander.expand();
+		moveExpanderTo(e.path[1]);
+		deleteDot();
+	} else {
+		notificationExpander.collapse();
+	}
 };
 
-const moveExpanderTo = (el) => el.querySelector('.myft-notification').appendChild(notificationExpander.contentEl);
-
-const synchroniseExpansion = (stickyHeader, stickyHeaderMyFtIconContainer, ftHeaderMyFtIconContainer) => {
-	stickyHeader.addEventListener('oHeader.Sticky', (e) => {
-		if (e.detail && e.detail.isActive) {
-			moveExpanderTo(stickyHeaderMyFtIconContainer);
-		} else {
-			moveExpanderTo(ftHeaderMyFtIconContainer);
-		}
-	});
-};
+const moveExpanderTo = (el) => el.appendChild(notificationExpander.contentEl);
 
 let notificationExpander;
 let hasExpand = false;
-
 
 export default async (flags) => {
 	const myFtIcon = document.querySelector('.o-header__top-link--myft');
@@ -139,31 +123,20 @@ export default async (flags) => {
 				withDot = false;
 			}
 
+			createExpander(data, flags);
 			const stickyHeader = document.querySelector('.o-header--sticky');
 			const stickyHeaderMyFtIconContainer = stickyHeader.querySelector('.o-header__top-column--right');
-			if (stickyHeader && stickyHeaderMyFtIconContainer) {
-				insertIcon(stickyHeaderMyFtIconContainer, 'sticky-header', withDot);
-			}
-
 			const ftHeaderMyFtIconContainer = document.querySelector('.o-header__top-wrapper .o-header__top-link--myft__container');
-			if (ftHeaderMyFtIconContainer) {
-				insertIcon(ftHeaderMyFtIconContainer, 'header', withDot);
-			}
 
-			const notifications = document.querySelectorAll('.myft-notification');
-			if (notifications.length > 0) {
-				insertExpander(notifications[0], data, flags);
-				notifications.forEach(notification => {
-					toggleExpansion(notification);
-				});
-			}
+			insertToggleButton(stickyHeaderMyFtIconContainer, withDot);
+			insertToggleButton(ftHeaderMyFtIconContainer, withDot);
 
 			if (stickyHeaderMyFtIconContainer && ftHeaderMyFtIconContainer) {
-				synchroniseExpansion(
-					stickyHeader,
-					stickyHeaderMyFtIconContainer,
-					ftHeaderMyFtIconContainer
-				);
+				stickyHeader.addEventListener('oHeader.Sticky', (e) => {
+					const isSticky = e.detail && e.detail.isActive;
+					const buttonContainer = isSticky ? stickyHeaderMyFtIconContainer : ftHeaderMyFtIconContainer;
+					moveExpanderTo(buttonContainer.querySelector('.myft-notification'));
+				});
 			}
 
 		})

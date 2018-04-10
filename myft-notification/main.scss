@@ -1,7 +1,7 @@
 $o-expander-is-silent : true;
 @import 'o-expander/main';
 
-.sticky-header__myft-notification__container {
+.o-header--sticky .myft-notification__container {
 	[data-next-app="article"] & {
 		@include oGridRespondTo($until: L) {
 			width: 12.5%;
