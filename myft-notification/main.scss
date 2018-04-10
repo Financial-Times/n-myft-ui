@@ -22,17 +22,20 @@ $o-expander-is-silent : true;
 
 .myft-notification {
 	align-self: center;
-}
 
-.myft-notification__icon {
-	@include oExpanderToggle;
-	&.o-expander__toggle {
-		position: relative;
-		@include oIconsGetIcon('notifications', getColor('black'), 32);
+	.o-expander__toggle {
+		@include oExpanderToggle;
 		i {
 			display: none;
 		}
 	}
+}
+
+.myft-notification__icon,
+.myft-notification__icon.o-expander__toggle {
+	position: relative;
+	@include oIconsGetIcon('notifications', getColor('black'), 32);
+	border: 0;
 }
 
 .myft-notification__icon--with-dot {
