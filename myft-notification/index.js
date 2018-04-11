@@ -5,6 +5,7 @@ import getUuidFromSession from './get-uuid-from-session';
 import { fragments as teaserFragments } from '@financial-times/n-teaser';
 import { json as fetchJson } from 'fetchres';
 import slimQuery from './slim-query';
+import dispatchTrackingEvent from './tracking';
 import templateExpander from './notification-expander.html';
 import templateToggleButton from './notification-toggle-button.html';
 
@@ -38,8 +39,10 @@ const toggleExpander = (e) => {
 		notificationExpander.expand();
 		moveExpanderTo(e.path[1]);
 		deleteDot();
+		dispatchTrackingEvent.digestOpened(document);
 	} else {
 		notificationExpander.collapse();
+		dispatchTrackingEvent.digestClosed(document);
 	}
 };
 
@@ -63,15 +66,24 @@ const createExpander = (data, flags) => {
 	oExpanderDiv.setAttribute('data-o-expander-shrink-to', 'hidden');
 	oExpanderDiv.innerHTML = templateExpander({ items: data.articles, publishedDateFormatted, flags });
 
-	notificationExpander = oExpander.init(oExpanderDiv, {
-		expandedToggleText: '',
-		collapsedToggleText: ''
+	const digestArticleLinks = oExpanderDiv.querySelectorAll('.js-teaser-heading-link');
+	digestArticleLinks.forEach(link => {
+		link.addEventListener('click', () => {
+			dispatchTrackingEvent.digestLinkClicked(document, link);
+		});
 	});
 
 	oExpanderDiv.querySelector('.myft-notification__collapse').addEventListener('click', () => {
 		notificationExpander.collapse();
+		dispatchTrackingEvent.digestClosed(document);
 	});
+
 	oDate.init(oExpanderDiv);
+
+	notificationExpander = oExpander.init(oExpanderDiv, {
+		expandedToggleText: '',
+		collapsedToggleText: ''
+	});
 };
 
 // const hasUserDismissedNotification = (data) => {
