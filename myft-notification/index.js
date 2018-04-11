@@ -6,32 +6,41 @@ import { fragments as teaserFragments } from '@financial-times/n-teaser';
 import { json as fetchJson } from 'fetchres';
 import slimQuery from './slim-query';
 import templateExpander from './notification-expander.html';
-import templateIcon from './notification-icon.html';
+import templateToggleButton from './notification-icon.html';
 
-const digestQuery = `
-${teaserFragments.teaserExtraLight}
+const fetchDigestData = (uuid) => {
+	const digestQuery = `
+		${teaserFragments.teaserExtraLight}
 
-query MyFT($uuid: String!) {
-		user(uuid: $uuid) {
-			digest {
-				type
-				publishedDate
-				articles {
-					...TeaserExtraLight
+		query MyFT($uuid: String!) {
+				user(uuid: $uuid) {
+					digest {
+						type
+						publishedDate
+						articles {
+							...TeaserExtraLight
+						}
+					}
 				}
 			}
-		}
-	}
-`;
+	`;
+	const variables = { uuid };
+	const url = `https://next-api.ft.com/v2/query?query=${slimQuery(digestQuery)}&variables=${JSON.stringify(variables)}&source=next-front-page-myft`;
+	const option = { credentials: 'include', timeout: 5000 };
+
+	return fetch(url, option)
+		.then(fetchJson)
+		.then(({ data = {} } = {}) => data.user.digest);
+};
 
 const insertToggleButton = (targetEl, withDot) => {
 	if (targetEl) {
 		targetEl.classList.add('myft-notification__container');
-		const notificationDiv = document.createElement('div');
-		notificationDiv.setAttribute('class', 'myft-notification');
-		notificationDiv.innerHTML = templateIcon({ withDot });
-		notificationDiv.querySelector('.myft-notification__icon').addEventListener('click', toggleHandler);
-		targetEl.appendChild(notificationDiv);
+		const toggleButtonContainer = document.createElement('div');
+		toggleButtonContainer.setAttribute('class', 'myft-notification');
+		toggleButtonContainer.innerHTML = templateToggleButton({ withDot });
+		toggleButtonContainer.querySelector('.myft-notification__icon').addEventListener('click', toggleHandler);
+		targetEl.appendChild(toggleButtonContainer);
 	}
 };
 
@@ -63,8 +72,10 @@ const createExpander = (data, flags) => {
 // 	return Date.parse(data.publishedDate) < Number(timeUserDismissed);
 // };
 
+const localStorageKey = 'timeUserClickedMyftNotification';
+
 const hasUserClickedNotification = (data) => {
-	const timeUserClicked = window.localStorage.getItem('timeUserClickedMyftNotification');
+	const timeUserClicked = window.localStorage.getItem(localStorageKey);
 	if (!timeUserClicked) {
 		return false;
 	}
@@ -73,7 +84,7 @@ const hasUserClickedNotification = (data) => {
 
 const deleteDot = () => {
 	if (!hasExpand) {
-		window.localStorage.setItem('timeUserClickedMyftNotification', Date.now());
+		window.localStorage.setItem(localStorageKey, Date.now());
 		document.querySelectorAll('.myft-notification__icon').forEach(icon => {
 			icon.classList.remove('myft-notification__icon--with-dot');
 		});
@@ -104,15 +115,8 @@ export default async (flags) => {
 		return;
 	}
 
-	const variables = { uuid: userId };
-	const url = `https://next-api.ft.com/v2/query?query=${slimQuery(digestQuery)}&variables=${JSON.stringify(variables)}&source=next-front-page-myft`;
-	const option = { credentials: 'include', timeout: 5000 };
-
-	return fetch(url, option)
-		.then(fetchJson)
-		.then(({ data = {} } = {}) => data.user.digest)
+	return fetchDigestData(userId)
 		.then(data => {
-
 			// TODO add a function to set when user dismissed notification.
 			// if (hasUserDismissedNotification(data)) {
 			// 	return;
@@ -125,16 +129,17 @@ export default async (flags) => {
 
 			createExpander(data, flags);
 			const stickyHeader = document.querySelector('.o-header--sticky');
-			const stickyHeaderMyFtIconContainer = stickyHeader.querySelector('.o-header__top-column--right');
-			const ftHeaderMyFtIconContainer = document.querySelector('.o-header__top-wrapper .o-header__top-link--myft__container');
+			const toggleButtonContainerSticky = stickyHeader.querySelector('.o-header__top-column--right');
+			const toggleButtonContainerNonSticky = document.querySelector('.o-header__top-wrapper .o-header__top-link--myft__container');
 
-			insertToggleButton(stickyHeaderMyFtIconContainer, withDot);
-			insertToggleButton(ftHeaderMyFtIconContainer, withDot);
+			insertToggleButton(toggleButtonContainerSticky, withDot);
+			insertToggleButton(toggleButtonContainerNonSticky, withDot);
 
-			if (stickyHeaderMyFtIconContainer && ftHeaderMyFtIconContainer) {
+			if (toggleButtonContainerSticky && toggleButtonContainerNonSticky) {
 				stickyHeader.addEventListener('oHeader.Sticky', (e) => {
 					const isSticky = e.detail && e.detail.isActive;
-					const buttonContainer = isSticky ? stickyHeaderMyFtIconContainer : ftHeaderMyFtIconContainer;
+					const buttonContainer = isSticky ? toggleButtonContainerSticky : toggleButtonContainerNonSticky;
+
 					moveExpanderTo(buttonContainer.querySelector('.myft-notification'));
 				});
 			}
