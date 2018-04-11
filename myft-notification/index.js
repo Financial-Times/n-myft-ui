@@ -39,12 +39,12 @@ const openNotificationContent = (targetEL) => {
 	moveExpanderTo(targetEL);
 	deleteDot();
 	dispatchTrackingEvent.digestOpened(document);
-}
+};
 
 const closeNotificationContent = () => {
 	notificationExpander.collapse();
 	dispatchTrackingEvent.digestClosed(document);
-}
+};
 
 const toggleExpander = (e) => {
 	if (notificationExpander.isCollapsed()) {
