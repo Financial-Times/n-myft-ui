@@ -39,12 +39,12 @@ const openNotificationContent = (targetEL) => {
 	moveExpanderTo(targetEL);
 	deleteDot();
 	dispatchTrackingEvent.digestOpened(document);
-};
+}
 
 const closeNotificationContent = () => {
 	notificationExpander.collapse();
 	dispatchTrackingEvent.digestClosed(document);
-};
+}
 
 const toggleExpander = (e) => {
 	if (notificationExpander.isCollapsed()) {
@@ -155,7 +155,7 @@ export default async (flags) => {
 				stickyHeader.addEventListener('oHeader.Sticky', (e) => {
 					const isSticky = e.detail && e.detail.isActive;
 					const buttonContainer = isSticky ? stickyHeaderMyFtIconContainer : ftHeaderMyFtIconContainer;
-					if (notificationExpander.isCollapsed()) {
+					if (!notificationExpander.isCollapsed()) {
 						moveExpanderTo(buttonContainer.querySelector('.myft-notification'));
 					}
 				});
