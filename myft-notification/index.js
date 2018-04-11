@@ -34,15 +34,23 @@ const fetchDigestData = (uuid) => {
 		.then(({ data = {} } = {}) => data.user.digest);
 };
 
+const openNotificationContent = (targetEL) => {
+	notificationExpander.expand();
+	moveExpanderTo(targetEL);
+	deleteDot();
+	dispatchTrackingEvent.digestOpened(document);
+}
+
+const closeNotificationContent = () => {
+	notificationExpander.collapse();
+	dispatchTrackingEvent.digestClosed(document);
+}
+
 const toggleExpander = (e) => {
 	if (notificationExpander.isCollapsed()) {
-		notificationExpander.expand();
-		moveExpanderTo(e.path[1]);
-		deleteDot();
-		dispatchTrackingEvent.digestOpened(document);
+		openNotificationContent(e.path[1]);
 	} else {
-		notificationExpander.collapse();
-		dispatchTrackingEvent.digestClosed(document);
+		closeNotificationContent();
 	}
 };
 
@@ -147,7 +155,9 @@ export default async (flags) => {
 				stickyHeader.addEventListener('oHeader.Sticky', (e) => {
 					const isSticky = e.detail && e.detail.isActive;
 					const buttonContainer = isSticky ? stickyHeaderMyFtIconContainer : ftHeaderMyFtIconContainer;
-					moveExpanderTo(buttonContainer.querySelector('.myft-notification'));
+					if (notificationExpander.isCollapsed()) {
+						moveExpanderTo(buttonContainer.querySelector('.myft-notification'));
+					}
 				});
 			}
 
