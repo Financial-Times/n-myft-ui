@@ -34,17 +34,17 @@ const fetchDigestData = (uuid) => {
 		.then(({ data = {} } = {}) => data.user.digest);
 };
 
-const openNotificationContent = (targetEL) => {
+const openNotificationContent = (targetEl) => {
+	moveExpanderTo(targetEl);
 	notificationExpander.expand();
-	moveExpanderTo(targetEL);
 	deleteDot();
 	dispatchTrackingEvent.digestOpened(document);
-}
+};
 
 const closeNotificationContent = () => {
 	notificationExpander.collapse();
 	dispatchTrackingEvent.digestClosed(document);
-}
+};
 
 const toggleExpander = (e) => {
 	if (notificationExpander.isCollapsed()) {
