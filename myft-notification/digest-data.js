@@ -4,8 +4,25 @@ import slimQuery from './slim-query';
 
 const notificationDismissTime = 'timeUserClickedMyftNotification';
 const myftNotificationsEnabled = 'myftNotificationsEnabled';
-const hasBeenRead = (targetArticle, readArticles) => {
-	return readArticles.find(readArticle => readArticle.id === targetArticle.id);
+
+const hasBeenRead = (targetArticle, readArticles) => readArticles.find(readArticle => readArticle.id === targetArticle.id);
+
+const orderByUnreadFirst = ({ data = {} } = {}) => {
+	const digestData = data.user.digest;
+	const result = digestData;
+
+	// reading history for past 7 days
+	const articlesUserRead = data.user.articlesFromReadingHistory ? data.user.articlesFromReadingHistory.articles : [];
+	if (articlesUserRead.length > 0) {
+		const readArticles = [];
+		const unreadArticles = [];
+		digestData.articles.forEach(article => {
+			hasBeenRead(article, articlesUserRead) ? readArticles.push(article) : unreadArticles.push(article);
+		});
+		result.articles = unreadArticles.concat(readArticles);
+	}
+
+	return result;
 }
 
 export default class DigestData {
@@ -40,21 +57,9 @@ export default class DigestData {
 
 		return fetch(url, options)
 			.then(fetchJson)
-			.then(({ data = {} } = {}) => {
-				const digestData = data.user.digest;
-				this.data = digestData;
-
-				// reading history for past 7 days
-				const articlesUserRead = data.user.articlesFromReadingHistory ? data.user.articlesFromReadingHistory.articles : [];
-				if (articlesUserRead.length > 0) {
-					const readArticles = [];
-					const unreadArticles = [];
-					digestData.articles.forEach(article => {
-						hasBeenRead(article, articlesUserRead) ? readArticles.push(article) : unreadArticles.push(article);
-					});
-					this.data.articles = unreadArticles.concat(readArticles);
-				}
-
+			.then(orderByUnreadFirst)
+			.then(data => {
+				this.data = data;
 				return this.data;
 			});
 	}
