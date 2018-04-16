@@ -14,7 +14,7 @@ export default class Feedback {
 			throw new Error('Feedback element does not have a feedback-feature attribute');
 		}
 
-		this.questionEls = this.element.querySelectorAll('*[data-question]');
+		this.questionEls = [...this.element.querySelectorAll('*[data-question]')];
 		if (this.questionEls.length) {
 			this.addResponderListeners();
 		} else {
@@ -24,7 +24,7 @@ export default class Feedback {
 
 	addResponderListeners () {
 		this.questionEls.forEach(questionEl => {
-			const responderEls = questionEl.querySelectorAll('.js-feedback__responder');
+			const responderEls = [...questionEl.querySelectorAll('.js-feedback__responder')];
 
 			responderEls.forEach(responder => {
 				responder.addEventListener('click', () => {

@@ -48,7 +48,7 @@ const createNotificationContent = (data, flags) => {
 	oExpanderDiv.setAttribute('data-o-expander-shrink-to', 'hidden');
 	oExpanderDiv.innerHTML = templateExpander({ items: data.articles, publishedDateFormatted, flags });
 
-	const digestArticleLinks = oExpanderDiv.querySelectorAll('.js-teaser-heading-link');
+	const digestArticleLinks = [...oExpanderDiv.querySelectorAll('.js-teaser-heading-link')];
 	digestArticleLinks.forEach(link => {
 		link.addEventListener('click', () => {
 			dispatchTrackingEvent.digestLinkClicked(document, link);
@@ -63,9 +63,7 @@ const createNotificationContent = (data, flags) => {
 		expandedToggleText: '',
 		collapsedToggleText: ''
 	});
-
 	const feedbackEl = oExpanderDiv.querySelector('.myft-notification__feedback');
-
 	if (feedbackEl) {
 		new Feedback(feedbackEl, {
 			onRespond: (response) => {
@@ -82,7 +80,8 @@ const createNotificationContent = (data, flags) => {
 const dismissNotification = () => {
 	if (digestData.hasNotifiableContent()) {
 		digestData.dismissNotification();
-		document.querySelectorAll('.myft-notification__icon').forEach(icon => {
+		const notificationIcons = [...document.querySelectorAll('.myft-notification__icon')];
+		notificationIcons.forEach(icon => {
 			icon.classList.remove('myft-notification__icon--with-dot');
 		});
 	}

@@ -23,7 +23,7 @@ const orderByUnreadFirst = ({ data = {} } = {}) => {
 	}
 
 	return result;
-}
+};
 
 export default class DigestData {
 	constructor (uuid) {
