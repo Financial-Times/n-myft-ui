@@ -22,7 +22,7 @@ const closeNotificationContent = () => {
 
 const toggleNotificationContent = (e) => {
 	if (notificationContentExpander.isCollapsed()) {
-		openNotificationContent(e.path[1]);
+		openNotificationContent(e.target.parentNode);
 	} else {
 		closeNotificationContent();
 	}
