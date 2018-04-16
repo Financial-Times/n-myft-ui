@@ -1,5 +1,7 @@
 $o-expander-is-silent : true;
 @import 'o-expander/main';
+$o-teaser-is-silent: true;
+@import 'o-teaser/main';
 @import 'o-typography/main';
 
 .o-header--sticky .myft-notification__container {
@@ -54,6 +56,8 @@ $o-expander-is-silent : true;
 }
 
 .myft-notification__content {
+	@include oTeaserElementsDefault;
+	@include oTeaserThemeSmall;
 	@include oExpanderContent;
 	background: getColor('white');
 	text-align: left;
