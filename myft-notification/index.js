@@ -63,6 +63,7 @@ const createNotificationContent = (data, flags) => {
 		expandedToggleText: '',
 		collapsedToggleText: ''
 	});
+
 	const feedbackEl = oExpanderDiv.querySelector('.myft-notification__feedback');
 	if (feedbackEl) {
 		new Feedback(feedbackEl, {
