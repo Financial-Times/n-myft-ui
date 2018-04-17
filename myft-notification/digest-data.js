@@ -8,7 +8,10 @@ const myftNotificationsEnabled = 'myftNotificationsEnabled';
 const hasBeenRead = (targetArticle, readArticles) => readArticles.find(readArticle => readArticle.id === targetArticle.id);
 
 const checkDigestDataExist = ({ data = {} } = {}) => {
-	if (!data || !data.user || !data.user.digest || !data.user.digest.articles) {
+	if (!data || !data.user ||
+		!data.user.digest ||
+		!data.user.digest.articles ||
+		data.user.digest.articles.length === 0) {
 		return Promise.reject(new Error('myFT Digest data is not provided'));
 	}
 	return data;
