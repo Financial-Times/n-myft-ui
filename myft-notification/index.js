@@ -57,13 +57,7 @@ const createNotificationContent = (data, flags) => {
 	});
 
 	oExpanderDiv.querySelector('.myft-notification__collapse').addEventListener('click', closeNotificationContent);
-
 	oDate.init(oExpanderDiv);
-
-	notificationContentExpander = oExpander.init(oExpanderDiv, {
-		expandedToggleText: '',
-		collapsedToggleText: ''
-	});
 
 	const feedbackEl = oExpanderDiv.querySelector('.myft-notification__feedback');
 	if (feedbackEl) {
@@ -77,6 +71,8 @@ const createNotificationContent = (data, flags) => {
 			}
 		});
 	}
+
+	return oExpanderDiv;
 };
 
 const dismissNotification = () => {
@@ -94,7 +90,7 @@ const moveNotificationContentTo = (el) => el.appendChild(notificationContentExpa
 let digestData;
 let notificationContentExpander;
 
-export default async (flags = {}) => {
+export default async (flags = {}, options = {}) => {
 	const myFtIcon = document.querySelector('.o-header__top-link--myft');
 	const userId = await getUuidFromSession();
 
@@ -105,7 +101,7 @@ export default async (flags = {}) => {
 	digestData = new DigestData(userId);
 	digestData.fetch()
 		.then(data => {
-			createNotificationContent(data, flags);
+			const expanderDiv = createNotificationContent(data, flags);
 			const stickyHeader = document.querySelector('.o-header--sticky');
 			const stickyHeaderMyFtIconContainer = stickyHeader.querySelector('.o-header__top-column--right');
 			const ftHeaderMyFtIconContainer = document.querySelector('.o-header__top-wrapper .o-header__top-link--myft__container');
@@ -114,6 +110,13 @@ export default async (flags = {}) => {
 
 			insertToggleButton(stickyHeaderMyFtIconContainer, showNotification, isLargeNotification);
 			insertToggleButton(ftHeaderMyFtIconContainer, showNotification, isLargeNotification);
+
+			// Must append div to DOM before constructing the oExpander, in order for expander events to bubble
+			ftHeaderMyFtIconContainer.querySelector('.myft-notification').appendChild(expanderDiv);
+			notificationContentExpander = oExpander.init(expanderDiv, {
+				expandedToggleText: '',
+				collapsedToggleText: ''
+			});
 
 			if (stickyHeaderMyFtIconContainer && ftHeaderMyFtIconContainer) {
 				stickyHeader.addEventListener('oHeader.Sticky', (e) => {
