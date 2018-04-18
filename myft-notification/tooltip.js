@@ -24,7 +24,7 @@ export default class NotificationTooltip {
 	}
 
 	listenForNotificationsOpening () {
-		document.body.addEventListener('oExpander.expand', () => {
+		this.containerEl.parentNode.addEventListener('oExpander.expand', () => {
 			this.hide();
 		});
 	}
