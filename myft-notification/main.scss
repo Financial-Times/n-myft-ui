@@ -4,18 +4,29 @@ $o-teaser-is-silent: true;
 @import 'o-teaser/main';
 @import 'o-typography/main';
 
-.o-header--sticky .myft-notification__container {
-	[data-next-app="article"] & {
-		@include oGridRespondTo($until: M) {
-			width: 215px;
-		}
-		@include oGridRespondTo($from: M, $until: L) {
-			width: 236px;
-		}
-	}
+.o-header--sticky {
+	.myft-notification__container {
+		[data-next-app="article"] & {
+			@include oGridRespondTo($until: M) {
+				width: 215px;
+			}
+			@include oGridRespondTo($from: M, $until: L) {
+				width: 236px;
+			}
 
-	@include oGridRespondTo($from: L) {
-		margin-top: 4px;
+			// HACK: None of the o-grid sizes give us the right width for this :-(
+			// hide notification to avoid "SAVE" button crash into FT logo
+			@media (max-width: 592px) and (min-width: 490px) {
+				width: 12.5%;
+				.myft-notification {
+					display: none;
+				}
+			}
+		}
+
+		@include oGridRespondTo($from: L) {
+			margin-top: 4px;
+		}
 	}
 }
 
