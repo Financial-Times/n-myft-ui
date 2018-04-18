@@ -129,7 +129,7 @@ export default async (flags = {}, options = {}) => {
 				});
 			}
 
-			if (options && options.enableTooltip) {
+			if (options && options.enableAnnouncer) {
 				new NotificationProductAnnouncer(ftHeaderMyFtIconContainer.querySelector('.myft-notification__icon'));
 			}
 		})
