@@ -4,7 +4,7 @@ import oDate from 'o-date';
 import getUuidFromSession from './get-uuid-from-session';
 import Feedback from '../components/feedback';
 import DigestData from './digest-data';
-import NotificationTooltip from './tooltip';
+import NotificationProductAnnouncer from './notification-product-announcer';
 import dispatchTrackingEvent from './tracking';
 import templateExpander from './notification-expander.html';
 import templateToggleButton from './notification-toggle-button.html';
@@ -130,7 +130,7 @@ export default async (flags = {}, options = {}) => {
 			}
 
 			if (options && options.enableTooltip) {
-				new NotificationTooltip(ftHeaderMyFtIconContainer.querySelector('.myft-notification__icon'));
+				new NotificationProductAnnouncer(ftHeaderMyFtIconContainer.querySelector('.myft-notification__icon'));
 			}
 		})
 		.catch(err => {

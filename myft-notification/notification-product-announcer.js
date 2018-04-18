@@ -2,7 +2,7 @@ import Tooltip from 'o-tooltip';
 
 const myFtNotificationTooltipShowCount = 'myFtNotificationTooltipShowCount';
 
-export default class NotificationTooltip {
+export default class NotificationProductAnnouncer {
 	constructor (containerEl) {
 		this.containerEl = containerEl;
 
