@@ -6,8 +6,11 @@ $o-teaser-is-silent: true;
 
 .o-header--sticky .myft-notification__container {
 	[data-next-app="article"] & {
-		@include oGridRespondTo($until: L) {
-			width: 12.5%;
+		@include oGridRespondTo($until: M) {
+			width: 215px;
+		}
+		@include oGridRespondTo($from: M, $until: L) {
+			width: 236px;
 		}
 	}
 
