@@ -1,22 +1,9 @@
 import fetchDigestData from './fetch-digest-data';
-import divideUnreadRead from './divide-unread-read';
+import orderByUnreadFirst from './order-by-unread-first';
 
 const notificationDismissTime = 'timeUserClickedMyftNotification';
 const myftNotificationsEnabled = 'myftNotificationsEnabled';
 
-const orderByUnreadFirst = (data) => {
-	const digestData = data.user.digest;
-	const result = digestData;
-
-	// reading history for past 7 days
-	const articlesUserRead = data.user.articlesFromReadingHistory ? data.user.articlesFromReadingHistory.articles : [];
-	if (articlesUserRead.length > 0) {
-		const digestDataDivided = divideUnreadRead(digestData, articlesUserRead);
-		result.articles = digestDataDivided.unreadArticles.concat(digestDataDivided.readArticles);
-	}
-
-	return result;
-};
 
 export default class DigestData {
 	constructor (uuid) {
