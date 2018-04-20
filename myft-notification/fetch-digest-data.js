@@ -21,6 +21,9 @@ const flattenDigestSections = data => {
 export default async (uuid) => {
 	const digestQuery = `
 		${teaserFragments.teaserExtraLight}
+		${teaserFragments.teaserLight}
+		${teaserFragments.teaserStandard}
+		${teaserFragments.teaserHeavy}
 
 		query MyFT($uuid: String!) {
 				user(uuid: $uuid) {
@@ -38,6 +41,9 @@ export default async (uuid) => {
 							url
 							articles {
 								...TeaserExtraLight
+								...TeaserLight
+								...TeaserStandard
+								...TeaserHeavy
 							}
 						}
 					}
@@ -51,6 +57,6 @@ export default async (uuid) => {
 	return fetch(url, options)
 		.then(fetchJson)
 		.then(checkDigestDataExist)
-		.then(flattenDigestSections)
+		.then(flattenDigestSections);
 
-}
+};

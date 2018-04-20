@@ -8,4 +8,4 @@ export default (digestData, articlesUserRead) => {
 	});
 
 	return { readArticles, unreadArticles };
-}
+};
