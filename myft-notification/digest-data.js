@@ -1,5 +1,5 @@
 import fetchDigestData from './fetch-digest-data';
-import orderByUnreadFirst from './order-by-unread-first';
+import { orderByUnreadFirst } from './order-by-unread-first';
 
 const notificationDismissTime = 'timeUserClickedMyftNotification';
 const myftNotificationsEnabled = 'myftNotificationsEnabled';

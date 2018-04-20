@@ -1,6 +1,15 @@
-import divideUnreadRead from './divide-unread-read';
+const hasBeenRead = (targetArticle, readArticles) => readArticles.find(readArticle => readArticle.id === targetArticle.id);
 
-export default (data) => {
+function divideUnreadRead (digestData, articlesUserRead) {
+	const readArticles = [];
+	const unreadArticles = [];
+	digestData.articles.forEach(article => {
+		hasBeenRead(article, articlesUserRead) ? readArticles.push(article) : unreadArticles.push(article);
+	});
+	return { readArticles, unreadArticles };
+}
+
+function orderByUnreadFirst (data) {
 	const digestData = data.user.digest;
 	const result = digestData;
 
@@ -12,4 +21,9 @@ export default (data) => {
 	}
 
 	return result;
+}
+
+module.exports = {
+	orderByUnreadFirst,
+	divideUnreadRead
 };
