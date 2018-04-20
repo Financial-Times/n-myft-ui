@@ -1,6 +1,6 @@
 const hasBeenRead = (targetArticle, readArticles) => readArticles.find(readArticle => readArticle.id === targetArticle.id);
 
-function divideUnreadRead (digestData, articlesUserRead) {
+export function divideUnreadRead (digestData, articlesUserRead) {
 	const readArticles = [];
 	const unreadArticles = [];
 	digestData.articles.forEach(article => {
@@ -9,7 +9,7 @@ function divideUnreadRead (digestData, articlesUserRead) {
 	return { readArticles, unreadArticles };
 }
 
-function orderByUnreadFirst (data) {
+export function orderByUnreadFirst (data) {
 	const digestData = data.user.digest;
 	const result = digestData;
 
@@ -22,8 +22,3 @@ function orderByUnreadFirst (data) {
 
 	return result;
 }
-
-module.exports = {
-	orderByUnreadFirst,
-	divideUnreadRead
-};
