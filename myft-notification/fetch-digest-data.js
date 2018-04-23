@@ -43,7 +43,7 @@ const orderByUnreadFirst = data => {
 	return data;
 };
 
-export default async (uuid) => {
+const fetchData = uuid => {
 	const digestQuery = `
 		${teaserFragments.teaserExtraLight}
 		${teaserFragments.teaserLight}
@@ -85,4 +85,14 @@ export default async (uuid) => {
 		.then(extractArticlesFromSections)
 		.then(decorateWithHasBeenRead)
 		.then(orderByUnreadFirst);
+};
+
+let data;
+
+export default (uuid, force = false) => {
+	if (!data || force) {
+		data = fetchData(uuid);
+	}
+
+	return data;
 };
