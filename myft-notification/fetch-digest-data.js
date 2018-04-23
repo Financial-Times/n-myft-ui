@@ -16,8 +16,30 @@ const checkDigestDataExist = ({ data = {} } = {}) => {
 
 const flattenDigestSections = data => {
 	data.user.digest.articles = data.user.digest.concepts.reduce((flatArticles, concept) => {
-		return flatArticles.concat(concept.articles)
+		return flatArticles.concat(concept.articles);
 	}, []);
+
+	return data;
+};
+
+const decorateWithReadStatus = data => {
+	const readArticles = data.user.articlesFromReadingHistory ? data.user.articlesFromReadingHistory.articles : [];
+
+	readArticles.forEach(readArticle => {
+		const readArticleInDigest = data.user.digest.articles.find(digestArticle => digestArticle.id === readArticle.id);
+
+		if (readArticleInDigest) {
+			readArticleInDigest.read = true;
+		}
+	});
+
+	return data;
+};
+
+const orderByUnreadFirst = data => {
+	data.user.digest.articles.sort((a, b) => {
+		return (a.read && b.read) ? 0 : a.read ? -1 : 1;
+	});
 
 	return data;
 };
@@ -61,6 +83,7 @@ export default async (uuid) => {
 	return fetch(url, options)
 		.then(fetchJson)
 		.then(checkDigestDataExist)
-		.then(flattenDigestSections);
-
+		.then(flattenDigestSections)
+		.then(decorateWithReadStatus)
+		.then(orderByUnreadFirst);
 };

@@ -1,9 +1,7 @@
 import fetchDigestData from './fetch-digest-data';
-import { orderByUnreadFirst } from './order-by-unread-first';
 
 const notificationDismissTime = 'timeUserClickedMyftNotification';
 const myftNotificationsEnabled = 'myftNotificationsEnabled';
-
 
 export default class DigestData {
 	constructor (uuid) {
@@ -12,9 +10,8 @@ export default class DigestData {
 
 	fetch () {
 		return fetchDigestData(this.uuid)
-			.then(orderByUnreadFirst)
 			.then(data => {
-				this.data = data;
+				this.data = data.user.digest;
 				return this.data;
 			});
 	}
