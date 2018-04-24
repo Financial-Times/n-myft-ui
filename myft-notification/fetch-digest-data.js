@@ -37,7 +37,7 @@ const decorateWithHasBeenRead = data => {
 
 const orderByUnreadFirst = data => {
 	data.user.digest.articles.sort((a, b) => {
-		return (a.hasBeenRead && b.hasBeenRead) ? 0 : a.hasBeenRead ? -1 : 1;
+		return (a.hasBeenRead && b.hasBeenRead) ? 0 : a.hasBeenRead ? 1 : -1;
 	});
 
 	return data;
