@@ -58,7 +58,7 @@ export default class NotificationProductAnnouncer {
 				position: 'below'
 			});
 			if (this.clickHandler) {
-				this.tooltip.tooltipEl.addEventListener('click', this.clickHandler);
+				this.tooltip.tooltipEl.querySelector('.o-tooltip-content').addEventListener('click', this.clickHandler);
 			}
 		} else {
 			this.tooltip.show();
