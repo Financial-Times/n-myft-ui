@@ -32,6 +32,12 @@ module.exports = {
 		action: 'click',
 		messaging: 'myft-digest-link',
 		contentID: link.dataset.contentId
+	}),
+
+	tooltipClosed: (document) => dispatchEvent(document, {
+		category: 'component',
+		action: 'close',
+		messaging: 'myft-digest-tooltip'
 	})
 
 };

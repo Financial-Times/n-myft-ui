@@ -1,4 +1,5 @@
 import Tooltip from 'o-tooltip';
+import dispatchTrackingEvent from './tracking';
 
 const countStorageKey = 'myFtNotificationTooltipShowCount';
 
@@ -60,6 +61,9 @@ export default class NotificationProductAnnouncer {
 			if (this.clickHandler) {
 				this.tooltip.tooltipEl.querySelector('.o-tooltip-content').addEventListener('click', this.clickHandler);
 			}
+			this.tooltip.tooltipEl.querySelector('.o-tooltip-close').addEventListener('click', () => {
+				dispatchTrackingEvent.tooltipClosed(document);
+			});
 		} else {
 			this.tooltip.show();
 		}
