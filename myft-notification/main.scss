@@ -48,10 +48,6 @@ $o-teaser-is-silent: true;
 		display: block;
 	}
 
-	&.myft-notification--large {
-		margin-left: 2px;
-	}
-
 	.o-expander__toggle {
 		@include oExpanderToggle;
 		i {
@@ -68,10 +64,6 @@ $o-teaser-is-silent: true;
 	border: 0;
 	min-width: 32px;
 	width: auto;
-
-	.myft-notification--large & {
-		padding: 1px;
-	}
 }
 
 .myft-notification__text-button {
@@ -89,18 +81,6 @@ $o-teaser-is-silent: true;
 			padding: oTypographySpacingSize(1);
 			margin-left: 30px;
 			top: -2px;
-		}
-	}
-
-	.myft-notification--large & {
-		@include oIconsGetIcon('notifications', getColor('white'), 28);
-		background-color: getColor('crimson');
-		border-radius: 32px;
-		margin-left: 4px;
-		min-width: 0;
-
-		.myft-notification__text-button {
-			display: none;
 		}
 	}
 
@@ -128,10 +108,6 @@ $o-teaser-is-silent: true;
 			animation-name: bounce;
 			animation-iteration-count: 3;
 			transform-origin: top center;
-		}
-
-		.myft-notification--large & {
-			content: none;
 		}
 	}
 }

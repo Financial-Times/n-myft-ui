@@ -30,15 +30,13 @@ const toggleNotificationContent = (e) => {
 	}
 };
 
-const insertToggleButton = (targetEl, withDot, isLargeNotification, withAnimation, digestFrequency) => {
+const insertToggleButton = (targetEl, withDot, withAnimation, digestFrequency) => {
 	if (targetEl) {
 		targetEl.classList.add('myft-notification__container');
 		const toggleButtonContainer = document.createElement('div');
-		toggleButtonContainer.setAttribute('class', 'myft-notification');
 
-		isLargeNotification && toggleButtonContainer.classList.add('myft-notification--large');
-		withAnimation && toggleButtonContainer.classList.add('myft-notification--animate');
-
+		toggleButtonContainer.classList.add('myft-notification');
+		toggleButtonContainer.classList.toggle('myft-notification--animate', withAnimation);
 		toggleButtonContainer.innerHTML = templateToggleButton({
 			withDot,
 			digestFrequency: digestFrequency === 'daily' ? 'Daily' : 'Weekly'
@@ -120,11 +118,10 @@ export default async (flags = {}, options = {}) => {
 			const stickyHeaderMyFtIconContainer = stickyHeader.querySelector('.o-header__top-column--right');
 			const ftHeaderMyFtIconContainer = document.querySelector('.o-header__top-wrapper .o-header__top-link--myft__container');
 			const showNotification = digestData.hasNotifiableContent();
-			const isLargeNotification = flags.myFtDigestArticles === 'notificationLarge';
 			const withAnimation = options && options.animate;
 
-			insertToggleButton(stickyHeaderMyFtIconContainer, showNotification, isLargeNotification, withAnimation, data.type);
-			insertToggleButton(ftHeaderMyFtIconContainer, showNotification, isLargeNotification, withAnimation, data.type);
+			insertToggleButton(stickyHeaderMyFtIconContainer, showNotification, withAnimation, data.type);
+			insertToggleButton(ftHeaderMyFtIconContainer, showNotification, withAnimation, data.type);
 
 			// Must append div to DOM before constructing the oExpander, in order for expander events to bubble
 			ftHeaderMyFtIconContainer.querySelector('.myft-notification').appendChild(expanderDiv);
