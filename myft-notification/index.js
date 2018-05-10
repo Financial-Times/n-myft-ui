@@ -102,7 +102,7 @@ const orderArticlesByUnreadFirst = data => {
 let digestData;
 let notificationContentExpander;
 
-export default async (flags = {}, { animate = false, enableAnnouncer = false }) => {
+export default async (flags = {}, { animate = false, enableAnnouncer = false } = {}) => {
 	const myFtIcon = document.querySelector('.o-header__top-link--myft');
 	const userId = await getUuidFromSession();
 
