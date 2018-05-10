@@ -21,6 +21,7 @@ const extractArticlesFromSections = data => {
 	return data;
 };
 
+// read state in articlesFromReadingHistory will be delayed by up to ~1 minute
 const decorateWithHasBeenRead = data => {
 	const readArticles = data.user.articlesFromReadingHistory ? data.user.articlesFromReadingHistory.articles : [];
 
@@ -30,14 +31,6 @@ const decorateWithHasBeenRead = data => {
 		if (readArticleInDigest) {
 			readArticleInDigest.hasBeenRead = true;
 		}
-	});
-
-	return data;
-};
-
-const orderByUnreadFirst = data => {
-	data.user.digest.articles.sort((a, b) => {
-		return (a.hasBeenRead && b.hasBeenRead) ? 0 : a.hasBeenRead ? 1 : -1;
 	});
 
 	return data;
@@ -83,8 +76,7 @@ const fetchData = uuid => {
 		.then(fetchJson)
 		.then(checkDigestDataExist)
 		.then(extractArticlesFromSections)
-		.then(decorateWithHasBeenRead)
-		.then(orderByUnreadFirst);
+		.then(decorateWithHasBeenRead);
 };
 
 let data;

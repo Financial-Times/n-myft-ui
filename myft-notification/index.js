@@ -99,6 +99,14 @@ const dismissNotification = () => {
 
 const moveNotificationContentTo = (el) => el.appendChild(notificationContentExpander.contentEl);
 
+const orderArticlesByUnreadFirst = data => {
+	data.articles.sort((a, b) => {
+		return (a.hasBeenRead && b.hasBeenRead) ? 0 : a.hasBeenRead ? 1 : -1;
+	});
+
+	return data;
+};
+
 let digestData;
 let notificationContentExpander;
 
@@ -112,6 +120,7 @@ export default async (flags = {}, options = {}) => {
 
 	digestData = new DigestData(userId);
 	digestData.fetch()
+		.then(orderArticlesByUnreadFirst)
 		.then(data => {
 			const expanderDiv = createNotificationContent(data, flags);
 			const stickyHeader = document.querySelector('.o-header--sticky');
