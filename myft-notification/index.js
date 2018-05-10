@@ -30,36 +30,28 @@ const toggleNotificationContent = (e) => {
 	}
 };
 
-const insertToggleButton = (targetEl, withDot, withAnimation, digestFrequency) => {
+const insertToggleButton = (targetEl, { withNotification, animate, digestFrequency }) => {
 	if (targetEl) {
 		targetEl.classList.add('myft-notification__container');
 		const toggleButtonContainer = document.createElement('div');
 
 		toggleButtonContainer.classList.add('myft-notification');
-		toggleButtonContainer.classList.toggle('myft-notification--animate', withAnimation);
-		toggleButtonContainer.innerHTML = templateToggleButton({
-			withDot,
-			digestFrequency: digestFrequency === 'daily' ? 'Daily' : 'Weekly'
-		});
-
+		toggleButtonContainer.classList.toggle('myft-notification--animate', animate);
+		toggleButtonContainer.innerHTML = templateToggleButton({ withNotification, digestFrequency });
 		toggleButtonContainer.querySelector('.myft-notification__icon').addEventListener('click', toggleNotificationContent);
 
 		targetEl.appendChild(toggleButtonContainer);
 	}
 };
 
-const createNotificationContent = (data, flags) => {
+const createNotificationContent = (data, { digestFrequency }) => {
 	const publishedDate = new Date(Date.parse(data.publishedDate));
 	const publishedDateFormatted = oDate.format(publishedDate, 'd/M/yyyy');
 	const oExpanderDiv = document.createElement('div');
 	oExpanderDiv.setAttribute('class', 'o-expander');
 	oExpanderDiv.setAttribute('data-o-component', 'o-expander');
 	oExpanderDiv.setAttribute('data-o-expander-shrink-to', 'hidden');
-	oExpanderDiv.innerHTML = templateExpander({
-		items: data.articles,
-		digestFrequency: data.type === 'daily' ? 'Daily' : 'Weekly',
-		publishedDateFormatted,
-	flags });
+	oExpanderDiv.innerHTML = templateExpander({ items: data.articles, digestFrequency, publishedDateFormatted });
 
 	const digestArticleLinks = [...oExpanderDiv.querySelectorAll('.js-teaser-heading-link')];
 	digestArticleLinks.forEach(link => {
@@ -110,7 +102,7 @@ const orderArticlesByUnreadFirst = data => {
 let digestData;
 let notificationContentExpander;
 
-export default async (flags = {}, options = {}) => {
+export default async (flags = {}, { animate = false, enableAnnouncer = false }) => {
 	const myFtIcon = document.querySelector('.o-header__top-link--myft');
 	const userId = await getUuidFromSession();
 
@@ -122,15 +114,19 @@ export default async (flags = {}, options = {}) => {
 	digestData.fetch()
 		.then(orderArticlesByUnreadFirst)
 		.then(data => {
-			const expanderDiv = createNotificationContent(data, flags);
+			const digestFrequency = data.type === 'daily' ? 'Daily' : 'Weekly';
+			const expanderDiv = createNotificationContent(data, { digestFrequency });
 			const stickyHeader = document.querySelector('.o-header--sticky');
 			const stickyHeaderMyFtIconContainer = stickyHeader.querySelector('.o-header__top-column--right');
 			const ftHeaderMyFtIconContainer = document.querySelector('.o-header__top-wrapper .o-header__top-link--myft__container');
-			const showNotification = digestData.hasNotifiableContent();
-			const withAnimation = options && options.animate;
+			const toggleButtonOptions = {
+				withNotification: digestData.hasNotifiableContent(),
+				animate,
+				digestFrequency
+			};
 
-			insertToggleButton(stickyHeaderMyFtIconContainer, showNotification, withAnimation, data.type);
-			insertToggleButton(ftHeaderMyFtIconContainer, showNotification, withAnimation, data.type);
+			insertToggleButton(stickyHeaderMyFtIconContainer, toggleButtonOptions);
+			insertToggleButton(ftHeaderMyFtIconContainer, toggleButtonOptions);
 
 			// Must append div to DOM before constructing the oExpander, in order for expander events to bubble
 			ftHeaderMyFtIconContainer.querySelector('.myft-notification').appendChild(expanderDiv);
@@ -151,7 +147,7 @@ export default async (flags = {}, options = {}) => {
 				});
 			}
 
-			if (showNotification && options && options.enableAnnouncer) {
+			if (toggleButtonOptions.withNotification && enableAnnouncer) {
 				const toggleButton = ftHeaderMyFtIconContainer.querySelector('.myft-notification__icon');
 				const expanderContainer = ftHeaderMyFtIconContainer.querySelector('.myft-notification');
 
