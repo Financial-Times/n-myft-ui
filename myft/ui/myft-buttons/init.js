@@ -3,11 +3,13 @@ import * as buttonStates from '../lib/button-states';
 import * as tracking from '../lib/tracking';
 import * as loadedRelationships from '../lib/loaded-relationships';
 import relationshipConfig from '../lib/relationship-config';
+import setTokens from '../lib/set-tokens';
 import nNotification from 'n-notification';
 import Delegate from 'ftdomdelegate';
 import personaliseLinks from '../personalise-links';
 import doFormSubmit from './do-form-submit';
 import pinning, {findButton, setLoading} from './pin-button';
+import Cookies from 'js-cookie';
 
 const delegate = new Delegate(document.body);
 let initialised;
@@ -94,9 +96,11 @@ export default function (opts) {
 		if (opts && opts.anonymous) {
 			anonEventListeners();
 		} else {
+			const session = Cookies.get('FTSession');
+			setTokens(session);
 			signedInEventListeners();
 			personaliseLinks();
-			if(opts.flags && opts.flags.get('myftPrioritiseTopics')) {
+			if (opts.flags && opts.flags.get('myftPrioritiseTopics')) {
 				pinButtonEventListeners();
 			}
 		}
