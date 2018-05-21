@@ -96,7 +96,7 @@ export default function (opts) {
 		if (opts && opts.anonymous) {
 			anonEventListeners();
 		} else {
-			const session = Cookies.get('FTSession');
+			const session = Cookies.get('FTSession_s') || Cookies.get('FTSession');
 			setTokens(session);
 			signedInEventListeners();
 			personaliseLinks();
