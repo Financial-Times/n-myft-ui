@@ -3,6 +3,11 @@
 	data-concept-id="{{conceptId}}"
 	action="/__myft/api/core/followed/concept/{{conceptId}}?method=delete">
 	<input type="hidden" value="{{name}}" name="name">
+	<input
+		data-myft-csrf-token
+		value="{{@root.csrfToken}}"
+		type="hidden"
+		name="token">
 	<button
 		aria-label="Remove {{name}} from myFT"
 		aria-pressed="true"

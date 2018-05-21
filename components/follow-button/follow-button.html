@@ -13,6 +13,11 @@
 			action="/__myft/api/core/followed/concept/{{conceptId}}?method=put"
 		{{/ifAll}}
 	{{/if}}>
+	<input
+		data-myft-csrf-token
+		value="{{@root.csrfToken}}"
+		type="hidden"
+		name="token">
 	<button
 		{{#ifAll setFollowButtonStateToSelected @root.cacheablePersonalisedUrl}}
 			aria-label="Remove {{name}} from myFT"
