@@ -14,7 +14,6 @@ import Cookies from 'js-cookie';
 const delegate = new Delegate(document.body);
 let initialised;
 
-
 function getInteractionHandler (relationshipName) {
 	return (ev, formEl) => {
 		ev.preventDefault();
@@ -88,7 +87,7 @@ const pinButtonEventListeners = () => {
 };
 
 export default function (opts) {
-	if (initialised) {
+	if (initialised && opts.reinitialise !== true) {
 		return;
 	} else {
 		initialised = true;
