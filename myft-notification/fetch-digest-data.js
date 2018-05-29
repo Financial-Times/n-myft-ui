@@ -1,6 +1,7 @@
-import { json as fetchJson } from 'fetchres';
-import { fragments as teaserFragments } from '@financial-times/n-teaser/main';
-import slimQuery from './slim-query';
+const { json: fetchJson } = require('fetchres');
+const { cloneDeep } = require('lodash');
+const { fragments: teaserFragments } = require('@financial-times/n-teaser/main');
+const slimQuery = require('./slim-query');
 
 const checkDigestDataExist = ({ data = {} } = {}) => {
 	if (!data || !data.user ||
@@ -14,7 +15,7 @@ const checkDigestDataExist = ({ data = {} } = {}) => {
 	return data;
 };
 
-const extractArticlesFromSections = data => {
+const extractArticlesFromConcepts = data => {
 	data.user.digest.articles = data.user.digest.concepts.reduce((flatArticles, concept) =>
 		flatArticles.concat(concept.articles), []);
 
@@ -36,7 +37,7 @@ const decorateWithHasBeenRead = data => {
 	return data;
 };
 
-const fetchData = uuid => {
+const requestDigestData = uuid => {
 	const digestQuery = `
 		${teaserFragments.teaserExtraLight}
 		${teaserFragments.teaserLight}
@@ -75,16 +76,16 @@ const fetchData = uuid => {
 	return fetch(url, options)
 		.then(fetchJson)
 		.then(checkDigestDataExist)
-		.then(extractArticlesFromSections)
+		.then(extractArticlesFromConcepts)
 		.then(decorateWithHasBeenRead);
 };
 
-let data;
+let digestData;
 
-export default (uuid, force = false) => {
-	if (!data || force) {
-		data = fetchData(uuid);
+module.exports = (uuid, force = false) => {
+	if (!digestData || force) {
+		digestData = requestDigestData(uuid);
 	}
 
-	return data;
+	return digestData.then(data => cloneDeep(data));
 };
