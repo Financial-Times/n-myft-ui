@@ -1,7 +1,7 @@
-const { json: fetchJson } = require('fetchres');
-const { cloneDeep } = require('lodash');
-const { fragments: teaserFragments } = require('@financial-times/n-teaser/main');
-const slimQuery = require('./slim-query');
+import { json as fetchJson } from 'fetchres';
+import { cloneDeep } from 'lodash';
+import { fragments as teaserFragments } from '@financial-times/n-teaser/main';
+import slimQuery from './slim-query';
 
 const checkDigestDataExist = ({ data = {} } = {}) => {
 	if (!data || !data.user ||
@@ -82,7 +82,7 @@ const requestDigestData = uuid => {
 
 let digestData;
 
-module.exports = (uuid, force = false) => {
+export default (uuid, force = false) => {
 	if (!digestData || force) {
 		digestData = requestDigestData(uuid);
 	}

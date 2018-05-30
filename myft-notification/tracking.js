@@ -7,37 +7,33 @@ function dispatchEvent (document, detail) {
 	document.body.dispatchEvent(event);
 }
 
-module.exports = {
+export const digestRendered = (document) => dispatchEvent(document, {
+	category: 'component',
+	action: 'render',
+	messaging: 'myft-digest'
+});
 
-	digestRendered: (document) => dispatchEvent(document, {
-		category: 'component',
-		action: 'render',
-		messaging: 'myft-digest'
-	}),
+export const digestOpened = (document) => dispatchEvent(document, {
+	category: 'component',
+	action: 'open',
+	messaging: 'myft-digest'
+});
 
-	digestOpened: (document) => dispatchEvent(document, {
-		category: 'component',
-		action: 'open',
-		messaging: 'myft-digest'
-	}),
+export const digestClosed = (document) => dispatchEvent(document, {
+	category: 'component',
+	action: 'close',
+	messaging: 'myft-digest'
+});
 
-	digestClosed: (document) => dispatchEvent(document, {
-		category: 'component',
-		action: 'close',
-		messaging: 'myft-digest'
-	}),
+export const digestLinkClicked = (document, link) => dispatchEvent(document, {
+	category: 'element',
+	action: 'click',
+	messaging: 'myft-digest-link',
+	contentID: link.dataset.contentId
+});
 
-	digestLinkClicked: (document, link) => dispatchEvent(document, {
-		category: 'element',
-		action: 'click',
-		messaging: 'myft-digest-link',
-		contentID: link.dataset.contentId
-	}),
-
-	tooltipClosed: (document) => dispatchEvent(document, {
-		category: 'component',
-		action: 'close',
-		messaging: 'myft-digest-tooltip'
-	})
-
-};
+export const tooltipClosed = (document) => dispatchEvent(document, {
+	category: 'component',
+	action: 'close',
+	messaging: 'myft-digest-tooltip'
+});
