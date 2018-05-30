@@ -5,7 +5,7 @@ import getUuidFromSession from './get-uuid-from-session';
 import Feedback from '../components/feedback';
 import DigestData from './digest-data';
 import NotificationProductAnnouncer from './notification-product-announcer';
-import dispatchTrackingEvent from './tracking';
+import * as tracking from './tracking';
 import templateExpander from './notification-expander.html';
 import templateToggleButton from './notification-toggle-button.html';
 
@@ -14,12 +14,12 @@ const openNotificationContent = (targetEl) => {
 	targetEl.classList.remove('myft-notification--animate');
 	notificationContentExpander.expand();
 	dismissNotification();
-	dispatchTrackingEvent.digestOpened(document);
+	tracking.digestOpened();
 };
 
 const closeNotificationContent = () => {
 	notificationContentExpander.collapse();
-	dispatchTrackingEvent.digestClosed(document);
+	tracking.digestClosed();
 };
 
 const toggleNotificationContent = (e) => {
@@ -56,7 +56,7 @@ const createNotificationContent = (data, { digestFrequency }) => {
 	const digestArticleLinks = [...oExpanderDiv.querySelectorAll('.js-teaser-heading-link')];
 	digestArticleLinks.forEach(link => {
 		link.addEventListener('click', () => {
-			dispatchTrackingEvent.digestLinkClicked(document, link);
+			tracking.digestLinkClicked(link);
 		});
 	});
 
@@ -135,7 +135,7 @@ export default async (flags = {}, { animate = false, enableAnnouncer = false } =
 				collapsedToggleText: ''
 			});
 
-			dispatchTrackingEvent.digestRendered(document);
+			tracking.digestRendered();
 
 			if (stickyHeaderMyFtIconContainer && ftHeaderMyFtIconContainer) {
 				stickyHeader.addEventListener('oHeader.Sticky', (e) => {

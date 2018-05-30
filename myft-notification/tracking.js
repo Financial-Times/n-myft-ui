@@ -1,4 +1,4 @@
-function dispatchEvent (document, detail) {
+function dispatchEvent (detail) {
 	const event = new CustomEvent('oTracking.event', {
 		detail,
 		bubbles: true
@@ -7,32 +7,32 @@ function dispatchEvent (document, detail) {
 	document.body.dispatchEvent(event);
 }
 
-export const digestRendered = (document) => dispatchEvent(document, {
+export const digestRendered = () => dispatchEvent({
 	category: 'component',
 	action: 'render',
 	messaging: 'myft-digest'
 });
 
-export const digestOpened = (document) => dispatchEvent(document, {
+export const digestOpened = () => dispatchEvent({
 	category: 'component',
 	action: 'open',
 	messaging: 'myft-digest'
 });
 
-export const digestClosed = (document) => dispatchEvent(document, {
+export const digestClosed = () => dispatchEvent({
 	category: 'component',
 	action: 'close',
 	messaging: 'myft-digest'
 });
 
-export const digestLinkClicked = (document, link) => dispatchEvent(document, {
+export const digestLinkClicked = (link) => dispatchEvent({
 	category: 'element',
 	action: 'click',
 	messaging: 'myft-digest-link',
 	contentID: link.dataset.contentId
 });
 
-export const tooltipClosed = (document) => dispatchEvent(document, {
+export const tooltipClosed = () => dispatchEvent({
 	category: 'component',
 	action: 'close',
 	messaging: 'myft-digest-tooltip'

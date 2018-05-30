@@ -22,9 +22,28 @@ describe('myft digest notification tracking events', () => {
 		window.addEventListener('oTracking.event', oTrackingEvent);
 	});
 
+	describe('digestRendered', () => {
+		beforeEach(() => {
+			tracking.digestRendered();
+		});
+
+		it('should dispatch an oTracking CustomEvent', () => {
+			expect(oTrackingEvent.called).to.equal(true);
+			expect(oTrackingEvent.getCall(0).args[0] instanceof window.CustomEvent).to.equal(true);
+		});
+
+		it('should contain the correct detail', () => {
+			expect(oTrackingEvent.getCall(0).args[0].detail).to.deep.equal({
+				category: 'component',
+				action: 'render',
+				messaging: 'myft-digest'
+			});
+		});
+	});
+
 	describe('digestOpened', () => {
 		beforeEach(() => {
-			tracking.digestOpened(document);
+			tracking.digestOpened();
 		});
 
 		it('should dispatch an oTracking CustomEvent', () => {
@@ -43,7 +62,7 @@ describe('myft digest notification tracking events', () => {
 
 	describe('digestClosed', () => {
 		beforeEach(() => {
-			tracking.digestClosed(document);
+			tracking.digestClosed();
 		});
 
 		it('should dispatch an oTracking CustomEvent', () => {
@@ -62,7 +81,7 @@ describe('myft digest notification tracking events', () => {
 
 	describe('digestLinkClicked', () => {
 		beforeEach(() => {
-			tracking.digestLinkClicked(document, document.querySelector('.digest-links > a'));
+			tracking.digestLinkClicked(document.querySelector('.digest-links > a'));
 		});
 
 		it('should dispatch an oTracking CustomEvent', () => {
@@ -76,6 +95,25 @@ describe('myft digest notification tracking events', () => {
 				action: 'click',
 				messaging: 'myft-digest-link',
 				contentID: ARTICLE_UUID
+			});
+		});
+	});
+
+	describe('tooltipClosed', () => {
+		beforeEach(() => {
+			tracking.tooltipClosed();
+		});
+
+		it('should dispatch an oTracking CustomEvent', () => {
+			expect(oTrackingEvent.called).to.equal(true);
+			expect(oTrackingEvent.getCall(0).args[0] instanceof window.CustomEvent).to.equal(true);
+		});
+
+		it('should contain the correct detail', () => {
+			expect(oTrackingEvent.getCall(0).args[0].detail).to.deep.equal({
+				category: 'component',
+				action: 'close',
+				messaging: 'myft-digest-tooltip'
 			});
 		});
 	});
