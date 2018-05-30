@@ -34,12 +34,16 @@ const expect = chai.expect;
 const USER_UUID = '0-0-0-0';
 const allArticles = mockData.data.user.digest.concepts.reduce((acc, concept) => acc.concat(concept.articles), []);
 
-fetchMock.get('*', mockData);
-
 describe('fetch-digest-data', () => {
 	let data1;
 	let data2;
 	let data3;
+
+	beforeEach(() => {
+		fetchMock.get('*', mockData);
+	});
+
+	afterEach(fetchMock.reset);
 
 	describe('http request - cached', () => {
 		beforeEach(() => {
@@ -58,7 +62,7 @@ describe('fetch-digest-data', () => {
 	describe('http request - forced', () => {
 		beforeEach(() => {
 			return Promise.all([
-				fetchDigestData(USER_UUID),
+				fetchDigestData(USER_UUID, true),
 				fetchDigestData(USER_UUID, true)
 			]);
 		});

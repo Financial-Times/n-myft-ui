@@ -87,5 +87,5 @@ module.exports = (uuid, force = false) => {
 		digestData = requestDigestData(uuid);
 	}
 
-	return digestData.then(data => cloneDeep(data));
+	return digestData.then(cloneDeep);
 };
