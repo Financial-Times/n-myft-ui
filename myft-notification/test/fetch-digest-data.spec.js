@@ -1,9 +1,7 @@
-const chai = require('chai');
+/* global expect */
+
 const fetchMock = require('fetch-mock');
 const fetchDigestData = require('../fetch-digest-data');
-
-chai.use(require('sinon-chai'));
-
 const createMockArticle = id => ({ id });
 
 const mockData = {
@@ -30,7 +28,6 @@ const mockData = {
 	}
 };
 
-const expect = chai.expect;
 const USER_UUID = '0-0-0-0';
 const allArticles = mockData.data.user.digest.concepts.reduce((acc, concept) => acc.concat(concept.articles), []);
 

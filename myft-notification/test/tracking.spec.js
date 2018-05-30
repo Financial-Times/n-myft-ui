@@ -1,36 +1,23 @@
-const sinon = require('sinon');
-const chai = require('chai');
-const jsdom = require('jsdom');
-chai.use(require('sinon-chai'));
-const expect = chai.expect;
+/* global expect sinon */
 
 const tracking = require('../tracking.js');
 
 describe('myft digest notification tracking events', () => {
 	const ARTICLE_UUID = 'd1cbaa6e-3296-11e8-ac48-10c6fdc22F03';
-	let document;
 	let oTrackingEvent;
-	let window;
+	const html = `
+		<button class="open-digest-button">Open</button>
+		<button class="close-digest-button">Close</button>
+		<div class="digest-links">
+			<a href="/content/123" data-content-id="${ARTICLE_UUID}">Digest article headline</a>
+		</div>`;
+
+	const div = document.createElement('div');
+
+	div.innerHTML = html;
+	document.body.appendChild(div);
 
 	beforeEach(() => {
-		const dom = new jsdom.JSDOM(`
-			<!doctype html>
-			<html>
-			<body>
-				<button class="open-digest-button">Open</button>
-				<button class="close-digest-button">Close</button>
-				<div class="digest-links">
-					<a href="/content/123" data-content-id="${ARTICLE_UUID}">Digest article headline</a>
-				</div>
-			</body>
-			</html>`);
-		window = dom.window;
-		document = window.document;
-
-		global.window = window;
-		global.document = document;
-		global.CustomEvent = window.CustomEvent;
-
 		oTrackingEvent = sinon.stub();
 		window.addEventListener('oTracking.event', oTrackingEvent);
 	});
