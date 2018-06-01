@@ -13,7 +13,9 @@ const TODAY_1000 = '2018-06-02T10:00:00.000Z';
 
 describe('getNewContentSinceTime', () => {
 	let clock;
-	let now;
+	let timeNow;
+	let userLastVisitedAt;
+	let userNewContentSince;
 
 	afterEach(() => {
 		clock.restore();
@@ -21,72 +23,71 @@ describe('getNewContentSinceTime', () => {
 
 	describe('given the user is visiting for the first time today', () => {
 		beforeEach(() => {
-			now = new Date(TODAY_0800);
-			clock = sinon.useFakeTimers(now);
+			userLastVisitedAt = SOME_TIME_YESTERDAY;
+			userNewContentSince = SOME_TIME_YESTERDAY;
+			timeNow = new Date(TODAY_0800);
+			clock = sinon.useFakeTimers(timeNow);
 		});
 
-		it('should return the default userNewContentFrom time', () => {
-			const userLastVisited = SOME_TIME_YESTERDAY;
-			const userNewContentFrom = SOME_TIME_YESTERDAY;
-			const newContentFromTime = getNewContentSinceTime(userLastVisited, userNewContentFrom);
+		it('should return the EARLIEST_NEW_CONTENT_TIME_TODAY', () => {
+			const newContentSinceTime = getNewContentSinceTime(userLastVisitedAt, userNewContentSince);
 
-			expect(newContentFromTime).to.equal(EARLIEST_NEW_CONTENT_TIME_TODAY);
+			expect(newContentSinceTime).to.equal(EARLIEST_NEW_CONTENT_TIME_TODAY);
 		});
 	});
 
 	describe('given the user has visited today and returns within the same-visit threshold', () => {
 		beforeEach(() => {
-			now = new Date(TODAY_0801);
-			clock = sinon.useFakeTimers(now);
+			userLastVisitedAt = TODAY_0800;
+			userNewContentSince = TODAY_0700;
+			timeNow = new Date(TODAY_0801);
+			clock = sinon.useFakeTimers(timeNow);
 		});
 
 		describe('and there is a valid userNewContentFrom time set', () => {
-			it('should return the userNewContentFrom time', () => {
-				const userLastVisited = TODAY_0800;
-				const userNewContentFrom = TODAY_0700;
-				const lastPublishedTime = getNewContentSinceTime(userLastVisited, userNewContentFrom);
+			it('should return the userNewContentSince time', () => {
+				const newContentSinceTime = getNewContentSinceTime(userLastVisitedAt, userNewContentSince);
 
-				expect(lastPublishedTime).to.equal(userNewContentFrom);
+				expect(newContentSinceTime).to.equal(userNewContentSince);
 			});
 		});
 
 		describe('and there is no (or an invalid) userNewContentFrom time set', () => {
-			it('should return the default userNewContentFrom time', () => {
-				const userLastVisited = TODAY_0800;
-				const lastPublishedTime = getNewContentSinceTime(userLastVisited, null);
+			it('should return the EARLIEST_NEW_CONTENT_TIME_TODAY', () => {
+				const newContentSinceTime = getNewContentSinceTime(userLastVisitedAt, null);
 
-				expect(lastPublishedTime).to.equal(EARLIEST_NEW_CONTENT_TIME_TODAY);
+				expect(newContentSinceTime).to.equal(EARLIEST_NEW_CONTENT_TIME_TODAY);
 			});
 		});
 	});
 
 	describe('given the user has visited today and returns after the same-visit threshold', () => {
 		beforeEach(() => {
-			now = new Date('2018-06-02T10:00:00.000Z');
-			clock = sinon.useFakeTimers(now);
+			userLastVisitedAt = TODAY_0800;
+			userNewContentSince = TODAY_0600;
+			timeNow = new Date(TODAY_1000);
+			clock = sinon.useFakeTimers(timeNow);
 		});
 
-		it('should return the userLastVisited time', () => {
-			const userLastVisited = TODAY_0800;
-			const userNewContentFrom = TODAY_0600;
-			const lastPublishedTime = getNewContentSinceTime(userLastVisited, userNewContentFrom);
+		it('should return the userLastVisitedAt time', () => {
+			const newContentSinceTime = getNewContentSinceTime(userLastVisitedAt, userNewContentSince);
 
-			expect(lastPublishedTime).to.equal(userLastVisited);
+			expect(newContentSinceTime).to.equal(userLastVisitedAt);
 		});
 
 	});
 
 	describe('given there is an invalid userLastVisited time set', () => {
 		beforeEach(() => {
-			now = new Date(TODAY_1000);
-			clock = sinon.useFakeTimers(now);
+			userNewContentSince = TODAY_0600;
+			timeNow = new Date(TODAY_1000);
+			clock = sinon.useFakeTimers(timeNow);
 		});
 
-		it('should return the default userNewContentFrom time', () => {
-			const userNewContentFrom = TODAY_0600;
-			const lastPublishedTime = getNewContentSinceTime(null, userNewContentFrom);
+		it('should return the EARLIEST_NEW_CONTENT_TIME_TODAY', () => {
+			const newContentSinceTime = getNewContentSinceTime(null, userNewContentSince);
 
-			expect(lastPublishedTime).to.equal(EARLIEST_NEW_CONTENT_TIME_TODAY);
+			expect(newContentSinceTime).to.equal(EARLIEST_NEW_CONTENT_TIME_TODAY);
 		});
 	});
 

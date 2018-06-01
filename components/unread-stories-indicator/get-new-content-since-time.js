@@ -14,6 +14,11 @@ const isValidPublishedSince = (dateToValidate, defaultPublishedSince) => {
 
 const dateIsWithinSameVisitThreshold = date => differenceInMinutes(new Date(), date) <= SAME_VISIT_THRESHOLD_MINUTES;
 
+/**
+ * @param {string} userLastVisitedAt    ISO date representing when a user last visited ft.com
+ * @param {string} userNewContentSince  ISO date representing the time we last used to determine content to be new for the user
+ * @return {string} ISO date when we now determine content to be 'new' for the user
+ */
 export const getNewContentSinceTime = (userLastVisitedAt, userNewContentSince) => {
 	const earliestNewContentSince = getEarliestNewContentSince();
 
