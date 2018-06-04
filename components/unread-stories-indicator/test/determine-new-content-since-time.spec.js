@@ -1,7 +1,7 @@
 /* global expect */
 
 import sinon from 'sinon';
-import { getNewContentSinceTime } from '../get-new-content-since-time';
+import { determineNewContentSinceTime } from '../determine-new-content-since-time';
 
 const SOME_TIME_YESTERDAY = '2018-06-01T12:00:00.000Z';
 const EARLIEST_NEW_CONTENT_TIME_TODAY = '2018-06-02T05:00:00.000Z';
@@ -11,7 +11,7 @@ const TODAY_0800 = '2018-06-02T08:00:00.000Z';
 const TODAY_0801 = '2018-06-02T08:01:00.000Z';
 const TODAY_1000 = '2018-06-02T10:00:00.000Z';
 
-describe('getNewContentSinceTime', () => {
+describe('determineNewContentSinceTime', () => {
 	let clock;
 	let timeNow;
 	let userLastVisitedAt;
@@ -30,7 +30,7 @@ describe('getNewContentSinceTime', () => {
 		});
 
 		it('should return the EARLIEST_NEW_CONTENT_TIME_TODAY', () => {
-			const newContentSinceTime = getNewContentSinceTime(userLastVisitedAt, userNewContentSince);
+			const newContentSinceTime = determineNewContentSinceTime(userLastVisitedAt, userNewContentSince);
 
 			expect(newContentSinceTime).to.equal(EARLIEST_NEW_CONTENT_TIME_TODAY);
 		});
@@ -46,7 +46,7 @@ describe('getNewContentSinceTime', () => {
 
 		describe('and there is a valid userNewContentFrom time set', () => {
 			it('should return the userNewContentSince time', () => {
-				const newContentSinceTime = getNewContentSinceTime(userLastVisitedAt, userNewContentSince);
+				const newContentSinceTime = determineNewContentSinceTime(userLastVisitedAt, userNewContentSince);
 
 				expect(newContentSinceTime).to.equal(userNewContentSince);
 			});
@@ -54,7 +54,7 @@ describe('getNewContentSinceTime', () => {
 
 		describe('and there is no (or an invalid) userNewContentFrom time set', () => {
 			it('should return the EARLIEST_NEW_CONTENT_TIME_TODAY', () => {
-				const newContentSinceTime = getNewContentSinceTime(userLastVisitedAt, null);
+				const newContentSinceTime = determineNewContentSinceTime(userLastVisitedAt, null);
 
 				expect(newContentSinceTime).to.equal(EARLIEST_NEW_CONTENT_TIME_TODAY);
 			});
@@ -70,7 +70,7 @@ describe('getNewContentSinceTime', () => {
 		});
 
 		it('should return the userLastVisitedAt time', () => {
-			const newContentSinceTime = getNewContentSinceTime(userLastVisitedAt, userNewContentSince);
+			const newContentSinceTime = determineNewContentSinceTime(userLastVisitedAt, userNewContentSince);
 
 			expect(newContentSinceTime).to.equal(userLastVisitedAt);
 		});
@@ -85,7 +85,7 @@ describe('getNewContentSinceTime', () => {
 		});
 
 		it('should return the EARLIEST_NEW_CONTENT_TIME_TODAY', () => {
-			const newContentSinceTime = getNewContentSinceTime(null, userNewContentSince);
+			const newContentSinceTime = determineNewContentSinceTime(null, userNewContentSince);
 
 			expect(newContentSinceTime).to.equal(EARLIEST_NEW_CONTENT_TIME_TODAY);
 		});

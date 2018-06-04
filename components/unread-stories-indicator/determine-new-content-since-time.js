@@ -19,7 +19,7 @@ const dateIsWithinSameVisitThreshold = date => differenceInMinutes(new Date(), d
  * @param {string} userNewContentSince  ISO date representing the time we last used to determine content to be new for the user
  * @return {string} ISO date when we now determine content to be 'new' for the user
  */
-export const getNewContentSinceTime = (userLastVisitedAt, userNewContentSince) => {
+export const determineNewContentSinceTime = (userLastVisitedAt, userNewContentSince) => {
 	const earliestNewContentSince = getEarliestNewContentSince();
 
 	if (!isValidPublishedSince(userLastVisitedAt, earliestNewContentSince)) {
