@@ -4,7 +4,7 @@
 	<form method="post" action="/__myft/api/core/prioritised/concept/{{id}}?method={{#if prioritised}}delete{{else}}put{{/if}}">
 		<input
 			data-myft-csrf-token
-			value="{{@root.locals.csrfToken}}"
+			value="{{#if @root.cacheablePersonalisedUrl}}{{@root.locals.csrfToken}}{{/if}}"
 			type="hidden"
 			name="token">
 		<input type="hidden" value="{{name}}" name="name"> {{#if directType}}

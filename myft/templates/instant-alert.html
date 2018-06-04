@@ -5,7 +5,7 @@
 		action="/__myft/api/core/followed/concept/{{conceptId}}?method=put">
 		<input
 			data-myft-csrf-token
-			value="{{@root.locals.csrfToken}}"
+			value="{{#if @root.cacheablePersonalisedUrl}}{{@root.locals.csrfToken}}{{/if}}"
 			type="hidden"
 			name="token">
 		<input type="hidden" value="{{name}}" name="name">

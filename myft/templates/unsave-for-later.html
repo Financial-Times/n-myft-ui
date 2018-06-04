@@ -5,7 +5,7 @@
 	action="/__myft/api/core/saved/content/{{contentId}}?method=delete">
 	<input
 		data-myft-csrf-token
-		value="{{@root.locals.csrfToken}}"
+		value="{{#if @root.cacheablePersonalisedUrl}}{{@root.locals.csrfToken}}{{/if}}"
 		type="hidden"
 		name="token">
 	<button
