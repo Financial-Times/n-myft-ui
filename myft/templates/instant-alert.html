@@ -3,11 +3,7 @@
 		data-myft-ui="instant"
 		data-concept-id="{{conceptId}}"
 		action="/__myft/api/core/followed/concept/{{conceptId}}?method=put">
-		<input
-			data-myft-csrf-token
-			value="{{#if @root.cacheablePersonalisedUrl}}{{@root.locals.csrfToken}}{{/if}}"
-			type="hidden"
-			name="token">
+		{{> n-myft-ui/components/csrf-token/input}}
 		<input type="hidden" value="{{name}}" name="name">
 		{{#if directType}}
 			<input type="hidden" value="{{directType}}" name="directType">

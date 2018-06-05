@@ -3,11 +3,7 @@
 	data-content-id="{{contentId}}"
 	data-myft-ui="saved"
 	action="/__myft/api/core/saved/content/{{contentId}}?method=delete">
-	<input
-		data-myft-csrf-token
-		value="{{#if @root.cacheablePersonalisedUrl}}{{@root.locals.csrfToken}}{{/if}}"
-		type="hidden"
-		name="token">
+	{{> n-myft-ui/components/csrf-token/input}}
 	<button
 		type="submit"
 		class="n-myft-ui__button{{#variant}} n-myft-ui__button--{{this}}{{/variant}}"
