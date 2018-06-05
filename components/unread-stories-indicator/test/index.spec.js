@@ -1,6 +1,8 @@
 /* global expect */
 import sinon from 'sinon';
 
+const USER_ID = '123-456';
+
 describe('unread stories indicator', () => {
 	let unreadStoriesIndicator;
 	let mockStorage;
@@ -13,7 +15,9 @@ describe('unread stories indicator', () => {
 			setNewContentSinceTime: sinon.stub()
 		};
 		unreadStoriesIndicator = require('inject-loader!../')({
-			'./storage': mockStorage
+			'./storage': mockStorage,
+			'./fetch-new-content': () => Promise.resolve({}),
+			'../../myft-notification/get-uuid-from-session': () => Promise.resolve(USER_ID)
 		});
 		unreadStoriesIndicator();
 	});

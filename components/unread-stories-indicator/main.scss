@@ -1,0 +1,14 @@
+.myft__count-container {
+	position: relative;
+}
+
+.myft__count {
+	position: absolute;
+	top: 0;
+	right: -13px;
+	border-radius: 50%;
+	padding: 0 5px;
+	background-color: oColorsGetPaletteColor('teal');
+	color: oColorsGetPaletteColor('white');
+	@include oTypographySansBold(-1);
+}
