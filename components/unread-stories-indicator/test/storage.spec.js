@@ -11,14 +11,14 @@ describe('storage', () => {
 	beforeEach(() => {
 		mockStorage = {};
 		now = new Date();
-		sinon.stub(window.localStorage, 'getItem').callsFake(key => mockStorage[key]);
-		sinon.stub(window.localStorage, 'setItem').callsFake((key, value) => mockStorage[key] = value);
+		sinon.stub(window.Storage.prototype, 'getItem').callsFake(key => mockStorage[key]);
+		sinon.stub(window.Storage.prototype, 'setItem').callsFake((key, value) => mockStorage[key] = value);
 		clock = sinon.useFakeTimers(now);
 	});
 
 	afterEach(() => {
-		window.localStorage.getItem.restore();
-		window.localStorage.setItem.restore();
+		window.Storage.prototype.getItem.restore();
+		window.Storage.prototype.setItem.restore();
 		clock.restore();
 	});
 
