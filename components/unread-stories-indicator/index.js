@@ -1,8 +1,9 @@
 import { determineNewContentSinceTime } from './determine-new-content-since-time';
-import * as storage from './storage';
+import { getLastVisitedAt, getNewContentSinceTime, setLastVisitedAt, setNewContentSinceTime } from './storage';
 import fetchNewContent from './fetch-new-content';
 import getUuidFromSession from '../../myft-notification/get-uuid-from-session';
 
+// TODO: Extract UI functions out into separate file
 const setUnreadArticleCount = count => {
 	const myftLogos = [...document.querySelectorAll('.o-header__top-link--myft')];
 
@@ -19,19 +20,17 @@ const setUnreadArticleCount = count => {
 };
 
 export default () => {
-	const storedLastVisitedAt = storage.getLastVisitedAt();
-	const storedNewContentSinceTime = storage.getNewContentSinceTime();
-	const newContentSinceTime = determineNewContentSinceTime(storedLastVisitedAt, storedNewContentSinceTime);
+	const newContentSinceTime = determineNewContentSinceTime(getLastVisitedAt(), getNewContentSinceTime());
 
-	getUuidFromSession()
+	return getUuidFromSession()
 		.then(userId => fetchNewContent(userId, newContentSinceTime))
 		.then(articles => {
 			const unreadArticles = articles.filter(article => !article.hasBeenRead);
 
 			setUnreadArticleCount(unreadArticles.length);
+
+			setNewContentSinceTime(newContentSinceTime);
+			setLastVisitedAt();
 		})
 		.catch(() => {});
-
-	storage.setNewContentSinceTime(newContentSinceTime);
-	storage.setLastVisitedAt();
 };

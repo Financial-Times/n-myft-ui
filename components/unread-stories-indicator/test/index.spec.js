@@ -2,9 +2,12 @@
 import sinon from 'sinon';
 
 const USER_ID = '123-456';
+const NEW_CONTENT_SINCE_TIME = '2018-06-05T16:07:37.639Z';
 
 describe('unread stories indicator', () => {
 	let unreadStoriesIndicator;
+	let mockDetermineNewContentSinceTime;
+	let mockFetchNewContent;
 	let mockStorage;
 
 	beforeEach(() => {
@@ -14,15 +17,24 @@ describe('unread stories indicator', () => {
 			getNewContentSinceTime: sinon.stub(),
 			setNewContentSinceTime: sinon.stub()
 		};
+		mockDetermineNewContentSinceTime = sinon.stub().returns(NEW_CONTENT_SINCE_TIME);
+		mockFetchNewContent = sinon.stub().returns(Promise.resolve([]));
 		unreadStoriesIndicator = require('inject-loader!../')({
 			'./storage': mockStorage,
-			'./fetch-new-content': () => Promise.resolve({}),
-			'../../myft-notification/get-uuid-from-session': () => Promise.resolve(USER_ID)
+			'./fetch-new-content': mockFetchNewContent,
+			'../../myft-notification/get-uuid-from-session': () => Promise.resolve(USER_ID),
+			'./determine-new-content-since-time': {
+				determineNewContentSinceTime: mockDetermineNewContentSinceTime
+			}
 		});
-		unreadStoriesIndicator();
+		return unreadStoriesIndicator();
 	});
 
-	it('should call getLastVisitedAt before setLastVisitedAt', () => {
-		expect(mockStorage.getLastVisitedAt.calledBefore(mockStorage.setLastVisitedAt)).to.equal(true);
+	it('should fetch the new content for the user using the determined newContentSinceTime', () => {
+		expect(mockFetchNewContent.calledWith(USER_ID, NEW_CONTENT_SINCE_TIME)).to.equal(true);
+	});
+
+	it('should determine the newContentSinceTime, before updating the lastVisitedAt time', () => {
+		expect(mockStorage.setLastVisitedAt.calledAfter(mockDetermineNewContentSinceTime)).to.equal(true);
 	});
 });
