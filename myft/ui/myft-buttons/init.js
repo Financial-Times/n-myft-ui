@@ -14,6 +14,8 @@ import Cookies from 'js-cookie';
 const delegate = new Delegate(document.body);
 let initialised;
 
+const getToken = () => Cookies.get('FTSession_s') || Cookies.get('FTSession');
+
 function getInteractionHandler (relationshipName) {
 	return (ev, formEl) => {
 		ev.preventDefault();
@@ -88,8 +90,7 @@ const pinButtonEventListeners = () => {
 
 export default function (opts) {
 	if (!opts.anonymous) {
-		const session = Cookies.get('FTSession_s') || Cookies.get('FTSession');
-		setTokens(session);
+		setTokens(getToken());
 	}
 
 	if (initialised) {
