@@ -34,15 +34,13 @@ module.exports = function (karma) {
 				'NodeList.prototype.@@iterator',
 				'Array.prototype.@@iterator'
 			].join(','),
-			'myft/**/*.spec.js',
-			'myft-notification/**/*.spec.js'
+			'myft/**/*.spec.js'
 		],
 
 		// preprocess matching files before serving them to	the browser
 		// available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
 		preprocessors: {
-			'myft/**/*.spec.js': ['webpack', 'sourcemap'],
-			'myft-notification/**/*.spec.js': ['webpack', 'sourcemap']
+			'myft/**/*.spec.js': ['webpack', 'sourcemap']
 		},
 		webpack: {
 			module: {

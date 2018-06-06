@@ -79,7 +79,6 @@
     "sinon-chai": "^2.10.0"
   },
   "dependencies": {
-    "@financial-times/n-teaser": "^4.8.13",
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.10"
   }
