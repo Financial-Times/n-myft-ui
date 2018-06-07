@@ -1,5 +1,6 @@
 import { json as fetchJson } from 'fetchres';
-import slimQuery from '../../myft-notification/slim-query';
+
+const removeLineBreaks = str => encodeURIComponent(str.replace(/\s+/g, ' '));
 
 const extractFollowedArticles = data => {
 	const followedConcepts = data.user.followed.reduce((acc, concept) => acc.concat(concept.id), []);
@@ -52,7 +53,7 @@ export default function (uuid, since) {
 		}
 		`;
 	const variables = { uuid, since };
-	const url = `https://next-api.ft.com/v2/query?query=${slimQuery(gqlQuery)}&variables=${JSON.stringify(variables)}&source=next-myft`;
+	const url = `https://next-api.ft.com/v2/query?query=${removeLineBreaks(gqlQuery)}&variables=${JSON.stringify(variables)}&source=next-myft`;
 	const options = { credentials: 'include', timeout: 5000 };
 
 	return fetch(url, options)

@@ -20,9 +20,9 @@ describe('unread stories indicator', () => {
 		mockDetermineNewContentSinceTime = sinon.stub().returns(NEW_CONTENT_SINCE_TIME);
 		mockFetchNewContent = sinon.stub().returns(Promise.resolve([]));
 		unreadStoriesIndicator = require('inject-loader!../')({
+			'next-session-client': { uuid: () => Promise.resolve({ uuid: USER_ID }) },
 			'./storage': mockStorage,
 			'./fetch-new-content': mockFetchNewContent,
-			'../../myft-notification/get-uuid-from-session': () => Promise.resolve(USER_ID),
 			'./determine-new-content-since-time': {
 				determineNewContentSinceTime: mockDetermineNewContentSinceTime
 			}
