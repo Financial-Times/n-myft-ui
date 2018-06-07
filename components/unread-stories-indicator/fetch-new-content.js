@@ -46,6 +46,7 @@ export default function (uuid, since) {
 			latestContent(since: $since) {
 				id
 				title
+				publishedDate
 				annotations {
 					id
 				}

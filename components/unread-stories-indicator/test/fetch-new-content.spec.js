@@ -75,7 +75,7 @@ describe('fetch-new-content', () => {
 	});
 
 	it('should return an array of articles', () => {
-		expect(Array.isArray(data)).to.equal(true);
+		expect(data).to.be.an('array');
 	});
 
 	it('should return only the followed articles', () => {

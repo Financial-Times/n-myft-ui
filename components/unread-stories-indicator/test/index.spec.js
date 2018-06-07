@@ -12,6 +12,7 @@ describe('unread stories indicator', () => {
 
 	beforeEach(() => {
 		mockStorage = {
+			getIndicatorDismissedTime: sinon.stub(),
 			getLastVisitedAt: sinon.stub(),
 			setLastVisitedAt: sinon.stub(),
 			getNewContentSinceTime: sinon.stub(),
