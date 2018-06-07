@@ -1,6 +1,6 @@
 import { isAfter } from 'date-fns';
 import sessionClient from 'next-session-client';
-import { determineNewContentSinceTime } from './determine-new-content-since-time';
+import { determineNewContentSinceTime } from './chronology';
 import {
 	getIndicatorDismissedTime,
 	getLastVisitedAt,

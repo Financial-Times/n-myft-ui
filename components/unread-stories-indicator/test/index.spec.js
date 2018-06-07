@@ -24,7 +24,7 @@ describe('unread stories indicator', () => {
 			'next-session-client': { uuid: () => Promise.resolve({ uuid: USER_ID }) },
 			'./storage': mockStorage,
 			'./fetch-new-content': mockFetchNewContent,
-			'./determine-new-content-since-time': {
+			'./chronology': {
 				determineNewContentSinceTime: mockDetermineNewContentSinceTime
 			}
 		});
