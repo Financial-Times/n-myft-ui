@@ -1,7 +1,7 @@
 /* global expect */
 
 import sinon from 'sinon';
-import { determineNewContentSinceTime } from '../chronology';
+import { determineNewContentSinceTime, filterArticlesToNewSinceTime } from '../chronology';
 
 const SOME_TIME_YESTERDAY = '2018-06-01T12:00:00.000Z';
 const EARLIEST_NEW_CONTENT_TIME_TODAY = '2018-06-02T05:00:00.000Z';
@@ -93,4 +93,44 @@ describe('chronology', () => {
 		});
 	});
 
+	describe('filterArticlesToNewSinceTime', () => {
+		const BEFORE_DISMISS_AND_UNREAD = 'BEFORE_DISMISS_AND_UNREAD';
+		const BEFORE_DISMISS_AND_READ = 'BEFORE_DISMISS_AND_READ';
+		const AFTER_DISMISS_AND_UNREAD = 'AFTER_DISMISS_AND_UNREAD';
+		const AFTER_DISMISS_AND_READ = 'AFTER_DISMISS_AND_READ';
+		const mockArticles = [
+			{
+				id: BEFORE_DISMISS_AND_UNREAD,
+				publishedDate: TODAY_0600
+			},
+			{
+				id: BEFORE_DISMISS_AND_READ,
+				publishedDate: TODAY_0600,
+				hasBeenRead: true
+			},
+			{
+				id: AFTER_DISMISS_AND_UNREAD,
+				publishedDate: TODAY_1000
+			},
+			{
+				id: AFTER_DISMISS_AND_READ,
+				publishedDate: TODAY_1000,
+				hasBeenRead: true
+			}
+		];
+		let filteredArticles;
+
+		beforeEach(() => {
+			filteredArticles = filterArticlesToNewSinceTime(mockArticles, TODAY_0800);
+		});
+
+		it('should return an array', () => {
+			expect(filteredArticles).to.be.an('array');
+		});
+
+		it('should return only the unread articles published after the passed-in time', () => {
+			expect(filteredArticles.length).to.equal(1);
+			expect(filteredArticles[0].id === AFTER_DISMISS_AND_UNREAD).to.equal(true);
+		});
+	});
 });

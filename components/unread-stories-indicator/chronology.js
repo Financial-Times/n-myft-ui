@@ -32,3 +32,9 @@ export const determineNewContentSinceTime = (userLastVisitedAt, userNewContentSi
 		return userLastVisitedAt;
 	}
 };
+
+export const filterArticlesToNewSinceTime = (articles, publishedAfterTime) => {
+	return articles.filter(article => {
+		return article.hasBeenRead !== true && isAfter(article.publishedDate, publishedAfterTime);
+	});
+};
