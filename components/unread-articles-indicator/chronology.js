@@ -2,7 +2,7 @@ import { differenceInMinutes, isAfter } from 'date-fns';
 
 const SAME_VISIT_THRESHOLD_MINUTES = 30;
 
-const getEarliestNewContentSince = () => {
+const getEarliestNewArticlesSince = () => {
 	const now = new Date();
 
 	return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 5, 0, 0, 0)).toISOString();
@@ -16,18 +16,18 @@ const dateIsWithinSameVisitThreshold = date => differenceInMinutes(new Date(), d
 
 /**
  * @param {string} userLastVisitedAt    ISO date representing when a user last visited ft.com
- * @param {string} userNewContentSince  ISO date representing the time we last used to determine content to be new for the user
- * @return {string} ISO date when we now determine content to be 'new' for the user
+ * @param {string} userNewArticlesSince  ISO date representing the time we last used to determine if articles are new for the user
+ * @return {string} ISO date when we now determine articles to be 'new' for the user
  */
-export const determineNewContentSinceTime = (userLastVisitedAt, userNewContentSince) => {
-	const earliestNewContentSince = getEarliestNewContentSince();
+export const determineNewArticlesSinceTime = (userLastVisitedAt, userNewArticlesSince) => {
+	const earliestNewArticlesSince = getEarliestNewArticlesSince();
 
-	if (!isValidPublishedSince(userLastVisitedAt, earliestNewContentSince)) {
-		return earliestNewContentSince;
+	if (!isValidPublishedSince(userLastVisitedAt, earliestNewArticlesSince)) {
+		return earliestNewArticlesSince;
 	}
 
 	if (dateIsWithinSameVisitThreshold(userLastVisitedAt)) {
-		return isValidPublishedSince(userNewContentSince, earliestNewContentSince) ? userNewContentSince : earliestNewContentSince;
+		return isValidPublishedSince(userNewArticlesSince, earliestNewArticlesSince) ? userNewArticlesSince : earliestNewArticlesSince;
 	} else {
 		return userLastVisitedAt;
 	}

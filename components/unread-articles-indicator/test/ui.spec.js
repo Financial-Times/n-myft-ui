@@ -7,9 +7,7 @@ describe('unread stories indicator - ui', () => {
 
 	beforeEach(() => {
 		mockStorage = {
-			getIndicatorDismissedTime: sinon.stub(),
-			setIndicatorDismissedTime: sinon.stub(),
-			getNewContentSinceTime: sinon.stub()
+			setIndicatorDismissedTime: sinon.stub()
 		};
 		ui = require('inject-loader!../ui')({
 			'./storage': mockStorage

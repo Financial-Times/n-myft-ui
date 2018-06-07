@@ -1,26 +1,26 @@
 import sessionClient from 'next-session-client';
-import { determineNewContentSinceTime, filterArticlesToNewSinceTime } from './chronology';
+import { determineNewArticlesSinceTime, filterArticlesToNewSinceTime } from './chronology';
 import {
 	getIndicatorDismissedTime,
 	getLastVisitedAt,
-	getNewContentSinceTime,
+	getNewArticlesSinceTime,
 	setLastVisitedAt,
-	setNewContentSinceTime
+	setNewArticlesSinceTime
 } from './storage';
-import fetchNewContent from './fetch-new-content';
+import fetchNewArticles from './fetch-new-articles';
 import { createIndicators, setCount } from './ui';
 
 export default () => {
-	const newContentSinceTime = determineNewContentSinceTime(getLastVisitedAt(), getNewContentSinceTime());
+	const newArticlesSinceTime = determineNewArticlesSinceTime(getLastVisitedAt(), getNewArticlesSinceTime());
 
 	createIndicators(document.querySelectorAll('.o-header__top-link--myft'));
 
 	return sessionClient.uuid()
-		.then(({ uuid }) => fetchNewContent(uuid, newContentSinceTime))
+		.then(({ uuid }) => fetchNewArticles(uuid, newArticlesSinceTime))
 		.then(articles => filterArticlesToNewSinceTime(articles, getIndicatorDismissedTime()))
 		.then(newArticles => {
 			setCount(newArticles.length);
-			setNewContentSinceTime(newContentSinceTime);
+			setNewArticlesSinceTime(newArticlesSinceTime);
 			setLastVisitedAt();
 		})
 		.catch(() => {});

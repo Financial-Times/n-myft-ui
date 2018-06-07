@@ -1,7 +1,7 @@
 /* global expect */
 
 import fetchMock from 'fetch-mock';
-import fetchNewContent from '../fetch-new-content';
+import fetchNewArticles from '../fetch-new-articles';
 
 const USER_UUID = '0-0-0-0';
 const SINCE = '2018-06-05T06:48:26.635Z';
@@ -55,14 +55,14 @@ const mockData = {
 	}
 };
 
-describe('fetch-new-content', () => {
+describe('fetch-new-articles', () => {
 	let data;
 
 	beforeEach(() => {
 		data = null;
 		fetchMock.get('*', mockData);
 
-		return fetchNewContent(USER_UUID, SINCE)
+		return fetchNewArticles(USER_UUID, SINCE)
 			.then(resolvedValue => {
 				data = resolvedValue;
 			});
