@@ -1,22 +1,35 @@
-const getIndicatorElements = () => {
-	const containers = [...document.querySelectorAll('.o-header__top-link--myft')];
+import { setIndicatorDismissedTime } from './storage';
 
-	return containers.map(container => {
-		let indicator = container.querySelector('.myft__indicator');
+class Indicator {
+	constructor (container) {
+		this.container = container;
+		this.container.classList.add('myft__indicator-container');
 
-		if (!indicator) {
-			container.classList.add('myft__indicator-container');
-			indicator = document.createElement('span');
-			indicator.classList.add('myft__indicator');
-			container.appendChild(indicator);
-		}
+		this.el = document.createElement('span');
+		this.el.classList.add('myft__indicator');
 
-		return indicator;
-	});
+		container.appendChild(this.el);
+
+		this.container.addEventListener('click', () => {
+			this.dismiss();
+		});
+	}
+
+	setCount (count) {
+		this.el.innerText = count > 0 ? count : '';
+	}
+
+	dismiss () {
+		setIndicatorDismissedTime();
+	}
+}
+
+let indicators;
+
+export const createIndicators = targets => {
+	indicators = [...targets].map(target => new Indicator(target));
 };
 
-export const showIndicator = count => {
-	getIndicatorElements().forEach(el => {
-		el.innerText = count > 0 ? count : '';
-	});
+export const setCount = count => {
+	indicators.forEach(indicator => indicator.setCount(count));
 };

@@ -1,9 +1,22 @@
 /* global expect */
-import { showIndicator } from '../ui';
+import sinon from 'sinon';
 
 describe('unread stories indicator - ui', () => {
+	let ui;
+	let mockStorage;
 
-	describe('showIndicator', () => {
+	beforeEach(() => {
+		mockStorage = {
+			getIndicatorDismissedTime: sinon.stub(),
+			setIndicatorDismissedTime: sinon.stub(),
+			getNewContentSinceTime: sinon.stub()
+		};
+		ui = require('inject-loader!../ui')({
+			'./storage': mockStorage
+		});
+	});
+
+	describe('createIndicators', () => {
 		let containers;
 		const mockContainer = document.createElement('div');
 
@@ -23,12 +36,9 @@ describe('unread stories indicator - ui', () => {
 			containers.forEach(container => container.remove());
 		});
 
-		describe('given the count is greater than 0', () => {
-			const FIRST_COUNT = 3;
-			const SECOND_COUNT = 4;
-
+		describe('createIndicators', () => {
 			beforeEach(() => {
-				showIndicator(FIRST_COUNT);
+				ui.createIndicators(containers);
 			});
 
 			it('should set a class on each container', () => {
@@ -37,29 +47,52 @@ describe('unread stories indicator - ui', () => {
 				});
 			});
 
-			it('should add only one count element to each container', () => {
-				showIndicator(SECOND_COUNT);
+			it('should add a count element to each container', () => {
 				containers.forEach(container => {
 					const els = container.querySelectorAll('.myft__indicator');
 
 					expect(els.length).to.equal(1);
 				});
 			});
+		});
 
-			it('should set the count in the count element', () => {
+		describe('setCount', () => {
+			beforeEach(() => {
+				ui.createIndicators(containers);
+				ui.setCount(3);
+			});
+
+			it('should show the count in the count element', () => {
 				containers.forEach(container => {
 					const el = container.querySelector('.myft__indicator');
 
-					expect(el.innerText).to.equal(String(FIRST_COUNT));
+					expect(el.innerText).to.equal('3');
 				});
 			});
 
-			it('should clear the contents of the count element when count is zero', () => {
-				showIndicator(0);
+			it('should clear the count when count is zero', () => {
+				ui.setCount(0);
 				containers.forEach(container => {
 					const el = container.querySelector('.myft__indicator');
 
 					expect(el.innerText).to.equal('');
+				});
+			});
+		});
+
+		describe('click handling', () => {
+			beforeEach(() => {
+				ui.createIndicators(containers);
+				ui.setCount(3);
+			});
+
+			describe('given an indicator is clicked', () => {
+				beforeEach(() => {
+					containers[0].click();
+				});
+
+				it('should set the indicator dismissed time', () => {
+					expect(mockStorage.setIndicatorDismissedTime.called).to.equal(true);
 				});
 			});
 		});
