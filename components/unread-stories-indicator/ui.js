@@ -1,15 +1,22 @@
+const getIndicatorElements = () => {
+	const containers = [...document.querySelectorAll('.o-header__top-link--myft')];
 
-export const showUnreadArticleCount = count => {
-	const myftLogos = [...document.querySelectorAll('.o-header__top-link--myft')];
+	return containers.map(container => {
+		let indicator = container.querySelector('.myft__indicator');
 
-	myftLogos.forEach(logo => {
-		logo.classList.add('myft__count-container');
+		if (!indicator) {
+			container.classList.add('myft__indicator-container');
+			indicator = document.createElement('span');
+			indicator.classList.add('myft__indicator');
+			container.appendChild(indicator);
+		}
 
-		const countEl = document.createElement('span');
+		return indicator;
+	});
+};
 
-		countEl.classList.add('myft__count');
-		countEl.innerText = count;
-
-		logo.appendChild(countEl);
+export const showIndicator = count => {
+	getIndicatorElements().forEach(el => {
+		el.innerText = count > 0 ? count : '';
 	});
 };

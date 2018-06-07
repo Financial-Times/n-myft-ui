@@ -2,7 +2,7 @@ import sessionClient from 'next-session-client';
 import { determineNewContentSinceTime } from './determine-new-content-since-time';
 import { getLastVisitedAt, getNewContentSinceTime, setLastVisitedAt, setNewContentSinceTime } from './storage';
 import fetchNewContent from './fetch-new-content';
-import { showUnreadArticleCount } from './ui';
+import { showIndicator } from './ui';
 
 export default () => {
 	const newContentSinceTime = determineNewContentSinceTime(getLastVisitedAt(), getNewContentSinceTime());
@@ -12,8 +12,7 @@ export default () => {
 		.then(articles => {
 			const unreadArticles = articles.filter(article => !article.hasBeenRead);
 
-			showUnreadArticleCount(unreadArticles.length);
-
+			showIndicator(unreadArticles.length);
 			setNewContentSinceTime(newContentSinceTime);
 			setLastVisitedAt();
 		})
