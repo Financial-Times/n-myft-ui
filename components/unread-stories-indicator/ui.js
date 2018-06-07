@@ -10,16 +10,14 @@ class Indicator {
 
 		container.appendChild(this.el);
 
-		this.container.addEventListener('click', () => {
-			this.dismiss();
-		});
+		this.container.addEventListener('click', () => Indicator.dismiss());
 	}
 
 	setCount (count) {
 		this.el.innerText = count > 0 ? count : '';
 	}
 
-	dismiss () {
+	static dismiss () {
 		setIndicatorDismissedTime();
 	}
 }
