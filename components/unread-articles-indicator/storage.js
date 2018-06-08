@@ -4,8 +4,17 @@ const INDICATOR_DISMISSED_AT = 'myFTIndicatorDismissedAt';
 
 const timestampToIsoDate = ts => new Date(ts).toISOString();
 
+const setCookie = (name, value) => {
+	document.cookie = `${name}=${value}`;
+};
+
+const getCookie = (name) => {
+	const value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+	return value ? value[2] : null;
+};
+
 const getTimestampItemAsIsoDate = key => {
-	const item = window.localStorage.getItem(key);
+	const item = getCookie(key);
 	const timestamp = Number(item);
 
 	return !item || isNaN(timestamp) ? null : timestampToIsoDate(timestamp);
@@ -13,11 +22,11 @@ const getTimestampItemAsIsoDate = key => {
 
 export const getLastVisitedAt = () => getTimestampItemAsIsoDate(LAST_VISITED_AT);
 
-export const setLastVisitedAt = () => window.localStorage.setItem(LAST_VISITED_AT, String(Date.now()));
+export const setLastVisitedAt = () => setCookie(LAST_VISITED_AT, String(Date.now()));
 
 export const getNewArticlesSinceTime = () => getTimestampItemAsIsoDate(NEW_ARTICLES_SINCE);
 
-export const setNewArticlesSinceTime = isoDate => window.localStorage.setItem(NEW_ARTICLES_SINCE, String(new Date(isoDate).getTime()));
+export const setNewArticlesSinceTime = isoDate => setCookie(NEW_ARTICLES_SINCE, String(new Date(isoDate).getTime()));
 
 export const getIndicatorDismissedTime = () => getTimestampItemAsIsoDate(INDICATOR_DISMISSED_AT);
 
