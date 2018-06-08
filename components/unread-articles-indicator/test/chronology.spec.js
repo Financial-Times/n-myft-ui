@@ -5,8 +5,8 @@ import { determineNewArticlesSinceTime, filterArticlesToNewSinceTime } from '../
 
 const SOME_TIME_YESTERDAY = '2018-06-01T12:00:00.000Z';
 const EARLIEST_NEW_ARTICLES_TIME_TODAY = '2018-06-02T05:00:00.000Z';
+const TODAY_0500 = '2018-06-02T05:00:00.000Z';
 const TODAY_0600 = '2018-06-02T06:00:00.000Z';
-const TODAY_0700 = '2018-06-02T07:00:00.000Z';
 const TODAY_0800 = '2018-06-02T08:00:00.000Z';
 const TODAY_0801 = '2018-06-02T08:01:00.000Z';
 const TODAY_1000 = '2018-06-02T10:00:00.000Z';
@@ -40,7 +40,7 @@ describe('chronology', () => {
 		describe('given the user has visited today and returns within the same-visit threshold', () => {
 			beforeEach(() => {
 				userLastVisitedAt = TODAY_0800;
-				userNewArticlesSince = TODAY_0700;
+				userNewArticlesSince = TODAY_0500; //EARLIEST_NEW_ARTICLES_TIME_TODAY
 				timeNow = new Date(TODAY_0801);
 				clock = sinon.useFakeTimers(timeNow);
 			});
