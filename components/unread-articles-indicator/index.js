@@ -30,7 +30,7 @@ export default () => {
 			setLastVisitedAt();
 
 			document.addEventListener('visibilitychange', () => {
-				if (!document.hidden) {
+				if (document.visibilityState === 'visible') {
 					getUserId.then(uuid => showUnreadArticlesCount(uuid, newArticlesSinceTime));
 				}
 			});
