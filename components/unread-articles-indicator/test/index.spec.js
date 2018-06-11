@@ -66,4 +66,6 @@ describe('unread stories indicator', () => {
 	it('should update the newArticlesSinceTime', () => {
 		expect(mockStorage.setNewArticlesSinceTime.calledWith(NEW_ARTICLES_SINCE_TIME)).to.equal(true);
 	});
+
+	it('should fetch and show the unread articles count again on page visibility change');
 });

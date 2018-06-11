@@ -10,18 +10,29 @@ import {
 import fetchNewArticles from './fetch-new-articles';
 import { createIndicators, setCount } from './ui';
 
+const showUnreadArticlesCount = (uuid, newArticlesSinceTime) => {
+	return fetchNewArticles(uuid, newArticlesSinceTime)
+		.then(articles => filterArticlesToNewSinceTime(articles, getIndicatorDismissedTime()))
+		.then(newArticles => setCount(newArticles.length))
+		.catch(() => {});
+};
+
 export default () => {
 	const newArticlesSinceTime = determineNewArticlesSinceTime(getLastVisitedAt(), getNewArticlesSinceTime());
+	const getUserId = sessionClient.uuid().then(({ uuid }) => uuid);
 
 	createIndicators(document.querySelectorAll('.o-header__top-link--myft'));
 
-	return sessionClient.uuid()
-		.then(({ uuid }) => fetchNewArticles(uuid, newArticlesSinceTime))
-		.then(articles => filterArticlesToNewSinceTime(articles, getIndicatorDismissedTime()))
-		.then(newArticles => {
-			setCount(newArticles.length);
+	return getUserId
+		.then(uuid => showUnreadArticlesCount(uuid, newArticlesSinceTime))
+		.then(() => {
 			setNewArticlesSinceTime(newArticlesSinceTime);
 			setLastVisitedAt();
-		})
-		.catch(() => {});
+
+			document.addEventListener('visibilitychange', () => {
+				if (!document.hidden) {
+					getUserId.then(uuid => showUnreadArticlesCount(uuid, newArticlesSinceTime));
+				}
+			});
+		});
 };
