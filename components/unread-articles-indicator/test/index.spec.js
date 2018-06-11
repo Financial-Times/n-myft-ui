@@ -67,5 +67,11 @@ describe('unread stories indicator', () => {
 		expect(mockStorage.setNewArticlesSinceTime.calledWith(NEW_ARTICLES_SINCE_TIME)).to.equal(true);
 	});
 
-	it('should fetch and show the unread articles count again on page visibility change');
+	it('should fetch and show the unread articles count again on page visibility change', () => {
+		mockChronology.filterArticlesToNewSinceTime.returns(NEW_ARTICLES);
+
+		document.dispatchEvent(new Event('visibilitychange'));
+
+		expect(mockUi.setCount.calledWith(NEW_ARTICLES.length));
+	});
 });
