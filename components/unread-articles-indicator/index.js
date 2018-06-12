@@ -21,7 +21,9 @@ const showUnreadArticlesCount = (uuid, newArticlesSinceTime) => {
 		return fetchNewArticles(uuid, newArticlesSinceTime)
 			.then(articles => filterArticlesToNewSinceTime(articles, getIndicatorDismissedTime()))
 			.then(newArticles => setCount(newArticles.length))
-			.catch(() => {});
+			.catch(() => {
+				canUpdate = true;
+			});
 	}
 
 	return Promise.resolve();
