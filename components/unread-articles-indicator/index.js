@@ -10,11 +10,21 @@ import {
 import fetchNewArticles from './fetch-new-articles';
 import { createIndicators, setCount } from './ui';
 
+const MAX_UPDATE_FREQUENCY = 1000 * 60 * 5;
+let canUpdate = true;
+
 const showUnreadArticlesCount = (uuid, newArticlesSinceTime) => {
-	return fetchNewArticles(uuid, newArticlesSinceTime)
-		.then(articles => filterArticlesToNewSinceTime(articles, getIndicatorDismissedTime()))
-		.then(newArticles => setCount(newArticles.length))
-		.catch(() => {});
+	if (canUpdate) {
+		canUpdate = false;
+		setTimeout(() => { canUpdate = true; }, MAX_UPDATE_FREQUENCY);
+
+		return fetchNewArticles(uuid, newArticlesSinceTime)
+			.then(articles => filterArticlesToNewSinceTime(articles, getIndicatorDismissedTime()))
+			.then(newArticles => setCount(newArticles.length))
+			.catch(() => {});
+	}
+
+	return Promise.resolve();
 };
 
 export default () => {
