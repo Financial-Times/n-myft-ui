@@ -8,7 +8,7 @@ import nNotification from 'n-notification';
 import Delegate from 'ftdomdelegate';
 import personaliseLinks from '../personalise-links';
 import doFormSubmit from './do-form-submit';
-import pinning, {findButton, setLoading} from './pin-button';
+import pinning, { findButton, setLoading } from '../../../components/pin-button';
 import Cookies from 'js-cookie';
 
 const delegate = new Delegate(document.body);

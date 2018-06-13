@@ -1,6 +1,6 @@
 @import 'o-buttons/main';
 @import './ui/myft-buttons/main';
-@import './ui/myft-buttons/pin-button';
+@import '../components/pin-button/main';
 
 $o-forms-is-silent: false;
 @import 'o-forms/main';

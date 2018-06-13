@@ -1,15 +1,2 @@
-{{#if showPrioritiseButton}}
-<span class="myft-pin-divider"></span>
-<div class="myft-pin-button-wrapper">
-	<form method="post" action="/__myft/api/core/prioritised/concept/{{id}}?method={{#if prioritised}}delete{{else}}put{{/if}}">
-		{{> n-myft-ui/components/csrf-token/input }}
-		<input type="hidden" value="{{name}}" name="name"> {{#if directType}}
-		<input type="hidden" value="{{directType}}" name="directType"> {{else}}
-		<input type="hidden" value="http://www.ft.com/ontology/concept/Concept" name="directType"> {{/if}}
-		<button class="myft-pin-button" data-prioritise-button data-trackable="prioritised" data-concept-id="{{id}}" data-prioritised="{{#if prioritised}}true{{else}}false{{/if}}"
-			{{#if prioritised}}aria-pressed="true" {{/if}}>
-			<span class="myft-pin-button__label">{{#if prioritised}}Unpin{{else}}Pin{{/if}}</span>
-		</button>
-	</form>
-</div>
-{{/if}}
+{{! This entry point is deprecated. Use path below directly. }}
+{{> n-myft-ui/components/pin-button/pin-button }}
