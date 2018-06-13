@@ -5,7 +5,8 @@ Client side component for interaction with myFT.
 
 - myft
 - myft-common
-- components/digest-promo
+- myft-digest-promo **! This entry point is deprecated !**  
+Use path n-myft-ui/components/digest-promo instead.
 
 These subdirectories may contain a README. If not, please speak to the myft team about how to use them.
 
