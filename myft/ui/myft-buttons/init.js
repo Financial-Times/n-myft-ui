@@ -8,7 +8,7 @@ import nNotification from 'n-notification';
 import Delegate from 'ftdomdelegate';
 import personaliseLinks from '../personalise-links';
 import doFormSubmit from './do-form-submit';
-import pinning, { findButton, setLoading } from '../../../components/pin-button';
+import initPinButtons from '../../../components/pin-button';
 import Cookies from 'js-cookie';
 
 const delegate = new Delegate(document.body);
@@ -78,32 +78,21 @@ function signedInEventListeners () {
 	});
 }
 
-const pinButtonEventListeners = () => {
-	myftApiClient.init().then(() => {
-		delegate.on('click', 'button[data-prioritise-button]', event => {
-			event.preventDefault();
-			setLoading(event.target);
-			pinning(findButton(event.target));
-		});
-	});
-};
-
 export default function (opts) {
 	if (!opts.anonymous) {
 		setTokens(getToken());
 	}
 
-	if (initialised) {
-		return;
-	} else {
+	if (!initialised) {
 		initialised = true;
 		if (opts && opts.anonymous) {
 			anonEventListeners();
 		} else {
 			signedInEventListeners();
 			personaliseLinks();
+
 			if (opts.flags && opts.flags.get('myftPrioritiseTopics')) {
-				pinButtonEventListeners();
+				myftApiClient.init().then(() => initPinButtons());
 			}
 		}
 	}
