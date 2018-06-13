@@ -1,5 +1,5 @@
 const myFtClient = require('next-myft-client');
-const buttons = require('../myft-common');
+const buttons = require('../../myft-common');
 const superstore = require('superstore-sync');
 const STORAGE_KEY = 'n-myft-digest-promo-seen';
 

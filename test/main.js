@@ -1,3 +1,3 @@
 require('../myft');
 require('../myft-common');
-require('../myft-digest-promo');
+require('../components/digest-promo');
