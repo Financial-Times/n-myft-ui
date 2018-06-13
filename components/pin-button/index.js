@@ -13,20 +13,16 @@ const trackPinningAction = ({ action }) =>
 		bubbles: true
 	});
 
-const findButton = element =>
-	element.dataset && element.dataset.hasOwnProperty('prioritiseButton')
-		? element
-		: findButton(element.parentNode);
+const findAncestor = (el, cls) => {
+	while ((el = el.parentElement) && !el.classList.contains(cls)) {}
 
-const setLoading = element =>
-	element && element.classList.contains('myft-pin-button-wrapper')
-		? element.classList.add('loading')
-		: setLoading(element.parentNode);
+	return el;
+};
 
-const togglePrioritised = element => {
-	const { conceptId, prioritised } = element.dataset;
+const setLoading = el => el && el.classList.add('loading');
 
-	if (prioritised === 'true') {
+const togglePrioritised = (conceptId, prioritised) => {
+	if (prioritised) {
 		myftApiClient.remove('user', null, 'prioritised', 'concept', conceptId);
 	} else {
 		myftApiClient.add('user', null, 'prioritised', 'concept', conceptId);
@@ -42,7 +38,10 @@ export default () => {
 	delegate.on('click', 'button[data-prioritise-button]', event => {
 		event.preventDefault();
 
-		setLoading(event.target);
-		togglePrioritised(findButton(event.target));
+		const { conceptId, prioritised } = event.target.dataset;
+		const wrapper = findAncestor(event.target, 'myft-pin-button-wrapper');
+
+		setLoading(wrapper);
+		togglePrioritised(conceptId, prioritised === 'true');
 	});
 };
