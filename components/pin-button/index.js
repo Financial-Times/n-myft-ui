@@ -13,11 +13,9 @@ const trackPinningAction = ({ action }) =>
 		bubbles: true
 	});
 
-const findAncestor = (el, cls) => {
-	while ((el = el.parentElement) && !el.classList.contains(cls)) {}
-
-	return el;
-};
+const findAncestor = (el, classname) => el.classList.contains(classname)
+	? el
+	: el.parentNode && findAncestor(el.parentNode);
 
 const setLoading = el => el && el.classList.add('loading');
 
