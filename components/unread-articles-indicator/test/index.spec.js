@@ -10,8 +10,10 @@ const NEW_UNDISMISSED_ARTICLES = [
 	{ id: 'article-3' }
 ];
 const USER_ID = '123-456';
-const NEW_ARTICLES_SINCE_TIME = '2018-06-05T16:07:37.639Z';
-const INDICATOR_DISMISSED_TIME = '2018-06-05T16:00:00.000Z';
+const STORED_LAST_VISITED = '2018-06-04T13:00:00.000Z';
+const STORED_NEW_ARTICLES_SINCE_TIME = '2018-06-05T10:00:00.000Z';
+const STORED_INDICATOR_DISMISSED_TIME = '2018-06-05T16:00:00.000Z';
+const DETERMINED_NEW_ARTICLES_SINCE_TIME = '2018-06-05T16:07:37.639Z';
 
 describe('unread stories indicator', () => {
 	let unreadStoriesIndicator;
@@ -22,14 +24,14 @@ describe('unread stories indicator', () => {
 
 	beforeEach(() => {
 		mockChronology = {
-			determineNewArticlesSinceTime: sinon.stub().returns(NEW_ARTICLES_SINCE_TIME),
+			determineNewArticlesSinceTime: sinon.stub().returns(DETERMINED_NEW_ARTICLES_SINCE_TIME),
 			filterArticlesToNewSinceTime: sinon.stub().returns(NEW_UNDISMISSED_ARTICLES)
 		};
 		mockStorage = {
-			getIndicatorDismissedTime: sinon.stub().returns(INDICATOR_DISMISSED_TIME),
-			getLastVisitedAt: sinon.stub(),
+			getIndicatorDismissedTime: sinon.stub().returns(STORED_INDICATOR_DISMISSED_TIME),
+			getLastVisitedAt: sinon.stub().returns(STORED_LAST_VISITED),
 			setLastVisitedAt: sinon.stub(),
-			getNewArticlesSinceTime: sinon.stub(),
+			getNewArticlesSinceTime: sinon.stub().returns(STORED_NEW_ARTICLES_SINCE_TIME),
 			setNewArticlesSinceTime: sinon.stub()
 		};
 		mockUi = {
@@ -44,34 +46,78 @@ describe('unread stories indicator', () => {
 			'./chronology': mockChronology,
 			'./ui': mockUi
 		});
-		return unreadStoriesIndicator();
 	});
 
-	it('should fetch the new articles for the user using the determined newArticlesSinceTime', () => {
-		expect(mockFetchNewArticles.calledWith(USER_ID, NEW_ARTICLES_SINCE_TIME)).to.equal(true);
+	describe('default export', () => {
+		beforeEach(() => {
+			return unreadStoriesIndicator.default();
+		});
+
+		it('should fetch the new articles for the user using the determined newArticlesSinceTime', () => {
+			expect(mockFetchNewArticles.calledWith(USER_ID, DETERMINED_NEW_ARTICLES_SINCE_TIME)).to.equal(true);
+		});
+
+		it('should filter new articles to undismissed ones', () => {
+			expect(mockChronology.filterArticlesToNewSinceTime.calledWith(NEW_ARTICLES, STORED_INDICATOR_DISMISSED_TIME));
+		});
+
+		it('should call setCount with the number of new undismissed articles', () => {
+			expect(mockUi.setCount.calledWith(NEW_UNDISMISSED_ARTICLES.length));
+		});
+
+		it('should fetch and show the unread articles count again on page visibility change', () => {
+			mockChronology.filterArticlesToNewSinceTime.returns(NEW_ARTICLES);
+
+			document.dispatchEvent(new Event('visibilitychange'));
+
+			expect(mockUi.setCount.calledWith(NEW_ARTICLES.length));
+		});
 	});
 
-	it('should determine the newArticlesSinceTime, before updating the lastVisitedAt time', () => {
-		expect(mockStorage.setLastVisitedAt.calledAfter(mockChronology.determineNewArticlesSinceTime)).to.equal(true);
-	});
+	describe('getNewArticlesSinceTime', () => {
+		describe('when called for the first time', () => {
+			it('should determineNewArticlesSinceTime', () => {
+				unreadStoriesIndicator.getNewArticlesSinceTime();
 
-	it('should filter new articles to undismissed ones', () => {
-		expect(mockChronology.filterArticlesToNewSinceTime.calledWith(NEW_ARTICLES, INDICATOR_DISMISSED_TIME));
-	});
+				expect(mockStorage.getLastVisitedAt).to.have.been.calledOnce;
+				expect(mockStorage.getNewArticlesSinceTime).to.have.been.calledOnce;
+				expect(mockChronology.determineNewArticlesSinceTime).to.have.been.calledWith(STORED_LAST_VISITED, STORED_NEW_ARTICLES_SINCE_TIME);
+			});
 
-	it('should call setCount with the number of new undismissed articles', () => {
-		expect(mockUi.setCount.calledWith(NEW_UNDISMISSED_ARTICLES.length));
-	});
+			it('should update the values in storage the first time it is called', () => {
+				unreadStoriesIndicator.getNewArticlesSinceTime();
 
-	it('should update the newArticlesSinceTime', () => {
-		expect(mockStorage.setNewArticlesSinceTime.calledWith(NEW_ARTICLES_SINCE_TIME)).to.equal(true);
-	});
+				expect(mockStorage.setNewArticlesSinceTime).to.have.been.calledWith(DETERMINED_NEW_ARTICLES_SINCE_TIME);
+				expect(mockStorage.setNewArticlesSinceTime).to.have.been.calledAfter(mockChronology.determineNewArticlesSinceTime);
+				expect(mockStorage.setLastVisitedAt).to.have.been.calledOnce;
+				expect(mockStorage.setLastVisitedAt).to.have.been.calledAfter(mockChronology.determineNewArticlesSinceTime);
+			});
 
-	it('should fetch and show the unread articles count again on page visibility change', () => {
-		mockChronology.filterArticlesToNewSinceTime.returns(NEW_ARTICLES);
+			it('should return the the newArticlesSinceTime', () => {
+				expect(unreadStoriesIndicator.getNewArticlesSinceTime()).to.equal(DETERMINED_NEW_ARTICLES_SINCE_TIME);
+			});
+		});
 
-		document.dispatchEvent(new Event('visibilitychange'));
+		describe('should not change the values when called subsequent times', () => {
+			it('should not determineNewArticlesSinceTime more than once', () => {
+				unreadStoriesIndicator.getNewArticlesSinceTime();
+				unreadStoriesIndicator.getNewArticlesSinceTime();
 
-		expect(mockUi.setCount.calledWith(NEW_ARTICLES.length));
+				expect(mockStorage.getLastVisitedAt).to.have.been.calledOnce;
+				expect(mockStorage.getNewArticlesSinceTime).to.have.been.calledOnce;
+			});
+
+			it('should not update the values in storage more than once', () => {
+				unreadStoriesIndicator.getNewArticlesSinceTime();
+				unreadStoriesIndicator.getNewArticlesSinceTime();
+
+				expect(mockStorage.setNewArticlesSinceTime).to.have.been.calledOnce;
+				expect(mockStorage.setLastVisitedAt).to.have.been.calledOnce;
+			});
+
+			it('should return the the newArticlesSinceTime', () => {
+				expect(unreadStoriesIndicator.getNewArticlesSinceTime()).to.equal(DETERMINED_NEW_ARTICLES_SINCE_TIME);
+			});
+		});
 	});
 });
