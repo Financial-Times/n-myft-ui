@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import { determineNewArticlesSinceTime, filterArticlesToNewSinceTime } from '../chronology';
 
 const SOME_TIME_YESTERDAY = '2018-06-01T12:00:00.000Z';
-const EARLIEST_NEW_ARTICLES_TIME_TODAY = '2018-06-02T05:00:00.000Z';
+const EARLIEST_NEW_ARTICLES_TIME = '2018-06-01T22:00:00.000Z';
 const TODAY_0600 = '2018-06-02T06:00:00.000Z';
 const TODAY_0700 = '2018-06-02T07:00:00.000Z';
 const TODAY_0800 = '2018-06-02T08:00:00.000Z';
@@ -30,10 +30,10 @@ describe('chronology', () => {
 				clock = sinon.useFakeTimers(timeNow);
 			});
 
-			it('should return the EARLIEST_NEW_ARTICLES_TIME_TODAY', () => {
+			it('should return the EARLIEST_NEW_ARTICLES_TIME', () => {
 				const newArticlesSinceTime = determineNewArticlesSinceTime(userLastVisitedAt, userNewArticlesSince);
 
-				expect(newArticlesSinceTime).to.equal(EARLIEST_NEW_ARTICLES_TIME_TODAY);
+				expect(newArticlesSinceTime).to.equal(EARLIEST_NEW_ARTICLES_TIME);
 			});
 		});
 
@@ -54,10 +54,10 @@ describe('chronology', () => {
 			});
 
 			describe('and there is no (or an invalid) userNewArticlesSince time set', () => {
-				it('should return the EARLIEST_NEW_ARTICLES_TIME_TODAY', () => {
+				it('should return the EARLIEST_NEW_ARTICLES_TIME', () => {
 					const newArticlesSinceTime = determineNewArticlesSinceTime(userLastVisitedAt, null);
 
-					expect(newArticlesSinceTime).to.equal(EARLIEST_NEW_ARTICLES_TIME_TODAY);
+					expect(newArticlesSinceTime).to.equal(EARLIEST_NEW_ARTICLES_TIME);
 				});
 			});
 		});
@@ -85,10 +85,10 @@ describe('chronology', () => {
 				clock = sinon.useFakeTimers(timeNow);
 			});
 
-			it('should return the EARLIEST_NEW_ARTICLES_TIME_TODAY', () => {
+			it('should return the EARLIEST_NEW_ARTICLES_TIME', () => {
 				const newArticlesSinceTime = determineNewArticlesSinceTime(null, userNewArticlesSince);
 
-				expect(newArticlesSinceTime).to.equal(EARLIEST_NEW_ARTICLES_TIME_TODAY);
+				expect(newArticlesSinceTime).to.equal(EARLIEST_NEW_ARTICLES_TIME);
 			});
 		});
 	});

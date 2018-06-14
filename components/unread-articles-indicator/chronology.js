@@ -5,7 +5,7 @@ const SAME_VISIT_THRESHOLD_MINUTES = 30;
 const getEarliestNewArticlesSince = () => {
 	const now = new Date();
 
-	return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 5, 0, 0, 0)).toISOString();
+	return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate() - 1, 22, 0, 0, 0)).toISOString();
 };
 
 const isValidPublishedSince = (dateToValidate, defaultPublishedSince) => {
