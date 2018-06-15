@@ -43,7 +43,7 @@ export default function (uuid, since) {
 				}
 			}
 
-			latestContent(since: $since) {
+			latestContent(since: $since, limit: 250) {
 				id
 				publishedDate
 				annotations {
