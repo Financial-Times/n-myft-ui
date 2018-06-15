@@ -1,11 +1,12 @@
-import { differenceInMinutes, isAfter } from 'date-fns';
+import { differenceInMinutes, isAfter, subDays } from 'date-fns';
 
 const SAME_VISIT_THRESHOLD_MINUTES = 30;
 
 const getEarliestNewArticlesSince = () => {
 	const now = new Date();
+	const today10pm = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 22, 0, 0, 0));
 
-	return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate() - 1, 22, 0, 0, 0)).toISOString();
+	return subDays(today10pm, 1).toISOString();
 };
 
 const isValidPublishedSince = (dateToValidate, defaultPublishedSince) => {
