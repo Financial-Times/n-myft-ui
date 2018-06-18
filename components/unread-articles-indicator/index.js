@@ -47,7 +47,7 @@ export default () => {
 	createIndicators(document.querySelectorAll('.o-header__top-link--myft'));
 
 	return getUserId
-		.then(uuid => showUnreadArticlesCount(uuid, getNewArticlesSinceTime(), 'initial-update'))
+		.then(uuid => showUnreadArticlesCount(uuid, getNewArticlesSinceTime(), 'initial-render'))
 		.then(() => {
 			document.addEventListener('visibilitychange', () => {
 				if (document.visibilityState === 'visible') {

@@ -73,7 +73,7 @@ describe('unread stories indicator', () => {
 			});
 
 			it('should track initial update of count', () => {
-				expect(mockTracking.countShown).calledWith(NEW_UNDISMISSED_ARTICLES.length, DETERMINED_NEW_ARTICLES_SINCE_TIME, 'initial-update');
+				expect(mockTracking.countShown).calledWith(NEW_UNDISMISSED_ARTICLES.length, DETERMINED_NEW_ARTICLES_SINCE_TIME, 'initial-render');
 			});
 		});
 
