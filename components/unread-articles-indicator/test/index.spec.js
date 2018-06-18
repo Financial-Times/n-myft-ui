@@ -16,10 +16,12 @@ const STORED_INDICATOR_DISMISSED_TIME = '2018-06-05T16:00:00.000Z';
 const DETERMINED_NEW_ARTICLES_SINCE_TIME = '2018-06-05T16:07:37.639Z';
 
 describe('unread stories indicator', () => {
+	let clock;
 	let unreadStoriesIndicator;
 	let mockFetchNewArticles;
 	let mockChronology;
 	let mockStorage;
+	let mockTracking;
 	let mockUi;
 
 	beforeEach(() => {
@@ -34,6 +36,9 @@ describe('unread stories indicator', () => {
 			getNewArticlesSinceTime: sinon.stub().returns(STORED_NEW_ARTICLES_SINCE_TIME),
 			setNewArticlesSinceTime: sinon.stub()
 		};
+		mockTracking = {
+			countShown: sinon.stub()
+		};
 		mockUi = {
 			createIndicators: sinon.stub(),
 			setCount: sinon.stub()
@@ -41,36 +46,62 @@ describe('unread stories indicator', () => {
 		mockFetchNewArticles = sinon.stub().returns(Promise.resolve(NEW_ARTICLES));
 		unreadStoriesIndicator = require('inject-loader!../')({
 			'next-session-client': { uuid: () => Promise.resolve({ uuid: USER_ID }) },
-			'./storage': mockStorage,
-			'./fetch-new-articles': mockFetchNewArticles,
 			'./chronology': mockChronology,
+			'./fetch-new-articles': mockFetchNewArticles,
+			'./storage': mockStorage,
+			'./tracking': mockTracking,
 			'./ui': mockUi
 		});
 	});
 
 	describe('default export', () => {
-		beforeEach(() => {
-			return unreadStoriesIndicator.default();
+		describe('initial update', () => {
+			beforeEach(() => {
+				return unreadStoriesIndicator.default();
+			});
+
+			it('should fetch the new articles for the user using the determined newArticlesSinceTime', () => {
+				expect(mockFetchNewArticles.calledWith(USER_ID, DETERMINED_NEW_ARTICLES_SINCE_TIME)).to.equal(true);
+			});
+
+			it('should filter new articles to undismissed ones', () => {
+				expect(mockChronology.filterArticlesToNewSinceTime.calledWith(NEW_ARTICLES, STORED_INDICATOR_DISMISSED_TIME));
+			});
+
+			it('should call setCount with the number of new undismissed articles', () => {
+				expect(mockUi.setCount).calledWith(NEW_UNDISMISSED_ARTICLES.length);
+			});
+
+			it('should track initial update of count', () => {
+				expect(mockTracking.countShown).calledWith(NEW_UNDISMISSED_ARTICLES.length, DETERMINED_NEW_ARTICLES_SINCE_TIME, 'initial-update');
+			});
 		});
 
-		it('should fetch the new articles for the user using the determined newArticlesSinceTime', () => {
-			expect(mockFetchNewArticles.calledWith(USER_ID, DETERMINED_NEW_ARTICLES_SINCE_TIME)).to.equal(true);
-		});
+		describe('on page becoming visible five minutes or more after the last update', () => {
+			beforeEach((done) => {
+				clock = sinon.useFakeTimers();
+				unreadStoriesIndicator.default()
+					.then(() => {
+						mockChronology.filterArticlesToNewSinceTime.returns(NEW_ARTICLES);
 
-		it('should filter new articles to undismissed ones', () => {
-			expect(mockChronology.filterArticlesToNewSinceTime.calledWith(NEW_ARTICLES, STORED_INDICATOR_DISMISSED_TIME));
-		});
+						clock.tick(1000 * 60 * 6);
+						mockTracking.countShown.callsFake(() => done());
 
-		it('should call setCount with the number of new undismissed articles', () => {
-			expect(mockUi.setCount.calledWith(NEW_UNDISMISSED_ARTICLES.length));
-		});
+						document.dispatchEvent(new Event('visibilitychange'));
+					});
+			});
 
-		it('should fetch and show the unread articles count again on page visibility change', () => {
-			mockChronology.filterArticlesToNewSinceTime.returns(NEW_ARTICLES);
+			afterEach(() => {
+				clock.restore();
+			});
 
-			document.dispatchEvent(new Event('visibilitychange'));
+			it('should fetch and show the unread articles count again', () => {
+				expect(mockUi.setCount).calledWith(NEW_ARTICLES.length);
+			});
 
-			expect(mockUi.setCount.calledWith(NEW_ARTICLES.length));
+			it('should track new update of count', () => {
+				expect(mockTracking.countShown).calledWith(NEW_ARTICLES.length, DETERMINED_NEW_ARTICLES_SINCE_TIME, 'page-visibility-change');
+			});
 		});
 	});
 
