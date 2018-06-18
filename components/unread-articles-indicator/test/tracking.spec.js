@@ -18,7 +18,7 @@ describe('unread-articles-indicator tracking', () => {
 
 			expect(dispatchedEvent.detail).to.deep.equal({
 				category: 'unread-articles-indicator',
-				action: 'update',
+				action: 'render',
 				count: COUNT,
 				newArticlesSinceTime: NEW_ARTICLES_SINCE_TIME,
 				cause: CAUSE

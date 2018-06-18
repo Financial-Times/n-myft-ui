@@ -9,7 +9,7 @@ function dispatchEvent (detail) {
 
 export const countShown = (count, newArticlesSinceTime, cause) => dispatchEvent({
 	category: 'unread-articles-indicator',
-	action: 'update',
+	action: 'render',
 	count,
 	newArticlesSinceTime,
 	cause
