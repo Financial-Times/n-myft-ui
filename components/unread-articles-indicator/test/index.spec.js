@@ -66,7 +66,7 @@ describe('unread stories indicator', () => {
 
 				const args = mockUi.createIndicators.firstCall.args;
 
-				expect(args[1]).to.be.a.function;
+				expect(args[1].onClick).to.be.a('function');
 
 				args[1].onClick();
 

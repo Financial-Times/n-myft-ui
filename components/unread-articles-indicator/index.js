@@ -9,7 +9,7 @@ const MAX_UPDATE_FREQUENCY = 1000 * 60 * 5;
 let canUpdate = true;
 
 const showUnreadArticlesCount = (uuid, newArticlesSinceTime, cause) => {
-	if (canUpdate) {
+	if (canUpdate && uuid) {
 		canUpdate = false;
 		setTimeout(() => canUpdate = true, MAX_UPDATE_FREQUENCY);
 
