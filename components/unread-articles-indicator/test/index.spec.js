@@ -31,6 +31,7 @@ describe('unread stories indicator', () => {
 		};
 		mockStorage = {
 			getIndicatorDismissedTime: sinon.stub().returns(STORED_INDICATOR_DISMISSED_TIME),
+			setIndicatorDismissedTime: sinon.stub(),
 			getLastVisitedAt: sinon.stub().returns(STORED_LAST_VISITED),
 			setLastVisitedAt: sinon.stub(),
 			getNewArticlesSinceTime: sinon.stub().returns(STORED_NEW_ARTICLES_SINCE_TIME),
@@ -58,6 +59,19 @@ describe('unread stories indicator', () => {
 		describe('initial update', () => {
 			beforeEach(() => {
 				return unreadStoriesIndicator.default();
+			});
+
+			it('should create ui indicators', () => {
+				expect(mockUi.createIndicators).to.have.been.calledOnce;
+
+				const args = mockUi.createIndicators.firstCall.args;
+
+				expect(args[1]).to.be.a.function;
+
+				args[1].onClick();
+
+				expect(mockUi.setCount).to.have.been.calledTwice;
+				expect(mockStorage.setIndicatorDismissedTime).to.have.been.calledOnce;
 			});
 
 			it('should fetch the new articles for the user using the determined newArticlesSinceTime', () => {

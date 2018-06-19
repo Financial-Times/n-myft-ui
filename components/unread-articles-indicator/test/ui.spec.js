@@ -1,21 +1,12 @@
 /* global expect */
 import sinon from 'sinon';
+import * as ui from '../ui';
 
 describe('unread stories indicator - ui', () => {
-	let ui;
-	let mockStorage;
-
-	beforeEach(() => {
-		mockStorage = {
-			setIndicatorDismissedTime: sinon.stub()
-		};
-		ui = require('inject-loader!../ui')({
-			'./storage': mockStorage
-		});
-	});
 
 	describe('createIndicators', () => {
 		let containers;
+		let options;
 		const mockContainer = document.createElement('div');
 
 		mockContainer.classList.add('o-header__top-link--myft');
@@ -80,7 +71,10 @@ describe('unread stories indicator - ui', () => {
 
 		describe('click handling', () => {
 			beforeEach(() => {
-				ui.createIndicators(containers);
+				options = {
+					onClick: sinon.stub()
+				};
+				ui.createIndicators(containers, options);
 				ui.setCount(3);
 			});
 
@@ -90,7 +84,7 @@ describe('unread stories indicator - ui', () => {
 				});
 
 				it('should set the indicator dismissed time', () => {
-					expect(mockStorage.setIndicatorDismissedTime.called).to.equal(true);
+					expect(options.onClick.called).to.equal(true);
 				});
 			});
 		});

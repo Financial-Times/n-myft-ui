@@ -1,7 +1,5 @@
-import { setIndicatorDismissedTime } from './storage';
-
 class Indicator {
-	constructor (container) {
+	constructor (container, { onClick } = {}) {
 		this.container = container;
 		this.container.classList.add('myft__indicator-container');
 
@@ -10,22 +8,20 @@ class Indicator {
 
 		container.appendChild(this.el);
 
-		this.container.addEventListener('click', () => Indicator.dismiss());
+		if (typeof onClick === 'function') {
+			this.container.addEventListener('click', () => onClick());
+		}
 	}
 
 	setCount (count) {
 		this.el.innerText = count > 0 ? count : '';
 	}
-
-	static dismiss () {
-		setIndicatorDismissedTime();
-	}
 }
 
 let indicators;
 
-export const createIndicators = targets => {
-	indicators = [...targets].map(target => new Indicator(target));
+export const createIndicators = (targets, options) => {
+	indicators = [...targets].map(target => new Indicator(target, options));
 };
 
 export const setCount = count => {
