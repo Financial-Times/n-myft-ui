@@ -1,19 +1,12 @@
-/*
-* ui for instant alerts buttons
-* ui.js has become so complex that we are splitting instant alerts into its own file until it gets refactored
-*/
-
-const nextButtons = require('../myft-common');
-const nNotification = require('n-notification');
-const Delegate = require('ftdomdelegate');
-const myftClient = require('next-myft-client');
+import * as nNotification from 'n-notification/main';
+import Delegate from 'ftdomdelegate';
+import myftClient from 'next-myft-client';
+import { $, $$ } from 'n-ui-foundations/main';
+import * as nextButtons from '../../myft-common';
 
 const delegate = new Delegate(document.body);
-const $ = require('n-ui-foundations').$;
-const $$ = require('n-ui-foundations').$$;
 const subscribeUrl = '/products?segID=400863&segmentID=190b4443-dc03-bd53-e79b-b4b6fbd04e64';
 const signInLink = '/login';
-
 const UI_HOOK = '[data-myft-ui="instant"]';
 let config;
 
@@ -119,5 +112,6 @@ export function init (opts) {
 	if (instantAlertForms.length > 0) {
 		applyModel();
 		eventListeners();
+		// Tracking is implicitly handled in myft/ui/myft-buttons/init.js and myft/ui/lib/tracking.js
 	}
 }

@@ -1,0 +1,28 @@
+.n-myft-ui__button--instant.n-myft-ui__button--instant-light {
+	$icon-width: 36;
+	border: 0;
+	padding-left: 8px;
+	padding-right: 36px;
+	color: getColor('black-80');
+	font-weight: 400;
+	background: transparent;
+	&:not([disabled]):hover,
+	&:not([disabled]):focus {
+		background: transparent;
+		color: getColor('black-80');
+	}
+	&[aria-pressed="true"] {
+		background: transparent;
+		color: getColor('black-80');
+	}
+	&::before {
+		@include oIconsGetIcon('notifications', getColor('black-30'), $icon-width, $iconset-version: 1);
+		left: auto;
+		right: 1px;
+		margin-top: -18px;
+	}
+	&:not([disabled]):hover:before,
+	&[aria-pressed="true"]::before {
+		@include oIconsGetIcon('notifications', getColor('claret'), $icon-width, $iconset-version: 1);
+	}
+}
