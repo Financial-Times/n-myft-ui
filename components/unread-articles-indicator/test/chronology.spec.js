@@ -1,10 +1,14 @@
 /* global expect */
 
 import sinon from 'sinon';
+import { addMinutes } from 'date-fns';
 import { determineNewArticlesSinceTime, filterArticlesToNewSinceTime } from '../chronology';
 
+const clientTimezoneOffset = new Date().getTimezoneOffset();
+const toLocal = date => addMinutes(date, clientTimezoneOffset).toISOString();
+
 const SOME_TIME_YESTERDAY = '2018-06-01T12:00:00.000Z';
-const EARLIEST_NEW_ARTICLES_TIME = '2018-06-01T23:00:00.000Z'; // midnight BST
+const EARLIEST_NEW_ARTICLES_TIME = '2018-06-02T00:00:00.000Z';
 const TODAY_0600 = '2018-06-02T06:00:00.000Z';
 const TODAY_0700 = '2018-06-02T07:00:00.000Z';
 const TODAY_0800 = '2018-06-02T08:00:00.000Z';
@@ -33,7 +37,7 @@ describe('chronology', () => {
 			it('should return the EARLIEST_NEW_ARTICLES_TIME', () => {
 				const newArticlesSinceTime = determineNewArticlesSinceTime(userLastVisitedAt, userNewArticlesSince);
 
-				expect(newArticlesSinceTime).to.equal(EARLIEST_NEW_ARTICLES_TIME);
+				expect(newArticlesSinceTime).to.equal(toLocal(EARLIEST_NEW_ARTICLES_TIME));
 			});
 		});
 
@@ -57,7 +61,7 @@ describe('chronology', () => {
 				it('should return the EARLIEST_NEW_ARTICLES_TIME', () => {
 					const newArticlesSinceTime = determineNewArticlesSinceTime(userLastVisitedAt, null);
 
-					expect(newArticlesSinceTime).to.equal(EARLIEST_NEW_ARTICLES_TIME);
+					expect(newArticlesSinceTime).to.equal(toLocal(EARLIEST_NEW_ARTICLES_TIME));
 				});
 			});
 		});
@@ -88,7 +92,7 @@ describe('chronology', () => {
 			it('should return the EARLIEST_NEW_ARTICLES_TIME', () => {
 				const newArticlesSinceTime = determineNewArticlesSinceTime(null, userNewArticlesSince);
 
-				expect(newArticlesSinceTime).to.equal(EARLIEST_NEW_ARTICLES_TIME);
+				expect(newArticlesSinceTime).to.equal(toLocal(EARLIEST_NEW_ARTICLES_TIME));
 			});
 		});
 	});
