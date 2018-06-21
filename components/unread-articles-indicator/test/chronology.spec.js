@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import { determineNewArticlesSinceTime, filterArticlesToNewSinceTime } from '../chronology';
 
 const SOME_TIME_YESTERDAY = '2018-06-01T12:00:00.000Z';
-const EARLIEST_NEW_ARTICLES_TIME = '2018-06-01T22:00:00.000Z';
+const EARLIEST_NEW_ARTICLES_TIME = '2018-06-01T23:00:00.000Z'; // midnight BST
 const TODAY_0600 = '2018-06-02T06:00:00.000Z';
 const TODAY_0700 = '2018-06-02T07:00:00.000Z';
 const TODAY_0800 = '2018-06-02T08:00:00.000Z';
