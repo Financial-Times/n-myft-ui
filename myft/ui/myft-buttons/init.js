@@ -10,7 +10,6 @@ import personaliseLinks from '../personalise-links';
 import doFormSubmit from './do-form-submit';
 import initPinButtons from '../../../components/pin-button';
 import enhanceActionUrls from './enhance-action-urls';
-import getToken from './get-csrf-token';
 
 const delegate = new Delegate(document.body);
 let initialised;
@@ -79,7 +78,7 @@ function signedInEventListeners () {
 
 export default function (opts) {
 	if (!opts.anonymous) {
-		setTokens(getToken());
+		setTokens();
 	}
 
 	if (!initialised) {

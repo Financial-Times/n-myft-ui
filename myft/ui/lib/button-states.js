@@ -1,6 +1,7 @@
 import relationshipConfig from './relationship-config';
 import * as loadedRelationships from './loaded-relationships';
 import * as nextButtons from '../../../myft-common';
+import setTokens from './set-tokens';
 
 export function toggleButton (buttonEl, pressed) {
 	const alreadyPressed = buttonEl.getAttribute('aria-pressed') === 'true';
@@ -11,7 +12,6 @@ export function toggleButton (buttonEl, pressed) {
 }
 
 export function setStateOfManyButtons (relationshipName, subjectIds, state, context = document, data = {}) {
-
 	if (!relationshipConfig[relationshipName]) {
 		return;
 	}
@@ -25,9 +25,11 @@ export function setStateOfManyButtons (relationshipName, subjectIds, state, cont
 		if (subjectIds.includes(el.getAttribute(idProperty))) {
 			updateFollowedRelationships(relationshipName, subjectIds[0], state, data);
 			toggleButton(el.querySelector('button'), state);
+			setTokens({
+				container: el
+			});
 		}
 	});
-
 }
 
 export function setStateOfButton (relationshipName, subjectId, state, context = document, data = {}) {
