@@ -25,7 +25,7 @@ const contentFromPersonalisedFeed = uuid => {
 	return fetch(url, options)
 		.then(fetchJson)
 		.then(body => body.results);
-}
+};
 
 const readingHistory = uuid => {
 	const gqlQuery = `
@@ -46,7 +46,8 @@ const readingHistory = uuid => {
 	return fetch(url, options)
 		.then(fetchJson)
 		.then(body => body.data)
-		.then(data => data.user.articlesFromReadingHistory);
+		.then(data => data.user.articlesFromReadingHistory)
+		.catch(() => Promise.resolve({ articles: [] }));
 };
 
 const extractArticlesFromSinceTime = (articles, since) => {
