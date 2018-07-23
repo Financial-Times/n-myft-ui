@@ -6,7 +6,7 @@ import fetchNewArticles from '../fetch-new-articles';
 const USER_UUID = '0-0-0-0';
 const SINCE = '2018-06-05T06:48:26.635Z';
 
-const ARTICLE_PUBLISH_BEFORE_SINCE = '2018-06-04T06:48:26.635Z'
+const ARTICLE_PUBLISH_BEFORE_SINCE = '2018-06-04T06:48:26.635Z';
 const ARTICLE_PUBLISH_AFTER_SINCE = '2018-06-05T07:48:26.635Z';
 
 const READ_ARTICLE_AFTER_SINCE = 'read-followed-article-after-since';
@@ -44,7 +44,7 @@ const mockPersonalisedFeedData = {
 			contentTimeStamp: ARTICLE_PUBLISH_BEFORE_SINCE
 		}
 	]
-}
+};
 
 describe('fetch-new-articles', () => {
 	let data;

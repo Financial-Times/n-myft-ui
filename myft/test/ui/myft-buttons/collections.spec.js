@@ -29,7 +29,8 @@ describe('Collections', () => {
 			'../lib/relationship-config': mockRelationshipConfig,
 			'../lib/button-states': {
 				toggleButton: stubs.toggleButtonStub
-			}
+			},
+			'../lib/uuid': () => 'this-is-a-uuid'
 		});
 
 		container = document.createElement('div');
@@ -89,6 +90,7 @@ describe('Collections', () => {
 					commonProp: 'foo',
 					directType: 'direct1',
 					name: 'name1',
+					_rel: {eventId: 'this-is-a-uuid', eventType: 'coll-add-all'}
 				}
 			);
 
@@ -102,6 +104,7 @@ describe('Collections', () => {
 					commonProp: 'foo',
 					directType: 'direct2',
 					name: 'name2',
+					_rel: {eventId: 'this-is-a-uuid', eventType: 'coll-add-all'}
 				}
 			);
 
@@ -115,6 +118,7 @@ describe('Collections', () => {
 					commonProp: 'foo',
 					directType: 'direct3',
 					name: 'name3',
+					_rel: {eventId: 'this-is-a-uuid', eventType: 'coll-add-all'}
 				}
 			);
 

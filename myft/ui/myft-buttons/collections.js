@@ -2,6 +2,7 @@
 import myFtClient from 'next-myft-client';
 import relationshipConfigs from '../lib/relationship-config';
 import * as buttonStates from '../lib/button-states';
+import uuidv4 from '../lib/uuid';
 
 const idProperty = relationshipConfigs['followed'].idProperty;
 
@@ -10,13 +11,18 @@ function getConceptsData (formEl, rawFormData) {
 	const names = rawFormData.name.split(',');
 	const directTypes = rawFormData.directType ? rawFormData.directType.split(',') : [];
 
+	const eventId = uuidv4();
 	return subjectIds.map((id, i) => {
 
 		delete rawFormData.name;
 		delete rawFormData.type;
 
 		const formData = Object.assign({
-			name: names[i]
+			name: names[i],
+			_rel: {
+				eventId,
+				eventType:'coll-add-all'
+			}
 		}, rawFormData);
 
 		if(directTypes[i]) {
