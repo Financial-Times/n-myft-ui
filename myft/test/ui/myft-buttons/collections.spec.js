@@ -1,6 +1,7 @@
 /* global expect sinon*/
 
 describe('Collections', () => {
+	const eventId = 'this-isnt-a-uuid';
 
 	let collections;
 	let container;
@@ -21,16 +22,16 @@ describe('Collections', () => {
 			}
 		};
 
-		collections = require('inject-loader!../../../ui/myft-buttons/collections')({
+		collections = require('inject-loader!../../../../components/collections')({
 			'next-myft-client': {
 				add: stubs.myFtClientAddStub,
 				remove: stubs.myFtClientRemoveStub
 			},
-			'../lib/relationship-config': mockRelationshipConfig,
-			'../lib/button-states': {
+			'../../myft/ui/lib/relationship-config': mockRelationshipConfig,
+			'../../myft/ui/lib/button-states': {
 				toggleButton: stubs.toggleButtonStub
 			},
-			'../lib/uuid': () => 'this-is-a-uuid'
+			'../../myft/ui/lib/uuid': () => eventId
 		});
 
 		container = document.createElement('div');
@@ -90,7 +91,7 @@ describe('Collections', () => {
 					commonProp: 'foo',
 					directType: 'direct1',
 					name: 'name1',
-					_rel: {eventId: 'this-is-a-uuid', eventType: 'coll-add-all'}
+					_rel: {eventId, eventType: 'coll-add-all'}
 				}
 			);
 
@@ -104,7 +105,7 @@ describe('Collections', () => {
 					commonProp: 'foo',
 					directType: 'direct2',
 					name: 'name2',
-					_rel: {eventId: 'this-is-a-uuid', eventType: 'coll-add-all'}
+					_rel: {eventId, eventType: 'coll-add-all'}
 				}
 			);
 
@@ -118,7 +119,7 @@ describe('Collections', () => {
 					commonProp: 'foo',
 					directType: 'direct3',
 					name: 'name3',
-					_rel: {eventId: 'this-is-a-uuid', eventType: 'coll-add-all'}
+					_rel: {eventId, eventType: 'coll-add-all'}
 				}
 			);
 

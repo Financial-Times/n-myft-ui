@@ -1,7 +1,7 @@
 import myFtClient from 'next-myft-client';
 import relationshipConfigs from '../lib/relationship-config';
 import getDataFromInputs from './get-data-from-inputs';
-import * as collections from './collections';
+import * as collections from '../../../components/collections';
 
 function formButtonIsDisabled (formEl) {
 	return formEl.querySelector('button').hasAttribute('disabled');

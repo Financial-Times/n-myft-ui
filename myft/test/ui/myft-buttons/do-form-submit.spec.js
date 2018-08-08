@@ -37,7 +37,7 @@ describe('Do form submit', () => {
 				remove: stubs.myFtClientRemoveStub,
 				followPlusDigestEmail: stubs.followPlusDigestEmail
 			},
-			'./collections': {
+			'../../../components/collections': {
 				formIsFollowCollection: stubs.formIsFollowCollectionStub,
 				doAction: stubs.collectionsDoActionStub
 			},

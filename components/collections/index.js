@@ -1,8 +1,7 @@
-
 import myFtClient from 'next-myft-client';
-import relationshipConfigs from '../lib/relationship-config';
-import * as buttonStates from '../lib/button-states';
-import uuidv4 from '../lib/uuid';
+import relationshipConfigs from '../../myft/ui/lib/relationship-config';
+import * as buttonStates from '../../myft/ui/lib/button-states';
+import uuidv4 from '../../myft/ui/lib/uuid';
 
 const idProperty = relationshipConfigs['followed'].idProperty;
 
@@ -12,6 +11,7 @@ function getConceptsData (formEl, rawFormData) {
 	const directTypes = rawFormData.directType ? rawFormData.directType.split(',') : [];
 
 	const eventId = uuidv4();
+
 	return subjectIds.map((id, i) => {
 
 		delete rawFormData.name;
@@ -25,7 +25,7 @@ function getConceptsData (formEl, rawFormData) {
 			}
 		}, rawFormData);
 
-		if(directTypes[i]) {
+		if (directTypes[i]) {
 			formData.directType = directTypes[i];
 		}
 
