@@ -8,11 +8,20 @@
 			action="/__myft/api/core/follow-plus-digest-email/{{conceptId}}?method=put"
 			data-myft-ui-variant="followPlusDigestEmail"
 		{{else}}
-			action="/myft/add/{{conceptId}}"
-			{{#ifAll setFollowButtonStateToSelected @root.cacheablePersonalisedUrl}}
-				data-js-action="/__myft/api/core/followed/concept/{{conceptId}}?method=delete"
+			{{#ifAll @root.csrfToken @root.cacheablePersonalisedUrl}}
+				{{#if setFollowButtonStateToSelected}}
+					action="/__myft/api/core/followed/concept/{{conceptId}}?method=delete"
+				{{else}}
+					action="/__myft/api/core/followed/concept/{{conceptId}}?method=put"
+				{{/if}}
 			{{else}}
-				data-js-action="/__myft/api/core/followed/concept/{{conceptId}}?method=put"
+				{{#ifAll setFollowButtonStateToSelected @root.cacheablePersonalisedUrl}}
+					action="/myft/remove/{{conceptId}}"
+					data-js-action="/__myft/api/core/followed/concept/{{conceptId}}?method=delete"
+				{{else}}
+					action="/myft/add/{{conceptId}}"
+					data-js-action="/__myft/api/core/followed/concept/{{conceptId}}?method=put"
+				{{/ifAll}}
 			{{/ifAll}}
 		{{/if}}>
 		{{> n-myft-ui/components/csrf-token/input}}
@@ -46,7 +55,6 @@
 					{{/if}}
 				{{/if}}
 			{{/ifAll}}
-
 			class="{{extraButtonClasses}}
 				n-myft-follow-button
 				{{~#variant}} n-myft-follow-button--{{this}}{{/variant~}}"
