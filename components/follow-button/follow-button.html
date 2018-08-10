@@ -1,68 +1,72 @@
-<form
-	class="n-myft-ui n-myft-ui--follow {{extraClasses}}"
-	method="GET"
-	data-myft-ui="follow"
-	data-concept-id="{{conceptId}}"
-	{{#if followPlusDigestEmail}}
-		action="/__myft/api/core/follow-plus-digest-email/{{conceptId}}?method=put"
-		data-myft-ui-variant="followPlusDigestEmail"
-	{{else}}
-		action="/myft/add/{{conceptId}}"
-		{{#ifAll setFollowButtonStateToSelected @root.cacheablePersonalisedUrl}}
-			data-js-action="/__myft/api/core/followed/concept/{{conceptId}}?method=delete"
-		{{else}}
-			data-js-action="/__myft/api/core/followed/concept/{{conceptId}}?method=put"
-		{{/ifAll}}
-	{{/if}}>
-	{{> n-myft-ui/components/csrf-token/input}}
-	<button
-		{{#ifAll setFollowButtonStateToSelected @root.cacheablePersonalisedUrl}}
-			aria-label="Remove {{name}} from myFT"
-			title="Remove {{name}} from myFT"
-			data-alternate-label="Add {{name}} to myFT"
-			aria-pressed="true"
-			{{#if alternateText}}
-				data-alternate-text="{{alternateText}}"
-			{{else}}
-				{{#if buttonText}}
-					data-alternate-text="{{buttonText}}"
-				{{else}}
-					data-alternate-text="Add to myFT"
-				{{/if}}
-			{{/if}}
-		{{else}}
-			aria-label="Add {{name}} to myFT"
-			title="Add {{name}} to myFT"
-			data-alternate-label="Remove {{name}} from myFT"
-			aria-pressed="false"
-			{{#if alternateText}}
-				data-alternate-text="{{alternateText}}"
-			{{else}}
-				{{#if buttonText}}
-					data-alternate-text="{{buttonText}}"
-				{{else}}
-					data-alternate-text="Added"
-				{{/if}}
-			{{/if}}
-		{{/ifAll}}
-
-		class="{{extraButtonClasses}}
-			n-myft-follow-button
-			{{~#variant}} n-myft-follow-button--{{this}}{{/variant~}}"
-		data-concept-id="{{conceptId}}" {{! duplicated here for tracking}}
+{{#if @root.flags.myFtApiWrite}}
+	<form
+		class="n-myft-ui n-myft-ui--follow {{extraClasses}}"
+		method="GET"
+		data-myft-ui="follow"
+		data-concept-id="{{conceptId}}"
 		{{#if followPlusDigestEmail}}
-			data-trackable-context-messaging="add-to-myft-plus-digest-button"
-		{{/if}}
-		data-trackable="follow"
-		type="submit">
-		{{~#if buttonText~}}
-			{{buttonText}}
-		{{~else~}}
-			{{~#ifAll setFollowButtonStateToSelected @root.cacheablePersonalisedUrl~}}
-				Added
+			action="/__myft/api/core/follow-plus-digest-email/{{conceptId}}?method=put"
+			data-myft-ui-variant="followPlusDigestEmail"
+		{{else}}
+			action="/myft/add/{{conceptId}}"
+			{{#ifAll setFollowButtonStateToSelected @root.cacheablePersonalisedUrl}}
+				data-js-action="/__myft/api/core/followed/concept/{{conceptId}}?method=delete"
+			{{else}}
+				data-js-action="/__myft/api/core/followed/concept/{{conceptId}}?method=put"
+			{{/ifAll}}
+		{{/if}}>
+		{{> n-myft-ui/components/csrf-token/input}}
+		<button
+			{{#ifAll setFollowButtonStateToSelected @root.cacheablePersonalisedUrl}}
+				aria-label="Remove {{name}} from myFT"
+				title="Remove {{name}} from myFT"
+				data-alternate-label="Add {{name}} to myFT"
+				aria-pressed="true"
+				{{#if alternateText}}
+					data-alternate-text="{{alternateText}}"
+				{{else}}
+					{{#if buttonText}}
+						data-alternate-text="{{buttonText}}"
+					{{else}}
+						data-alternate-text="Add to myFT"
+					{{/if}}
+				{{/if}}
+			{{else}}
+				aria-label="Add {{name}} to myFT"
+				title="Add {{name}} to myFT"
+				data-alternate-label="Remove {{name}} from myFT"
+				aria-pressed="false"
+				{{#if alternateText}}
+					data-alternate-text="{{alternateText}}"
+				{{else}}
+					{{#if buttonText}}
+						data-alternate-text="{{buttonText}}"
+					{{else}}
+						data-alternate-text="Added"
+					{{/if}}
+				{{/if}}
+			{{/ifAll}}
+
+			class="{{extraButtonClasses}}
+				n-myft-follow-button
+				{{~#variant}} n-myft-follow-button--{{this}}{{/variant~}}"
+			data-concept-id="{{conceptId}}" {{! duplicated here for tracking}}
+			{{#if followPlusDigestEmail}}
+				data-trackable-context-messaging="add-to-myft-plus-digest-button"
+			{{/if}}
+			data-trackable="follow"
+			type="submit">
+			{{~#if buttonText~}}
+				{{buttonText}}
 			{{~else~}}
-				Add to myFT
-			{{~/ifAll~}}
-		{{~/if~}}
-	</button>
-</form>
+				{{~#ifAll setFollowButtonStateToSelected @root.cacheablePersonalisedUrl~}}
+					Added
+				{{~else~}}
+					Add to myFT
+				{{~/ifAll~}}
+			{{~/if~}}
+		</button>
+	</form>
+{{else}}
+	<!-- Add to myFT button hidden due to myFtApiWrite being off -->
+{{/if}}
