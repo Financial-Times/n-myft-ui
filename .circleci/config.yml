@@ -120,8 +120,8 @@ jobs:
           name: shared-helper / npm-version-and-publish-public
           command: .circleci/shared-helpers/helper-npm-version-and-publish-public
 
-    deploy:
-      <<: *container_config_node8
+  deploy:
+    <<: *container_config_node8
     steps:
       - *attach_workspace
       - add_ssh_keys:
@@ -132,9 +132,7 @@ jobs:
           command: ./scripts/deploy-gh-pages.sh
 
 workflows:
-
   version: 2
-
   build-test:
     jobs:
       - build:
@@ -163,7 +161,8 @@ workflows:
             <<: *filters_ignore_gh_pages
             <<: *filters_version_tag
       - deploy:
-          <<: *filters_only_master
+          filters:
+            <<: *filters_only_master
           requires:
             - test
 
