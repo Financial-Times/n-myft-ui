@@ -1,30 +1,6 @@
 @import 'o-buttons/main';
 @import '../components/follow-button/main';
 
-@mixin buttonWithIcon($iconSpace, $iconSize, $colorOff, $iconOff, $iconOn: $iconOff, $colorOn: $colorOff) {
-	$topMargin: #{$iconSize * -0.5}px;
-	$horizontalMargin: #{($iconSpace - $iconSize) / 2}px;
-	position: relative;
-	padding-left: #{$iconSpace}px;
-
-	&::before {
-		@include oIconsGetIcon($iconOff, $colorOff, $iconSize, $iconset-version: 1);
-		content: ' ';
-		position: absolute;
-		top: 50%;
-		left: $horizontalMargin;
-		margin: $topMargin $horizontalMargin 0 0;
-	}
-
-	&[aria-pressed="true"]::before {
-		@include oIconsGetIcon($iconOn, $colorOn, $iconSize, $iconset-version: 1);
-	}
-
-	&[aria-pressed="true"]:hover::before {
-		@include oIconsGetIcon($iconOn, $colorOff, $iconSize, $iconset-version: 1);
-	}
-}
-
 @mixin nUiMyftCommon () {
 	.myft-ui,
 	.n-myft-ui {
@@ -61,18 +37,6 @@
 
 	.n-myft-ui__button--big {
 		@include oButtonsSize(big);
-	}
-
-	.n-myft-ui--instant {
-		position: relative;
-
-		.n-myft-ui__button {
-			@include buttonWithIcon(26, 24, getColor('teal-40'), 'mail', 'mail', getColor('white'));
-		}
-
-		.n-myft-ui__button--inverse {
-			@include buttonWithIcon(26, 24, getColor('teal-80'), 'mail', 'mail', getColor('white'));
-		}
 	}
 
 	.myft-ui__logo {
