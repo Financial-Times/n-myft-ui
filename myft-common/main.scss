@@ -63,17 +63,6 @@
 		@include oButtonsSize(big);
 	}
 
-	.n-myft-ui__fieldset {
-		border: 0;
-		margin: 0;
-		padding: 0;
-	}
-
-	.n-myft-ui__legend {
-		@include oTypographySans(0, $progressive: true);
-		margin-bottom: 10px;
-	}
-
 	.n-myft-ui--instant {
 		position: relative;
 
@@ -84,10 +73,6 @@
 		.n-myft-ui__button--inverse {
 			@include buttonWithIcon(26, 24, getColor('teal-80'), 'mail', 'mail', getColor('white'));
 		}
-	}
-
-	.js .myft-ui__core-text {
-		display: none;
 	}
 
 	.myft-ui__logo {
