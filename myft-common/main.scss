@@ -38,14 +38,4 @@
 	.n-myft-ui__button--big {
 		@include oButtonsSize(big);
 	}
-
-	.myft-ui__logo {
-		border: 0;
-	}
-
-	.myft-ui__icon {
-		@include nGetImage('logo', 'brand-myft', white, 16);
-		width: 34px;
-		margin: 0 8px -5px;
-	}
 }
