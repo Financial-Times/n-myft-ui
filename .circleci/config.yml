@@ -36,6 +36,10 @@ references:
     restore_cache:
         <<: *npm_cache_keys
 
+  filters_ignore_gh_pages: &filters_ignore_gh_pages
+    branches:
+      ignore: gh-pages
+
   filters_only_master: &filters_only_master
     branches:
       only: master
@@ -116,6 +120,17 @@ jobs:
           name: shared-helper / npm-version-and-publish-public
           command: .circleci/shared-helpers/helper-npm-version-and-publish-public
 
+    deploy:
+      <<: *container_config_node8
+    steps:
+      - *attach_workspace
+      - add_ssh_keys:
+          fingerprints:
+            - "57:d6:75:5e:2b:8c:d1:f7:22:8b:41:02:7d:f4:f5:eb"
+      - run:
+          name: Publish GitHub Pages
+          command: ./scripts/deploy-gh-pages.sh
+
 workflows:
 
   version: 2
@@ -125,23 +140,30 @@ workflows:
       - build:
           filters:
             <<: *filters_ignore_tags
+            <<: *filters_ignore_gh_pages
       - test:
+          filters:
+            <<: *filters_ignore_gh_pages
           requires:
             - build
-
   build-test-publish:
     jobs:
       - build:
           filters:
+            <<: *filters_ignore_gh_pages
             <<: *filters_version_tag
       - test:
           filters:
+            <<: *filters_ignore_gh_pages
             <<: *filters_version_tag
           requires:
             - build
       - publish:
           filters:
+            <<: *filters_ignore_gh_pages
             <<: *filters_version_tag
+      - deploy:
+          <<: *filters_only_master
           requires:
             - test
 

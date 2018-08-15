@@ -24,6 +24,9 @@ demo-build:
 demo: demo-build
 	@node demos/app
 
+static-demo: demo-build
+	@scripts/make-static-demo.sh
+
 test-build:
 	webpack --config webpack.config.js
 
