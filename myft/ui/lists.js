@@ -37,7 +37,6 @@ function updateAfterAddToList (listId, contentId, wasAdded) {
 			}
 			nNotification.show({
 				content: message,
-				type: 'default',
 				trackable: 'myft-feedback-notification'
 			});
 		});
