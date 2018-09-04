@@ -2,7 +2,7 @@
 
 import sinon from 'sinon';
 import { addMinutes } from 'date-fns';
-import { determineNewArticlesSinceTime, filterArticlesToNewSinceTime } from '../chronology';
+import { determineNewArticlesSinceTime, filterArticlesToNewSinceTime } from '../../components/unread-articles-indicator/chronology';
 
 const clientTimezoneOffset = new Date().getTimezoneOffset();
 const toLocal = date => addMinutes(date, clientTimezoneOffset).toISOString();

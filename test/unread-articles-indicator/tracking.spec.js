@@ -1,5 +1,5 @@
 /* global expect */
-import * as tracking from '../tracking';
+import * as tracking from '../../components/unread-articles-indicator/tracking';
 
 describe('unread-articles-indicator tracking', () => {
 	describe('countShown', () => {

@@ -26,7 +26,7 @@ describe('Update UI', () => {
 			setStateOfManyButtonsStub: sinon.stub()
 		};
 
-		const updateUiInjector = require('inject-loader!../../ui/update-ui');
+		const updateUiInjector = require('inject-loader!../myft/ui/update-ui');
 		updateUi = updateUiInjector({
 			'./lib/loaded-relationships': { getRelationships: stubs.getRelationshipsStub },
 			'./lib/button-states': { setStateOfManyButtons: stubs.setStateOfManyButtonsStub },

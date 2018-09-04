@@ -1,5 +1,5 @@
 /* global expect */
-const buttonStates = require('../../../ui/lib/button-states');
+const buttonStates = require('../../myft/ui/lib/button-states');
 
 describe('Button States', () => {
 

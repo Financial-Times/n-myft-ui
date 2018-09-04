@@ -1,6 +1,6 @@
 /* global expect */
 
-const getDataFromInputs = require('../../../ui/myft-buttons/get-data-from-inputs');
+const getDataFromInputs = require('../../myft/ui/myft-buttons/get-data-from-inputs');
 
 describe('Get data from inputs', () => {
 

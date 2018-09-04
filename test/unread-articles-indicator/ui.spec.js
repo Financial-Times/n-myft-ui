@@ -1,6 +1,6 @@
 /* global expect */
 import sinon from 'sinon';
-import * as ui from '../ui';
+import * as ui from '../../components/unread-articles-indicator/ui';
 
 describe('unread stories indicator - ui', () => {
 

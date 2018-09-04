@@ -19,10 +19,13 @@ function bindListeners () {
 	const dismissBtn = document.querySelector(CLASSES.dismissBtn);
 
 	btn.addEventListener('click', addToDigest, false);
-	dismissBtn.addEventListener('click', () => {
-		hidePromo();
-		setDismissState();
-	}, false);
+
+	if (dismissBtn) {
+		dismissBtn.addEventListener('click', () => {
+			hidePromo();
+			setDismissState();
+		}, false);
+	}
 }
 
 function shouldShowPromo (conceptId){
@@ -59,7 +62,7 @@ function addToDigest () {
 
 	const directType = btn.getAttribute('data-direct-type');
 
-	if(directType) {
+	if (directType) {
 		metaConcept.directType = directType;
 	}
 
@@ -70,10 +73,13 @@ function addToDigest () {
 		}
 	};
 
-return Promise.all([
-		myFtClient.add('user', null, 'followed', 'concept', conceptId, metaConcept),
-		myFtClient.add('user', null, 'preferred', 'preference', 'email-digest', metaEmail)
-	]).then(() => {
+	const promises = [myFtClient.add('user', null, 'preferred', 'preference', 'email-digest', metaEmail)];
+
+	if (conceptId) {
+		promises.push(myFtClient.add('user', null, 'followed', 'concept', conceptId, metaConcept));
+	}
+
+	return Promise.all(promises).then(() => {
 		buttons.toggleState(btn, true);
 		btn.setAttribute('disabled', true);
 		btn.setAttribute('aria-pressed', true);

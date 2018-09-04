@@ -5,6 +5,7 @@ $icon-width-m: 90px;
 
 .n-myft-digest-promo {
 	@include oNormaliseClearfix;
+	display: none;
 	float: none;
 	position: relative;
 	background-color: getColor('white-60');
@@ -111,6 +112,12 @@ $icon-width-m: 90px;
 	&[disabled] {
 		min-width: 55px;
 		width: 55px;
+	}
+
+	.n-myft-digest-promo--generic &,
+	.n-myft-digest-promo--generic &[disabled] {
+		width: auto;
+		min-width: auto;
 	}
 
 	@include oGridRespondTo('M') {

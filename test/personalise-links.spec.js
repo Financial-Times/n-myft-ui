@@ -14,7 +14,7 @@ describe('Personalise links', () => {
 	};
 
 	beforeEach(() => {
-		const personaliseLinksInjector = require('inject-loader!../../ui/personalise-links');
+		const personaliseLinksInjector = require('inject-loader!../myft/ui/personalise-links');
 		personaliseLinks = personaliseLinksInjector({
 			'next-myft-client': { personaliseUrl: stubs.personaliseUrlStub }
 		});

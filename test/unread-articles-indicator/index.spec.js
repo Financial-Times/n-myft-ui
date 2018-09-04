@@ -45,7 +45,7 @@ describe('unread stories indicator', () => {
 			setCount: sinon.stub()
 		};
 		mockFetchNewArticles = sinon.stub().returns(Promise.resolve(NEW_ARTICLES));
-		unreadStoriesIndicator = require('inject-loader!../')({
+		unreadStoriesIndicator = require('inject-loader!../../components/unread-articles-indicator')({
 			'next-session-client': { uuid: () => Promise.resolve({ uuid: USER_ID }) },
 			'./chronology': mockChronology,
 			'./fetch-new-articles': mockFetchNewArticles,

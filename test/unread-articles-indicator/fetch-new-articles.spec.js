@@ -1,7 +1,7 @@
 /* global expect */
 
 import fetchMock from 'fetch-mock';
-import fetchNewArticles from '../fetch-new-articles';
+import fetchNewArticles from '../../components/unread-articles-indicator/fetch-new-articles';
 
 const USER_UUID = '0-0-0-0';
 const SINCE = '2018-06-05T06:48:26.635Z';

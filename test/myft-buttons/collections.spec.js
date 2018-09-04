@@ -22,7 +22,7 @@ describe('Collections', () => {
 			}
 		};
 
-		collections = require('inject-loader!../../../../components/collections')({
+		collections = require('inject-loader!../../components/collections/index')({
 			'next-myft-client': {
 				add: stubs.myFtClientAddStub,
 				remove: stubs.myFtClientRemoveStub

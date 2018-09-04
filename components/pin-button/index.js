@@ -6,7 +6,7 @@ const delegate = new Delegate(document.body);
 const trackPinningAction = ({ action }) =>
 	new CustomEvent('oTracking.event', {
 		detail: {
-			category: 'component',
+			category: 'n-messaging',
 			messaging: 'myft-onboarding-pinning-promo',
 			action
 		},

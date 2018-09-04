@@ -31,7 +31,7 @@ describe('Do form submit', () => {
 			}
 		};
 
-		doFormSubmit = require('inject-loader!../../../ui/myft-buttons/do-form-submit')({
+		doFormSubmit = require('inject-loader!../../myft/ui/myft-buttons/do-form-submit')({
 			'next-myft-client': {
 				add: stubs.myFtClientAddStub,
 				remove: stubs.myFtClientRemoveStub,

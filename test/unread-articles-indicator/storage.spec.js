@@ -1,7 +1,7 @@
 /* global expect */
 
 import sinon from 'sinon';
-import * as storage from '../storage';
+import * as storage from '../../components/unread-articles-indicator/storage';
 
 describe('storage', () => {
 	let clock;

@@ -1,3 +1,13 @@
+@import "../../mixins/buttons";
+
+.n-myft-ui--instant {
+	position: relative;
+
+	.n-myft-ui__button {
+		@include buttonWithIcon(26, 24, getColor('teal-40'), 'mail', 'mail', getColor('white'));
+	}
+}
+
 .n-myft-ui__button--instant.n-myft-ui__button--instant-light {
 	$icon-width: 36;
 	border: 0;

@@ -1,0 +1,23 @@
+.myft-ui__logo {
+	border: 0;
+}
+
+.myft-ui__icon {
+	@include nGetImage('logo', 'brand-myft', getColor('white'), 16);
+	width: 34px;
+	margin: 0 8px -5px;
+}
+
+.n-notification {
+	.myft-ui__icon {
+		@include nGetImage('logo', 'brand-myft', getColor('black-80'), 20);
+		margin: 0 3px -5px;
+	}
+
+	&--error,
+	&--success {
+		.myft-ui__icon {
+			@include nGetImage('logo', 'brand-myft', getColor('white'), 20);
+		}
+	}
+}

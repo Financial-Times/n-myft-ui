@@ -18,7 +18,7 @@ describe('Loaded relationships', () => {
 	let loadedRelationships;
 
 	beforeEach(() => {
-		const loadedRelationshipsInjector = require('inject-loader!../../../ui/lib/loaded-relationships');
+		const loadedRelationshipsInjector = require('inject-loader!../../myft/ui/lib/loaded-relationships/index');
 		loadedRelationships = loadedRelationshipsInjector({
 			'next-myft-client': mocks.myFtClient,
 			'./config': mocks.config
@@ -79,7 +79,7 @@ describe('Loaded relationships', () => {
 
 	describe('addRelationship', () => {
 		it('should add a relationship to the list', () => {
-			const loadedRelationships = require('../../../ui/lib/loaded-relationships');
+			const loadedRelationships = require('../../myft/ui/lib/loaded-relationships/index');
 			loadedRelationships.addRelationship('foo', {uuid: 123});
 			expect(loadedRelationships.getRelationships('foo')).to.deep.equal([{uuid: 123}]);
 		});
@@ -87,7 +87,7 @@ describe('Loaded relationships', () => {
 
 	describe('removeRelationship', () => {
 		it('should remove a relationship from the list', () => {
-			const loadedRelationships = require('../../../ui/lib/loaded-relationships');
+			const loadedRelationships = require('../../myft/ui/lib/loaded-relationships/index');
 			loadedRelationships.addRelationship('foo', {uuid: 123});
 			expect(loadedRelationships.getRelationships('foo')).to.deep.equal([{uuid: 123}]);
 			loadedRelationships.removeRelationship('foo', 123);

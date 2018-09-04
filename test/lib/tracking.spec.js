@@ -52,7 +52,7 @@ describe('Tracking', () => {
 		postedData: {}
 	};
 
-	const tracking = require('../../../ui/lib/tracking');
+	const tracking = require('../../myft/ui/lib/tracking');
 
 	beforeEach(() => {
 		sinon.stub(document.body, 'dispatchEvent').returnsArg(0);
