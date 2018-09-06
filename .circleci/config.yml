@@ -160,6 +160,8 @@ workflows:
           filters:
             <<: *filters_ignore_gh_pages
             <<: *filters_version_tag
+          requires:
+            - test
       - deploy:
           filters:
             <<: *filters_only_master
