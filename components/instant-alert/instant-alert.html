@@ -1,5 +1,6 @@
 {{#if @root.flags.myFtApiWrite}}
-<form class="n-myft-ui n-myft-ui--instant {{extraClasses}}" method="GET"
+<form class="n-myft-ui n-myft-ui--instant{{#if hideButtonText}} n-myft-ui--instant--hide-text{{/if}} {{extraClasses}}"
+			method="GET"
 			data-myft-ui="instant"
 			data-concept-id="{{conceptId}}"
 			action="/myft/add/{{conceptId}}?instant=true"

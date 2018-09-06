@@ -35,4 +35,12 @@
 	&[aria-pressed="true"]::before {
 		@include oIconsGetIcon('notifications', getColor('claret'), $icon-width, $iconset-version: 1);
 	}
+
+	.n-myft-ui--instant--hide-text & {
+		margin-top: 5px;
+		width: 20px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-indent: -110px;
+	}
 }
