@@ -7,7 +7,7 @@
 	{{> n-myft-ui/components/csrf-token/input}}
 	<button
 		type="submit"
-		class="{{#ifEquals variant 'save-with-icon'}}n-myft-ui__button--save-with-icon{{else}}n-myft-ui__button n-myft-ui__button--{{variant}}{{/ifEquals}}"
+		class="{{#if saveButtonWithIcon}}n-myft-ui__save-button-with-icon{{else}}n-myft-ui__button{{#variant}} n-myft-ui__button--{{this}}{{/variant}}{{/if}}"
 		data-trackable="save-for-later"
 		data-alternate-label="Save to myFT"
 		data-alternate-text="Save"
@@ -16,18 +16,10 @@
 		title="Saved to myFT"
 		aria-pressed="true"
 	>
-		{{#if buttonText}}
-			{{#ifEquals variant 'save-with-icon'}}
-				<span>{{buttonText}}</span>
-			{{else}}
-				{{buttonText}}
-			{{/ifEquals}}
+		{{#if saveButtonWithIcon}}
+			<span>{{#if buttonText}}{{buttonText}}{{else}}Saved{{/if}}</span>
 		{{else}}
-			{{#ifEquals variant 'save-with-icon'}}
-				<span>Saved</span>
-			{{else}}
-				Saved
-			{{/ifEquals}}
+			{{#if buttonText}}{{buttonText}}{{else}}Saved{{/if}}
 		{{/if}}
 	</button>
 </form>

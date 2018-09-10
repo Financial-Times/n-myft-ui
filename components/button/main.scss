@@ -21,7 +21,7 @@
 	}
 }
 
-.n-myft-ui__button--save-with-icon {
+.n-myft-ui__save-button-with-icon {
 	$icon-size: 38px;
 
 	@include oIconsGetIcon('bookmark-outline', oColorsGetPaletteColor('black'), $icon-size, $iconset-version: 1);
@@ -34,7 +34,7 @@
 
 	span {
 		position: absolute;
-		top: calc(#{$icon-size} - 5px);
+		top: $icon-size - 5px;
 		left: 0;
 		right: 0;
 		@include oTypographySans($scale: -2);
@@ -49,9 +49,5 @@
 	&[aria-pressed=true] {
 		@include oIconsGetIcon('bookmark', oColorsGetPaletteColor('claret'), $icon-size, $iconset-version: 1);
 		background-position: 0 0;
-	}
-
-	.n-myft-ui__button--viewport-large {
-		display: none;
 	}
 }
