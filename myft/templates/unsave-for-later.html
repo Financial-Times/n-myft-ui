@@ -9,6 +9,9 @@
 		type="submit"
 		class="{{#if saveButtonWithIcon}}n-myft-ui__save-button-with-icon{{else}}n-myft-ui__button{{#variant}} n-myft-ui__button--{{this}}{{/variant}}{{/if}}"
 		data-trackable="save-for-later"
+		{{#if saveButtonWithIcon}}
+			data-text-variant="save-button-with-icon-copy"
+		{{/if}}
 		data-alternate-label="Save to myFT"
 		data-alternate-text="Save"
 		data-content-id="{{contentId}}" {{! duplicated here for tracking}}
@@ -17,7 +20,7 @@
 		aria-pressed="true"
 	>
 		{{#if saveButtonWithIcon}}
-			<span>{{#if buttonText}}{{buttonText}}{{else}}Saved{{/if}}</span>
+			<span class="save-button-with-icon-copy" data-variant-label>{{#if buttonText}}{{buttonText}}{{else}}Saved{{/if}}</span>
 		{{else}}
 			{{#if buttonText}}{{buttonText}}{{else}}Saved{{/if}}
 		{{/if}}

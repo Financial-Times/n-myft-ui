@@ -12,7 +12,11 @@
 		data-alternate-label="Saved to myFT"
 		aria-pressed="false"
 		{{#unlessEquals appIsStreamPage true}}
-			data-text-variant="save-button-longer-copy"
+			{{#if saveButtonWithIcon}}
+				data-text-variant="save-button-with-icon-copy"
+			{{else}}
+				data-text-variant="save-button-longer-copy"
+			{{/if}}
 		{{/unlessEquals}}
 		{{#if alternateText}}
 			data-alternate-text="{{alternateText}}"
@@ -24,7 +28,7 @@
 		title="{{#if title}}Save {{title}} to myFT for later{{else}}Save this article to myFT for later{{/if}}"
 		>
 			{{#if saveButtonWithIcon}}
-				<span>{{#if buttonText}}{{buttonText}}{{else}}Save{{/if}}</span>
+				<span class="save-button-with-icon-copy" data-variant-label>{{#if buttonText}}{{buttonText}}{{else}}Save{{/if}}</span>
 			{{else}}
 				{{#if buttonText}}
 					{{buttonText}}
