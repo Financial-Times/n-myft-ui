@@ -29,6 +29,7 @@ You can require different sizes of the button as below:
 	{{>n-ui/myft/templates/unsave-for-later contentId=id}}
 
 The templates require an _contentId_ variable. You can also override the button text by providing a _buttonText_ property.
+There is a different styling available. To apply the styling, provide _saveButtonWithIcon_ property and set it `true`. Check the styling on demos.
 
 ## JS API
 
