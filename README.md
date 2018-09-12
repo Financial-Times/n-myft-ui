@@ -1,12 +1,12 @@
 # n-myft-ui
 Client side component for interaction with myFT.
 
-3 entry points (both for js and scss)
+There are two entry points (both for js and scss):
 
 - myft
 - myft-common
-- myft-digest-promo **! This entry point is deprecated !**  
-Use path n-myft-ui/components/digest-promo instead.
+
+However, we are trying to transition to an approach where apps explicitly import just the individual components (from the `components/` directory) themselves.
 
 These subdirectories may contain a README. If not, please speak to the myft team about how to use them.
 
