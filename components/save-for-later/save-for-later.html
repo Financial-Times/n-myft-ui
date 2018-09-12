@@ -30,9 +30,7 @@
 			{{#if saveButtonWithIcon}}
 				<span class="save-button-with-icon-copy" data-variant-label>{{#if buttonText}}{{buttonText}}{{else}}Save{{/if}}</span>
 			{{else}}
-				{{#if buttonText}}
-					{{buttonText}}
-				{{else}}
+				{{#if buttonText}}{{buttonText}}{{else}}
 					{{#unlessEquals appIsStreamPage true}}
 						<span class="save-button-longer-copy" data-variant-label>Save </span><span class="n-myft-ui__button--viewport-large" aria-hidden="true">to myFT</span>
 					{{else}}
@@ -42,4 +40,6 @@
 			{{/if}}
 		</button>
 	</form>
-{{/if}}
+{{else}}
+	<!-- Save button hidden due to myFtApiWrite being off -->
+{{/if }}
