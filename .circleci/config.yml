@@ -38,7 +38,7 @@ references:
 
   filters_ignore_gh_pages: &filters_ignore_gh_pages
     branches:
-      ignore: gh-pages
+      ignore: gh_pages
 
   filters_only_master: &filters_only_master
     branches:
@@ -126,14 +126,14 @@ jobs:
       - *attach_workspace
       - add_ssh_keys:
           fingerprints:
-            - "57:d6:75:5e:2b:8c:d1:f7:22:8b:41:02:7d:f4:f5:eb"
+            - "83:b5:09:e4:e5:2e:74:35:c1:1b:99:73:e3:dc:b8:6f"
       - run:
           name: Publish GitHub Pages
           command: ./scripts/deploy-gh-pages.sh
 
 workflows:
   version: 2
-  build-test:
+  build-test-deploy:
     jobs:
       - build:
           filters:
@@ -142,6 +142,11 @@ workflows:
       - test:
           filters:
             <<: *filters_ignore_gh_pages
+          requires:
+            - build
+      - deploy:
+          filters:
+            <<: *filters_only_master
           requires:
             - build
   build-test-publish:
@@ -160,11 +165,6 @@ workflows:
           filters:
             <<: *filters_ignore_gh_pages
             <<: *filters_version_tag
-          requires:
-            - test
-      - deploy:
-          filters:
-            <<: *filters_only_master
           requires:
             - test
 

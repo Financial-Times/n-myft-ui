@@ -1,10 +1,13 @@
-# set git config from circle
-git config --global user.email $GITHUB_EMAIL
-git config --global user.name $GITHUB_NAME
+git config --global user.email "$GITHUB_EMAIL"
+git config --global user.name "$GITHUB_NAME"
 
-# Add GitHub to known hosts to avoid an interactive prompt when cloning over SSH
-mkdir -p ~/.ssh
-ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+# hackily remove all identities, and later force the specific identity
+# otherwise git keeps using the wrong boi
+ssh-add -D
+
+git --version
+
+export GIT_SSH="`pwd`/scripts/ssh.sh"
 
 git clone $CIRCLE_REPOSITORY_URL honk --single-branch
 
@@ -14,9 +17,12 @@ git checkout -b gh-pages
 
 mv ../bower_components .
 mv ../node_modules .
+cp ../scripts/* scripts/
 
 make static-demo
 
 git add -A .
-git commit -m "Automated deployment to GitHub Pages: ${CIRCLE_SHA1}" --allow-empty
+
+git commit -m "Update GitHub Pages ! [${CIRCLE_SHA1}]" --allow-empty
+
 git push -f --no-verify origin gh-pages
