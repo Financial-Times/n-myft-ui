@@ -1,12 +1,19 @@
+import relationshipConfig from '../lib/relationship-config';
+
 export default function (context = document) {
-	['follow', 'save', 'instant']
-		.forEach(type => {
-			Array.from(context.querySelectorAll(`form.n-myft-ui--${type}`))
+	[
+		relationshipConfig.followed.uiSelector,
+		relationshipConfig.saved.uiSelector,
+		'[data-myft-ui="instant"]'
+	]
+		.forEach(selector => {
+			Array.from(context.querySelectorAll(selector))
 				.forEach(form => {
-					const action = form.getAttribute('data-js-action');
-					if (!action) return;
-					form.setAttribute('method', 'POST');
-					form.setAttribute('action', action);
+					if (form.dataset.jsAction) {
+						form.setAttribute('method', 'POST');
+						form.setAttribute('action', form.dataset.jsAction);
+						delete form.dataset.jsAction;
+					}
 				});
 		});
 }
