@@ -1,4 +1,5 @@
-# n-myft-ui
+# n-myft-ui [![CircleCI](https://circleci.com/gh/Financial-Times/n-myft-ui.svg?style=svg)](https://circleci.com/gh/Financial-Times/workflows/n-myft-ui)
+
 Client side component for interaction with myFT.
 
 There are two entry points (both for js and scss):
