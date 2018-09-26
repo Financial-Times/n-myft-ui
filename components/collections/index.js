@@ -3,7 +3,7 @@ import relationshipConfigs from '../../myft/ui/lib/relationship-config';
 import * as buttonStates from '../../myft/ui/lib/button-states';
 import uuidv4 from '../../myft/ui/lib/uuid';
 
-const idProperty = relationshipConfigs['followed'].idProperty;
+const { idProperty } = relationshipConfigs.followed;
 
 function getConceptsData (formEl, rawFormData) {
 	const subjectIds = formEl.getAttribute(idProperty).split(',');

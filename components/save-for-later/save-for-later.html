@@ -9,8 +9,13 @@
 		type="submit"
 		class="{{#if saveButtonWithIcon}}n-myft-ui__save-button-with-icon{{else}}n-myft-ui__button{{#variant}} n-myft-ui__button--{{this}}{{/variant}}{{/if}}"
 		data-trackable="{{#if trackableId}}{{trackableId}}{{else}}save-for-later{{/if}}"
-		data-alternate-label="Saved to myFT"
-		aria-pressed="false"
+		{{#if isSaved}}
+			data-alternate-label="{{#if title}}Save {{title}} to myFT for later{{else}}Save this article to myFT for later{{/if}}"
+			aria-pressed="true"
+		{{else}}
+			data-alternate-label="Saved to myFT"
+			aria-pressed="false"
+		{{/if}}
 		{{#unlessEquals appIsStreamPage true}}
 			{{#if saveButtonWithIcon}}
 				data-text-variant="save-button-with-icon-copy"
@@ -21,25 +26,38 @@
 		{{#if alternateText}}
 			data-alternate-text="{{alternateText}}"
 		{{else}}
-			data-alternate-text="Saved "
+			{{#if isSaved}}
+				data-alternate-text="Save "
+			{{else}}
+				data-alternate-text="Saved "
+			{{/if}}
 		{{/if}}
 		data-content-id="{{contentId}}" {{! duplicated here for tracking}}
-		aria-label="{{#if title}}Save {{title}} to myFT for later{{else}}Save this article to myFT for later{{/if}}"
-		title="{{#if title}}Save {{title}} to myFT for later{{else}}Save this article to myFT for later{{/if}}"
+		{{#if isSaved}}
+			aria-label="Saved to myFT"
+			title="Saved to myFT"
+		{{else}}
+			aria-label="{{#if title}}Save {{title}} to myFT for later{{else}}Save this article to myFT for later{{/if}}"
+			title="{{#if title}}Save {{title}} to myFT for later{{else}}Save this article to myFT for later{{/if}}"
+		{{/if}}
 		>
 			{{#if saveButtonWithIcon}}
-				<span class="save-button-with-icon-copy" data-variant-label>{{#if buttonText}}{{buttonText}}{{else}}Save{{/if}}</span>
-			{{else}}
-				{{#if buttonText}}
+				<span class="save-button-with-icon-copy" data-variant-label>{{#if buttonText~}}
 					{{buttonText}}
-				{{else}}
+				{{~else~}}
+					{{#if isSaved}}Saved{{else}}Save{{/if}}
+				{{~/if}}</span>
+			{{else}}
+				{{#if buttonText}}{{buttonText}}{{else}}
 					{{#unlessEquals appIsStreamPage true}}
-						<span class="save-button-longer-copy" data-variant-label>Save </span><span class="n-myft-ui__button--viewport-large" aria-hidden="true">to myFT</span>
+						<span class="save-button-longer-copy" data-variant-label>{{#if isSaved}}Saved {{else}}Save {{/if}}</span><span class="n-myft-ui__button--viewport-large" aria-hidden="true">to myFT</span>
 					{{else}}
-						<span>Save</span>
+						<span>{{#if isSaved}}Saved{{else}}Save{{/if}}</span>
 					{{/unlessEquals}}
 				{{/if}}
 			{{/if}}
 		</button>
 	</form>
-{{/if}}
+{{else}}
+	<!-- Save button hidden due to myFtApiWrite being off -->
+{{/if }}

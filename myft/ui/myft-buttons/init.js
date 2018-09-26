@@ -1,4 +1,3 @@
-import myftApiClient from 'next-myft-client';
 import * as buttonStates from '../lib/button-states';
 import * as tracking from '../lib/tracking';
 import * as loadedRelationships from '../lib/loaded-relationships';
@@ -8,7 +7,6 @@ import nNotification from 'n-notification';
 import Delegate from 'ftdomdelegate';
 import personaliseLinks from '../personalise-links';
 import doFormSubmit from './do-form-submit';
-import initPinButtons from '../../../components/pin-button';
 import enhanceActionUrls from './enhance-action-urls';
 
 const delegate = new Delegate(document.body);
@@ -26,14 +24,14 @@ function anonEventListeners () {
 	const subscribeUrl = '/products?segID=400863&segmentID=190b4443-dc03-bd53-e79b-b4b6fbd04e64';
 	const signInLink = `/login${currentPath.length ? `?location=${currentPath}` : ''}`;
 	const messages = {
-		follow: `Please <a href="${subscribeUrl}" data-trackable="Subscribe">subscribe</a> or <a href="${signInLink}" data-trackable="Sign In">sign in</a> to add this topic to myFT.`,
-		save: `Please <a href="${subscribeUrl}" data-trackable="Subscribe">subscribe</a> or <a href="${signInLink}" data-trackable="Sign In">sign in</a> to save this article.`
+		followed: `Please <a href="${subscribeUrl}" data-trackable="Subscribe">subscribe</a> or <a href="${signInLink}" data-trackable="Sign In">sign in</a> to add this topic to myFT.`,
+		saved: `Please <a href="${subscribeUrl}" data-trackable="Subscribe">subscribe</a> or <a href="${signInLink}" data-trackable="Sign In">sign in</a> to save this article.`
 	};
-	const actions = ['follow', 'save'];
 
-	actions.forEach(action => {
-		delegate.on('submit', `.n-myft-ui--${action}`, event => {
+	['followed', 'saved'].forEach(action => {
+		delegate.on('submit', relationshipConfig[action].uiSelector, event => {
 			event.preventDefault();
+
 			nNotification.show({
 				content: messages[action],
 				trackable: 'myft-anon'
@@ -84,15 +82,12 @@ export default function (opts) {
 	if (!initialised) {
 		initialised = true;
 		enhanceActionUrls();
+
 		if (opts && opts.anonymous) {
 			anonEventListeners();
 		} else {
 			signedInEventListeners();
 			personaliseLinks();
-
-			if (opts.flags && opts.flags.get('myftPrioritiseTopics')) {
-				myftApiClient.init().then(() => initPinButtons());
-			}
 		}
 	}
 }

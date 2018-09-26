@@ -45,8 +45,7 @@ export default function (relationshipName, formEl) {
 	} else {
 		const relConfig = relationshipConfigs[relationshipName];
 		const subjectId = formEl.getAttribute(relConfig.idProperty);
-		const subectType = relConfig.subjectType;
-		const actorType = relConfig.actorType;
-		return myFtClient[action](actorType, actorId, relationshipName, subectType, subjectId, formData);
+		const { actorType, subjectType } = relConfig;
+		return myFtClient[action](actorType, actorId, relationshipName, subjectType, subjectId, formData);
 	}
 }

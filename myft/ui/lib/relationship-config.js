@@ -11,12 +11,6 @@ const relationshipConfig = {
 		subjectType: 'concept',
 		uiSelector: '[data-myft-ui="follow"]'
 	},
-	preferred: {
-		actorType: 'user',
-		idProperty: 'data-preference-name',
-		subjectType: 'preference',
-		uiSelector: '[data-myft-ui="prefer"]'
-	},
 	contained: {
 		actorType: 'list',
 		idProperty: 'data-content-id',
