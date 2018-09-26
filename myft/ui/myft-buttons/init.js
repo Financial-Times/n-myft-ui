@@ -1,4 +1,3 @@
-import myftApiClient from 'next-myft-client';
 import * as buttonStates from '../lib/button-states';
 import * as tracking from '../lib/tracking';
 import * as loadedRelationships from '../lib/loaded-relationships';
@@ -8,7 +7,6 @@ import nNotification from 'n-notification';
 import Delegate from 'ftdomdelegate';
 import personaliseLinks from '../personalise-links';
 import doFormSubmit from './do-form-submit';
-import initPinButtons from '../../../components/pin-button';
 import enhanceActionUrls from './enhance-action-urls';
 
 const delegate = new Delegate(document.body);
@@ -84,15 +82,12 @@ export default function (opts) {
 	if (!initialised) {
 		initialised = true;
 		enhanceActionUrls();
+
 		if (opts && opts.anonymous) {
 			anonEventListeners();
 		} else {
 			signedInEventListeners();
 			personaliseLinks();
-
-			if (opts.flags && opts.flags.get('myftPrioritiseTopics')) {
-				myftApiClient.init().then(() => initPinButtons());
-			}
 		}
 	}
 }
