@@ -4,13 +4,15 @@ import sinon from 'sinon';
 const injector = require('inject-loader!../components/article-save-button');
 
 const createSaveButtonMock = contentId => {
+	const xInteractionWrapper = document.createElement('div');
 	const form = document.createElement('form');
 
 	form.setAttribute('data-content-id', contentId);
+	xInteractionWrapper.appendChild(form);
 
 	return {
 		id: contentId,
-		el: form
+		el: xInteractionWrapper
 	};
 };
 

@@ -38,7 +38,7 @@ const setButtonState = (id, saved) => {
 	});
 	const buttonsForContentId = Array.from(document.querySelectorAll(`form[data-content-id="${id}"]`));
 
-	buttonsForContentId.forEach(el => el.dispatchEvent(event));
+	buttonsForContentId.forEach(el => el.parentNode.dispatchEvent(event));
 };
 
 let initialised = false;
