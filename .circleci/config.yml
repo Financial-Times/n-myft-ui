@@ -133,7 +133,7 @@ jobs:
 
 workflows:
   version: 2
-  build-test-deploy-publish:
+  build-test-deploy:
     jobs:
       - build:
           filters:
@@ -141,6 +141,7 @@ workflows:
             <<: *filters_ignore_gh_pages
       - test:
           filters:
+            <<: *filters_ignore_tags
             <<: *filters_ignore_gh_pages
           requires:
             - build
@@ -153,14 +154,17 @@ workflows:
     jobs:
       - build:
           filters:
-            <<: *filters_ignore_gh_pages
             <<: *filters_version_tag
       - test:
           filters:
-            <<: *filters_ignore_gh_pages
             <<: *filters_version_tag
           requires:
             - build
+      - publish:
+          filters:
+            <<: *filters_version_tag
+          requires:
+            - test
 
   nightly:
     triggers:
