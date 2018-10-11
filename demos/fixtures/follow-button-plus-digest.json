@@ -1,8 +1,6 @@
 {
-  "followButton": {
-    "conceptId": "00000000-0000-0000-0000-000000000000",
-    "name": "Keith inc.",
-    "directType": "http://www.ft.com/ontology/company/PublicCompany",
-    "followPlusDigestEmail": true
-  }
+  "conceptId": "00000000-0000-0000-0000-000000000000",
+  "name": "Keith inc.",
+  "directType": "http://www.ft.com/ontology/company/PublicCompany",
+  "followPlusDigestEmail": true
 }

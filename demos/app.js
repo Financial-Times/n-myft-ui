@@ -7,7 +7,6 @@ const xHandlebars = require('@financial-times/x-handlebars');
 
 const fixtures = {
 	followButton: require('./fixtures/follow-button'),
-	followButtonPlusDigest: require('./fixtures/follow-button-plus-digest'),
 	saveButton: require('./fixtures/save-button'),
 	collections: require('./fixtures/collections')
 };
@@ -40,7 +39,7 @@ app.get('/', (req, res) => {
 			myFtApiWrite: true,
 			xFollowButton: res.locals.flags.xFollowButton
 		}
-	}, fixtures.followButton, fixtures.saveButton, fixtures.collections));
+	}, fixtures));
 });
 
 app.get('/digest-on-follow', (req, res) => {
