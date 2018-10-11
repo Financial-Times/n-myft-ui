@@ -8,7 +8,8 @@ const xHandlebars = require('@financial-times/x-handlebars');
 const fixtures = {
 	followButton: require('./fixtures/follow-button'),
 	saveButton: require('./fixtures/save-button'),
-	collections: require('./fixtures/collections')
+	collections: require('./fixtures/collections'),
+	conceptList: require('./fixtures/concept-list')
 };
 
 const app = module.exports = express({

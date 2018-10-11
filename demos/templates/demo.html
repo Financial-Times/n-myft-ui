@@ -429,4 +429,26 @@
 			{{/collections}}
 		</div>
 	</section>
+
+	<section
+		id="topic-list"
+		class="demo-section">
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<h2 class="demo-section__title">
+					Topic list
+				</h2>
+
+				<p class="demo-section__description">
+					A list of topics to follow
+				</p>
+			</div>
+
+			{{#each conceptList}}
+				<div data-o-grid-colspan="3">
+					{{> n-myft-ui/components/concept-list/concept-list }}
+				</div>
+			{{/each}}
+		</div>
+	</section>
 </div>
