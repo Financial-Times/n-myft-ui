@@ -1,0 +1,46 @@
+.concept-list__title {
+	@include oTypographySans(1);
+	word-break: break-all;
+	&:after {
+		content: '';
+		display: block;
+		width: 60px;
+		margin-top: 5px;
+		border-bottom: 4px solid getColor('black');
+		position: absolute;
+		z-index: 1;
+	}
+}
+
+.concept-list__list {
+	@include oTypographyMargin($top: 7, $bottom: 10);
+	padding: 0;
+}
+
+.concept-list__list-item {
+	@include oTypographySans(1);
+	color: getColor('black');
+	list-style: none;
+	display: flex;
+	align-items: center;
+
+	.n-content-tag {
+		flex: 1;
+	}
+
+	.n-content-tag {
+		flex: 2;
+	}
+}
+
+.concept-list__concept {
+	word-break: break-all;
+	@include oTypographyTopic;
+	@include oTypographySans(0);
+	@include oTypographyMargin($top: 1, $bottom: 1);
+	color: getColor('black');
+
+	&:hover {
+		color: oColorsMix(getColor('black'), getColor('paper'), 73);
+	}
+}

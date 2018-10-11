@@ -1,0 +1,31 @@
+{{#ifAll @root.flags.myFtApi @root.flags.myFtApiWrite concepts concepts.length}}
+	<div
+		class="concept-list"
+		data-trackable="{{#if trackable}}{{trackable}}{{else}}concept-list{{/if}}">
+		{{#ifSome contentType conceptListTitle}}
+			<h2 class="concept-list__title">
+				{{#if conceptListTitle}}
+					{{conceptListTitle}}
+				{{else}}
+					Follow the topics in this {{contentType}}
+				{{/if}}
+			</h2>
+		{{/ifSome}}
+		<ul class="concept-list__list">
+			{{#each concepts}}
+				<li class="concept-list__list-item">
+					<a
+						href="{{relativeUrl}}"
+						data-trackable="{{#if conceptTrackable}}{{conceptTrackable}}{{else}}concept{{/if}}"
+						class="concept-list__concept n-content-tag n-content-tag--author n-content-tag--with-follow">
+						{{prefLabel}}
+					</a>
+					{{> n-myft-ui/components/follow-button/follow-button
+						conceptId=id
+						name=prefLabel
+					}}
+				</li>
+			{{/each}}
+		</ul>
+	</div>
+{{/ifAll}}
