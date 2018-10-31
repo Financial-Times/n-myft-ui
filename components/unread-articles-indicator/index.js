@@ -34,9 +34,9 @@ const showUnreadArticlesCount = ({ uuid, newArticlesSinceTime, withTracking = fa
 
 let newArticlesSinceTime;
 
-export const getNewArticlesSinceTime = (uuid) => {
+export const getNewArticlesSinceTime = () => {
 	if (!newArticlesSinceTime) {
-		return determineNewArticlesSinceTime(storage.getNewArticlesSinceTime(), uuid)
+		return determineNewArticlesSinceTime(storage.getNewArticlesSinceTime())
 			.then(timestamp => {
 				storage.setNewArticlesSinceTime(timestamp);
 				newArticlesSinceTime = timestamp;
@@ -60,7 +60,7 @@ export default () => {
 	});
 
 	const userIdPromise = sessionClient.uuid().then(({ uuid }) => uuid);
-	const newArticleSincePromise = userIdPromise.then(getNewArticlesSinceTime);
+	const newArticleSincePromise = getNewArticlesSinceTime();
 
 	return Promise.all([userIdPromise, newArticleSincePromise])
 		.then(([uuid, newArticlesSinceTime]) => showUnreadArticlesCount({

@@ -9,22 +9,20 @@ const deviceSession = new DeviceSession();
  * @param {string} uuid  User uuid
  * @return {string} ISO date when we now determine articles to be 'new' for the user
  */
-export const determineNewArticlesSinceTime = (userNewArticlesSince, uuid) => {
-
+export const determineNewArticlesSinceTime = userNewArticlesSince => {
 	if (isToday(userNewArticlesSince) && !deviceSession.isNewSession()) {
 		return Promise.resolve(userNewArticlesSince);
 	}
 
 	const earliestNewArticlesSince = startOfDay(new Date()).toISOString();
 
-	return fetchUserLastVisitedAt(uuid)
+	return fetchUserLastVisitedAt()
 		.then(userLastVisitedAt => {
 			return isToday(userLastVisitedAt) ? userLastVisitedAt : earliestNewArticlesSince;
 		})
 		.catch(() => {
 			return earliestNewArticlesSince;
 		});
-
 };
 
 export const filterArticlesToNewSinceTime = (articles, publishedAfterTime) => {
