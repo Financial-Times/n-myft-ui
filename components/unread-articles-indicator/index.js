@@ -59,12 +59,11 @@ export default () => {
 	});
 
 	return getNewArticlesSinceTime()
-		.then((newArticlesSinceTime) => showUnreadArticlesCount(newArticlesSinceTime, true))
+		.then(newArticlesSinceTime => showUnreadArticlesCount(newArticlesSinceTime, true))
 		.then(() => {
 			document.addEventListener('visibilitychange', () => {
 				if (document.visibilityState === 'visible') {
-					getNewArticlesSinceTime()
-						.then((newArticlesSinceTime) => showUnreadArticlesCount(newArticlesSinceTime));
+					getNewArticlesSinceTime().then(showUnreadArticlesCount);
 				}
 			});
 		});
