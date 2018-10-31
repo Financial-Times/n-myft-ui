@@ -1,3 +1,4 @@
+import sessionClient from 'next-session-client';
 import { json as fetchJson } from 'fetchres';
 import { isAfter } from 'date-fns';
 
@@ -54,8 +55,10 @@ const extractArticlesFromSinceTime = (articles, since) => {
 	return articles.filter(article => isAfter(article.contentTimeStamp, since));
 };
 
-export default function (uuid, since) {
-	return Promise.all([readingHistory(uuid), contentFromPersonalisedFeed(uuid)])
+export default since => {
+	return sessionClient.uuid()
+		.then(({ uuid }) => uuid)
+		.then(uuid => Promise.all([readingHistory(uuid), contentFromPersonalisedFeed(uuid)]))
 		.then(([readingHistory, userFeedLast24Hours]) => decorateWithHasBeenRead(readingHistory, userFeedLast24Hours))
 		.then(articles => extractArticlesFromSinceTime(articles, since));
 };

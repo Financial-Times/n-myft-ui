@@ -1,4 +1,3 @@
-import sessionClient from 'next-session-client';
 import { determineNewArticlesSinceTime, filterArticlesToNewSinceTime } from './chronology';
 import fetchNewArticles from './fetch-new-articles';
 import * as storage from './storage';
@@ -8,12 +7,12 @@ import * as ui from './ui';
 const MAX_UPDATE_FREQUENCY = 1000 * 60 * 5;
 let canUpdate = true;
 
-const showUnreadArticlesCount = ({ uuid, newArticlesSinceTime, withTracking = false }) => {
-	if (canUpdate && uuid) {
+const showUnreadArticlesCount = (newArticlesSinceTime, withTracking = false) => {
+	if (canUpdate) {
 		canUpdate = false;
 		setTimeout(() => canUpdate = true, MAX_UPDATE_FREQUENCY);
 
-		return fetchNewArticles(uuid, newArticlesSinceTime)
+		return fetchNewArticles(newArticlesSinceTime)
 			.then(articles => filterArticlesToNewSinceTime(articles, storage.getIndicatorDismissedTime()))
 			.then(newArticles => {
 				const count = newArticles.length;
@@ -59,23 +58,13 @@ export default () => {
 		}
 	});
 
-	const userIdPromise = sessionClient.uuid().then(({ uuid }) => uuid);
-	const newArticleSincePromise = getNewArticlesSinceTime();
-
-	return Promise.all([userIdPromise, newArticleSincePromise])
-		.then(([uuid, newArticlesSinceTime]) => showUnreadArticlesCount({
-			uuid,
-			newArticlesSinceTime,
-			withTracking: true
-		}))
+	return getNewArticlesSinceTime()
+		.then((newArticlesSinceTime) => showUnreadArticlesCount(newArticlesSinceTime, true))
 		.then(() => {
 			document.addEventListener('visibilitychange', () => {
 				if (document.visibilityState === 'visible') {
-					Promise.all([userIdPromise, newArticleSincePromise])
-						.then(([uuid, newArticlesSinceTime]) => showUnreadArticlesCount({
-							uuid,
-							newArticlesSinceTime
-						}));
+					getNewArticlesSinceTime()
+						.then((newArticlesSinceTime) => showUnreadArticlesCount(newArticlesSinceTime));
 				}
 			});
 		});

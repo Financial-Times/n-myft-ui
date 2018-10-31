@@ -3,7 +3,6 @@
 import fetchMock from 'fetch-mock';
 import fetchNewArticles from '../../components/unread-articles-indicator/fetch-new-articles';
 
-const USER_UUID = '0-0-0-0';
 const SINCE = '2018-06-05T06:48:26.635Z';
 
 const ARTICLE_PUBLISH_BEFORE_SINCE = '2018-06-04T06:48:26.635Z';
@@ -54,7 +53,7 @@ describe('fetch-new-articles', () => {
 		fetchMock.get('begin:https://next-api.ft.com/v2/', mockReadingHistoryData);
 		fetchMock.get('begin:/__myft/api/onsite/feed/', mockPersonalisedFeedData);
 
-		return fetchNewArticles(USER_UUID, SINCE)
+		return fetchNewArticles(SINCE)
 			.then(resolvedValue => {
 				data = resolvedValue;
 			});

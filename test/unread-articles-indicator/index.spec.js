@@ -9,7 +9,6 @@ const NEW_ARTICLES = [
 const NEW_UNDISMISSED_ARTICLES = [
 	{ id: 'article-3' }
 ];
-const USER_ID = '123-456';
 const STORED_NEW_ARTICLES_SINCE_TIME = '2018-06-05T10:00:00.000Z';
 const STORED_INDICATOR_DISMISSED_TIME = '2018-06-05T16:00:00.000Z';
 const DETERMINED_NEW_ARTICLES_SINCE_TIME = '2018-06-05T16:07:37.639Z';
@@ -45,7 +44,6 @@ describe('unread stories indicator', () => {
 		};
 		mockFetchNewArticles = sinon.stub().returns(Promise.resolve(NEW_ARTICLES));
 		unreadStoriesIndicator = require('inject-loader!../../components/unread-articles-indicator')({
-			'next-session-client': { uuid: () => Promise.resolve({ uuid: USER_ID }) },
 			'./chronology': mockChronology,
 			'./fetch-new-articles': mockFetchNewArticles,
 			'./storage': mockStorage,
@@ -86,7 +84,7 @@ describe('unread stories indicator', () => {
 			});
 
 			it('should fetch the new articles for the user using the determined newArticlesSinceTime', () => {
-				expect(mockFetchNewArticles.calledWith(USER_ID, DETERMINED_NEW_ARTICLES_SINCE_TIME)).to.equal(true);
+				expect(mockFetchNewArticles.calledWith(DETERMINED_NEW_ARTICLES_SINCE_TIME)).to.equal(true);
 			});
 
 			it('should filter new articles to undismissed ones', () => {
