@@ -36,9 +36,10 @@ let newArticlesSinceTime;
 export const getNewArticlesSinceTime = () => {
 	if (!newArticlesSinceTime) {
 		return determineNewArticlesSinceTime(storage.getNewArticlesSinceTime())
-			.then(timestamp => {
-				storage.setNewArticlesSinceTime(timestamp);
-				newArticlesSinceTime = timestamp;
+			.then(isoDate => {
+				storage.setNewArticlesSinceTime(isoDate);
+				newArticlesSinceTime = isoDate;
+
 				return newArticlesSinceTime;
 			});
 	}

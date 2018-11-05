@@ -1,27 +1,28 @@
+import { isValid } from 'date-fns';
+
 const DEVICE_SESSION_EXPIRY = 'deviceSessionExpiry';
 const NEW_ARTICLES_SINCE = 'newArticlesSinceTime';
 const INDICATOR_DISMISSED_AT = 'myFTIndicatorDismissedAt';
 
-const timestampToIsoDate = ts => new Date(ts).toISOString();
+const isISOString = str => typeof str === 'string' && str.charAt(10) === 'T';
+const getStoredDate = key => {
+	const value = window.localStorage.getItem(key);
+	const date = new Date(value);
 
-const getTimestampItemAsIsoDate = key => {
-	const item = window.localStorage.getItem(key);
-	const timestamp = Number(item);
-
-	return !item || isNaN(timestamp) ? null : timestampToIsoDate(timestamp);
+	return isISOString(value) && isValid(date) ? date.toISOString() : null;
 };
 
-export const getDeviceSessionExpiry = () => getTimestampItemAsIsoDate(DEVICE_SESSION_EXPIRY);
+export const getDeviceSessionExpiry = () => getStoredDate(DEVICE_SESSION_EXPIRY);
 
-export const setDeviceSessionExpiry = isoDate => window.localStorage.setItem(DEVICE_SESSION_EXPIRY, String(new Date(isoDate).getTime()));
+export const setDeviceSessionExpiry = isoDate => window.localStorage.setItem(DEVICE_SESSION_EXPIRY, isoDate);
 
-export const getNewArticlesSinceTime = () => getTimestampItemAsIsoDate(NEW_ARTICLES_SINCE);
+export const getNewArticlesSinceTime = () => getStoredDate(NEW_ARTICLES_SINCE);
 
-export const setNewArticlesSinceTime = isoDate => window.localStorage.setItem(NEW_ARTICLES_SINCE, String(new Date(isoDate).getTime()));
+export const setNewArticlesSinceTime = isoDate => window.localStorage.setItem(NEW_ARTICLES_SINCE, isoDate);
 
-export const getIndicatorDismissedTime = () => getTimestampItemAsIsoDate(INDICATOR_DISMISSED_AT);
+export const getIndicatorDismissedTime = () => getStoredDate(INDICATOR_DISMISSED_AT);
 
-export const setIndicatorDismissedTime = () => window.localStorage.setItem(INDICATOR_DISMISSED_AT, String(Date.now()));
+export const setIndicatorDismissedTime = () => window.localStorage.setItem(INDICATOR_DISMISSED_AT, new Date().toISOString());
 
 export const isAvailable = () => {
 	try {
