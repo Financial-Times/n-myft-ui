@@ -18,7 +18,7 @@ export const determineNewArticlesSinceTime = userNewArticlesSince => {
 
 	return fetchUserLastVisitedAt()
 		.then(userLastVisitedAt => {
-			return isToday(userLastVisitedAt) ? userLastVisitedAt : earliestNewArticlesSince;
+			return isToday(userLastVisitedAt) ? userLastVisitedAt : Promise.reject();
 		})
 		.catch(() => {
 			return earliestNewArticlesSince;
