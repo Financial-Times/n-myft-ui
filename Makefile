@@ -16,7 +16,6 @@ demo-build:
 	@rm -rf bower_components/n-myft-ui
 	@mkdir bower_components/n-myft-ui
 	@mkdir bower_components/n-myft-ui/myft
-	@cp -r myft/templates/ bower_components/n-myft-ui/myft/templates/
 	@cp -r components bower_components/n-myft-ui/components/
 	@node-sass demos/src/demo.scss public/main.css --include-path bower_components node_modules
 	@$(DONE)
