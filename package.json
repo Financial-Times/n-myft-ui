@@ -25,7 +25,6 @@
     "@financial-times/n-heroku-tools": "^6.19.0",
     "@financial-times/n-internal-tool": "^1.2.3",
     "@financial-times/n-webpack": "^3.0.2",
-    "@financial-times/x-follow-button": "0.0.1",
     "@financial-times/x-handlebars": "^1.0.0-beta.1",
     "hyperons": "^0.4.1",
     "ascii-table": "0.0.9",

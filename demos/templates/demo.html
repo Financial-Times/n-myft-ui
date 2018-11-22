@@ -21,17 +21,9 @@
 				</h2>
 
 				{{#followButton}}
-					{{#if @root.flags.xFollowButton}}
-						{{{
-							x package="x-follow-button"
-							component="FollowButton"
-							buttonText=name
-						}}}
-					{{else}}
-						{{>	n-myft-ui/components/follow-button/follow-button
-							buttonText=name
-						}}
-					{{/if}}
+					{{>	n-myft-ui/components/follow-button/follow-button
+						buttonText=name
+					}}
 				{{/followButton}}
 
 				{{#saveButton}}
