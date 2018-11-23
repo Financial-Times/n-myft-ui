@@ -38,7 +38,7 @@
 	data-trackable="instant"
 	title="Get instant alerts for {{name}}"
 	name="_rel.instant"
-	value="true"
+	value="{{#if hasInstantAlert}}false{{else}}true{{/if}}"
 	type="submit"
 	>{{#if buttonText}}{{buttonText}}{{else}}Instant alerts{{/if}}</button>
 </form>
