@@ -10,6 +10,7 @@ const listenForButtonClicks = (buttonEventName) => {
 	});
 };
 
+// TODO: Remove when all x-article-save-buttons are updated to >0.0.7, as they don't listen for x-interaction events
 const dispatchButtonAction = (selector, action) => {
 	const event = new CustomEvent('x-interaction.trigger-action', {
 		detail: { action }
@@ -20,19 +21,6 @@ const dispatchButtonAction = (selector, action) => {
 };
 
 export const initFollowButtons = () => {
-	const getSelector = id => `form[data-concept-id="${id}"]`;
-
-	document.body.addEventListener('myft.user.followed.concept.load', () => {
-		nextMyftClient.loaded['followed.concept'].items.forEach(item =>
-			dispatchButtonAction(getSelector(item.uuid), 'followed'));
-	});
-
-	document.body.addEventListener('myft.user.followed.concept.add', ({ detail }) =>
-		dispatchButtonAction(getSelector(detail.subject), 'followed'));
-
-	document.body.addEventListener('myft.user.followed.concept.remove', ({ detail }) =>
-		dispatchButtonAction(getSelector(detail.subject), 'unfollowed'));
-
 	listenForButtonClicks('x-follow-button');
 };
 
@@ -40,8 +28,10 @@ export const initSaveButtons = () => {
 	const getSelector = id => `form[data-content-id="${id}"]`;
 
 	document.body.addEventListener('myft.user.saved.content.load', () => {
-		nextMyftClient.loaded['saved.content'].items.forEach(item =>
-			dispatchButtonAction(getSelector(item.uuid), 'saved'));
+		if (nextMyftClient.loaded['saved.content']) {
+			nextMyftClient.loaded['saved.content'].items.forEach(item =>
+				dispatchButtonAction(getSelector(item.uuid), 'saved'));
+		}
 	});
 
 	document.body.addEventListener('myft.user.saved.content.add', ({ detail }) =>
