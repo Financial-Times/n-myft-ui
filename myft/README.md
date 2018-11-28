@@ -25,11 +25,13 @@ You can require different sizes of the button as below:
 
 ### Save for later
 
-	{{>n-ui/myft/templates/save-for-later contentId=id}}
-	{{>n-ui/myft/templates/unsave-for-later contentId=id}}
+	{{>n-ui/myft/components/save-for-later/save-for-later contentId=id}}
+	{{>n-ui/myft/components/save-for-later/save-for-later contentId=id isSaved=true}}
 
 The templates require an _contentId_ variable. You can also override the button text by providing a _buttonText_ property.
 There is a different styling available. To apply the styling, provide _saveButtonWithIcon_ property and set it `true`. Check the styling on demos.
+
+If `isSaved=true` is specified then the button will start in the *saved* state, i.e. it will be an *unsave* button.
 
 ## JS API
 
