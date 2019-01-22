@@ -16,8 +16,6 @@ const createButtonMock = (attribute, id) => {
 	};
 };
 
-const dispatchBodyEvent = (name, detail = {}) => document.body.dispatchEvent(new CustomEvent(name, { detail }));
-
 describe('x-button-integration', () => {
 	const ACTOR_ID = null;
 	const ACTOR_TYPE = 'user';
@@ -110,58 +108,6 @@ describe('x-button-integration', () => {
 				expect(mockClient.remove).to.have.been.calledWith(ACTOR_TYPE, ACTOR_ID, 'saved', 'content', CONTENT_ID, sinon.match({
 					token: CSRF_TOKEN
 				}));
-			});
-		});
-
-		describe('handling myFT client load of saved content', () => {
-			beforeEach(() => {
-				mockClient.loaded = {
-					'saved.content': {
-						items: [
-							{ uuid: mockButtons[0].id }
-						]
-					}
-				};
-				xButtonIntegration.initSaveButtons();
-			});
-
-			it('should set states of any buttons found in page', done => {
-				mockButtons[0].el.addEventListener('x-interaction.trigger-action', event => {
-					expect(event.detail).to.deep.equal({ action: 'saved' });
-					done();
-				});
-
-				dispatchBodyEvent('myft.user.saved.content.load');
-			});
-		});
-
-		describe('handling myFT client save event', () => {
-			beforeEach(() => {
-				xButtonIntegration.initSaveButtons();
-			});
-
-			it('should set states of any buttons found in page', done => {
-				mockButtons[0].el.addEventListener('x-interaction.trigger-action', event => {
-					expect(event.detail).to.deep.equal({ action: 'saved' });
-					done();
-				});
-
-				dispatchBodyEvent('myft.user.saved.content.add', { subject: mockButtons[0].id });
-			});
-		});
-
-		describe('handling myFT client unsaved event', () => {
-			beforeEach(() => {
-				xButtonIntegration.initSaveButtons();
-			});
-
-			it('should set states of any buttons found in page', done => {
-				mockButtons[0].el.addEventListener('x-interaction.trigger-action', event => {
-					expect(event.detail).to.deep.equal({ action: 'unsaved' });
-					done();
-				});
-
-				dispatchBodyEvent('myft.user.saved.content.remove', { subject: mockButtons[0].id });
 			});
 		});
 	});
