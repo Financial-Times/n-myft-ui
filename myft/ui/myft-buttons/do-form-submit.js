@@ -57,6 +57,10 @@ export default function (relationshipName, formEl) {
 			}));
 		}
 
-		return myFtClient[action](actorType, actorId, relationshipName, subjectType, subjectId, formData);
+		return myFtClient[action](actorType, actorId, relationshipName, subjectType, subjectId, formData)
+			.catch( e => {
+				setTimeout(() => formEl.querySelector('button').removeAttribute('disabled'), 1000);
+				throw e;
+			});
 	}
 }
