@@ -15,9 +15,9 @@ describe('Do form submit', () => {
 	beforeEach(() => {
 
 		stubs = {
-			myFtClientAddStub: sinon.stub(),
-			myFtClientRemoveStub: sinon.stub(),
-			followPlusDigestEmail: sinon.stub(),
+			myFtClientAddStub: sinon.stub().returns(Promise.resolve()),
+			myFtClientRemoveStub: sinon.stub().returns(Promise.resolve()),
+			followPlusDigestEmail: sinon.stub().returns(Promise.resolve()),
 			formIsFollowCollectionStub: sinon.stub().returns(false),
 			collectionsDoActionStub: sinon.stub(),
 			getDataFromInputsStub: sinon.stub().returns(fakeExtractedFormData)
