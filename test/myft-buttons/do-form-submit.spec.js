@@ -51,6 +51,7 @@ describe('Do form submit', () => {
 	it('should not do anything if the button is disabled', () => {
 		container.innerHTML = `
 			<form>
+				<input type='hidden' value='foo' name='token'/>
 				<button disabled>
 				</button>
 			</form>
@@ -65,6 +66,7 @@ describe('Do form submit', () => {
 	it('should set the button to be disabled (until later when the operation completes)', () => {
 		container.innerHTML = `
 			<form>
+				<input type='hidden' value='foo' name='token'/>
 				<button>
 				</button>
 			</form>
@@ -79,6 +81,7 @@ describe('Do form submit', () => {
 	it('should do an add if the button is not already pressed', () => {
 		container.innerHTML = `
 			<form data-followed-subject-id="some-subject-id">
+				<input type='hidden' value='foo' name='token'/>
 				<button></button>
 			</form>
 		`;
@@ -87,15 +90,40 @@ describe('Do form submit', () => {
 		expect(stubs.myFtClientAddStub).to.have.been.called;
 	});
 
+	it('should not do an add if the CSRF token is missing', () => {
+		container.innerHTML = `
+			<form data-followed-subject-id="some-subject-id">
+				<button></button>
+			</form>
+		`;
+
+		expect( doFormSubmit.bind(null,'followed', container.querySelector('form')) )
+			.to.throw();
+		expect(stubs.myFtClientAddStub).not.to.have.been.called;
+	});
+
 	it('should do a remove if the button is already pressed', () => {
 		container.innerHTML = `
 			<form data-followed-subject-id="some-subject-id">
+				<input type='hidden' value='foo' name='token'/>
 				<button aria-pressed="true"></button>
 			</form>
 		`;
 
 		doFormSubmit('followed', container.querySelector('form'));
 		expect(stubs.myFtClientRemoveStub).to.have.been.called;
+	});
+
+	it('should not do a remove if the CSRF token is missing', () => {
+		container.innerHTML = `
+			<form data-followed-subject-id="some-subject-id">
+				<button aria-pressed="true"></button>
+			</form>
+		`;
+
+		expect( doFormSubmit.bind(null, 'followed', container.querySelector('form')) )
+			.to.throw();
+		expect(stubs.myFtClientRemoveStub).not.to.have.been.called;
 	});
 
 	it('should make a fetch request if certain settings are extant', () => {
@@ -105,6 +133,7 @@ describe('Do form submit', () => {
 				data-myft-ui-variant="followPlusDigestEmail"
 				data-concept-id="${testConceptId}""
 			>
+				<input type='hidden' value='foo' name='token'/>
 				<button aria-pressed="false"></button>
 			</form>
 		`;
@@ -124,6 +153,7 @@ describe('Do form submit', () => {
 				data-followed-subject-id="some-subject-id"
 				data-actor-id="some-actor-id"
 			>
+				<input type='hidden' value='foo' name='token'/>
 				<button></button>
 			</form>
 		`;
@@ -143,6 +173,7 @@ describe('Do form submit', () => {
 	it('should pass all hidden inputs and the button to `getDataFromInputs`', () => {
 		container.innerHTML = `
 			<form data-followed-subject-id="some-subject-id">
+				<input type='hidden' value='foo' name='token'/>
 				<input type="hidden" name="hiddenProp1" value="foo">
 				<input type="hidden" name="hiddenProp2" value="bar">
 				<button name="buttonProp" value="hello"></button>
@@ -152,6 +183,7 @@ describe('Do form submit', () => {
 		doFormSubmit('followed', container.querySelector('form'));
 		expect(stubs.getDataFromInputsStub).to.have.been.calledWith([
 			container.querySelector('button'),
+			container.querySelector('input[name="token"]'),
 			container.querySelector('input[name="hiddenProp1"]'),
 			container.querySelector('input[name="hiddenProp2"]')
 		]);
@@ -163,6 +195,7 @@ describe('Do form submit', () => {
 				data-followed-subject-id="some-subject-id"
 				data-actor-id="some-actor-id"
 			>
+				<input type='hidden' value='foo' name='token'/>
 				<button></button>
 			</form>
 		`;
@@ -179,5 +212,6 @@ describe('Do form submit', () => {
 			fakeExtractedFormData
 		);
 	});
+
 
 });

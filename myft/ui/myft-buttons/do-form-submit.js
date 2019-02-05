@@ -46,6 +46,11 @@ export default function (relationshipName, formEl) {
 		const relConfig = relationshipConfigs[relationshipName];
 		const subjectId = formEl.getAttribute(relConfig.idProperty);
 		const { actorType, subjectType } = relConfig;
+
+		if( !formEl.elements.token || !formEl.elements.token.value ) {
+			throw Error('myFT form submitted without a CSRF token');
+		}
+
 		return myFtClient[action](actorType, actorId, relationshipName, subjectType, subjectId, formData);
 	}
 }
