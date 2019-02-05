@@ -2,6 +2,7 @@ import myFtClient from 'next-myft-client';
 import relationshipConfigs from '../lib/relationship-config';
 import getDataFromInputs from './get-data-from-inputs';
 import * as collections from '../../../components/collections';
+import oErrors from 'o-errors';
 
 function formButtonIsDisabled (formEl) {
 	return formEl.querySelector('button').hasAttribute('disabled');
@@ -48,7 +49,7 @@ export default function (relationshipName, formEl) {
 		const { actorType, subjectType } = relConfig;
 
 		if( !formEl.elements.token || !formEl.elements.token.value ) {
-			throw Error('myFT form submitted without a CSRF token');
+			oErrors.report('myFT form submitted without a CSRF token', {action, actorType, actorId, relationshipName, subjectType, subjectId, formData});
 		}
 
 		return myFtClient[action](actorType, actorId, relationshipName, subjectType, subjectId, formData);

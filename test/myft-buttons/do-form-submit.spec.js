@@ -90,16 +90,15 @@ describe('Do form submit', () => {
 		expect(stubs.myFtClientAddStub).to.have.been.called;
 	});
 
-	it('should not do an add if the CSRF token is missing', () => {
+	it('should still do an add if the CSRF token is missing', () => {
 		container.innerHTML = `
 			<form data-followed-subject-id="some-subject-id">
 				<button></button>
 			</form>
 		`;
 
-		expect( doFormSubmit.bind(null,'followed', container.querySelector('form')) )
-			.to.throw();
-		expect(stubs.myFtClientAddStub).not.to.have.been.called;
+		doFormSubmit('followed', container.querySelector('form'));
+		expect(stubs.myFtClientAddStub).to.have.been.called;
 	});
 
 	it('should do a remove if the button is already pressed', () => {
@@ -114,16 +113,15 @@ describe('Do form submit', () => {
 		expect(stubs.myFtClientRemoveStub).to.have.been.called;
 	});
 
-	it('should not do a remove if the CSRF token is missing', () => {
+	it('should still do a remove if the CSRF token is missing', () => {
 		container.innerHTML = `
 			<form data-followed-subject-id="some-subject-id">
 				<button aria-pressed="true"></button>
 			</form>
 		`;
 
-		expect( doFormSubmit.bind(null, 'followed', container.querySelector('form')) )
-			.to.throw();
-		expect(stubs.myFtClientRemoveStub).not.to.have.been.called;
+		doFormSubmit('followed', container.querySelector('form'));
+		expect(stubs.myFtClientRemoveStub).to.have.been.called;
 	});
 
 	it('should make a fetch request if certain settings are extant', () => {
