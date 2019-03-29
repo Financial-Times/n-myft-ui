@@ -1,0 +1,55 @@
+.o-overlay.o-overlay--instant-alerts-confirmation {
+
+	@include oTypographySans($scale: 2);
+
+	background-color: getColor('paper');
+	.o-overlay__heading {
+		margin-left: 20px;
+		margin-top: 10px;
+		margin-right: 20px;
+		border-bottom: 1px solid getColor('black-10');
+		font-weight: 400;
+	}
+	.o-overlay__title {
+		@include oTypographySans($scale: 4);
+		overflow: visible;
+		line-height: normal;
+		clear: right;
+		margin: 0 0 10px;
+		padding: 0 50px 10px 0;
+	}
+	.o-overlay__content {
+		padding-top: 30px;
+	}
+	.myft-ui__icon {
+		@include nGetImage('logo', 'brand-myft', getColor('black-80'), 50);
+		margin: 0 0 -19px 0;
+	}
+	.o-overlay__close {
+		border: 0;
+		margin: 0;
+	}
+	.o-overlay__close:after {
+		display: none;
+	}
+	.instant-alerts-confirmation__button {
+		min-width: 80px;
+		margin-left: 10px;
+	}
+}
+
+.instant-alerts-confirmation__buttons {
+	float: right;
+	margin-top: 30px;
+	.n-myft-ui__button {
+		margin-left: 10px;
+	}
+}
+
+.instant-alerts-confirmation__text:before {
+	@include oIconsGetIcon('notifications', getColor('claret'), 42, $iconset-version: 1);
+	content: '';
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: -10px;
+}

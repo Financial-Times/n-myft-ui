@@ -8,14 +8,15 @@ import Delegate from 'ftdomdelegate';
 import personaliseLinks from '../personalise-links';
 import doFormSubmit from './do-form-submit';
 import enhanceActionUrls from './enhance-action-urls';
+import {init as initPushNotifications} from '../lib/push-notifications';
 
 const delegate = new Delegate(document.body);
 let initialised;
 
-function getInteractionHandler (relationshipName) {
+function getInteractionHandler (flags, relationshipName) {
 	return (ev, formEl) => {
 		ev.preventDefault();
-		return doFormSubmit(relationshipName, formEl);
+		return doFormSubmit(relationshipName, formEl, flags.myftOfferInstantAlertNotifications);
 	};
 }
 
@@ -40,7 +41,7 @@ function anonEventListeners () {
 	});
 }
 
-function signedInEventListeners () {
+function signedInEventListeners (flags = {}) {
 	Object.keys(relationshipConfig).forEach(relationshipName => {
 		const uiSelector = relationshipConfig[relationshipName].uiSelector;
 		loadedRelationships.waitForRelationshipsToLoad(relationshipName)
@@ -70,7 +71,7 @@ function signedInEventListeners () {
 				});
 			});
 
-		delegate.on('submit', uiSelector, getInteractionHandler(relationshipName));
+		delegate.on('submit', uiSelector, getInteractionHandler(flags, relationshipName));
 	});
 }
 
@@ -86,7 +87,10 @@ export default function (opts) {
 		if (opts && opts.anonymous) {
 			anonEventListeners();
 		} else {
-			signedInEventListeners();
+			if( opts.flags && opts.flags.myftOfferInstantAlertNotifications ) {
+				initPushNotifications(opts.flags.fcmSwitch);
+			}
+			signedInEventListeners(opts.flags);
 			personaliseLinks();
 		}
 	}

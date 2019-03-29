@@ -2,6 +2,7 @@ import myFtClient from 'next-myft-client';
 import relationshipConfigs from '../lib/relationship-config';
 import getDataFromInputs from './get-data-from-inputs';
 import * as collections from '../../../components/collections';
+import {offerInstantAlerts} from '../lib/push-notifications';
 
 function formButtonIsDisabled (formEl) {
 	return formEl.querySelector('button').hasAttribute('disabled');
@@ -22,8 +23,7 @@ function getFormData (formEl) {
 	return getDataFromInputs(formInputs);
 }
 
-export default function (relationshipName, formEl) {
-
+export default function (relationshipName, formEl, pushNotifications) {
 	if (formButtonIsDisabled(formEl)) {
 		return;
 	} else {
@@ -58,6 +58,13 @@ export default function (relationshipName, formEl) {
 		}
 
 		return myFtClient[action](actorType, actorId, relationshipName, subjectType, subjectId, formData)
+			.then( () => {
+				if( pushNotifications ) {
+					if (action === 'add' && relationshipName === 'followed') {
+						offerInstantAlerts();
+					}
+				}
+			})
 			.catch( e => {
 				setTimeout(() => formEl.querySelector('button').removeAttribute('disabled'), 1000);
 				throw e;

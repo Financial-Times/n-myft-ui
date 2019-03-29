@@ -15,6 +15,7 @@ $o-overlay-is-silent: true;
 @import './ui/lists';
 @import '../components/pin-button/main';
 @import '../components/instant-alert/main';
+@import '../components/instant-alerts-confirmation/main';
 
 .myft-ui,
 .n-myft-ui {
