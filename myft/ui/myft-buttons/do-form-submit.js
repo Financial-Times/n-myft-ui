@@ -61,7 +61,7 @@ export default function (relationshipName, formEl, pushNotifications) {
 			.then( () => {
 				if( pushNotifications ) {
 					if (action === 'add' && relationshipName === 'followed') {
-						offerInstantAlerts();
+						offerInstantAlerts(subjectId);
 					}
 				}
 			})
