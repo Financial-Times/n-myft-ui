@@ -166,13 +166,13 @@ export function offerInstantAlerts (conceptId) {
 		overlay.context.addEventListener('oOverlay.ready', () => {
 			const yesButton = overlay.context.querySelector('.js-instant-alerts-confirmation-yes');
 			yesButton.addEventListener('click', () => {
-				overlay.close();
+				overlay.destroy();
 				subscribe();
 				enableInstantAlerts(conceptId);
 			});
 			const noButton = overlay.context.querySelector('.js-instant-alerts-confirmation-no');
 			noButton.addEventListener('click', () => {
-				overlay.close();
+				overlay.destroy();
 			});
 		}, false);
 	}
