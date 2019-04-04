@@ -43,13 +43,20 @@
 	margin-top: 30px;
 	.n-myft-ui__button {
 		margin-left: 10px;
+		margin-bottom: 10px;
 	}
 }
 
-.instant-alerts-confirmation__text:before {
+.instant-alerts-confirmation__info {
+	display: flex;
+	align-items: center;
+}
+
+.instant-alerts-confirmation-info__icon {
 	@include oIconsGetIcon('notifications', getColor('claret'), 42, $iconset-version: 1);
-	content: '';
-	display: inline-block;
-	vertical-align: middle;
-	margin-left: -10px;
+}
+
+.instant-alerts-confirmation-info__subtext {
+	margin-top: 20px;
+	@include oTypographySans($scale: 0);
 }

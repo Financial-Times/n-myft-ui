@@ -161,8 +161,8 @@ export function unsubscribe () {
 }
 
 export function offerInstantAlerts (conceptId) {
-	if (isServiceWorkerInitialised && Notification.permission !== 'denied') {
-		const overlay = instantAlertsConfirmation();
+	if (isServiceWorkerInitialised) {
+		const overlay = instantAlertsConfirmation(Notification.permission === 'denied');
 		overlay.context.addEventListener('oOverlay.ready', () => {
 			const yesButton = overlay.context.querySelector('.js-instant-alerts-confirmation-yes');
 			yesButton.addEventListener('click', () => {
