@@ -162,6 +162,16 @@ export function unsubscribe () {
 
 export function offerInstantAlerts (conceptId) {
 	if (isServiceWorkerInitialised) {
+
+		document.body.dispatchEvent(new CustomEvent('oTracking.event', {
+			detail: {
+				category: 'myFT',
+				action: 'offer-instant-alerts',
+				permission: Notification.permission
+			},
+			bubbles: true
+		}));
+
 		const overlay = instantAlertsConfirmation(Notification.permission === 'denied');
 		overlay.context.addEventListener('oOverlay.ready', () => {
 			const yesButton = overlay.context.querySelector('.js-instant-alerts-confirmation-yes');
