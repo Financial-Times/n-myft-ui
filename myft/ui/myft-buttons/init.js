@@ -62,7 +62,8 @@ function signedInEventListeners (flags = {}) {
 				const eventName = `myft.${actorType}.${relationshipName}.${subjectType}.${action}`;
 				document.body.addEventListener(eventName, event => {
 					const resultData = event.detail.results && event.detail.results[0];
-					buttonStates.setStateOfButton(relationshipName, event.detail.subject, !!event.detail.results, undefined, resultData);
+					const isPressed = !!event.detail.results;
+					buttonStates.setStateOfButton(relationshipName, event.detail.subject, isPressed, undefined, resultData, true);
 					tracking.custom({
 						subjectType,
 						action,

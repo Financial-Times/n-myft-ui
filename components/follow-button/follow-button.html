@@ -25,6 +25,12 @@
 			{{/ifAll}}
 		{{/if}}>
 		{{> n-myft-ui/components/csrf-token/input}}
+		<div
+			class="n-myft-ui__announce-follow o-normalise-visually-hidden"
+			aria-live="assertive"
+			data-pressed-text="Now following {{name}}."
+			data-unpressed-text="No longer following {{name}}."
+		></div>
 		<button
 			{{#ifAll setFollowButtonStateToSelected @root.cacheablePersonalisedUrl}}
 				aria-label="Remove {{name}} from myFT"
