@@ -5,6 +5,12 @@
 	action="/myft/save/{{contentId}}"
 	data-js-action="/__myft/api/core/saved/content/{{contentId}}?method=put">
 	{{> n-myft-ui/components/csrf-token/input}}
+	<div
+		class="n-myft-ui__announcement o-normalise-visually-hidden"
+		aria-live="assertive"
+		data-pressed-text="Article saved in My FT."
+		data-unpressed-text="Removed article from My FT."
+	></div>
 	<button
 		type="submit"
 		class="{{#if saveButtonWithIcon}}n-myft-ui__save-button-with-icon{{else}}n-myft-ui__button{{#variant}} n-myft-ui__button--{{this}}{{/variant}}{{/if}}"

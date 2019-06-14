@@ -26,7 +26,7 @@ export function setStateOfManyButtons (relationshipName, subjectIds, state, cont
 			updateFollowedRelationships(relationshipName, subjectIds[0], state, data);
 			toggleButton(el.querySelector('button'), state);
 			if (doAnnouncement) {
-				const screenReaderAnnouncement = el.querySelector('.n-myft-ui__announce-follow');
+				const screenReaderAnnouncement = el.querySelector('.n-myft-ui__announcement');
 				if (screenReaderAnnouncement) {
 					screenReaderAnnouncement.innerHTML = screenReaderAnnouncement.dataset[state ? 'pressedText' : 'unpressedText'];
 				}
