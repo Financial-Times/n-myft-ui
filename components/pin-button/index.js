@@ -43,7 +43,16 @@ export default () => {
 				const wrapper = event.target.closest('.myft-pin-button-wrapper');
 
 				setLoading(wrapper);
-				togglePrioritised(conceptId, prioritised === 'true', formData);
+
+				const isPinned = prioritised === 'true';
+				togglePrioritised(conceptId, isPinned, formData);
+
+				if (true) {
+					const screenReaderAnnouncement = wrapper.querySelector('.n-myft-ui__announcement');
+					if (screenReaderAnnouncement) {
+						screenReaderAnnouncement.innerHTML = screenReaderAnnouncement.dataset[isPinned ? 'pressedText' : 'unpressedText'];
+					}
+				}
 			});
 
 
