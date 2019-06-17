@@ -28,7 +28,7 @@ describe('x-button-integration', () => {
 
 	beforeEach(() => {
 		mockClient = {
-			remove: sinon.spy(),
+			remove: sinon.stub().returns(Promise.resolve()),
 			saved: sinon.stub(),
 			init: sinon.stub().returns(Promise.resolve()),
 			load: sinon.stub(),
