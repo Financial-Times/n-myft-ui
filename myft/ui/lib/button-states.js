@@ -11,7 +11,7 @@ export function toggleButton (buttonEl, pressed) {
 	buttonEl.removeAttribute('disabled');
 }
 
-export function setStateOfManyButtons (relationshipName, subjectIds, state, context = document, data = {}) {
+export function setStateOfManyButtons (relationshipName, subjectIds, state, context = document, data = {}, doAnnouncement=false) {
 	if (!relationshipConfig[relationshipName]) {
 		return;
 	}
@@ -25,6 +25,12 @@ export function setStateOfManyButtons (relationshipName, subjectIds, state, cont
 		if (subjectIds.includes(el.getAttribute(idProperty))) {
 			updateFollowedRelationships(relationshipName, subjectIds[0], state, data);
 			toggleButton(el.querySelector('button'), state);
+			if (doAnnouncement) {
+				const screenReaderAnnouncement = el.querySelector('.n-myft-ui__announcement');
+				if (screenReaderAnnouncement) {
+					screenReaderAnnouncement.innerHTML = screenReaderAnnouncement.dataset[state ? 'pressedText' : 'unpressedText'];
+				}
+			}
 			setTokens({
 				container: el
 			});
@@ -32,8 +38,8 @@ export function setStateOfManyButtons (relationshipName, subjectIds, state, cont
 	});
 }
 
-export function setStateOfButton (relationshipName, subjectId, state, context = document, data = {}) {
-	return setStateOfManyButtons(relationshipName, [subjectId], state, context, data);
+export function setStateOfButton (relationshipName, subjectId, state, context = document, data = {}, doAnnouncement=false) {
+	return setStateOfManyButtons(relationshipName, [subjectId], state, context, data, doAnnouncement);
 }
 
 function updateFollowedRelationships (relationshipName, uuid, state, data = {}) {

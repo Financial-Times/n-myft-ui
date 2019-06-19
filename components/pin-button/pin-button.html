@@ -6,6 +6,12 @@
 		<input type="hidden" value="{{name}}" name="name"> {{#if directType}}
 		<input type="hidden" value="{{directType}}" name="directType"> {{else}}
 		<input type="hidden" value="http://www.ft.com/ontology/concept/Concept" name="directType"> {{/if}}
+		<div
+			class="n-myft-ui__announcement o-normalise-visually-hidden"
+			aria-live="assertive"
+			data-pressed-text="{{name}} pinned in My FT."
+			data-unpressed-text="Unpinned {{name}} from My FT."
+		></div>
 		<button id="myft-pin-button__{{id}}" class="myft-pin-button" data-prioritise-button data-trackable="prioritised" data-concept-id="{{id}}" data-prioritised="{{#if prioritised}}true{{else}}false{{/if}}"
 				aria-pressed="{{#if prioritised}}true{{else}}false{{/if}}" title="{{#if prioritised}}Unpin{{else}}Pin{{/if}} {{name}}">
 		</button>
