@@ -7,7 +7,7 @@
 
 .myft-pin-button-wrapper .myft-pin-button {
 	$icon-width: 36;
-	@include oIconsGetIcon('pin', getColor('black-40'), $icon-width, $iconset-version: 1);
+	@include oIconsGetIcon('pin', getColor('black-60'), $icon-width, $iconset-version: 1);
 	&[aria-pressed=true],
 	&:not([disabled]):hover {
 		@include oIconsGetIcon('pin', getColor('claret'), $icon-width, $iconset-version: 1);
@@ -53,8 +53,8 @@
 		height: 12px;
 		margin: 0 auto;
 		border-radius: 50%;
-		border: 3px solid getColor('black-40');
-		border-color: getColor('black-40') transparent;
+		border: 3px solid getColor('black-60');
+		border-color: getColor('black-60') transparent;
 		animation: lds-dual-ring 1.2s linear infinite;
 		@keyframes lds-dual-ring {
 			0% {

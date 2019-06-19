@@ -27,3 +27,11 @@ As of August 2017, The following apps use n-myft-ui:
 When you merge to master, you should make a new release and then roll it out to the apps, plus n-topic-card which contains a reference to this so that there aren't missing dependencies.
 
 If you are making a major change, you will need to update the bower.json and package.json files for the above apps. For minor and patch updates, you can rebuild without cache from CircleCI.
+
+## Running locally
+```
+make install
+make build
+make demo
+```
+View the demo on `localhost:5005`
