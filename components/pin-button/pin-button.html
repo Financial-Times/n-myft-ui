@@ -13,14 +13,8 @@
 			data-unpressed-text="Unpinned {{name}} from My FT."
 		></div>
 		<button id="myft-pin-button__{{id}}" class="myft-pin-button" data-prioritise-button data-trackable="prioritised" data-concept-id="{{id}}" data-prioritised="{{#if prioritised}}true{{else}}false{{/if}}"
-				aria-pressed="{{#if prioritised}}true{{else}}false{{/if}}" >
-			<span class="myft-pin-button__label">{{#if prioritised}}Unpin{{else}}Pin{{/if}} {{name}}</span>
+				aria-pressed="{{#if prioritised}}true{{else}}false{{/if}}" title="{{#if prioritised}}Unpin{{else}}Pin{{/if}} {{name}}">
 		</button>
 	</form>
-</div>
-<div data-o-component="o-tooltip" class="o-tooltip o-tooltip--myft-pin-button" data-o-tooltip-position="above" data-o-tooltip-toggle-on-focus="true" data-o-tooltip-target="myft-pin-button__{{id}}" data-o-tooltip-show-on-hover="true">
-	<div class="o-tooltip-content">
-		{{#if prioritised}}Unpin{{else}}Pin{{/if}} {{name}}
-	</div>
 </div>
 {{/if}}

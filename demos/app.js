@@ -10,7 +10,8 @@ const fixtures = {
 	saveButton: require('./fixtures/save-button'),
 	collections: require('./fixtures/collections'),
 	conceptList: require('./fixtures/concept-list'),
-	pinButton: require('./fixtures/pin-button')
+	pinButton: require('./fixtures/pin-button'),
+	instantAlert: require('./fixtures/instant-alert')
 };
 
 const app = module.exports = express({
