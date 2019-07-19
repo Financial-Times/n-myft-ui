@@ -1,18 +1,25 @@
 <section
-	class="collection"
+	class="collection {{#if liteStyle}}collection--lite{{else}}collection--regular{{/if}}"
 	data-trackable="collection">
-	<header class="collection__header">
-		<h2 class="collection__title">
+	<header class="collection__header {{#if liteStyle}}collection__header--lite{{else}}collection__header--regular{{/if}}">
+		<h2 class="collection__title {{#if liteStyle}}collection__title--lite{{else}}collection__title--regular{{/if}}">
 			{{title}}
 		</h2>
 	</header>
 	<ul class="collection__concepts">
 		{{#concepts}}
 			<li class="collection__concept">
-				{{>	n-myft-ui/components/follow-button/follow-button
-					variant="inverse"
-					buttonText=name
-				}}
+				{{#if ../liteStyle}}
+					{{>	n-myft-ui/components/follow-button/follow-button
+						variant="primary"
+						buttonText=name
+					}}
+				{{else}}
+					{{>	n-myft-ui/components/follow-button/follow-button
+						variant="inverse"
+						buttonText=name
+					}}
+				{{/if}}
 			</li>
 		{{/concepts}}
 	</ul>
@@ -56,7 +63,7 @@
 				type="submit"
 				aria-label="Add all topics in the {{title}} collection to my F T"
 				aria-pressed="false"
-				class="collection-follow-all__button"
+				class="collection-follow-all__button {{#if liteStyle}}collection-follow-all__button--lite{{else}}collection-follow-all__button--regular{{/if}}"
 				data-alternate-label="Remove all topics in the {{title}} collection from my F T"
 				data-alternate-text="Added"
 				data-trackable="follow all"

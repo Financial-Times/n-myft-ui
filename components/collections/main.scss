@@ -7,18 +7,34 @@
 	width: auto;
 	padding: 12px;
 	overflow: visible;
-	background: getColor('claret-70');
 	box-sizing: border-box;
+}
+
+.collection--regular {
+	background: getColor('claret-70');
 
 	@include oGridRespondTo(M) {
 		height: 100%;
 	}
 }
 
+.collection--lite {
+	background: getColor('white-40');
+	border: 1px solid getColor('black-5');
+	padding-top: 18px;
+}
+
 .collection__header {
-	color: getColor('white');
 	overflow: hidden;
 	word-break: break-word;
+}
+
+.collection__header--regular {
+	color: getColor('white');
+}
+
+.collection__header--lite {
+	color: getColor('black');
 }
 
 .collection__title {
@@ -51,9 +67,16 @@
 
 .collection-follow-all__button {
 	@include oButtons();
+}
+
+.collection-follow-all__button--regular {
 	@include oButtonsTheme($theme: (
 		background: 'white',
 		accent: 'claret-70',
 		colorizer: 'secondary'
 	));
+}
+
+.collection-follow-all__button--lite {
+	@include oButtons($theme: primary)
 }
