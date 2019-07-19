@@ -8,9 +8,9 @@ describe('Do form submit', () => {
 	let mockRelationshipConfig;
 	let testConceptId = 'testConceptIdValue';
 	let fakeExtractedFormData = {
-				prop1: 'foo',
-				prop2: 'bar'
-			};
+		prop1: 'foo',
+		prop2: 'bar'
+	};
 
 	beforeEach(() => {
 

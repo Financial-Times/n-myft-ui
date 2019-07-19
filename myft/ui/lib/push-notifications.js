@@ -77,9 +77,9 @@ function sendSubscriptionToServer (subscription, isRemove) {
 function enableInstantAlerts (conceptId) {
 	return myftClient.init()
 		.then(() => myftClient.add('user', null, 'followed', 'concept', conceptId, {
-				token: csrfToken,
-				_rel: {instant: 'true'}
-			})
+			token: csrfToken,
+			_rel: {instant: 'true'}
+		})
 		);
 }
 
