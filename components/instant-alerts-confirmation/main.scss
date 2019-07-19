@@ -23,7 +23,7 @@
 	}
 	.myft-ui__icon {
 		@include nGetImage('logo', 'brand-myft', getColor('black-80'), 50);
-		margin: 0 0 -19px 0;
+		margin: 0 0 -19px;
 	}
 	.o-overlay__close {
 		border: 0;

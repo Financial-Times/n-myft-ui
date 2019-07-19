@@ -78,5 +78,5 @@
 }
 
 .collection-follow-all__button--lite {
-	@include oButtons($theme: primary)
+	@include oButtons($theme: primary);
 }
