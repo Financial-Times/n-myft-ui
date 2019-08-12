@@ -56,7 +56,9 @@ const getAction = (subjectType, action, postedData, resultData) => {
  */
 export function custom (eventData) {
 	if (Object.keys(customDataSettings).indexOf(eventData.subjectType) !== -1) {
-		const options = {action: getAction(eventData.subjectType, eventData.action, eventData.postedData, eventData.resultData)};
+		const options = Object.assign(
+			{action: getAction(eventData.subjectType, eventData.action, eventData.postedData, eventData.resultData)},
+			eventData.trackingInfo);
 		const extraContext = getExtraContext(eventData.subjectType, eventData.subjectId);
 		Object.assign(options, extraContext);
 		sendEvent(options);

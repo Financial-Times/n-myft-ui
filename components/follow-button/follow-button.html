@@ -4,6 +4,7 @@
 		method="GET"
 		data-myft-ui="follow"
 		data-concept-id="{{conceptId}}"
+		{{#if collectionName}}data-myft-tracking="collectionName={{collectionName}}"{{/if}}
 		{{#if followPlusDigestEmail}}
 			action="/__myft/api/core/follow-plus-digest-email/{{conceptId}}?method=put"
 			data-myft-ui-variant="followPlusDigestEmail"

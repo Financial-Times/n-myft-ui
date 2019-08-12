@@ -13,11 +13,13 @@
 					{{>	n-myft-ui/components/follow-button/follow-button
 						variant="primary"
 						buttonText=name
+						collectionName=../collectionName
 					}}
 				{{else}}
 					{{>	n-myft-ui/components/follow-button/follow-button
 						variant="inverse"
 						buttonText=name
+						collectionName=../collectionName
 					}}
 				{{/if}}
 			</li>
@@ -28,6 +30,7 @@
 			method="POST"
 			action="#"
 			data-myft-ui="follow"
+			{{#if collectionName}}data-myft-tracking="collectionName={{collectionName}}"{{/if}}
 			data-concept-id="
 				{{~#concepts~}}
 					{{conceptId}}
