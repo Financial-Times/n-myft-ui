@@ -94,9 +94,9 @@ describe('chronology', () => {
 					userLastVisitedAt = null;
 
 					return determineNewArticlesSinceTime(userNewArticlesSince, uuid)
-					.then(newArticlesSinceTime => {
-						expect(newArticlesSinceTime).to.equal(toLocal(EARLIEST_NEW_ARTICLES_TIME));
-					});
+						.then(newArticlesSinceTime => {
+							expect(newArticlesSinceTime).to.equal(toLocal(EARLIEST_NEW_ARTICLES_TIME));
+						});
 				});
 
 			});
@@ -111,18 +111,18 @@ describe('chronology', () => {
 				userLastVisitedAt = TODAY_0800;
 
 				return determineNewArticlesSinceTime(null, uuid)
-				.then(newArticlesSinceTime => {
-					expect(newArticlesSinceTime).to.equal(userLastVisitedAt);
-				});
+					.then(newArticlesSinceTime => {
+						expect(newArticlesSinceTime).to.equal(userLastVisitedAt);
+					});
 			});
 
 			it('should return the EARLIEST_NEW_ARTICLES_TIME if userLastVisitedAt is not today', () => {
 				userLastVisitedAt = SOME_TIME_YESTERDAY;
 
 				return determineNewArticlesSinceTime(null, uuid)
-				.then(newArticlesSinceTime => {
-					expect(newArticlesSinceTime).to.equal(toLocal(EARLIEST_NEW_ARTICLES_TIME));
-				});
+					.then(newArticlesSinceTime => {
+						expect(newArticlesSinceTime).to.equal(toLocal(EARLIEST_NEW_ARTICLES_TIME));
+					});
 			});
 		});
 

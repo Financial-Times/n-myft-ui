@@ -1,4 +1,4 @@
-import { determineNewArticlesSinceTime, filterArticlesToNewSinceTime } from './chronology';
+import {determineNewArticlesSinceTime, filterArticlesToNewSinceTime} from './chronology';
 import fetchNewArticles from './fetch-new-articles';
 import * as storage from './storage';
 import * as tracking from './tracking';
@@ -47,17 +47,19 @@ export const getNewArticlesSinceTime = () => {
 	return Promise.resolve(newArticlesSinceTime);
 };
 
-export default () => {
+export default (options = {}) => {
 	if (!storage.isAvailable()) {
 		return;
 	}
 
-	ui.createIndicators(document.querySelectorAll('.o-header__top-link--myft'), {
-		onClick: () => {
-			ui.setCount(0);
-			storage.setIndicatorDismissedTime();
-		}
-	});
+	ui.createIndicators(document.querySelectorAll('.o-header__top-link--myft'),
+		Object.assign({
+			onClick: () => {
+				ui.setCount(0);
+				storage.setIndicatorDismissedTime();
+			}
+		},
+		options));
 
 	return getNewArticlesSinceTime()
 		.then(newArticlesSinceTime => showUnreadArticlesCount(newArticlesSinceTime, true))

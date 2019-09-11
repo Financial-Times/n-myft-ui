@@ -140,10 +140,10 @@ describe('unread stories indicator', () => {
 
 			it('should update the values in storage the first time it is called', () => {
 				return unreadStoriesIndicator.getNewArticlesSinceTime()
-				.then(() => {
-					expect(mockStorage.setNewArticlesSinceTime).to.have.been.calledWith(DETERMINED_NEW_ARTICLES_SINCE_TIME);
-					expect(mockStorage.setNewArticlesSinceTime).to.have.been.calledAfter(mockChronology.determineNewArticlesSinceTime);
-				});
+					.then(() => {
+						expect(mockStorage.setNewArticlesSinceTime).to.have.been.calledWith(DETERMINED_NEW_ARTICLES_SINCE_TIME);
+						expect(mockStorage.setNewArticlesSinceTime).to.have.been.calledAfter(mockChronology.determineNewArticlesSinceTime);
+					});
 			});
 
 			it('should return the the newArticlesSinceTime', () => {

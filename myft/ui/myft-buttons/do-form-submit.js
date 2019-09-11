@@ -40,7 +40,7 @@ function getTrackingInfo (formEl) {
 			}
 			return trackingInfo;
 		},
-			{} );
+		{} );
 }
 
 export default function (relationshipName, formEl, pushNotifications) {
