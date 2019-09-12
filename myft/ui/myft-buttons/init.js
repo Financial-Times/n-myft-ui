@@ -32,12 +32,12 @@ function anonEventListeners () {
 	['followed', 'saved'].forEach(action => {
 		delegate.on('submit', relationshipConfig[action].uiSelector, event => {
 			event.preventDefault();
-
 			nNotification.show({
 				content: messages[action],
 				trackable: 'myft-anon',
 				focusSelector: '.myft-ui-subscribe',
-				returnFocusSelector: document.activeElement
+				returnFocusSelector: document.activeElement,
+				duration: 0
 			});
 		});
 	});

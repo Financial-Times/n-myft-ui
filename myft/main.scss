@@ -1,18 +1,17 @@
 @import 'o-buttons/main';
 
-$o-forms-is-silent: false;
+$o-forms-is-silent: false !default;
 @import 'o-forms/main';
-$o-forms-is-silent: true;
 
-$n-notification-is-silent: false;
+$n-notification-is-silent: false !default;
 @import 'n-notification/main';
 
-$o-overlay-is-silent: false;
+$o-overlay-is-silent: false !default;
 @import 'o-overlay/main';
-$o-overlay-is-silent: true;
 
 @import './ui/myft-buttons/main';
 @import './ui/lists';
+@import "../components/header-tooltip/main";
 @import '../components/pin-button/main';
 @import '../components/instant-alert/main';
 @import '../components/instant-alerts-confirmation/main';

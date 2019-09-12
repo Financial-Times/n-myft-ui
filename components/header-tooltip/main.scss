@@ -1,0 +1,12 @@
+.o-header__top-link--myft__container {
+	position: relative;
+
+	.o-tooltip {
+		white-space: normal;
+		text-align: left;
+		min-width: 200px;
+		@include oGridRespondTo('L') {
+			min-width: 250px;
+		}
+	}
+}

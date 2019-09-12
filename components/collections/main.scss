@@ -71,9 +71,9 @@
 
 .collection-follow-all__button--regular {
 	@include oButtonsTheme($theme: (
-		background: 'white',
-		accent: 'claret-70',
-		colorizer: 'secondary'
+		background: 'claret-70',
+		accent: 'white',
+		colorizer: 'primary'
 	));
 }
 

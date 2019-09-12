@@ -13,5 +13,6 @@ public/main.css
 public/main.css.map
 pa11y_screenCapture/
 .idea/
+.vscode/
 
 package-lock.json
