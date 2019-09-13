@@ -61,6 +61,10 @@ export default (options = {}) => {
 		},
 		options));
 
+	document.addEventListener('visibilitychange',
+		() => tracking.onVisibilityChange(ui.getState()),
+		false);
+
 	return getNewArticlesSinceTime()
 		.then(newArticlesSinceTime => showUnreadArticlesCount(newArticlesSinceTime, true))
 		.then(() => {
