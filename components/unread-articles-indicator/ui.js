@@ -23,10 +23,12 @@ class Favicon {
 		this.faviconLinks =
 			Array.from(document.querySelectorAll('head link[rel=icon]'))
 				.concat(Array.from(document.querySelectorAll('head link[rel=apple-touch-icon]')));
+		this.showDot = false;
 	}
 
 	setCount (count) {
-		const newImage = count > 0 ? 'brand-ft-logo-square-coloured-dot' : 'brand-ft-logo-square-coloured-no-dot';
+		this.showDot = count > 0;
+		const newImage = this.showDot ? 'brand-ft-logo-square-coloured-dot' : 'brand-ft-logo-square-coloured-no-dot';
 		this.faviconLinks.forEach(link => {
 			link.href = link.href.replace(/brand-ft-logo-square-coloured(-dot|-no-dot)?/, newImage);
 		});
@@ -36,9 +38,11 @@ class Favicon {
 class Title {
 	constructor () {
 		this.originalTitle = document.title;
+		this.count = 0;
 	}
 
 	setCount (count) {
+		this.count = count;
 		document.title = count > 0 ? `(${count}) ${this.originalTitle}` : this.originalTitle;
 	}
 }
@@ -64,3 +68,8 @@ export const setCount = count => {
 		title.setCount(count);
 	}
 };
+
+export const getState = () => ({
+	faviconHasDot: favicon ? favicon.showDot : false,
+	numberInTitle: title ? title.count : 0
+});

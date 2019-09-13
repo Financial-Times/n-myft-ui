@@ -36,11 +36,13 @@ describe('unread stories indicator', () => {
 			isAvailable: sinon.stub().callsFake(() => isStorageAvailable)
 		};
 		mockTracking = {
-			countShown: sinon.stub()
+			countShown: sinon.stub(),
+			onVisibilityChange: sinon.stub()
 		};
 		mockUi = {
 			createIndicators: sinon.stub(),
-			setCount: sinon.stub()
+			setCount: sinon.stub(),
+			getState: sinon.stub(),
 		};
 		mockFetchNewArticles = sinon.stub().returns(Promise.resolve(NEW_ARTICLES));
 		unreadStoriesIndicator = require('inject-loader!../../components/unread-articles-indicator')({
