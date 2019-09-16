@@ -4,34 +4,23 @@ import * as storage from './storage';
 import * as tracking from './tracking';
 import * as ui from './ui';
 
-const MAX_UPDATE_FREQUENCY = 1000 * 60 * 5;
-let canUpdate = true;
-
-const showUnreadArticlesCount = (newArticlesSinceTime, withTracking = false) => {
-	if (canUpdate) {
-		canUpdate = false;
-		setTimeout(() => canUpdate = true, MAX_UPDATE_FREQUENCY);
-
-		return fetchNewArticles(newArticlesSinceTime)
-			.then(articles => filterArticlesToNewSinceTime(articles, storage.getIndicatorDismissedTime()))
-			.then(newArticles => {
-				const count = newArticles.length;
-
-				ui.setCount(count);
-
-				if (withTracking) {
-					tracking.countShown(count, newArticlesSinceTime);
-				}
-			})
-			.catch(() => {
-				canUpdate = true;
-			});
-	}
-
-	return Promise.resolve();
-};
-
+const UPDATE_INTERVAL = 1000 * 60 * 5;
+let trackInitialCount = true;
 let newArticlesSinceTime;
+
+const showUnreadArticlesCount = (sinceTime) =>
+	fetchNewArticles(sinceTime)
+		.then(articles => filterArticlesToNewSinceTime(articles, storage.getIndicatorDismissedTime()))
+		.then(newArticles => {
+			const count = newArticles.length;
+
+			ui.setCount(count);
+
+			if (trackInitialCount) {
+				tracking.countShown(count, sinceTime);
+				trackInitialCount = false;
+			}
+		});
 
 export const getNewArticlesSinceTime = () => {
 	if (!newArticlesSinceTime) {
@@ -43,9 +32,15 @@ export const getNewArticlesSinceTime = () => {
 				return newArticlesSinceTime;
 			});
 	}
-
 	return Promise.resolve(newArticlesSinceTime);
 };
+
+const update = () =>
+	getNewArticlesSinceTime()
+		.then(showUnreadArticlesCount)
+		.then(() => {
+			setTimeout(update, UPDATE_INTERVAL);
+		});
 
 export default (options = {}) => {
 	if (!storage.isAvailable()) {
@@ -62,16 +57,7 @@ export default (options = {}) => {
 		options));
 
 	document.addEventListener('visibilitychange',
-		() => tracking.onVisibilityChange(ui.getState()),
-		false);
+		() => tracking.onVisibilityChange(ui.getState()));
 
-	return getNewArticlesSinceTime()
-		.then(newArticlesSinceTime => showUnreadArticlesCount(newArticlesSinceTime, true))
-		.then(() => {
-			document.addEventListener('visibilitychange', () => {
-				if (document.visibilityState === 'visible') {
-					getNewArticlesSinceTime().then(showUnreadArticlesCount);
-				}
-			});
-		});
+	return update();
 };
