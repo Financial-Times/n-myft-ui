@@ -5,6 +5,7 @@ class Indicator {
 
 		this.el = document.createElement('span');
 		this.el.classList.add('myft__indicator');
+		this.el.classList.add('myft__indicator--hidden');
 
 		container.appendChild(this.el);
 
@@ -14,7 +15,17 @@ class Indicator {
 	}
 
 	setCount (count) {
-		this.el.innerText = count > 0 ? count : '';
+		if( count < 1 ) {
+			this.el.classList.add('myft__indicator--hidden');
+		} else {
+			this.el.classList.remove('myft__indicator--hidden');
+			if( count < 10 ) {
+				this.el.classList.add('myft__indicator--single-digit');
+			} else {
+				this.el.classList.remove('myft__indicator--single-digit');
+			}
+			this.el.innerText = count > 0 && count < 200 ? count : '';
+		}
 	}
 }
 

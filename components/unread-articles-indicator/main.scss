@@ -1,14 +1,44 @@
+$circle-radius-desktop: 17px;
+$circle-radius-mobile: 11px;
+
 .myft__indicator-container {
 	position: relative;
 }
 
 .myft__indicator {
+	padding: 0;
 	position: absolute;
-	top: 0;
-	right: -7px;
-	border-radius: 15px;
-	padding: 0 5px;
+	top: 16px;
+	right: -6px;
+
+	border: 1px solid oColorsGetPaletteColor('paper');
 	background-color: oColorsGetPaletteColor('claret');
 	color: oColorsGetPaletteColor('white');
-	@include oTypographySansBold(-1);
+
+	font-family: MetricWeb, sans-serif;
+	vertical-align: middle;
+	overflow: hidden;
+	text-align: center;
+
+	font-size: 9px;
+	line-height: $circle-radius-mobile;
+	border-radius: $circle-radius-mobile;
+	width: $circle-radius-mobile;
+	height: $circle-radius-mobile;
+	@include oGridRespondTo(M) {
+		right: -8px;
+		font-size: 11px;
+		line-height: $circle-radius-desktop;
+		border-radius: $circle-radius-desktop;
+		width: $circle-radius-desktop;
+		height: $circle-radius-desktop;
+		&.myft__indicator--single-digit {
+			// shows single digit counts slightly larger for more legibility
+			font-size: 13px;
+		}
+	}
+}
+
+.myft__indicator--hidden {
+	display: none;
 }

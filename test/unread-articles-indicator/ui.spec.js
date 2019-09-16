@@ -59,12 +59,12 @@ describe('unread stories indicator - ui', () => {
 				});
 			});
 
-			it('should clear the count when count is zero', () => {
+			it('should hide the indicator when count is zero', () => {
 				ui.setCount(0);
 				containers.forEach(container => {
 					const el = container.querySelector('.myft__indicator');
 
-					expect(el.innerText).to.equal('');
+					expect(el.classList.contains('myft__indicator--hidden')).to.equal(true);
 				});
 			});
 		});
