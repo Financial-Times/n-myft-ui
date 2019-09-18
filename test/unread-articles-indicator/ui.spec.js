@@ -38,7 +38,7 @@ describe('unread stories indicator - ui', () => {
 
 			it('should add a count element to each container', () => {
 				containers.forEach(container => {
-					const els = container.querySelectorAll('.myft__indicator');
+					const els = container.querySelectorAll('.myft__indicator-original');
 
 					expect(els.length).to.equal(1);
 				});
@@ -53,18 +53,18 @@ describe('unread stories indicator - ui', () => {
 
 			it('should show the count in the count element', () => {
 				containers.forEach(container => {
-					const el = container.querySelector('.myft__indicator');
+					const el = container.querySelector('.myft__indicator-original');
 
 					expect(el.innerText).to.equal('3');
 				});
 			});
 
-			it('should hide the indicator when count is zero', () => {
+			it('should clear the count when count is zero', () => {
 				ui.setCount(0);
 				containers.forEach(container => {
-					const el = container.querySelector('.myft__indicator');
+					const el = container.querySelector('.myft__indicator-original');
 
-					expect(el.classList.contains('myft__indicator--hidden')).to.equal(true);
+					expect(el.innerText).to.equal('');
 				});
 			});
 		});

@@ -5,6 +5,17 @@ $circle-radius-mobile: 11px;
 	position: relative;
 }
 
+.myft__indicator-original {
+	position: absolute;
+	top: 0;
+	right: -7px;
+	border-radius: 15px;
+	padding: 0 5px;
+	background-color: oColorsGetPaletteColor('teal');
+	color: oColorsGetPaletteColor('white');
+	@include oTypographySansBold(-1);
+}
+
 .myft__indicator {
 	padding: 0;
 	position: absolute;
