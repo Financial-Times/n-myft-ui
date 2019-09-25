@@ -1,3 +1,4 @@
+
 class IndicatorOriginal {
 	constructor (container, {onClick} = {}) {
 		this.container = container;

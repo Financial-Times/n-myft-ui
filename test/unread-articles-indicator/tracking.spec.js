@@ -2,7 +2,7 @@
 import * as tracking from '../../components/unread-articles-indicator/tracking';
 
 describe('unread-articles-indicator tracking', () => {
-	describe('countShown', () => {
+	describe('onCountChange', () => {
 		let dispatchedEvent;
 		const COUNT = 3;
 		const NEW_ARTICLES_SINCE_TIME = '2018-06-18T14:22:51.098Z';
@@ -13,7 +13,7 @@ describe('unread-articles-indicator tracking', () => {
 		});
 
 		it('should should dispatch the event', () => {
-			tracking.countShown(COUNT, NEW_ARTICLES_SINCE_TIME);
+			tracking.onCountChange(COUNT, NEW_ARTICLES_SINCE_TIME);
 
 			expect(dispatchedEvent.detail).to.deep.equal({
 				category: 'unread-articles-indicator',

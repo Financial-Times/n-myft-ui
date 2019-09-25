@@ -6,7 +6,7 @@ export default class DeviceSession {
 
 	constructor () {
 		this.expiry = storage.getDeviceSessionExpiry();
-		const newExpiry = addMinutes(new Date(), SESSION_THRESHOLD_MINUTES).toISOString();
+		const newExpiry = addMinutes(new Date(), SESSION_THRESHOLD_MINUTES);
 		storage.setDeviceSessionExpiry(newExpiry);
 	}
 
