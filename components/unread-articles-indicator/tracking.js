@@ -20,7 +20,7 @@ export function onVisibilityChange (state) {
 		}));
 }
 
-export const countShown = (count, newArticlesSinceTime) => dispatchEvent({
+export const onCountChange = (count, newArticlesSinceTime) => dispatchEvent({
 	category: 'unread-articles-indicator',
 	action: 'render',
 	count,

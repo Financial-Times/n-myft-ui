@@ -29,7 +29,7 @@ describe('storage', () => {
 			});
 
 			it('should return the correct iso date', () => {
-				expect(storage.getDeviceSessionExpiry()).to.equal(now.toISOString());
+				expect(storage.getDeviceSessionExpiry().toISOString()).to.equal(now.toISOString());
 			});
 		});
 
@@ -66,22 +66,22 @@ describe('storage', () => {
 
 	describe('setDeviceSessionExpiry', () => {
 		it('should store the date as an iso string', () => {
-			const date = new Date(2018, 6, 14, 11, 0, 0).toISOString();
+			const date = new Date(2018, 6, 14, 11, 0, 0);
 
 			storage.setDeviceSessionExpiry(date);
 
-			expect(mockStorage.deviceSessionExpiry).to.equal(date);
+			expect(mockStorage.deviceSessionExpiry).to.equal(date.toISOString());
 		});
 	});
 
-	describe('getNewArticlesSinceTime', () => {
+	describe('getFeedStartTime', () => {
 		describe('given a valid iso date is stored', () => {
 			beforeEach(() => {
 				mockStorage.newArticlesSinceTime = now.toISOString();
 			});
 
 			it('should return the correct iso date', () => {
-				expect(storage.getNewArticlesSinceTime()).to.equal(now.toISOString());
+				expect(storage.getFeedStartTime().toISOString()).to.equal(now.toISOString());
 			});
 		});
 
@@ -91,7 +91,7 @@ describe('storage', () => {
 			});
 
 			it('should return null', () => {
-				expect(storage.getNewArticlesSinceTime()).to.equal(null);
+				expect(storage.getFeedStartTime()).to.equal(null);
 			});
 		});
 
@@ -101,7 +101,7 @@ describe('storage', () => {
 			});
 
 			it('should return null', () => {
-				expect(storage.getNewArticlesSinceTime()).to.equal(null);
+				expect(storage.getFeedStartTime()).to.equal(null);
 			});
 		});
 
@@ -111,68 +111,68 @@ describe('storage', () => {
 			});
 
 			it('should return the correct iso date', () => {
-				expect(storage.getNewArticlesSinceTime()).to.equal(null);
+				expect(storage.getFeedStartTime()).to.equal(null);
 			});
 		});
 	});
 
-	describe('setNewArticlesSinceTime', () => {
+	describe('setFeedStartTime', () => {
 		it('should store the date as an iso string', () => {
-			const date = new Date(2018, 5, 1, 11, 30, 0).toISOString();
+			const date = new Date(2018, 5, 1, 11, 30, 0);
 
-			storage.setNewArticlesSinceTime(date);
+			storage.setFeedStartTime(date);
 
-			expect(mockStorage.newArticlesSinceTime).to.equal(date);
+			expect(mockStorage.newArticlesSinceTime).to.equal(date.toISOString());
 		});
 	});
 
-	describe('getIndicatorDismissedTime', () => {
-		describe('given a valid iso date is stored', () => {
-			beforeEach(() => {
-				mockStorage.myFTIndicatorDismissedAt = now.toISOString();
-			});
-
-			it('should return the correct iso date', () => {
-				expect(storage.getIndicatorDismissedTime()).to.equal(now.toISOString());
-			});
+	describe('getLastUpdate', () => {
+		beforeEach(() => {
+			mockStorage.myFTIndicatorUpdate = JSON.stringify({foo:1, time: now.toISOString()});
 		});
 
-		describe('given no value is stored', () => {
-			beforeEach(() => {
-				mockStorage.myFTIndicatorDismissedAt = null;
-			});
-
-			it('should return null', () => {
-				expect(storage.getIndicatorDismissedTime()).to.equal(null);
-			});
+		it('converts time from ISOString to Date', () => {
+			expect(storage.getLastUpdate().time).to.be.a('Date');
 		});
 
-		describe('given an invalid value is stored', () => {
-			beforeEach(() => {
-				mockStorage.myFTIndicatorDismissedAt = 'abc';
-			});
-
-			it('should return null', () => {
-				expect(storage.getIndicatorDismissedTime()).to.equal(null);
-			});
-		});
-
-		describe('given a unix timestamp is stored (old format)', () => {
-			beforeEach(() => {
-				mockStorage.myFTIndicatorDismissedAt = String(now.getTime());
-			});
-
-			it('should return the correct iso date', () => {
-				expect(storage.getIndicatorDismissedTime()).to.equal(null);
-			});
+		it('gives the right Date', () => {
+			expect(storage.getLastUpdate().time.getTime()).to.be.equal(now.getTime());
 		});
 	});
 
-	describe('setIndicatorDismissedTime', () => {
-		it('should store the date as an iso string', () => {
-			storage.setIndicatorDismissedTime();
+	describe('updateLastUpdate', () => {
+		describe('when updating time', () =>{
+			const date = new Date(2018, 5, 1, 11, 30, 0);
+			beforeEach(() => {
+				mockStorage.myFTIndicatorUpdate = JSON.stringify({foo: 3, time: now.toISOString()});
+				storage.updateLastUpdate({time: date});
+			});
 
-			expect(mockStorage.myFTIndicatorDismissedAt).to.equal(now.toISOString());
+			it('converts time from Date to ISOString', () => {
+				expect(JSON.parse(mockStorage.myFTIndicatorUpdate).time).to.equal(date.toISOString());
+			});
+
+			it('leaves other properties unchanged', () => {
+				expect(JSON.parse(mockStorage.myFTIndicatorUpdate).foo).to.equal(3);
+			});
+		});
+		describe('when updating other properties', () =>{
+			beforeEach(() => {
+				mockStorage.myFTIndicatorUpdate = JSON.stringify({foo: 3, bar:4, baz:5});
+				storage.updateLastUpdate({bar: 5, baz:6});
+			});
+
+			it('updates existing properties', () => {
+				expect(JSON.parse(mockStorage.myFTIndicatorUpdate).bar).to.equal(5);
+			});
+
+			it('add new properties', () => {
+				expect(JSON.parse(mockStorage.myFTIndicatorUpdate).baz).to.equal(6);
+			});
+
+			it('leaves other properties unchanged', () => {
+				expect(JSON.parse(mockStorage.myFTIndicatorUpdate).foo).to.equal(3);
+			});
 		});
 	});
 

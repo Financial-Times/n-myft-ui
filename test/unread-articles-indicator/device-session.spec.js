@@ -1,7 +1,6 @@
 /* global expect */
 import sinon from 'sinon';
 import dateFns from 'date-fns';
-const sandbox = sinon.sandbox.create();
 
 const expiryTimestamp = '2018-06-14T12:00:00.000Z';
 const timestampBeforeExpiry = '2018-06-14T11:40:00.000Z';
@@ -16,8 +15,8 @@ describe('DeviceSession', () => {
 	let deviceSessionExpiry;
 
 	const mockStorage = {
-		getDeviceSessionExpiry: sandbox.stub().callsFake(() => deviceSessionExpiry),
-		setDeviceSessionExpiry: sandbox.spy()
+		getDeviceSessionExpiry: sinon.stub().callsFake(() => deviceSessionExpiry),
+		setDeviceSessionExpiry: sinon.spy()
 	};
 
 	const subjectInjector = require('inject-loader!../../components/unread-articles-indicator/device-session');
@@ -29,7 +28,7 @@ describe('DeviceSession', () => {
 	afterEach(() => {
 		deviceSessionExpiry = undefined;
 		clock.restore();
-		sandbox.resetHistory();
+		sinon.resetHistory();
 	});
 
 	describe('constructor:', () => {
@@ -48,7 +47,7 @@ describe('DeviceSession', () => {
 		});
 
 		it('should call storage.setDeviceSessionExpiry with correct timestamp', () => {
-			const correctTimestamp = dateFns.addMinutes(timeNow, SESSION_THRESHOLD_MINUTES).toISOString();
+			const correctTimestamp = dateFns.addMinutes(timeNow, SESSION_THRESHOLD_MINUTES);
 
 			expect(mockStorage.setDeviceSessionExpiry).to.have.been.calledOnce;
 			expect(mockStorage.setDeviceSessionExpiry).to.have.been.calledWith(correctTimestamp);
@@ -59,7 +58,7 @@ describe('DeviceSession', () => {
 
 		it('should return true if the user visits for the first time (initially no value in localStorage)', () => {
 			const timeNow = '2018-06-14T08:00:00.000Z';
-			const newExpiryTimestamp = dateFns.addMinutes(timeNow, SESSION_THRESHOLD_MINUTES).toISOString();
+			const newExpiryTimestamp = dateFns.addMinutes(timeNow, SESSION_THRESHOLD_MINUTES);
 
 			clock = sinon.useFakeTimers(new Date(timeNow));
 			deviceSessionExpiry = undefined;
@@ -71,7 +70,7 @@ describe('DeviceSession', () => {
 
 		it('should return true if the user returns after session (initial value in localStorage is in the past)', () => {
 			const timeNow = timestampAfterExpiry;
-			const newExpiryTimestamp = dateFns.addMinutes(timeNow, SESSION_THRESHOLD_MINUTES).toISOString();
+			const newExpiryTimestamp = dateFns.addMinutes(timeNow, SESSION_THRESHOLD_MINUTES);
 
 			clock = sinon.useFakeTimers(new Date(timeNow));
 			deviceSessionExpiry = expiryTimestamp;
@@ -83,7 +82,7 @@ describe('DeviceSession', () => {
 
 		it('should return false if the user returns within session (initial value in localStorage is in the future)', () => {
 			const timeNow = timestampBeforeExpiry;
-			const newExpiryTimestamp = dateFns.addMinutes(timeNow, SESSION_THRESHOLD_MINUTES).toISOString();
+			const newExpiryTimestamp = dateFns.addMinutes(timeNow, SESSION_THRESHOLD_MINUTES);
 
 			clock = sinon.useFakeTimers(new Date(timeNow));
 			deviceSessionExpiry = expiryTimestamp;

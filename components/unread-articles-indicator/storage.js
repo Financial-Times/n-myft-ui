@@ -1,28 +1,24 @@
 import { isValid } from 'date-fns';
 
 const DEVICE_SESSION_EXPIRY = 'deviceSessionExpiry';
-const NEW_ARTICLES_SINCE = 'newArticlesSinceTime';
-const INDICATOR_DISMISSED_AT = 'myFTIndicatorDismissedAt';
+const FEED_START_TIME = 'newArticlesSinceTime';
+const LAST_INDICATOR_UPDATE = 'myFTIndicatorUpdate';
 
 const isISOString = str => typeof str === 'string' && str.charAt(10) === 'T';
 const getStoredDate = key => {
 	const value = window.localStorage.getItem(key);
 	const date = new Date(value);
 
-	return isISOString(value) && isValid(date) ? date.toISOString() : null;
+	return isISOString(value) && isValid(date) ? date : null;
 };
 
 export const getDeviceSessionExpiry = () => getStoredDate(DEVICE_SESSION_EXPIRY);
 
-export const setDeviceSessionExpiry = isoDate => window.localStorage.setItem(DEVICE_SESSION_EXPIRY, isoDate);
+export const setDeviceSessionExpiry = date => window.localStorage.setItem(DEVICE_SESSION_EXPIRY, date.toISOString());
 
-export const getNewArticlesSinceTime = () => getStoredDate(NEW_ARTICLES_SINCE);
+export const getFeedStartTime = () => getStoredDate(FEED_START_TIME);
 
-export const setNewArticlesSinceTime = isoDate => window.localStorage.setItem(NEW_ARTICLES_SINCE, isoDate);
-
-export const getIndicatorDismissedTime = () => getStoredDate(INDICATOR_DISMISSED_AT);
-
-export const setIndicatorDismissedTime = () => window.localStorage.setItem(INDICATOR_DISMISSED_AT, new Date().toISOString());
+export const setFeedStartTime = date => window.localStorage.setItem(FEED_START_TIME, date.toISOString());
 
 export const isAvailable = () => {
 	try {
@@ -36,3 +32,14 @@ export const isAvailable = () => {
 		return false;
 	}
 };
+
+export const setLastUpdate = (update) => window.localStorage.setItem(LAST_INDICATOR_UPDATE, JSON.stringify(Object.assign( {}, update, update && update.time && {time: update.time.toISOString()})) );
+
+export const getLastUpdate = () => {
+	try {
+		const update = JSON.parse(window.localStorage.getItem(LAST_INDICATOR_UPDATE));
+		return Object.assign({}, update, update && update.time && {time: new Date(update.time)});
+	} catch (e) {}
+};
+
+export const updateLastUpdate = (update) => setLastUpdate( Object.assign({}, getLastUpdate(), update) );
