@@ -16,7 +16,7 @@ const mockSetFeedStartTime = sinon.stub();
 
 describe('initialiseFeedStartTime', () => {
 	// let isNewSession;
-	let feedStartTime;
+	// let feedStartTime;
 	let lastVisitTime;
 	let clock;
 	// const injector = require('inject-loader!../../components/unread-articles-indicator/initialise-feed-start-time');
@@ -44,7 +44,7 @@ describe('initialiseFeedStartTime', () => {
 
 	context('with no previous feed start time', () => {
 		before(() => {
-			feedStartTime = undefined;
+			// feedStartTime = undefined;
 		});
 		context('and previous visit today', () => {
 			before(() => {
