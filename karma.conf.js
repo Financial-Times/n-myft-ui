@@ -137,33 +137,12 @@ module.exports = function (karma) {
 		};
 
 		config.customLaunchers = {
-			chromeLatest: {
-				base: 'BrowserStack',
-				browser: 'chrome',
-				browser_version: 'latest',
-				os: 'Windows',
-				os_version: '10'
-			},
-			firefoxLatest: {
-				base: 'BrowserStack',
-				browser: 'firefox',
-				browser_version: '64',
-				os: 'Windows',
-				os_version: '10'
-			},
 			ie11: {
 				base: 'BrowserStack',
 				browser: 'IE',
 				browser_version: '11',
 				os: 'Windows',
 				os_version: '7'
-			},
-			safari: {
-				base: 'BrowserStack',
-				os: 'OS X',
-				os_version : 'High Sierra',
-				browser: 'Safari',
-				browser_version: 'latest'
 			}
 		};
 
