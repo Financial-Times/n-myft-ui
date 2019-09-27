@@ -13,7 +13,6 @@ describe('unread stories indicator', () => {
 	let mockUpdate;
 	let mockInitialiseFeedStartTime;
 	let mockStorage;
-	let mockTracking;
 	let mockUi;
 	let isStorageAvailable;
 
@@ -22,10 +21,6 @@ describe('unread stories indicator', () => {
 			getFeedStartTime: sinon.stub().returns(FEED_START_TIME),
 			setFeedStartTime: sinon.stub(),
 			isAvailable: sinon.stub().callsFake(() => isStorageAvailable)
-		};
-		mockTracking = {
-			onCountChange: sinon.stub(),
-			onVisibilityChange: sinon.stub()
 		};
 		mockUi = {
 			createIndicators: sinon.stub(),
@@ -40,7 +35,6 @@ describe('unread stories indicator', () => {
 				uuid: sinon.stub().resolves({uuid: '00000000-0000-0000-0000-000000000000'})
 			},
 			'./storage': mockStorage,
-			'./tracking': mockTracking,
 			'./ui': mockUi,
 			'./update': mockUpdate,
 			'./initialise-feed-start-time': mockInitialiseFeedStartTime

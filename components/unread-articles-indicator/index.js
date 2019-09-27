@@ -1,5 +1,4 @@
 import * as storage from './storage';
-import * as tracking from './tracking';
 import * as ui from './ui';
 import update from './update';
 import initialiseFeedStartTime from './initialise-feed-start-time';
@@ -29,10 +28,6 @@ export default (options = {}) => {
 								}
 							},
 							options));
-
-						document.addEventListener('visibilitychange',
-							() => tracking.onVisibilityChange(ui.getState()));
-
 						updater();
 					});
 			}
