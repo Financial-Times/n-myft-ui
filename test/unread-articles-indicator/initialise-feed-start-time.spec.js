@@ -31,7 +31,7 @@ describe('initialiseFeedStartTime', () => {
 		}
 	}).default;
 
-	const expectStartTime = startTime => expect(mockSetFeedStartTime.firstCall.args[0].toISOString()).equal(startTime.toISOString());
+	// const expectStartTime = startTime => expect(mockSetFeedStartTime.firstCall.args[0].toISOString()).equal(startTime.toISOString());
 
 	before(() => {
 		clock = sinon.useFakeTimers(TIME_NOW);
