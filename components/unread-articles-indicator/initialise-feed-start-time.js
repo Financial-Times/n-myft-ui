@@ -34,7 +34,7 @@ export const fetchUserLastVisitedAt = () => {
 		.catch((e) => {
 
 			global.console.error(e);
-			return Promise.resolve(null)});
+			return Promise.resolve(null);});
 };
 
 /**
@@ -52,7 +52,7 @@ const determineFeedStartTime = (now, previousFeedStartTime) => {
 		.catch((e) => {
 
 			global.console.error(e);
-			return startOfDay(now)});
+			return startOfDay(now);});
 };
 
 /**

@@ -1,7 +1,7 @@
 
 const mocument = {
 	createElement () { return {classList: new Set()}; },
-	querySelectorAll() { return []; },
+	querySelectorAll () { return []; },
 	title : 'foo'
 };
 

@@ -31,7 +31,7 @@ export default function update (now) {
 			.catch((e) => {
 
 				global.console.error(e);
-				return storage.updateLastUpdate({inProgress: false})});
+				return storage.updateLastUpdate({inProgress: false});});
 
 	} else {
 		ui.setCount(lastUpdate ? lastUpdate.count : 0);
