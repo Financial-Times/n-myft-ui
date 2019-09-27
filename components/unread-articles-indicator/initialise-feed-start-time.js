@@ -31,7 +31,10 @@ export const fetchUserLastVisitedAt = () => {
 				.then(data => data.user.lastSeenTimestamp)
 				.then(lastSeenTimestamp => new Date(lastSeenTimestamp));
 		})
-		.catch(() => Promise.resolve(null));
+		.catch((e) => {
+
+			global.console.error(e);
+			return Promise.resolve(null)});
 };
 
 /**
@@ -46,7 +49,10 @@ const determineFeedStartTime = (now, previousFeedStartTime) => {
 
 	return fetchUserLastVisitedAt()
 		.then(userLastVisitedAt => isToday(userLastVisitedAt) ? userLastVisitedAt : Promise.reject())
-		.catch(() => startOfDay(now));
+		.catch((e) => {
+
+			global.console.error(e);
+			return startOfDay(now)});
 };
 
 /**

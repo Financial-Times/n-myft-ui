@@ -28,7 +28,10 @@ export default function update (now) {
 
 				storage.setLastUpdate({time: now, count, inProgress: false});
 			})
-			.catch(() => storage.updateLastUpdate({inProgress: false}));
+			.catch((e) => {
+
+				global.console.error(e);
+				return storage.updateLastUpdate({inProgress: false})});
 
 	} else {
 		ui.setCount(lastUpdate ? lastUpdate.count : 0);

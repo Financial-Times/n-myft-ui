@@ -41,7 +41,9 @@ const fetchReadingHistory = uuid => {
 		.then(fetchJson)
 		.then(body => body.data)
 		.then(data => data.user.articlesFromReadingHistory ? data.user.articlesFromReadingHistory.articles : [])
-		.catch(() => Promise.resolve([]));
+		.catch((e) => {
+			global.console.error(e);
+			return Promise.resolve([])});
 };
 
 const removeReadArticles = (allArticles, readArticles) =>

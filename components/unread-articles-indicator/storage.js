@@ -4,9 +4,18 @@ const DEVICE_SESSION_EXPIRY = 'deviceSessionExpiry';
 const FEED_START_TIME = 'newArticlesSinceTime';
 const LAST_INDICATOR_UPDATE = 'myFTIndicatorUpdate';
 
+const mockStorage = {
+	getItem (key) {
+		return this[key];
+	},
+	setItem (key, value) {
+		this[key] = value;
+	}
+};
+
 const isISOString = str => typeof str === 'string' && str.charAt(10) === 'T';
 const getStoredDate = key => {
-	const value = window.localStorage.getItem(key);
+	const value = mockStorage.getItem(key);
 	const date = new Date(value);
 
 	return isISOString(value) && isValid(date) ? date : null;
@@ -14,15 +23,15 @@ const getStoredDate = key => {
 
 export const getDeviceSessionExpiry = () => getStoredDate(DEVICE_SESSION_EXPIRY);
 
-export const setDeviceSessionExpiry = date => window.localStorage.setItem(DEVICE_SESSION_EXPIRY, date.toISOString());
+export const setDeviceSessionExpiry = date => mockStorage.setItem(DEVICE_SESSION_EXPIRY, date.toISOString());
 
 export const getFeedStartTime = () => getStoredDate(FEED_START_TIME);
 
-export const setFeedStartTime = date => window.localStorage.setItem(FEED_START_TIME, date.toISOString());
+export const setFeedStartTime = date => mockStorage.setItem(FEED_START_TIME, date.toISOString());
 
 export const isAvailable = () => {
 	try {
-		const storage = window.localStorage;
+		const storage = mockStorage;
 		const x = '__storage_test__';
 		storage.setItem(x, x);
 		storage.removeItem(x);
@@ -33,13 +42,16 @@ export const isAvailable = () => {
 	}
 };
 
-export const setLastUpdate = (update) => window.localStorage.setItem(LAST_INDICATOR_UPDATE, JSON.stringify(Object.assign( {}, update, update && update.time && {time: update.time.toISOString()})) );
+export const setLastUpdate = (update) => mockStorage.setItem(LAST_INDICATOR_UPDATE, JSON.stringify(Object.assign( {}, update, update && update.time && {time: update.time.toISOString()})) );
 
 export const getLastUpdate = () => {
 	try {
-		const update = JSON.parse(window.localStorage.getItem(LAST_INDICATOR_UPDATE));
+		const update = JSON.parse(mockStorage.getItem(LAST_INDICATOR_UPDATE));
 		return Object.assign({}, update, update && update.time && {time: new Date(update.time)});
-	} catch (e) {}
+	} catch (e) {
+
+		global.console.error(e);
+	}
 };
 
 export const updateLastUpdate = (update) => setLastUpdate( Object.assign({}, getLastUpdate(), update) );

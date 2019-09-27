@@ -1,10 +1,16 @@
 
+const mocument = {
+	createElement () { return {classList: new Set()}; },
+	querySelectorAll() { return []; },
+	title : 'foo'
+};
+
 class IndicatorOriginal {
 	constructor (container, {onClick} = {}) {
 		this.container = container;
 		this.container.classList.add('myft__indicator-container');
 
-		this.el = document.createElement('span');
+		this.el = mocument.createElement('span');
 		this.el.classList.add('myft__indicator-original');
 
 		container.appendChild(this.el);
@@ -24,7 +30,7 @@ class Indicator {
 		this.container = container;
 		this.container.classList.add('myft__indicator-container');
 
-		this.el = document.createElement('span');
+		this.el = mocument.createElement('span');
 		this.el.classList.add('myft__indicator');
 		this.el.classList.add('myft__indicator--hidden');
 
@@ -53,8 +59,8 @@ class Indicator {
 class Favicon {
 	constructor () {
 		this.faviconLinks =
-			Array.from(document.querySelectorAll('head link[rel=icon]'))
-				.concat(Array.from(document.querySelectorAll('head link[rel=apple-touch-icon]')));
+			Array.from(mocument.querySelectorAll('head link[rel=icon]'))
+				.concat(Array.from(mocument.querySelectorAll('head link[rel=apple-touch-icon]')));
 		this.showDot = false;
 	}
 
@@ -69,13 +75,13 @@ class Favicon {
 
 class Title {
 	constructor () {
-		this.originalTitle = document.title;
+		this.originalTitle = mocument.title;
 		this.count = 0;
 	}
 
 	setCount (count) {
 		this.count = count;
-		document.title = count > 0 ? `(${count}) ${this.originalTitle}` : this.originalTitle;
+		mocument.title = count > 0 ? `(${count}) ${this.originalTitle}` : this.originalTitle;
 	}
 }
 
