@@ -23,7 +23,7 @@ export default (options = {}) => {
 						ui.createIndicators(document.querySelectorAll('.o-header__top-link--myft'),
 							Object.assign({
 								onClick: () => {
-									ui.setCount(0);
+									storage.updateLastUpdate({count: 0, time: new Date()});
 									storage.setFeedStartTime(new Date());
 								}
 							},
