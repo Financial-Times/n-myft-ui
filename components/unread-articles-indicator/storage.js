@@ -33,12 +33,27 @@ export const isAvailable = () => {
 	}
 };
 
-export const setLastUpdate = (update) => window.localStorage.setItem(LAST_INDICATOR_UPDATE, JSON.stringify(Object.assign( {}, update, update && update.time && {time: update.time.toISOString()})) );
+export const setLastUpdate = (update) =>
+	window.localStorage.setItem(LAST_INDICATOR_UPDATE,
+		JSON.stringify(
+			Object.assign(
+				{},
+				update,
+				update && update.time && {time: update.time.toISOString()},
+				update && update.updateStarted && {updateStarted: update.updateStarted.toISOString()}
+			)
+		)
+	);
 
 export const getLastUpdate = () => {
 	try {
 		const update = JSON.parse(window.localStorage.getItem(LAST_INDICATOR_UPDATE));
-		return Object.assign({}, update, update && update.time && {time: new Date(update.time)});
+		return Object.assign(
+			{},
+			update,
+			update && update.time && {time: new Date(update.time)},
+			update && update.updateStarted && {updateStarted: new Date(update.updateStarted)}
+		);
 	} catch (e) {}
 };
 

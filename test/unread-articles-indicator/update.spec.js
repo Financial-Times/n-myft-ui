@@ -55,7 +55,7 @@ describe('update function', () => {
 		});
 
 		it('marked an update as in progress', () => {
-			expect(mockStorage._setLastUpdate.firstCall.args[0].inProgress).equal(true);
+			expect(mockStorage._setLastUpdate.firstCall.args[0].updateStarted.toISOString()).equal(MOCK_NOW.toISOString());
 		});
 
 		it('updates the local storage', () => {
@@ -85,11 +85,11 @@ describe('update function', () => {
 		});
 
 		it('marked an update as in progress', () => {
-			expect(mockStorage._setLastUpdate.firstCall.args[0].inProgress).equal(true);
+			expect(mockStorage._setLastUpdate.firstCall.args[0].updateStarted.toISOString()).equal(MOCK_NOW.toISOString());
 		});
 
 		it('doesn\'t block further updates', () => {
-			expect(mockStorage.lastUpdate.inProgress).equal(false);
+			expect(mockStorage.lastUpdate.updateStarted).equal(false);
 		});
 	});
 
@@ -131,7 +131,7 @@ describe('update function', () => {
 		});
 
 		it('marks the update as in progress', () => {
-			expect(mockStorage._setLastUpdate.firstCall.args[0].inProgress).equal(true);
+			expect(mockStorage._setLastUpdate.firstCall.args[0].updateStarted.toISOString()).equal(MOCK_NOW.toISOString());
 		});
 
 		it('doesn\'t update the ui', () => {
@@ -139,14 +139,14 @@ describe('update function', () => {
 		});
 
 		it('doesn\'t block further updates', () => {
-			expect(mockStorage.lastUpdate.inProgress).equal(false);
+			expect(mockStorage.lastUpdate.updateStarted).equal(false);
 		});
 	});
 
 	context('when an update is due but already happening', () => {
 		before( function () {
 			resetMocks();
-			mockStorage.lastUpdate = {time: MOCK_OVERDUE_REFRESH_TIME, count: MOCK_PREVIOUS_COUNT, inProgress: true};
+			mockStorage.lastUpdate = {time: MOCK_OVERDUE_REFRESH_TIME, count: MOCK_PREVIOUS_COUNT, updateStarted: MOCK_OVERDUE_REFRESH_TIME};
 			return update(MOCK_NOW);
 		} );
 

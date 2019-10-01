@@ -128,15 +128,33 @@ describe('storage', () => {
 
 	describe('getLastUpdate', () => {
 		beforeEach(() => {
-			mockStorage.myFTIndicatorUpdate = JSON.stringify({foo:1, time: now.toISOString()});
+			mockStorage.myFTIndicatorUpdate = JSON.stringify({foo:1, time: now.toISOString(), updateStarted: now.toISOString()});
 		});
 
 		it('converts time from ISOString to Date', () => {
 			expect(storage.getLastUpdate().time).to.be.a('Date');
 		});
 
-		it('gives the right Date', () => {
+		it('converts updateStarted from ISOString to Date', () => {
+			expect(storage.getLastUpdate().updateStarted).to.be.a('Date');
+		});
+
+		it('gives the right time', () => {
 			expect(storage.getLastUpdate().time.getTime()).to.be.equal(now.getTime());
+		});
+
+		it('gives the right updateStarted', () => {
+			expect(storage.getLastUpdate().updateStarted.getTime()).to.be.equal(now.getTime());
+		});
+	});
+
+	describe('getLastUpdate when updateStarted is false', () => {
+		beforeEach(() => {
+			mockStorage.myFTIndicatorUpdate = JSON.stringify({foo:1, time: now.toISOString(), updateStarted: false});
+		});
+
+		it('gives the right updateStarted', () => {
+			expect(storage.getLastUpdate().updateStarted).equal(false);
 		});
 	});
 
@@ -154,6 +172,31 @@ describe('storage', () => {
 
 			it('leaves other properties unchanged', () => {
 				expect(JSON.parse(mockStorage.myFTIndicatorUpdate).foo).to.equal(3);
+			});
+		});
+		describe('when updating updateStarted with a Date', () =>{
+			const date = new Date(2018, 5, 1, 11, 30, 0);
+			beforeEach(() => {
+				mockStorage.myFTIndicatorUpdate = JSON.stringify({foo: 3, updateStarted: now.toISOString()});
+				storage.updateLastUpdate({updateStarted: date});
+			});
+
+			it('converts updateStarted from Date to ISOString', () => {
+				expect(JSON.parse(mockStorage.myFTIndicatorUpdate).updateStarted).to.equal(date.toISOString());
+			});
+
+			it('leaves other properties unchanged', () => {
+				expect(JSON.parse(mockStorage.myFTIndicatorUpdate).foo).to.equal(3);
+			});
+		});
+		describe('when updating updateStarted with false', () =>{
+			beforeEach(() => {
+				mockStorage.myFTIndicatorUpdate = JSON.stringify({foo: 3, updateStarted: now.toISOString()});
+				storage.updateLastUpdate({updateStarted: false});
+			});
+
+			it('sets updateStarted to false', () => {
+				expect(JSON.parse(mockStorage.myFTIndicatorUpdate).updateStarted).to.equal(false);
 			});
 		});
 		describe('when updating other properties', () =>{
