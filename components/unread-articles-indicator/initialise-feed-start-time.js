@@ -55,4 +55,7 @@ const determineFeedStartTime = (now, previousFeedStartTime) => {
  */
 export default (now) =>
 	determineFeedStartTime(now, storage.getFeedStartTime())
-		.then(startTime => storage.setFeedStartTime(startTime));
+		.then(startTime => {
+			storage.setFeedStartTime(startTime);
+			return startTime;
+		});

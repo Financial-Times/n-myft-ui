@@ -46,7 +46,7 @@ describe('unread stories indicator', () => {
 		describe('storage availability', () => {
 			it('should not do anything if storage is not available', () => {
 				isStorageAvailable = false;
-				unreadStoriesIndicator();
+				unreadStoriesIndicator.default();
 				expect(mockUi.createIndicators).to.not.have.been.called;
 				expect(mockUi.setCount).to.not.have.been.called;
 				expect(mockInitialiseFeedStartTime).to.not.have.been.called;
@@ -56,7 +56,7 @@ describe('unread stories indicator', () => {
 		describe('initialisation', () => {
 			beforeEach(() => {
 				isStorageAvailable = true;
-				return unreadStoriesIndicator();
+				return unreadStoriesIndicator.default();
 			});
 
 			it('should initialise feed start time', () => {
