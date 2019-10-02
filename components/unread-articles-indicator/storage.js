@@ -3,6 +3,7 @@ import { isValid } from 'date-fns';
 const DEVICE_SESSION_EXPIRY = 'deviceSessionExpiry';
 const FEED_START_TIME = 'newArticlesSinceTime';
 const LAST_INDICATOR_UPDATE = 'myFTIndicatorUpdate';
+const INDICATOR_DISMISSED_TIME = 'myFTIndicatorDismissedAt';
 
 const isISOString = str => typeof str === 'string' && str.charAt(10) === 'T';
 const getStoredDate = key => {
@@ -19,6 +20,10 @@ export const setDeviceSessionExpiry = date => window.localStorage.setItem(DEVICE
 export const getFeedStartTime = () => getStoredDate(FEED_START_TIME);
 
 export const setFeedStartTime = date => window.localStorage.setItem(FEED_START_TIME, date.toISOString());
+
+export const getIndicatorDismissedTime = () => getStoredDate(INDICATOR_DISMISSED_TIME);
+
+export const setIndicatorDismissedTime = date => window.localStorage.setItem(INDICATOR_DISMISSED_TIME, date.toISOString());
 
 export const isAvailable = () => {
 	try {

@@ -1,4 +1,4 @@
-import {startOfDay} from 'date-fns';
+import { startOfDay } from 'date-fns';
 import * as storage from './storage';
 import * as ui from './ui';
 import update from './update';
@@ -13,9 +13,9 @@ const updater = () =>
 	update(new Date())
 		.then(() => window.setTimeout(updater, REFRESH_INTERVAL));
 
-// Used by next-myft-page to determine NEW tags on articles feed
+// Export used in next-myft-page to determine whether to add "New" label to articles in feed
 export const getNewArticlesSinceTime = () => {
-	if (initialFeedStartTime) {
+	if( initialFeedStartTime ) {
 		return Promise.resolve(initialFeedStartTime);
 	}
 	if (!storage.isAvailable()) {
@@ -35,13 +35,13 @@ export default (options = {}) => {
 	return sessionClient.uuid()
 		.then(({uuid}) => {
 			if (uuid) {
-				return getNewArticlesSinceTime(new Date())
+				return getNewArticlesSinceTime()
 					.then(() => {
 						ui.createIndicators(document.querySelectorAll('.o-header__top-link--myft'),
 							Object.assign({
 								onClick: () => {
 									storage.updateLastUpdate({count: 0, time: new Date()});
-									storage.setFeedStartTime(new Date());
+									storage.setIndicatorDismissedTime(new Date());
 								}
 							},
 							options));

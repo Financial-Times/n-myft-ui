@@ -20,7 +20,8 @@ const mockStorage = {
 	getLastUpdate () { return this.default.lastUpdate; },
 	setLastUpdate (x) { this._setLastUpdate(x); },
 	updateLastUpdate (x) { this._setLastUpdate(x); },
-	getFeedStartTime () { return MOCK_EARLIEST_CUTOFF_TIME; }
+	getFeedStartTime () { return MOCK_EARLIEST_CUTOFF_TIME; },
+	getIndicatorDismissedTime () { return MOCK_EARLIEST_CUTOFF_TIME; }
 };
 
 function resetMocks () {

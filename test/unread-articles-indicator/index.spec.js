@@ -21,7 +21,8 @@ describe('unread stories indicator', () => {
 			getFeedStartTime: sinon.stub().returns(FEED_START_TIME),
 			setFeedStartTime: sinon.stub(),
 			updateLastUpdate: sinon.stub(),
-			isAvailable: sinon.stub().callsFake(() => isStorageAvailable)
+			isAvailable: sinon.stub().callsFake(() => isStorageAvailable),
+			setIndicatorDismissedTime: sinon.stub()
 		};
 		mockUi = {
 			createIndicators: sinon.stub(),
@@ -74,6 +75,7 @@ describe('unread stories indicator', () => {
 
 				args[1].onClick();
 
+				expect(mockStorage.setIndicatorDismissedTime).to.have.been.calledOnce;
 				expect(mockStorage.updateLastUpdate).to.have.been.calledOnce;
 			});
 		});

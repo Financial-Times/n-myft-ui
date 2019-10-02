@@ -1,3 +1,4 @@
+import {isAfter} from 'date-fns';
 import * as storage from './storage';
 import countUnreadArticles from './count-unread-articles';
 import * as ui from './ui';
@@ -5,6 +6,16 @@ import * as tracking from './tracking';
 
 const UPDATE_INTERVAL = 1000 * 60 * 5; // how often to get an update from the server.
 const UPDATE_TIMEOUT = 1000 * 60 * 10; // how long before we assume an update finished without tidying up.
+
+function latest ( a, b ) {
+	if( !a ) {
+		return b;
+	}
+	if( !b ) {
+		return a;
+	}
+	return isAfter(a,b) ? a : b;
+}
 
 export default function update (now) {
 	const lastUpdate = storage.getLastUpdate();
@@ -23,8 +34,7 @@ export default function update (now) {
 
 		storage.updateLastUpdate({updateStarted: now});
 
-		const startTime = storage.getFeedStartTime();
-
+		const startTime = latest( storage.getFeedStartTime(), storage.getIndicatorDismissedTime() );
 		return countUnreadArticles(startTime)
 			.then((count) => {
 
