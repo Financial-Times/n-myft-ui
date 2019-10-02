@@ -21,6 +21,8 @@ class IndicatorOriginal {
 
 class Indicator {
 	constructor (container, {onClick} = {}) {
+		this.count = undefined;
+
 		this.container = container;
 		this.container.classList.add('myft__indicator-container');
 
@@ -36,6 +38,9 @@ class Indicator {
 	}
 
 	setCount (count) {
+		if( count === this.count ) {
+			return;
+		}
 		if( count < 1 ) {
 			this.el.classList.add('myft__indicator--hidden');
 		} else {
@@ -47,11 +52,13 @@ class Indicator {
 			}
 			this.el.innerText = count > 0 && count < 200 ? count : '';
 		}
+		this.count = count;
 	}
 }
 
 class Favicon {
 	constructor () {
+		this.count = undefined;
 		this.faviconLinks =
 			Array.from(document.querySelectorAll('head link[rel=icon]'))
 				.concat(Array.from(document.querySelectorAll('head link[rel=apple-touch-icon]')));
@@ -59,23 +66,30 @@ class Favicon {
 	}
 
 	setCount (count) {
+		if( count === this.count ) {
+			return;
+		}
 		this.showDot = count > 0;
 		const newImage = this.showDot ? 'brand-ft-logo-square-coloured-dot' : 'brand-ft-logo-square-coloured-no-dot';
 		this.faviconLinks.forEach(link => {
 			link.href = link.href.replace(/brand-ft-logo-square-coloured(-dot|-no-dot)?/, newImage);
 		});
+		this.count = count;
 	}
 }
 
 class Title {
 	constructor () {
+		this.count = undefined;
 		this.originalTitle = document.title;
-		this.count = 0;
 	}
 
 	setCount (count) {
-		this.count = count;
+		if( count === this.count ) {
+			return;
+		}
 		document.title = count > 0 ? `(${count}) ${this.originalTitle}` : this.originalTitle;
+		this.count = count;
 	}
 }
 
