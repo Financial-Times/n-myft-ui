@@ -24,7 +24,7 @@ $circle-radius-mobile: 11px;
 
 	border: 1px solid oColorsGetPaletteColor('paper');
 	background-color: oColorsGetPaletteColor('claret');
-	color: oColorsGetPaletteColor('white');
+
 
 	font-family: MetricWeb, sans-serif;
 	vertical-align: middle;
@@ -32,11 +32,19 @@ $circle-radius-mobile: 11px;
 	text-align: center;
 
 	font-size: 9px;
+	font-weight: 500;
 	line-height: $circle-radius-mobile;
 	border-radius: $circle-radius-mobile;
 	width: $circle-radius-mobile;
 	height: $circle-radius-mobile;
+
+	// On mobile hide text unless its only one digit
+	color: transparent;
+	&.myft__indicator--single-digit {
+		color: oColorsGetPaletteColor('white');
+	}
 	@include oGridRespondTo(M) {
+		color: oColorsGetPaletteColor('white');
 		right: -8px;
 		font-size: 11px;
 		line-height: $circle-radius-desktop;
