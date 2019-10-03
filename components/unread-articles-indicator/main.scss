@@ -1,5 +1,5 @@
 $circle-radius-desktop: 17px;
-$circle-radius-mobile: 11px;
+$circle-radius-mobile: 14px;
 
 .myft__indicator-container {
 	position: relative;
@@ -31,7 +31,7 @@ $circle-radius-mobile: 11px;
 	overflow: hidden;
 	text-align: center;
 
-	font-size: 9px;
+	font-size: 12px;
 	font-weight: 500;
 	line-height: $circle-radius-mobile;
 	border-radius: $circle-radius-mobile;
@@ -46,7 +46,6 @@ $circle-radius-mobile: 11px;
 	@include oGridRespondTo(M) {
 		color: oColorsGetPaletteColor('white');
 		right: -8px;
-		font-size: 11px;
 		line-height: $circle-radius-desktop;
 		border-radius: $circle-radius-desktop;
 		width: $circle-radius-desktop;
