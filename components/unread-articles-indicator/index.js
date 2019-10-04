@@ -45,7 +45,11 @@ export default (options = {}) => {
 								}
 							},
 							options));
-						updater();
+						if (options.flags && options.flags.myftNewUnreadIndicatorPolling) {
+							updater();
+						} else {
+							update(new Date());
+						}
 					});
 			}
 		});
