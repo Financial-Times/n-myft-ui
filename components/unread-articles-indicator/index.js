@@ -49,6 +49,13 @@ export default (options = {}) => {
 							updater();
 						} else {
 							update(new Date());
+							document.addEventListener('visibilitychange', () => {
+								if (document.visibilityState === 'visible') {
+									getNewArticlesSinceTime().then(
+										update(new Date())
+									);
+								}
+							});
 						}
 					});
 			}
