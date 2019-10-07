@@ -40,7 +40,7 @@ export const fetchUserLastVisitedAt = () => {
  * @return {Promise<Date>} date when we now determine articles to be 'new' for the user
  */
 const determineFeedStartTime = (now, previousFeedStartTime) => {
-	if (isToday(previousFeedStartTime) && !deviceSession.isNewSession()) {
+	if (previousFeedStartTime && isToday(previousFeedStartTime) && !deviceSession.isNewSession()) {
 		return Promise.resolve(previousFeedStartTime);
 	}
 
@@ -53,9 +53,13 @@ const determineFeedStartTime = (now, previousFeedStartTime) => {
  * Sets/updates the time after which articles must be published to count towards indicator count
  * @param {Date} now  Date representing the time now
  */
-export default (now) =>
-	determineFeedStartTime(now, storage.getFeedStartTime())
+export default (now) => {
+	const previousFeedStartTime = (storage.isAvailable() && storage.getFeedStartTime());
+	return determineFeedStartTime(now, previousFeedStartTime)
 		.then(startTime => {
-			storage.setFeedStartTime(startTime);
+			if (storage.isAvailable()) {
+				storage.setFeedStartTime(startTime);
+			}
 			return startTime;
 		});
+};

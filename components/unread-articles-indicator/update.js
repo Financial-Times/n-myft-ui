@@ -34,13 +34,13 @@ export default function update (now) {
 
 		storage.updateLastUpdate({updateStarted: now});
 
-		const startTime = latest( storage.getFeedStartTime(), storage.getIndicatorDismissedTime() );
+		const startTime = latest(storage.getFeedStartTime(), storage.getIndicatorDismissedTime());
 		return countUnreadArticles(startTime)
 			.then((count) => {
 
 				ui.setCount(count);
 
-				if( !lastUpdate || count !== lastUpdate.count ) {
+				if (!lastUpdate || count !== lastUpdate.count) {
 					tracking.onCountChange(count, startTime);
 				}
 

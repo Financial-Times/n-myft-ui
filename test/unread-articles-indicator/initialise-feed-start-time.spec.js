@@ -35,7 +35,8 @@ describe('initialiseFeedStartTime', () => {
 		'./device-session': () => ({ isNewSession: () => isNewSession }),
 		'./storage': {
 			setFeedStartTime: mockSetFeedStartTime,
-			getFeedStartTime: sinon.stub().callsFake( () => feedStartTime )
+			getFeedStartTime: sinon.stub().callsFake( () => feedStartTime ),
+			isAvailable: sinon.stub().returns(true)
 		}
 	}).default;
 
