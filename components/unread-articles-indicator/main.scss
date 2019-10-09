@@ -1,5 +1,6 @@
 $circle-radius-desktop: 17px;
-$circle-radius-mobile: 14px;
+$circle-radius-mobile-single-digit: 14px;
+$circle-radius-mobile: 8px;
 
 .myft__indicator-container {
 	position: relative;
@@ -19,12 +20,11 @@ $circle-radius-mobile: 14px;
 .myft__indicator {
 	padding: 0;
 	position: absolute;
-	top: 16px;
-	right: -6px;
+	top: 18px;
+	right: -3px;
 
 	border: 1px solid oColorsGetPaletteColor('paper');
 	background-color: oColorsGetPaletteColor('claret');
-
 
 	font-family: MetricWeb, sans-serif;
 	vertical-align: middle;
@@ -40,12 +40,20 @@ $circle-radius-mobile: 14px;
 
 	// On mobile hide text unless its only one digit
 	color: transparent;
+
 	&.myft__indicator--single-digit {
+		top: 16px;
+		right: -6px;
 		color: oColorsGetPaletteColor('white');
+		line-height: $circle-radius-mobile-single-digit;
+		border-radius: $circle-radius-mobile-single-digit;
+		width: $circle-radius-mobile-single-digit;
+		height: $circle-radius-mobile-single-digit;
 	}
 	@include oGridRespondTo(M) {
-		color: oColorsGetPaletteColor('white');
+		top: 16px;
 		right: -8px;
+		color: oColorsGetPaletteColor('white');
 		line-height: $circle-radius-desktop;
 		border-radius: $circle-radius-desktop;
 		width: $circle-radius-desktop;
