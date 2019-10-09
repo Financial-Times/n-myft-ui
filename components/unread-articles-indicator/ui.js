@@ -59,9 +59,7 @@ class Indicator {
 class Favicon {
 	constructor () {
 		this.count = undefined;
-		this.faviconLinks =
-			Array.from(document.querySelectorAll('head link[rel=icon]'))
-				.concat(Array.from(document.querySelectorAll('head link[rel=apple-touch-icon]')));
+		this.faviconLinks = Array.from(document.querySelectorAll('head link[rel=icon]'));
 		this.showDot = false;
 	}
 
