@@ -31,7 +31,7 @@
     "autoprefixer": "^6.3.6",
     "aws-sdk-mock": "^1.6.1",
     "babel-core": "^6.2.1",
-    "babel-loader": "^6.2.4",
+    "babel-loader": "^8.0.0",
     "babel-plugin-add-module-exports": "^0.3.0",
     "babel-plugin-transform-es2015-classes": "^6.8.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.5.2",
