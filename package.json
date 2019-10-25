@@ -54,7 +54,7 @@
     "http-server": "^0.11.1",
     "hyperons": "^0.4.1",
     "imports-loader": "0.8.0",
-    "inject-loader": "^3.0.0",
+    "inject-loader": "^4.0.0",
     "karma": "4.4.1",
     "karma-browserstack-launcher": "1.5.1",
     "karma-chai": "^0.1.0",
