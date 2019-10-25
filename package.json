@@ -71,7 +71,7 @@
     "mocha": "^3.4.1",
     "mockery": "^1.7.0",
     "node-fetch": "^1.6.0",
-    "node-sass": "^3.8.0",
+    "node-sass": "^4.0.0",
     "nodemon": "^1.9.2",
     "npm-prepublish": "^1.2.1",
     "pa11y-ci": "^2.1.1",
