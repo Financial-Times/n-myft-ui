@@ -76,7 +76,7 @@
     "npm-prepublish": "^1.2.1",
     "pa11y-ci": "^2.1.1",
     "postcss-loader": "^0.9.1",
-    "sass-loader": "^3.2.0",
+    "sass-loader": "^8.0.0",
     "semver": "6.3.0",
     "sinon": "^7.1.0",
     "sinon-chai": "^3.2.0",
