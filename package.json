@@ -83,7 +83,7 @@
     "snyk": "^1.216.5"
   },
   "dependencies": {
-    "date-fns": "^1.29.0",
+    "date-fns": "^2.0.0",
     "form-serialize": "^0.7.2",
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.10"
