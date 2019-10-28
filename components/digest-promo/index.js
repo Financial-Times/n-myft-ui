@@ -1,7 +1,7 @@
-const myFtClient = require('next-myft-client').default;
-const buttons = require('../../myft-common');
-const getToken = require('../../myft/ui/lib/get-csrf-token').default;
-const superstore = require('superstore-sync');
+import myFtClient from 'next-myft-client';
+import buttons from '../../myft-common';
+import getToken from '../../myft/ui/lib/get-csrf-token';
+import superstore from 'superstore-sync';
 const STORAGE_KEY = 'n-myft-digest-promo-seen';
 
 const CLASSES = {
