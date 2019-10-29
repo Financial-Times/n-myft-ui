@@ -101,4 +101,4 @@ function init () {
 	});
 };
 
-module.exports = { init };
+export { init };
