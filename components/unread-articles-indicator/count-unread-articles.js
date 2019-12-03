@@ -1,6 +1,6 @@
 import {json as fetchJson} from 'fetchres';
-import isAfter from 'date-fns/src/isAfter';
-import parseISO from 'date-fns/src/parseISO';
+import isAfter from 'date-fns/isAfter';
+import parseISO from 'date-fns/parseISO';
 
 export default async (userId, startTime) => {
 	if (typeof startTime === 'string') startTime = parseISO(startTime);

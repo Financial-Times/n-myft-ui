@@ -1,8 +1,8 @@
 /* global expect */
 import sinon from 'sinon';
-import addMinutes from 'date-fns/src/addMinutes';
-import isAfter from 'date-fns/src/isAfter';
-import parseISO from 'date-fns/src/parseISO';
+import addMinutes from 'date-fns/addMinutes';
+import isAfter from 'date-fns/isAfter';
+import parseISO from 'date-fns/parseISO';
 
 const expiryTimestamp = '2018-06-14T12:00:00.000Z';
 const timestampBeforeExpiry = '2018-06-14T11:40:00.000Z';
@@ -23,9 +23,9 @@ describe('DeviceSession', () => {
 
 	const subjectInjector = require('inject-loader!../../components/unread-articles-indicator/device-session');
 	const DeviceSession = subjectInjector({
-		'date-fns/src/addMinutes': addMinutes,
-		'date-fns/src/isAfter': isAfter,
-		'date-fns/src/parseISO': parseISO,
+		'date-fns/addMinutes': addMinutes,
+		'date-fns/isAfter': isAfter,
+		'date-fns/parseISO': parseISO,
 		'./storage': mockStorage
 	});
 

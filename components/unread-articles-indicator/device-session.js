@@ -1,6 +1,6 @@
-import addMinutes from 'date-fns/src/addMinutes';
-import isAfter from 'date-fns/src/isAfter';
-import parseISO from 'date-fns/src/parseISO';
+import addMinutes from 'date-fns/addMinutes';
+import isAfter from 'date-fns/isAfter';
+import parseISO from 'date-fns/parseISO';
 import * as storage from './storage';
 const SESSION_THRESHOLD_MINUTES = 30;
 

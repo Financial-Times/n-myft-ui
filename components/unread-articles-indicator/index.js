@@ -1,4 +1,4 @@
-import startOfDay from 'date-fns/src/startOfDay';
+import startOfDay from 'date-fns/startOfDay';
 import * as storage from './storage';
 import * as ui from './ui';
 import updateCount from './update-count';

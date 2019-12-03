@@ -1,5 +1,5 @@
-import isAfter from 'date-fns/src/isAfter';
-import parseISO from 'date-fns/src/parseISO';
+import isAfter from 'date-fns/isAfter';
+import parseISO from 'date-fns/parseISO';
 import * as storage from './storage';
 import countUnreadArticles from './count-unread-articles';
 import * as tracking from './tracking';
