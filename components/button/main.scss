@@ -1,7 +1,9 @@
 @import 'o-buttons/main';
 
 .n-myft-ui__button {
-	@include oButtonsContent();
+	@include oButtonsContent($opts: (
+		'type': 'secondary'
+	));
 
 	&:focus {
 		outline: 3px solid oColorsByName('teal-40');
@@ -10,7 +12,10 @@
 }
 
 .n-myft-ui__button--inverse {
-	@include oButtonsContent($opts: (theme: inverse, type: secondary), $include-base-styles: false);
+	@include oButtonsContent($opts: (
+		'type': 'secondary',
+		'theme': 'inverse'
+	), $include-base-styles: false);
 }
 
 .n-myft-ui__button--viewport-large {

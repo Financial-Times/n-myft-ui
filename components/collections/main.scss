@@ -66,25 +66,23 @@
 }
 
 .collection-follow-all__button {
-	@include oButtons();
+	@include oButtonsContent($opts: (
+		'type': 'secondary'
+	));
 }
 
 .collection-follow-all__button--regular {
-	@include oButtonsContent(
-		$opts: (
-			theme: (
-				background: 'claret-70',
-				accent: 'white',
-				colorizer: 'primary'
-			)
+	@include oButtonsContent($opts: (
+		'type': 'primary',
+		'theme': (
+			'color': 'white',
+			'context': 'claret-70'
 		)
-	);
+	), $include-base-styles: false);
 }
 
 .collection-follow-all__button--lite {
-	@include oButtonsContent(
-		$opts: (
-			theme: 'primary'
-		)
-	);
+	@include oButtonsContent($opts: (
+		'type': 'primary'
+	), $include-base-styles: false);
 }
