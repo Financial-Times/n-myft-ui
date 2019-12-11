@@ -11,9 +11,11 @@
 		{{else}}
 			{{#ifAll @root.csrfToken @root.cacheablePersonalisedUrl}}
 				{{#if setFollowButtonStateToSelected}}
-					action="/__myft/api/core/followed/concept/{{conceptId}}?method=delete"
+					action="/myft/remove/{{conceptId}}"
+					data-js-action="/__myft/api/core/followed/concept/{{conceptId}}?method=delete"
 				{{else}}
-					action="/__myft/api/core/followed/concept/{{conceptId}}?method=put"
+					action="/myft/add/{{conceptId}}"
+					data-js-action="/__myft/api/core/followed/concept/{{conceptId}}?method=put"
 				{{/if}}
 			{{else}}
 				{{#ifAll setFollowButtonStateToSelected @root.cacheablePersonalisedUrl}}
