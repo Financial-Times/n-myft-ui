@@ -9,22 +9,12 @@
 			action="/__myft/api/core/follow-plus-digest-email/{{conceptId}}?method=put"
 			data-myft-ui-variant="followPlusDigestEmail"
 		{{else}}
-			{{#ifAll @root.csrfToken @root.cacheablePersonalisedUrl}}
-				{{#if setFollowButtonStateToSelected}}
-					action="/myft/remove/{{conceptId}}"
-					data-js-action="/__myft/api/core/followed/concept/{{conceptId}}?method=delete"
-				{{else}}
-					action="/myft/add/{{conceptId}}"
-					data-js-action="/__myft/api/core/followed/concept/{{conceptId}}?method=put"
-				{{/if}}
+			{{#ifAll setFollowButtonStateToSelected @root.cacheablePersonalisedUrl}}
+				action="/myft/remove/{{conceptId}}"
+				data-js-action="/__myft/api/core/followed/concept/{{conceptId}}?method=delete"
 			{{else}}
-				{{#ifAll setFollowButtonStateToSelected @root.cacheablePersonalisedUrl}}
-					action="/myft/remove/{{conceptId}}"
-					data-js-action="/__myft/api/core/followed/concept/{{conceptId}}?method=delete"
-				{{else}}
-					action="/myft/add/{{conceptId}}"
-					data-js-action="/__myft/api/core/followed/concept/{{conceptId}}?method=put"
-				{{/ifAll}}
+				action="/myft/add/{{conceptId}}"
+				data-js-action="/__myft/api/core/followed/concept/{{conceptId}}?method=put"
 			{{/ifAll}}
 		{{/if}}>
 		{{> n-myft-ui/components/csrf-token/input}}
