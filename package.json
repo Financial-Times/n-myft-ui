@@ -28,7 +28,7 @@
     "@financial-times/dotcom-build-sass": "0.4.1",
     "@financial-times/dotcom-page-kit-cli": "0.4.1",
     "@financial-times/n-gage": "^3.12.0",
-    "@financial-times/n-heroku-tools": "8.3.1",
+    "@financial-times/n-heroku-tools": "8.4.2",
     "@financial-times/n-internal-tool": "2.3.4",
     "@financial-times/x-handlebars": "1.0.0-beta.21",
     "ascii-table": "0.0.9",
