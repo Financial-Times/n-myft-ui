@@ -16,7 +16,7 @@
   ],
   "main": "main.js",
   "dependencies": {
-    "date-fns": "^2.7.0",
+    "date-fns": "2.16.1",
     "fetchres": "^1.7.2",
     "form-serialize": "^0.7.2",
     "js-cookie": "^2.2.0",
