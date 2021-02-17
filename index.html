@@ -1,0 +1,2356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>n-myft-ui demo</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+
+	<div class="o-grid-container o-grid-container--snappy">
+		<div class="o-grid-row">
+			<ul>
+				<li><a href="index.html">Basic</a></li>
+				<li><a href="/digest-on-follow">Follow plus digest button</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="o-grid-container o-grid-container--snappy demo-container">
+	<h1>n-myft-ui demo</h1>
+
+	<section
+		id="follow-button"
+		class="demo-section">
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<h2
+					class="demo-section__title">
+					Follow button
+				</h2>
+
+						<form
+							class="n-myft-ui n-myft-ui--follow "
+							method="GET"
+							data-myft-ui="follow"
+							data-concept-id="00000000-0000-0000-0000-000000000055"
+							
+									action="/myft/add/00000000-0000-0000-0000-000000000055"
+									data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000055?method=put"
+							>
+							<input
+								data-myft-csrf-token
+								value=""
+								type="hidden"
+								name="token">		<div
+								class="n-myft-ui__announcement o-normalise-visually-hidden"
+								aria-live="assertive"
+								data-pressed-text="Now following Hidden Haiku."
+								data-unpressed-text="No longer following Hidden Haiku."
+							></div>
+							<button
+									aria-pressed="false"
+									aria-label="Add Hidden Haiku to myFT"
+									title="Add Hidden Haiku to myFT"
+									data-alternate-label="Remove Hidden Haiku from myFT"
+											data-alternate-text="Added"
+								class="
+									n-myft-follow-button"
+								data-concept-id="00000000-0000-0000-0000-000000000055" 
+								data-trackable="follow"
+								type="submit">Add to myFT</button>
+						</form>
+
+				<h2
+					class="demo-section__title">
+					x-dash follow button
+				</h2>
+
+						<form
+							class="n-myft-ui n-myft-ui--follow "
+							method="GET"
+							data-myft-ui="follow"
+							data-concept-id="00000000-0000-0000-0000-000000000055"
+							
+									action="/myft/add/00000000-0000-0000-0000-000000000055"
+									data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000055?method=put"
+							>
+							<input
+								data-myft-csrf-token
+								value=""
+								type="hidden"
+								name="token">		<div
+								class="n-myft-ui__announcement o-normalise-visually-hidden"
+								aria-live="assertive"
+								data-pressed-text="Now following Hidden Haiku."
+								data-unpressed-text="No longer following Hidden Haiku."
+							></div>
+							<button
+									aria-pressed="false"
+									aria-label="Add Hidden Haiku to myFT"
+									title="Add Hidden Haiku to myFT"
+									data-alternate-label="Remove Hidden Haiku from myFT"
+											data-alternate-text="Hidden Haiku"
+								class="
+									n-myft-follow-button"
+								data-concept-id="00000000-0000-0000-0000-000000000055" 
+								data-trackable="follow"
+								type="submit">Hidden Haiku</button>
+						</form>
+
+					<h2 class="demo-section__title">
+						Save button
+					</h2>
+					<form class="n-myft-ui n-myft-ui--save" method="GET"
+						data-content-id="00000000-0000-0000-0000-000000000033"
+						data-myft-ui="saved"
+						action="/myft/save/00000000-0000-0000-0000-000000000033"
+						data-js-action="/__myft/api/core/saved/content/00000000-0000-0000-0000-000000000033?method=put">
+						<input
+							data-myft-csrf-token
+							value=""
+							type="hidden"
+							name="token">	<div
+							class="n-myft-ui__announcement o-normalise-visually-hidden"
+							aria-live="assertive"
+							data-pressed-text="Article saved in My FT."
+							data-unpressed-text="Removed article from My FT."
+						></div>
+						<button
+							type="submit"
+							class="n-myft-ui__button"
+							data-trackable="save-for-later"
+								data-alternate-label="Saved to myFT"
+								aria-pressed="false"
+									data-text-variant="save-button-longer-copy"
+									data-alternate-text="Saved&nbsp;"
+							data-content-id="00000000-0000-0000-0000-000000000033" 
+								aria-label="Save myFT Enterprises to myFT for later"
+								title="Save myFT Enterprises to myFT for later"
+							>
+									
+											<span class="save-button-longer-copy" data-variant-label>Save&nbsp;</span><span class="n-myft-ui__button--viewport-large" aria-hidden="true">to myFT</span>
+							</button>
+						</form>
+
+					<h2 class="demo-section__title">
+						Unsave button
+					</h2>
+					<form class="n-myft-ui n-myft-ui--save" method="GET"
+						data-content-id="00000000-0000-0000-0000-000000000033"
+						data-myft-ui="saved"
+						action="/myft/save/00000000-0000-0000-0000-000000000033"
+						data-js-action="/__myft/api/core/saved/content/00000000-0000-0000-0000-000000000033?method=put">
+						<input
+							data-myft-csrf-token
+							value=""
+							type="hidden"
+							name="token">	<div
+							class="n-myft-ui__announcement o-normalise-visually-hidden"
+							aria-live="assertive"
+							data-pressed-text="Article saved in My FT."
+							data-unpressed-text="Removed article from My FT."
+						></div>
+						<button
+							type="submit"
+							class="n-myft-ui__button"
+							data-trackable="save-for-later"
+								data-alternate-label="Save myFT Enterprises to myFT for later"
+								aria-pressed="true"
+									data-text-variant="save-button-longer-copy"
+									data-alternate-text="Save&nbsp;"
+							data-content-id="00000000-0000-0000-0000-000000000033" 
+								aria-label="myFT Enterprises is Saved to myFT"
+								title="myFT Enterprises is Saved to myFT"
+							>
+									
+											<span class="save-button-longer-copy" data-variant-label>Saved&nbsp;</span><span class="n-myft-ui__button--viewport-large" aria-hidden="true">to myFT</span>
+							</button>
+						</form>
+
+					<h2 class="demo-section__title">
+						Save button with icon
+					</h2>
+					<form class="n-myft-ui n-myft-ui--save" method="GET"
+						data-content-id="00000000-0000-0000-0000-000000000033"
+						data-myft-ui="saved"
+						action="/myft/save/00000000-0000-0000-0000-000000000033"
+						data-js-action="/__myft/api/core/saved/content/00000000-0000-0000-0000-000000000033?method=put">
+						<input
+							data-myft-csrf-token
+							value=""
+							type="hidden"
+							name="token">	<div
+							class="n-myft-ui__announcement o-normalise-visually-hidden"
+							aria-live="assertive"
+							data-pressed-text="Article saved in My FT."
+							data-unpressed-text="Removed article from My FT."
+						></div>
+						<button
+							type="submit"
+							class="n-myft-ui__save-button-with-icon"
+							data-trackable="save-for-later"
+								data-alternate-label="Saved to myFT"
+								aria-pressed="false"
+									data-text-variant="save-button-with-icon-copy"
+									data-alternate-text="Saved&nbsp;"
+							data-content-id="00000000-0000-0000-0000-000000000033" 
+								aria-label="Save myFT Enterprises to myFT for later"
+								title="Save myFT Enterprises to myFT for later"
+							>
+									<span class="save-button-with-icon-copy" data-variant-label>Save</span>
+							</button>
+						</form>
+
+					<h2 class="demo-section__title">
+						Unsave button with icon
+					</h2>
+					<form class="n-myft-ui n-myft-ui--save" method="GET"
+						data-content-id="00000000-0000-0000-0000-000000000033"
+						data-myft-ui="saved"
+						action="/myft/save/00000000-0000-0000-0000-000000000033"
+						data-js-action="/__myft/api/core/saved/content/00000000-0000-0000-0000-000000000033?method=put">
+						<input
+							data-myft-csrf-token
+							value=""
+							type="hidden"
+							name="token">	<div
+							class="n-myft-ui__announcement o-normalise-visually-hidden"
+							aria-live="assertive"
+							data-pressed-text="Article saved in My FT."
+							data-unpressed-text="Removed article from My FT."
+						></div>
+						<button
+							type="submit"
+							class="n-myft-ui__save-button-with-icon"
+							data-trackable="save-for-later"
+								data-alternate-label="Save myFT Enterprises to myFT for later"
+								aria-pressed="true"
+									data-text-variant="save-button-with-icon-copy"
+									data-alternate-text="Save&nbsp;"
+							data-content-id="00000000-0000-0000-0000-000000000033" 
+								aria-label="myFT Enterprises is Saved to myFT"
+								title="myFT Enterprises is Saved to myFT"
+							>
+									<span class="save-button-with-icon-copy" data-variant-label>Saved</span>
+							</button>
+						</form>
+
+				<h2 class="demo-section__title">
+					Pin button
+				</h2>
+					<span class="myft-pin-divider"></span>
+					<div class="myft-pin-button-wrapper">
+						<form method="post" action="/__myft/api/core/prioritised/concept/00000000-0000-0000-0000-000000000022?method=put" data-myft-prioritise>
+							<input
+								data-myft-csrf-token
+								value=""
+								type="hidden"
+								name="token">		<input type="hidden" value="myFT Enterprises" name="name"> 
+							<input type="hidden" value="http://www.ft.com/ontology/Topic" name="directType"> 
+							<div
+								class="n-myft-ui__announcement o-normalise-visually-hidden"
+								aria-live="assertive"
+								data-pressed-text="myFT Enterprises pinned in myFT."
+								data-unpressed-text="Unpinned myFT Enterprises from myFT."
+							></div>
+							<button id="myft-pin-button__00000000-0000-0000-0000-000000000022" class="myft-pin-button" data-prioritise-button data-trackable="prioritised" data-concept-id="00000000-0000-0000-0000-000000000022" data-prioritised="false"
+									aria-label="Pin myFT Enterprises in myFT" aria-pressed="false" title="Pin myFT Enterprises">
+							</button>
+						</form>
+					</div>
+
+					<h2 class="demo-section__title">
+						Instant Alert
+					</h2>
+					<form class="n-myft-ui n-myft-ui--instant "
+								method="GET"
+								data-myft-ui="instant"
+								data-concept-id=""
+								action="/myft/add/?instant=true"
+								data-js-action="/__myft/api/core/followed/concept/?method=put">
+						<input
+							data-myft-csrf-token
+							value=""
+							type="hidden"
+							name="token">	<input type="hidden" value="myFT Enterprises" name="name">
+						<input type="hidden" value="http://www.ft.com/ontology/Topic" name="directType">
+						<button
+								aria-label="Get instant alerts for myFT Enterprises"
+								aria-pressed="false"
+						class="n-myft-ui__button
+						
+						
+						n-myft-ui__button--instant
+						n-myft-ui__button--instant-light"
+						data-alternate-label="Stop instant alerts for myFT Enterprises"
+						data-alternate-text="Instant alerts"
+						data-concept-id="" 
+						data-trackable="instant"
+						title="Get instant alerts for myFT Enterprises"
+						name="_rel.instant"
+						value="true"
+						type="submit"
+						>Instant alerts</button>
+					</form>
+
+
+			</div>
+		</div>
+	</section>
+
+	<section
+		id="follow-concept"
+		class="demo-section">
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<h2 class="demo-section__title">
+					Follow concept
+				</h2>
+				<p class="demo-section__description">
+					These are used in a group of many suggested follows/unfollows such as
+					the myFT page cold start.
+				</p>
+				<div class="concept-collection concept-collection--standard">
+					<h3 class="concept-collection__title">
+						Standard
+					</h3>
+					<ul class="concept-collection__list">
+						<li>
+							<button class="n-myft-follow-button">
+								Books
+							</button>
+						</li>
+						<li>
+							<button
+								aria-pressed="true"
+								class="n-myft-follow-button">
+								Life &amp; Arts
+							</button>
+						</li>
+						<li>
+							<button
+								class="n-myft-follow-button">
+								Theo Leanse
+							</button>
+						</li>
+						<li>
+							<button
+								aria-pressed="true"
+								disabled
+								class="n-myft-follow-button">
+								Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
+								say that they were perfectly normal, thank you very much.
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<div class="concept-collection concept-collection--inverse">
+					<h3 class="concept-collection__title">
+						Inverse
+					</h3>
+					<ul class="concept-collection__list">
+						<li>
+							<button
+								class="n-myft-follow-button n-myft-follow-button--inverse">
+								Books
+							</button>
+						</li>
+						<li>
+							<button
+								aria-pressed="true"
+								class="n-myft-follow-button n-myft-follow-button--inverse">
+								Life &amp; Arts
+							</button>
+						</li>
+						<li>
+							<button
+								class="n-myft-follow-button n-myft-follow-button--inverse">
+								Theo Leanse
+							</button>
+						</li>
+						<li>
+							<button
+								aria-pressed="true"
+								disabled
+								class="n-myft-follow-button n-myft-follow-button--inverse">
+								Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
+								say that they were perfectly normal, thank you very much.
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<div class="concept-collection concept-collection--monochrome">
+					<h3 class="concept-collection__title">
+						Monochrome
+					</h3>
+					<ul class="concept-collection__list">
+						<li>
+							<button
+								class="n-myft-follow-button n-myft-follow-button--monochrome"
+								aria-pressed="false">
+								Theo Leanse
+							</button>
+						</li>
+						<li>
+							<button
+								class="n-myft-follow-button n-myft-follow-button--monochrome"
+								aria-pressed="true">
+								Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
+								say that they were perfectly normal, thank you very much.
+							</button>
+						</li>
+						<li>
+							<button
+								disabled
+								class="n-myft-follow-button n-myft-follow-button--monochrome"
+								aria-pressed="true">
+								chee
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<div class="concept-collection concept-collection--opinion">
+					<h3 class="concept-collection__title">
+						Opinion topper
+					</h3>
+					<ul class="concept-collection__list">
+						<li>
+							<button
+								class="n-myft-follow-button n-myft-follow-button--opinion"
+								aria-pressed="false">
+								Theo Leanse
+							</button>
+						</li>
+						<li>
+							<button
+								class="n-myft-follow-button n-myft-follow-button--opinion"
+								aria-pressed="true">
+								Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
+								say that they were perfectly normal, thank you very much.
+							</button>
+						</li>
+						<li>
+							<button
+								disabled
+								class="n-myft-follow-button n-myft-follow-button--opinion"
+								aria-pressed="false">
+								chee
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section
+		id="onboarding-cta"
+		class="demo-section">
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<h2 class="demo-section__title">
+					Onboarding call to action
+				</h2>
+
+				<p class="demo-section__description">
+					Used on the myFT section of the homepage.
+				</p>
+
+				<a class="n-myft-onboarding-cta" href="#">
+					See stories
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<section
+		id="concept-pill"
+		class="demo-section">
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<h2 class="demo-section__title">
+					Concept pill
+				</h2>
+				<p class="demo-section__description">
+					Used for links to concepts (eg: on the email digest page)
+				</p>
+				<div class="concept-collection concept-collection--standard">
+					<h3 class="concept-collection__title">
+						Standard
+					</h3>
+					<ul class="concept-collection__list">
+						<li>
+							<a
+								class="n-myft-concept-pill"
+								href="#">
+								Books
+							</a>
+						</li>
+						<li>
+							<a
+								class="n-myft-concept-pill"
+								href="#">
+								Life &amp; Arts
+							</a>
+						</li>
+						<li>
+							<a
+								class="n-myft-concept-pill"
+								href="#">
+								Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
+								say that they were perfectly normal, thank you very much.
+							</a>
+						</li>
+						<li>
+							<button
+								class="n-myft-concept-pill"
+								disabled>
+								Books
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<div class="concept-collection concept-collection--inverse">
+					<h3 class="concept-collection__title">
+						Inverse
+					</h3>
+					<ul class="concept-collection__list">
+						<li>
+							<a
+								class="n-myft-concept-pill n-myft-concept-pill--inverse"
+								href="#">
+								Books
+							</a>
+						</li>
+						<li>
+							<a
+								class="n-myft-concept-pill n-myft-concept-pill--inverse"
+								href="#">
+								Life &amp; Arts
+							</a>
+						</li>
+						<li>
+							<a
+								class="n-myft-concept-pill n-myft-concept-pill--inverse"
+								href="#">
+								Theo Leanse
+							</a>
+						</li>
+						<li>
+							<button
+								class="n-myft-concept-pill n-myft-concept-pill--inverse"
+								disabled>
+								Books
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<div class="concept-collection concept-collection--monochrome">
+					<h3 class="concept-collection__title">
+						Monochrome
+					</h3>
+
+					<ul class="concept-collection__list">
+						<li>
+							<a
+								class="n-myft-concept-pill n-myft-concept-pill--monochrome"
+								aria-pressed="false">
+								Theo Leanse
+							</a>
+						</li>
+						<li>
+							<a
+								class="n-myft-concept-pill n-myft-concept-pill--monochrome"
+								aria-pressed="false">
+								Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
+								say that they were perfectly normal, thank you very much.
+							</a>
+						</li>
+						<li>
+							<a
+								disabled
+								class="n-myft-concept-pill n-myft-concept-pill--monochrome"
+								aria-pressed="true">
+								chee
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<div class="concept-collection concept-collection--opinion">
+					<h3 class="concept-collection__title">
+						Opinion topper
+					</h3>
+					<ul class="concept-collection__list">
+						<li>
+							<a
+								class="n-myft-concept-pill n-myft-concept-pill--opinion"
+								aria-pressed="false">
+								Theo Leanse
+							</a>
+						</li>
+						<li>
+							<a
+								class="n-myft-concept-pill n-myft-concept-pill--opinion"
+								aria-pressed="false">
+								Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to
+								say that they were perfectly normal, thank you very much.
+							</a>
+						</li>
+						<li>
+							<a
+								disabled
+								class="n-myft-concept-pill n-myft-concept-pill--opinion"
+								aria-pressed="true">
+								chee
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section
+		id="collections"
+		class="demo-section">
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<h2 class="demo-section__title">
+					Collections
+				</h2>
+
+				<p class="demo-section__description">
+					Curated collections of topics to follow.
+				</p>
+			</div>
+
+				<div data-o-grid-colspan="3">
+					<section
+						class="collection collection--regular"
+						data-trackable="collection">
+						<header class="collection__header collection__header--regular">
+							<h2 class="collection__title collection__title--regular">
+								European Union
+							</h2>
+						</header>
+						<ul class="collection__concepts">
+								<li class="collection__concept">
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id=""
+												
+														action="/myft/add/"
+														data-js-action="/__myft/api/core/followed/concept/?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following EU immigration."
+													data-unpressed-text="No longer following EU immigration."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add EU immigration to myFT"
+														title="Add EU immigration to myFT"
+														data-alternate-label="Remove EU immigration from myFT"
+																data-alternate-text="EU immigration"
+													class="
+														n-myft-follow-button n-myft-follow-button--inverse"
+													data-concept-id="" 
+													data-trackable="follow"
+													type="submit">EU immigration</button>
+											</form>
+								</li>
+								<li class="collection__concept">
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id=""
+												
+														action="/myft/add/"
+														data-js-action="/__myft/api/core/followed/concept/?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Europe Quantitative Easing."
+													data-unpressed-text="No longer following Europe Quantitative Easing."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Europe Quantitative Easing to myFT"
+														title="Add Europe Quantitative Easing to myFT"
+														data-alternate-label="Remove Europe Quantitative Easing from myFT"
+																data-alternate-text="Europe Quantitative Easing"
+													class="
+														n-myft-follow-button n-myft-follow-button--inverse"
+													data-concept-id="" 
+													data-trackable="follow"
+													type="submit">Europe Quantitative Easing</button>
+											</form>
+								</li>
+								<li class="collection__concept">
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id=""
+												
+														action="/myft/add/"
+														data-js-action="/__myft/api/core/followed/concept/?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following EU financial regulation."
+													data-unpressed-text="No longer following EU financial regulation."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add EU financial regulation to myFT"
+														title="Add EU financial regulation to myFT"
+														data-alternate-label="Remove EU financial regulation from myFT"
+																data-alternate-text="EU financial regulation"
+													class="
+														n-myft-follow-button n-myft-follow-button--inverse"
+													data-concept-id="" 
+													data-trackable="follow"
+													type="submit">EU financial regulation</button>
+											</form>
+								</li>
+								<li class="collection__concept">
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id=""
+												
+														action="/myft/add/"
+														data-js-action="/__myft/api/core/followed/concept/?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following EU nothing."
+													data-unpressed-text="No longer following EU nothing."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add EU nothing to myFT"
+														title="Add EU nothing to myFT"
+														data-alternate-label="Remove EU nothing from myFT"
+																data-alternate-text="EU nothing"
+													class="
+														n-myft-follow-button n-myft-follow-button--inverse"
+													data-concept-id="" 
+													data-trackable="follow"
+													type="submit">EU nothing</button>
+											</form>
+								</li>
+								<li class="collection__concept">
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id=""
+												
+														action="/myft/add/"
+														data-js-action="/__myft/api/core/followed/concept/?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following EU trade."
+													data-unpressed-text="No longer following EU trade."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add EU trade to myFT"
+														title="Add EU trade to myFT"
+														data-alternate-label="Remove EU trade from myFT"
+																data-alternate-text="EU trade"
+													class="
+														n-myft-follow-button n-myft-follow-button--inverse"
+													data-concept-id="" 
+													data-trackable="follow"
+													type="submit">EU trade</button>
+											</form>
+								</li>
+						</ul>
+						<div class="collection__meta">
+							<form
+								method="POST"
+								action="#"
+								data-myft-ui="follow"
+								
+								data-concept-id=",,,,"
+								class="n-myft-ui n-myft-ui--follow n-ui-hide-core collection-follow-all">
+								<input
+									type="hidden"
+									name="directType"
+									value="http://www.ft.com/ontology/Topic,http://www.ft.com/ontology/Topic,http://www.ft.com/ontology/Topic,http://www.ft.com/ontology/Topic,http://www.ft.com/ontology/Topic"
+								/>
+								<input
+									data-myft-csrf-token
+									value=""
+									type="hidden"
+									name="token">			<input
+									type="hidden"
+									name="name"
+									value="EU immigration,Europe Quantitative Easing,EU financial regulation,EU nothing,EU trade"
+								/>
+								<button
+									type="submit"
+									aria-pressed="false"
+									class="collection-follow-all__button collection-follow-all__button--regular"
+									data-trackable="follow all"
+									data-concept-id=",,,,"
+									aria-label="Add all topics in the European Union collection to my F T"
+									data-alternate-label="Remove all topics in the European Union collection from my F T"
+									data-alternate-text="Added"
+									title="Add all topics in the European Union collection to my F T">
+									Add all to myFT
+								</button>
+							</form>
+						</div>
+					</section>				</div>
+				<div data-o-grid-colspan="3">
+					<section
+						class="collection collection--regular"
+						data-trackable="collection">
+						<header class="collection__header collection__header--regular">
+							<h2 class="collection__title collection__title--regular">
+								Butter chicken
+							</h2>
+						</header>
+						<ul class="collection__concepts">
+								<li class="collection__concept">
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id=""
+												
+														action="/myft/add/"
+														data-js-action="/__myft/api/core/followed/concept/?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Noodle."
+													data-unpressed-text="No longer following Noodle."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Noodle to myFT"
+														title="Add Noodle to myFT"
+														data-alternate-label="Remove Noodle from myFT"
+																data-alternate-text="Noodle"
+													class="
+														n-myft-follow-button n-myft-follow-button--inverse"
+													data-concept-id="" 
+													data-trackable="follow"
+													type="submit">Noodle</button>
+											</form>
+								</li>
+								<li class="collection__concept">
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id=""
+												
+														action="/myft/add/"
+														data-js-action="/__myft/api/core/followed/concept/?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Green apples."
+													data-unpressed-text="No longer following Green apples."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Green apples to myFT"
+														title="Add Green apples to myFT"
+														data-alternate-label="Remove Green apples from myFT"
+																data-alternate-text="Green apples"
+													class="
+														n-myft-follow-button n-myft-follow-button--inverse"
+													data-concept-id="" 
+													data-trackable="follow"
+													type="submit">Green apples</button>
+											</form>
+								</li>
+								<li class="collection__concept">
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id=""
+												
+														action="/myft/add/"
+														data-js-action="/__myft/api/core/followed/concept/?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Fox blood."
+													data-unpressed-text="No longer following Fox blood."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Fox blood to myFT"
+														title="Add Fox blood to myFT"
+														data-alternate-label="Remove Fox blood from myFT"
+																data-alternate-text="Fox blood"
+													class="
+														n-myft-follow-button n-myft-follow-button--inverse"
+													data-concept-id="" 
+													data-trackable="follow"
+													type="submit">Fox blood</button>
+											</form>
+								</li>
+								<li class="collection__concept">
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id=""
+												
+														action="/myft/add/"
+														data-js-action="/__myft/api/core/followed/concept/?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Dog party."
+													data-unpressed-text="No longer following Dog party."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Dog party to myFT"
+														title="Add Dog party to myFT"
+														data-alternate-label="Remove Dog party from myFT"
+																data-alternate-text="Dog party"
+													class="
+														n-myft-follow-button n-myft-follow-button--inverse"
+													data-concept-id="" 
+													data-trackable="follow"
+													type="submit">Dog party</button>
+											</form>
+								</li>
+								<li class="collection__concept">
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id=""
+												
+														action="/myft/add/"
+														data-js-action="/__myft/api/core/followed/concept/?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Fifth thing."
+													data-unpressed-text="No longer following Fifth thing."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Fifth thing to myFT"
+														title="Add Fifth thing to myFT"
+														data-alternate-label="Remove Fifth thing from myFT"
+																data-alternate-text="Fifth thing"
+													class="
+														n-myft-follow-button n-myft-follow-button--inverse"
+													data-concept-id="" 
+													data-trackable="follow"
+													type="submit">Fifth thing</button>
+											</form>
+								</li>
+						</ul>
+						<div class="collection__meta">
+							<form
+								method="POST"
+								action="#"
+								data-myft-ui="follow"
+								
+								data-concept-id=",,,,"
+								class="n-myft-ui n-myft-ui--follow n-ui-hide-core collection-follow-all">
+								<input
+									type="hidden"
+									name="directType"
+									value="http://www.ft.com/ontology/Topic,http://www.ft.com/ontology/Topic,http://www.ft.com/ontology/Topic,http://www.ft.com/ontology/Topic,http://www.ft.com/ontology/Topic"
+								/>
+								<input
+									data-myft-csrf-token
+									value=""
+									type="hidden"
+									name="token">			<input
+									type="hidden"
+									name="name"
+									value="Noodle,Green apples,Fox blood,Dog party,Fifth thing"
+								/>
+								<button
+									type="submit"
+									aria-pressed="false"
+									class="collection-follow-all__button collection-follow-all__button--regular"
+									data-trackable="follow all"
+									data-concept-id=",,,,"
+									aria-label="Add all topics in the Butter chicken collection to my F T"
+									data-alternate-label="Remove all topics in the Butter chicken collection from my F T"
+									data-alternate-text="Added"
+									title="Add all topics in the Butter chicken collection to my F T">
+									Add all to myFT
+								</button>
+							</form>
+						</div>
+					</section>				</div>
+				<div data-o-grid-colspan="3">
+					<section
+						class="collection collection--regular"
+						data-trackable="collection">
+						<header class="collection__header collection__header--regular">
+							<h2 class="collection__title collection__title--regular">
+								Reallylongcollectionnamethatisallonewordwithoutspaces
+							</h2>
+						</header>
+						<ul class="collection__concepts">
+								<li class="collection__concept">
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id=""
+												
+														action="/myft/add/"
+														data-js-action="/__myft/api/core/followed/concept/?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Long topic name with spaces in sensible places nobody minds."
+													data-unpressed-text="No longer following Long topic name with spaces in sensible places nobody minds."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Long topic name with spaces in sensible places nobody minds to myFT"
+														title="Add Long topic name with spaces in sensible places nobody minds to myFT"
+														data-alternate-label="Remove Long topic name with spaces in sensible places nobody minds from myFT"
+																data-alternate-text="Long topic name with spaces in sensible places nobody minds"
+													class="
+														n-myft-follow-button n-myft-follow-button--inverse"
+													data-concept-id="" 
+													data-trackable="follow"
+													type="submit">Long topic name with spaces in sensible places nobody minds</button>
+											</form>
+								</li>
+								<li class="collection__concept">
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id=""
+												
+														action="/myft/add/"
+														data-js-action="/__myft/api/core/followed/concept/?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Longtopicnamewithoutspacesthatjustgoesonandonandneverstopspleaseletme."
+													data-unpressed-text="No longer following Longtopicnamewithoutspacesthatjustgoesonandonandneverstopspleaseletme."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Longtopicnamewithoutspacesthatjustgoesonandonandneverstopspleaseletme to myFT"
+														title="Add Longtopicnamewithoutspacesthatjustgoesonandonandneverstopspleaseletme to myFT"
+														data-alternate-label="Remove Longtopicnamewithoutspacesthatjustgoesonandonandneverstopspleaseletme from myFT"
+																data-alternate-text="Longtopicnamewithoutspacesthatjustgoesonandonandneverstopspleaseletme"
+													class="
+														n-myft-follow-button n-myft-follow-button--inverse"
+													data-concept-id="" 
+													data-trackable="follow"
+													type="submit">Longtopicnamewithoutspacesthatjustgoesonandonandneverstopspleaseletme</button>
+											</form>
+								</li>
+								<li class="collection__concept">
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id=""
+												
+														action="/myft/add/"
+														data-js-action="/__myft/api/core/followed/concept/?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Dog houses."
+													data-unpressed-text="No longer following Dog houses."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Dog houses to myFT"
+														title="Add Dog houses to myFT"
+														data-alternate-label="Remove Dog houses from myFT"
+																data-alternate-text="Dog houses"
+													class="
+														n-myft-follow-button n-myft-follow-button--inverse"
+													data-concept-id="" 
+													data-trackable="follow"
+													type="submit">Dog houses</button>
+											</form>
+								</li>
+								<li class="collection__concept">
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id=""
+												
+														action="/myft/add/"
+														data-js-action="/__myft/api/core/followed/concept/?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Candlesticks."
+													data-unpressed-text="No longer following Candlesticks."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Candlesticks to myFT"
+														title="Add Candlesticks to myFT"
+														data-alternate-label="Remove Candlesticks from myFT"
+																data-alternate-text="Candlesticks"
+													class="
+														n-myft-follow-button n-myft-follow-button--inverse"
+													data-concept-id="" 
+													data-trackable="follow"
+													type="submit">Candlesticks</button>
+											</form>
+								</li>
+								<li class="collection__concept">
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id=""
+												
+														action="/myft/add/"
+														data-js-action="/__myft/api/core/followed/concept/?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Sandwiches for strangers."
+													data-unpressed-text="No longer following Sandwiches for strangers."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Sandwiches for strangers to myFT"
+														title="Add Sandwiches for strangers to myFT"
+														data-alternate-label="Remove Sandwiches for strangers from myFT"
+																data-alternate-text="Sandwiches for strangers"
+													class="
+														n-myft-follow-button n-myft-follow-button--inverse"
+													data-concept-id="" 
+													data-trackable="follow"
+													type="submit">Sandwiches for strangers</button>
+											</form>
+								</li>
+						</ul>
+						<div class="collection__meta">
+							<form
+								method="POST"
+								action="#"
+								data-myft-ui="follow"
+								
+								data-concept-id=",,,,"
+								class="n-myft-ui n-myft-ui--follow n-ui-hide-core collection-follow-all">
+								<input
+									type="hidden"
+									name="directType"
+									value="http://www.ft.com/ontology/Topic,http://www.ft.com/ontology/Topic,http://www.ft.com/ontology/Topic,http://www.ft.com/ontology/Topic,http://www.ft.com/ontology/Topic"
+								/>
+								<input
+									data-myft-csrf-token
+									value=""
+									type="hidden"
+									name="token">			<input
+									type="hidden"
+									name="name"
+									value="Long topic name with spaces in sensible places nobody minds,Longtopicnamewithoutspacesthatjustgoesonandonandneverstopspleaseletme,Dog houses,Candlesticks,Sandwiches for strangers"
+								/>
+								<button
+									type="submit"
+									aria-pressed="false"
+									class="collection-follow-all__button collection-follow-all__button--regular"
+									data-trackable="follow all"
+									data-concept-id=",,,,"
+									aria-label="Add all topics in the Reallylongcollectionnamethatisallonewordwithoutspaces collection to my F T"
+									data-alternate-label="Remove all topics in the Reallylongcollectionnamethatisallonewordwithoutspaces collection from my F T"
+									data-alternate-text="Added"
+									title="Add all topics in the Reallylongcollectionnamethatisallonewordwithoutspaces collection to my F T">
+									Add all to myFT
+								</button>
+							</form>
+						</div>
+					</section>				</div>
+				<div data-o-grid-colspan="3">
+					<section
+						class="collection collection--regular"
+						data-trackable="collection">
+						<header class="collection__header collection__header--regular">
+							<h2 class="collection__title collection__title--regular">
+								European Union
+							</h2>
+						</header>
+						<ul class="collection__concepts">
+								<li class="collection__concept">
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id=""
+												
+														action="/myft/add/"
+														data-js-action="/__myft/api/core/followed/concept/?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following EU immigration."
+													data-unpressed-text="No longer following EU immigration."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add EU immigration to myFT"
+														title="Add EU immigration to myFT"
+														data-alternate-label="Remove EU immigration from myFT"
+																data-alternate-text="EU immigration"
+													class="
+														n-myft-follow-button n-myft-follow-button--inverse"
+													data-concept-id="" 
+													data-trackable="follow"
+													type="submit">EU immigration</button>
+											</form>
+								</li>
+								<li class="collection__concept">
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id=""
+												
+														action="/myft/add/"
+														data-js-action="/__myft/api/core/followed/concept/?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Europe Quantitative Easing."
+													data-unpressed-text="No longer following Europe Quantitative Easing."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Europe Quantitative Easing to myFT"
+														title="Add Europe Quantitative Easing to myFT"
+														data-alternate-label="Remove Europe Quantitative Easing from myFT"
+																data-alternate-text="Europe Quantitative Easing"
+													class="
+														n-myft-follow-button n-myft-follow-button--inverse"
+													data-concept-id="" 
+													data-trackable="follow"
+													type="submit">Europe Quantitative Easing</button>
+											</form>
+								</li>
+								<li class="collection__concept">
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id=""
+												
+														action="/myft/add/"
+														data-js-action="/__myft/api/core/followed/concept/?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following EU financial regulation."
+													data-unpressed-text="No longer following EU financial regulation."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add EU financial regulation to myFT"
+														title="Add EU financial regulation to myFT"
+														data-alternate-label="Remove EU financial regulation from myFT"
+																data-alternate-text="EU financial regulation"
+													class="
+														n-myft-follow-button n-myft-follow-button--inverse"
+													data-concept-id="" 
+													data-trackable="follow"
+													type="submit">EU financial regulation</button>
+											</form>
+								</li>
+								<li class="collection__concept">
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id=""
+												
+														action="/myft/add/"
+														data-js-action="/__myft/api/core/followed/concept/?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following EU nothing."
+													data-unpressed-text="No longer following EU nothing."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add EU nothing to myFT"
+														title="Add EU nothing to myFT"
+														data-alternate-label="Remove EU nothing from myFT"
+																data-alternate-text="EU nothing"
+													class="
+														n-myft-follow-button n-myft-follow-button--inverse"
+													data-concept-id="" 
+													data-trackable="follow"
+													type="submit">EU nothing</button>
+											</form>
+								</li>
+								<li class="collection__concept">
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id=""
+												
+														action="/myft/add/"
+														data-js-action="/__myft/api/core/followed/concept/?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following EU trade."
+													data-unpressed-text="No longer following EU trade."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add EU trade to myFT"
+														title="Add EU trade to myFT"
+														data-alternate-label="Remove EU trade from myFT"
+																data-alternate-text="EU trade"
+													class="
+														n-myft-follow-button n-myft-follow-button--inverse"
+													data-concept-id="" 
+													data-trackable="follow"
+													type="submit">EU trade</button>
+											</form>
+								</li>
+						</ul>
+						<div class="collection__meta">
+							<form
+								method="POST"
+								action="#"
+								data-myft-ui="follow"
+								
+								data-concept-id=",,,,"
+								class="n-myft-ui n-myft-ui--follow n-ui-hide-core collection-follow-all">
+								<input
+									type="hidden"
+									name="directType"
+									value="http://www.ft.com/ontology/Topic,http://www.ft.com/ontology/Topic,http://www.ft.com/ontology/Topic,http://www.ft.com/ontology/Topic,http://www.ft.com/ontology/Topic"
+								/>
+								<input
+									data-myft-csrf-token
+									value=""
+									type="hidden"
+									name="token">			<input
+									type="hidden"
+									name="name"
+									value="EU immigration,Europe Quantitative Easing,EU financial regulation,EU nothing,EU trade"
+								/>
+								<button
+									type="submit"
+									aria-pressed="false"
+									class="collection-follow-all__button collection-follow-all__button--regular"
+									data-trackable="follow all"
+									data-concept-id=",,,,"
+									aria-label="Add all topics in the European Union collection to my F T"
+									data-alternate-label="Remove all topics in the European Union collection from my F T"
+									data-alternate-text="Added"
+									title="Add all topics in the European Union collection to my F T">
+									Add all to myFT
+								</button>
+							</form>
+						</div>
+					</section>				</div>
+		</div>
+	</section>
+
+	<section
+		id="topic-list"
+		class="demo-section">
+		<div class="o-grid-row">
+			<div data-o-grid-colspan="12">
+				<h2 class="demo-section__title">
+					Topic list
+				</h2>
+
+				<p class="demo-section__description">
+					A list of topics to follow
+				</p>
+			</div>
+
+				<div data-o-grid-colspan="3">
+						<div
+							class="concept-list"
+							data-trackable="concept-list">
+								<h2 class="concept-list__title">
+										Follow european union things
+								</h2>
+							<ul class="concept-list__list">
+									<li class="concept-list__list-item">
+										<a
+											href=""
+											data-trackable="concept"
+											class="concept-list__concept">
+											EU immigration
+										</a>
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id="00000000-0000-0000-0000-000000000161"
+												
+														action="/myft/add/00000000-0000-0000-0000-000000000161"
+														data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000161?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following EU immigration."
+													data-unpressed-text="No longer following EU immigration."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add EU immigration to myFT"
+														title="Add EU immigration to myFT"
+														data-alternate-label="Remove EU immigration from myFT"
+																data-alternate-text="Added"
+													class="
+														n-myft-follow-button"
+													data-concept-id="00000000-0000-0000-0000-000000000161" 
+													data-trackable="follow"
+													type="submit">Add to myFT</button>
+											</form>
+									</li>
+									<li class="concept-list__list-item">
+										<a
+											href=""
+											data-trackable="concept"
+											class="concept-list__concept">
+											Europe Quantitative Easing
+										</a>
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id="00000000-0000-0000-0000-000000000162"
+												
+														action="/myft/add/00000000-0000-0000-0000-000000000162"
+														data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000162?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Europe Quantitative Easing."
+													data-unpressed-text="No longer following Europe Quantitative Easing."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Europe Quantitative Easing to myFT"
+														title="Add Europe Quantitative Easing to myFT"
+														data-alternate-label="Remove Europe Quantitative Easing from myFT"
+																data-alternate-text="Added"
+													class="
+														n-myft-follow-button"
+													data-concept-id="00000000-0000-0000-0000-000000000162" 
+													data-trackable="follow"
+													type="submit">Add to myFT</button>
+											</form>
+									</li>
+									<li class="concept-list__list-item">
+										<a
+											href=""
+											data-trackable="concept"
+											class="concept-list__concept">
+											EU financial regulation
+										</a>
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id="00000000-0000-0000-0000-000000000163"
+												
+														action="/myft/add/00000000-0000-0000-0000-000000000163"
+														data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000163?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following EU financial regulation."
+													data-unpressed-text="No longer following EU financial regulation."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add EU financial regulation to myFT"
+														title="Add EU financial regulation to myFT"
+														data-alternate-label="Remove EU financial regulation from myFT"
+																data-alternate-text="Added"
+													class="
+														n-myft-follow-button"
+													data-concept-id="00000000-0000-0000-0000-000000000163" 
+													data-trackable="follow"
+													type="submit">Add to myFT</button>
+											</form>
+									</li>
+									<li class="concept-list__list-item">
+										<a
+											href=""
+											data-trackable="concept"
+											class="concept-list__concept">
+											EU nothing
+										</a>
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id="00000000-0000-0000-0000-000000000164"
+												
+														action="/myft/add/00000000-0000-0000-0000-000000000164"
+														data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000164?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following EU nothing."
+													data-unpressed-text="No longer following EU nothing."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add EU nothing to myFT"
+														title="Add EU nothing to myFT"
+														data-alternate-label="Remove EU nothing from myFT"
+																data-alternate-text="Added"
+													class="
+														n-myft-follow-button"
+													data-concept-id="00000000-0000-0000-0000-000000000164" 
+													data-trackable="follow"
+													type="submit">Add to myFT</button>
+											</form>
+									</li>
+									<li class="concept-list__list-item">
+										<a
+											href=""
+											data-trackable="concept"
+											class="concept-list__concept">
+											EU trade
+										</a>
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id="00000000-0000-0000-0000-000000000165"
+												
+														action="/myft/add/00000000-0000-0000-0000-000000000165"
+														data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000165?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following EU trade."
+													data-unpressed-text="No longer following EU trade."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add EU trade to myFT"
+														title="Add EU trade to myFT"
+														data-alternate-label="Remove EU trade from myFT"
+																data-alternate-text="Added"
+													class="
+														n-myft-follow-button"
+													data-concept-id="00000000-0000-0000-0000-000000000165" 
+													data-trackable="follow"
+													type="submit">Add to myFT</button>
+											</form>
+									</li>
+							</ul>
+						</div>
+				</div>
+				<div data-o-grid-colspan="3">
+						<div
+							class="concept-list"
+							data-trackable="concept-list">
+								<h2 class="concept-list__title">
+										Follow the topics in this search
+								</h2>
+							<ul class="concept-list__list">
+									<li class="concept-list__list-item">
+										<a
+											href=""
+											data-trackable="concept"
+											class="concept-list__concept">
+											Noodle
+										</a>
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id="00000000-0000-0000-0000-000000000166"
+												
+														action="/myft/add/00000000-0000-0000-0000-000000000166"
+														data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000166?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Noodle."
+													data-unpressed-text="No longer following Noodle."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Noodle to myFT"
+														title="Add Noodle to myFT"
+														data-alternate-label="Remove Noodle from myFT"
+																data-alternate-text="Added"
+													class="
+														n-myft-follow-button"
+													data-concept-id="00000000-0000-0000-0000-000000000166" 
+													data-trackable="follow"
+													type="submit">Add to myFT</button>
+											</form>
+									</li>
+									<li class="concept-list__list-item">
+										<a
+											href=""
+											data-trackable="concept"
+											class="concept-list__concept">
+											Green apples
+										</a>
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id="00000000-0000-0000-0000-000000000167"
+												
+														action="/myft/add/00000000-0000-0000-0000-000000000167"
+														data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000167?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Green apples."
+													data-unpressed-text="No longer following Green apples."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Green apples to myFT"
+														title="Add Green apples to myFT"
+														data-alternate-label="Remove Green apples from myFT"
+																data-alternate-text="Added"
+													class="
+														n-myft-follow-button"
+													data-concept-id="00000000-0000-0000-0000-000000000167" 
+													data-trackable="follow"
+													type="submit">Add to myFT</button>
+											</form>
+									</li>
+									<li class="concept-list__list-item">
+										<a
+											href=""
+											data-trackable="concept"
+											class="concept-list__concept">
+											Fox blood
+										</a>
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id="00000000-0000-0000-0000-000000000168"
+												
+														action="/myft/add/00000000-0000-0000-0000-000000000168"
+														data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000168?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Fox blood."
+													data-unpressed-text="No longer following Fox blood."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Fox blood to myFT"
+														title="Add Fox blood to myFT"
+														data-alternate-label="Remove Fox blood from myFT"
+																data-alternate-text="Added"
+													class="
+														n-myft-follow-button"
+													data-concept-id="00000000-0000-0000-0000-000000000168" 
+													data-trackable="follow"
+													type="submit">Add to myFT</button>
+											</form>
+									</li>
+									<li class="concept-list__list-item">
+										<a
+											href=""
+											data-trackable="concept"
+											class="concept-list__concept">
+											Dog party
+										</a>
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id="00000000-0000-0000-0000-000000000169"
+												
+														action="/myft/add/00000000-0000-0000-0000-000000000169"
+														data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000169?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Dog party."
+													data-unpressed-text="No longer following Dog party."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Dog party to myFT"
+														title="Add Dog party to myFT"
+														data-alternate-label="Remove Dog party from myFT"
+																data-alternate-text="Added"
+													class="
+														n-myft-follow-button"
+													data-concept-id="00000000-0000-0000-0000-000000000169" 
+													data-trackable="follow"
+													type="submit">Add to myFT</button>
+											</form>
+									</li>
+									<li class="concept-list__list-item">
+										<a
+											href=""
+											data-trackable="concept"
+											class="concept-list__concept">
+											Fifth thing
+										</a>
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id="00000000-0000-0000-0000-000000000170"
+												
+														action="/myft/add/00000000-0000-0000-0000-000000000170"
+														data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000170?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Fifth thing."
+													data-unpressed-text="No longer following Fifth thing."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Fifth thing to myFT"
+														title="Add Fifth thing to myFT"
+														data-alternate-label="Remove Fifth thing from myFT"
+																data-alternate-text="Added"
+													class="
+														n-myft-follow-button"
+													data-concept-id="00000000-0000-0000-0000-000000000170" 
+													data-trackable="follow"
+													type="submit">Add to myFT</button>
+											</form>
+									</li>
+							</ul>
+						</div>
+				</div>
+				<div data-o-grid-colspan="3">
+						<div
+							class="concept-list"
+							data-trackable="concept-list">
+								<h2 class="concept-list__title">
+										Reallylongnamethatisallonewordwithoutspaces
+								</h2>
+							<ul class="concept-list__list">
+									<li class="concept-list__list-item">
+										<a
+											href=""
+											data-trackable="concept"
+											class="concept-list__concept">
+											Long topic name with spaces in sensible places nobody minds
+										</a>
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id="00000000-0000-0000-0000-000000000171"
+												
+														action="/myft/add/00000000-0000-0000-0000-000000000171"
+														data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000171?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Long topic name with spaces in sensible places nobody minds."
+													data-unpressed-text="No longer following Long topic name with spaces in sensible places nobody minds."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Long topic name with spaces in sensible places nobody minds to myFT"
+														title="Add Long topic name with spaces in sensible places nobody minds to myFT"
+														data-alternate-label="Remove Long topic name with spaces in sensible places nobody minds from myFT"
+																data-alternate-text="Added"
+													class="
+														n-myft-follow-button"
+													data-concept-id="00000000-0000-0000-0000-000000000171" 
+													data-trackable="follow"
+													type="submit">Add to myFT</button>
+											</form>
+									</li>
+									<li class="concept-list__list-item">
+										<a
+											href=""
+											data-trackable="concept"
+											class="concept-list__concept">
+											Longtopicnamewithoutspacesthatjustgoesonandonandneverstopspleaseletme
+										</a>
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id="00000000-0000-0000-0000-000000000172"
+												
+														action="/myft/add/00000000-0000-0000-0000-000000000172"
+														data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000172?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Longtopicnamewithoutspacesthatjustgoesonandonandneverstopspleaseletme."
+													data-unpressed-text="No longer following Longtopicnamewithoutspacesthatjustgoesonandonandneverstopspleaseletme."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Longtopicnamewithoutspacesthatjustgoesonandonandneverstopspleaseletme to myFT"
+														title="Add Longtopicnamewithoutspacesthatjustgoesonandonandneverstopspleaseletme to myFT"
+														data-alternate-label="Remove Longtopicnamewithoutspacesthatjustgoesonandonandneverstopspleaseletme from myFT"
+																data-alternate-text="Added"
+													class="
+														n-myft-follow-button"
+													data-concept-id="00000000-0000-0000-0000-000000000172" 
+													data-trackable="follow"
+													type="submit">Add to myFT</button>
+											</form>
+									</li>
+									<li class="concept-list__list-item">
+										<a
+											href=""
+											data-trackable="concept"
+											class="concept-list__concept">
+											Dog houses
+										</a>
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id="00000000-0000-0000-0000-000000000173"
+												
+														action="/myft/add/00000000-0000-0000-0000-000000000173"
+														data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000173?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Dog houses."
+													data-unpressed-text="No longer following Dog houses."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Dog houses to myFT"
+														title="Add Dog houses to myFT"
+														data-alternate-label="Remove Dog houses from myFT"
+																data-alternate-text="Added"
+													class="
+														n-myft-follow-button"
+													data-concept-id="00000000-0000-0000-0000-000000000173" 
+													data-trackable="follow"
+													type="submit">Add to myFT</button>
+											</form>
+									</li>
+									<li class="concept-list__list-item">
+										<a
+											href=""
+											data-trackable="concept"
+											class="concept-list__concept">
+											Candlesticks
+										</a>
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id="00000000-0000-0000-0000-000000000174"
+												
+														action="/myft/add/00000000-0000-0000-0000-000000000174"
+														data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000174?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Candlesticks."
+													data-unpressed-text="No longer following Candlesticks."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Candlesticks to myFT"
+														title="Add Candlesticks to myFT"
+														data-alternate-label="Remove Candlesticks from myFT"
+																data-alternate-text="Added"
+													class="
+														n-myft-follow-button"
+													data-concept-id="00000000-0000-0000-0000-000000000174" 
+													data-trackable="follow"
+													type="submit">Add to myFT</button>
+											</form>
+									</li>
+									<li class="concept-list__list-item">
+										<a
+											href=""
+											data-trackable="concept"
+											class="concept-list__concept">
+											Sandwiches for strangers
+										</a>
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id="00000000-0000-0000-0000-000000000175"
+												
+														action="/myft/add/00000000-0000-0000-0000-000000000175"
+														data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000175?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Sandwiches for strangers."
+													data-unpressed-text="No longer following Sandwiches for strangers."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Sandwiches for strangers to myFT"
+														title="Add Sandwiches for strangers to myFT"
+														data-alternate-label="Remove Sandwiches for strangers from myFT"
+																data-alternate-text="Added"
+													class="
+														n-myft-follow-button"
+													data-concept-id="00000000-0000-0000-0000-000000000175" 
+													data-trackable="follow"
+													type="submit">Add to myFT</button>
+											</form>
+									</li>
+							</ul>
+						</div>
+				</div>
+				<div data-o-grid-colspan="3">
+						<div
+							class="concept-list"
+							data-trackable="concept-list">
+							<ul class="concept-list__list">
+									<li class="concept-list__list-item">
+										<a
+											href=""
+											data-trackable="concept"
+											class="concept-list__concept">
+											EU immigration
+										</a>
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id="00000000-0000-0000-0000-000000000176"
+												
+														action="/myft/add/00000000-0000-0000-0000-000000000176"
+														data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000176?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following EU immigration."
+													data-unpressed-text="No longer following EU immigration."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add EU immigration to myFT"
+														title="Add EU immigration to myFT"
+														data-alternate-label="Remove EU immigration from myFT"
+																data-alternate-text="Added"
+													class="
+														n-myft-follow-button"
+													data-concept-id="00000000-0000-0000-0000-000000000176" 
+													data-trackable="follow"
+													type="submit">Add to myFT</button>
+											</form>
+									</li>
+									<li class="concept-list__list-item">
+										<a
+											href=""
+											data-trackable="concept"
+											class="concept-list__concept">
+											Europe Quantitative Easing
+										</a>
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id="00000000-0000-0000-0000-000000000177"
+												
+														action="/myft/add/00000000-0000-0000-0000-000000000177"
+														data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000177?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following Europe Quantitative Easing."
+													data-unpressed-text="No longer following Europe Quantitative Easing."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add Europe Quantitative Easing to myFT"
+														title="Add Europe Quantitative Easing to myFT"
+														data-alternate-label="Remove Europe Quantitative Easing from myFT"
+																data-alternate-text="Added"
+													class="
+														n-myft-follow-button"
+													data-concept-id="00000000-0000-0000-0000-000000000177" 
+													data-trackable="follow"
+													type="submit">Add to myFT</button>
+											</form>
+									</li>
+									<li class="concept-list__list-item">
+										<a
+											href=""
+											data-trackable="concept"
+											class="concept-list__concept">
+											EU financial regulation
+										</a>
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id="00000000-0000-0000-0000-000000000178"
+												
+														action="/myft/add/00000000-0000-0000-0000-000000000178"
+														data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000178?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following EU financial regulation."
+													data-unpressed-text="No longer following EU financial regulation."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add EU financial regulation to myFT"
+														title="Add EU financial regulation to myFT"
+														data-alternate-label="Remove EU financial regulation from myFT"
+																data-alternate-text="Added"
+													class="
+														n-myft-follow-button"
+													data-concept-id="00000000-0000-0000-0000-000000000178" 
+													data-trackable="follow"
+													type="submit">Add to myFT</button>
+											</form>
+									</li>
+									<li class="concept-list__list-item">
+										<a
+											href=""
+											data-trackable="concept"
+											class="concept-list__concept">
+											EU nothing
+										</a>
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id="00000000-0000-0000-0000-000000000179"
+												
+														action="/myft/add/00000000-0000-0000-0000-000000000179"
+														data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000179?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following EU nothing."
+													data-unpressed-text="No longer following EU nothing."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add EU nothing to myFT"
+														title="Add EU nothing to myFT"
+														data-alternate-label="Remove EU nothing from myFT"
+																data-alternate-text="Added"
+													class="
+														n-myft-follow-button"
+													data-concept-id="00000000-0000-0000-0000-000000000179" 
+													data-trackable="follow"
+													type="submit">Add to myFT</button>
+											</form>
+									</li>
+									<li class="concept-list__list-item">
+										<a
+											href=""
+											data-trackable="concept"
+											class="concept-list__concept">
+											EU trade
+										</a>
+											<form
+												class="n-myft-ui n-myft-ui--follow "
+												method="GET"
+												data-myft-ui="follow"
+												data-concept-id="00000000-0000-0000-0000-000000000160"
+												
+														action="/myft/add/00000000-0000-0000-0000-000000000160"
+														data-js-action="/__myft/api/core/followed/concept/00000000-0000-0000-0000-000000000160?method=put"
+												>
+												<input
+													data-myft-csrf-token
+													value=""
+													type="hidden"
+													name="token">		<div
+													class="n-myft-ui__announcement o-normalise-visually-hidden"
+													aria-live="assertive"
+													data-pressed-text="Now following EU trade."
+													data-unpressed-text="No longer following EU trade."
+												></div>
+												<button
+														aria-pressed="false"
+														aria-label="Add EU trade to myFT"
+														title="Add EU trade to myFT"
+														data-alternate-label="Remove EU trade from myFT"
+																data-alternate-text="Added"
+													class="
+														n-myft-follow-button"
+													data-concept-id="00000000-0000-0000-0000-000000000160" 
+													data-trackable="follow"
+													type="submit">Add to myFT</button>
+											</form>
+									</li>
+							</ul>
+						</div>
+				</div>
+		</div>
+	</section>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,2502 @@
+/*
+
+This includes all the basic Origami styles and mixins you can
+expect to be available when a page uses n-ui
+
+*/
+html,
+body {
+  margin: 0;
+  text-rendering: optimizeLegibility;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+main {
+  display: block; }
+
+body:not(.js-focus-visible) :focus,
+html:not(.js-focus-visible) :focus {
+  outline: 2px solid #807973; }
+
+body:not(.js-focus-visible) input:focus,
+body:not(.js-focus-visible) textarea:focus,
+body:not(.js-focus-visible) select:focus,
+html:not(.js-focus-visible) input:focus,
+html:not(.js-focus-visible) textarea:focus,
+html:not(.js-focus-visible) select:focus {
+  box-shadow: 0 0 0 1px #807973; }
+
+body.js-focus-visible .focus-visible,
+html.js-focus-visible .focus-visible {
+  outline: 2px solid #807973; }
+
+body.js-focus-visible input.focus-visible,
+body.js-focus-visible textarea.focus-visible,
+body.js-focus-visible select.focus-visible,
+html.js-focus-visible input.focus-visible,
+html.js-focus-visible textarea.focus-visible,
+html.js-focus-visible select.focus-visible {
+  box-shadow: 0 0 0 1px #807973; }
+
+body.js-focus-visible :focus:not(.focus-visible),
+html.js-focus-visible :focus:not(.focus-visible) {
+  outline: 0; }
+
+:focus-visible,
+body:not(.js-focus-visible) :focus,
+html:not(.js-focus-visible) :focus {
+  outline: unset; }
+
+:focus-visible,
+body:not(.js-focus-visible) input:focus,
+html:not(.js-focus-visible) input:focus,
+body:not(.js-focus-visible) textarea:focus,
+html:not(.js-focus-visible) textarea:focus,
+body:not(.js-focus-visible) select:focus,
+html:not(.js-focus-visible) select:focus {
+  box-shadow: unset; }
+
+body:not(.js-focus-visible) :focus-visible,
+html:not(.js-focus-visible) :focus-visible,
+:focus-visible {
+  outline: 2px solid #807973; }
+
+body:not(.js-focus-visible) input:focus-visible,
+html:not(.js-focus-visible) input:focus-visible,
+body:not(.js-focus-visible) textarea:focus-visible,
+html:not(.js-focus-visible) textarea:focus-visible,
+body:not(.js-focus-visible) select:focus-visible,
+html:not(.js-focus-visible) select:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  box-shadow: 0 0 0 1px #807973; }
+
+html:focus,
+body:focus,
+[readonly]:focus {
+  outline: none; }
+
+a {
+  background-color: transparent; }
+
+a:active,
+a:hover {
+  outline-width: 0; }
+
+abbr[title] {
+  border-bottom: 0;
+  text-decoration: underline;
+  text-decoration: underline dotted; }
+
+b,
+strong {
+  font-weight: inherit; }
+
+b,
+strong {
+  font-weight: bolder; }
+
+dfn {
+  font-style: italic; }
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sub {
+  bottom: -0.25em; }
+
+sup {
+  top: -0.5em; }
+
+img {
+  border-style: none; }
+
+optgroup {
+  font-weight: bold; }
+
+button,
+input,
+select {
+  overflow: visible; }
+
+button,
+input,
+select,
+textarea {
+  margin: 0; }
+
+button,
+select {
+  text-transform: none; }
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  cursor: pointer; }
+
+[disabled] {
+  cursor: default; }
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0; }
+
+textarea {
+  overflow: auto; }
+
+html:after {
+  content: '{ "layout": "default", "gutter": "10px" }';
+  display: none; }
+  @media (min-width: 30.625em) {
+    html:after {
+      content: '{ "layout": "S", "gutter": "10px" }'; } }
+  @media (min-width: 46.25em) {
+    html:after {
+      content: '{ "layout": "M", "gutter": "20px" }'; } }
+  @media (min-width: 61.25em) {
+    html:after {
+      content: '{ "layout": "L", "gutter": "20px" }'; } }
+  @media (min-width: 76.25em) {
+    html:after {
+      content: '{ "layout": "XL", "gutter": "20px" }'; } }
+
+.o-grid-container {
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 240px;
+  max-width: 1220px;
+  position: relative;
+  max-width: 1220px;
+  padding-left: 10px;
+  padding-right: 10px; }
+  @media (min-width: 46.25em) {
+    .o-grid-container {
+      padding-left: 20px;
+      padding-right: 20px; } }
+  @media (min-width: 46.25em) {
+    .o-grid-snappy .o-grid-container, .o-grid-container--snappy {
+      max-width: 740px; } }
+  @media (min-width: 61.25em) {
+    .o-grid-snappy .o-grid-container, .o-grid-container--snappy {
+      max-width: 980px; } }
+  @media (min-width: 76.25em) {
+    .o-grid-snappy .o-grid-container, .o-grid-container--snappy {
+      max-width: 1220px; } }
+
+.o-grid-container--bleed {
+  padding-left: 0;
+  padding-right: 0; }
+
+.o-grid-row {
+  clear: both;
+  flex-wrap: wrap;
+  display: flex;
+  margin-left: -10px;
+  zoom: 1; }
+  @media print {
+    .o-grid-row {
+      display: inherit; } }
+  @media (min-width: 46.25em) {
+    .o-grid-row {
+      margin-left: -20px; } }
+  .o-grid-row:before, .o-grid-row:after {
+    content: '';
+    display: table;
+    display: flex; }
+  .o-grid-row:after {
+    clear: both; }
+
+.o-grid-row--compact {
+  margin-left: 0; }
+  .o-grid-row--compact > [data-o-grid-colspan] {
+    padding-left: 0; }
+
+[data-o-grid-colspan] {
+  box-sizing: border-box;
+  float: left;
+  flex: 1 1 0%;
+  position: relative;
+  padding-left: 10px; }
+  @media (min-width: 46.25em) {
+    [data-o-grid-colspan] {
+      padding-left: 20px; } }
+
+[data-o-grid-colspan~="0"] {
+  display: none; }
+
+[data-o-grid-colspan~="1"] {
+  display: block;
+  flex-basis: 8.33333%;
+  min-width: 8.33333%;
+  max-width: 8.33333%; }
+
+[data-o-grid-colspan~="2"] {
+  display: block;
+  flex-basis: 16.66667%;
+  min-width: 16.66667%;
+  max-width: 16.66667%; }
+
+[data-o-grid-colspan~="3"] {
+  display: block;
+  flex-basis: 25%;
+  min-width: 25%;
+  max-width: 25%; }
+
+[data-o-grid-colspan~="4"] {
+  display: block;
+  flex-basis: 33.33333%;
+  min-width: 33.33333%;
+  max-width: 33.33333%; }
+
+[data-o-grid-colspan~="5"] {
+  display: block;
+  flex-basis: 41.66667%;
+  min-width: 41.66667%;
+  max-width: 41.66667%; }
+
+[data-o-grid-colspan~="6"] {
+  display: block;
+  flex-basis: 50%;
+  min-width: 50%;
+  max-width: 50%; }
+
+[data-o-grid-colspan~="7"] {
+  display: block;
+  flex-basis: 58.33333%;
+  min-width: 58.33333%;
+  max-width: 58.33333%; }
+
+[data-o-grid-colspan~="8"] {
+  display: block;
+  flex-basis: 66.66667%;
+  min-width: 66.66667%;
+  max-width: 66.66667%; }
+
+[data-o-grid-colspan~="9"] {
+  display: block;
+  flex-basis: 75%;
+  min-width: 75%;
+  max-width: 75%; }
+
+[data-o-grid-colspan~="10"] {
+  display: block;
+  flex-basis: 83.33333%;
+  min-width: 83.33333%;
+  max-width: 83.33333%; }
+
+[data-o-grid-colspan~="11"] {
+  display: block;
+  flex-basis: 91.66667%;
+  min-width: 91.66667%;
+  max-width: 91.66667%; }
+
+[data-o-grid-colspan~="12"] {
+  display: block;
+  flex-basis: 100%;
+  min-width: 100%;
+  max-width: 100%; }
+
+@media (min-width: 30.625em) {
+  [data-o-grid-colspan~="S0"] {
+    display: none; }
+  [data-o-grid-colspan~="S1"] {
+    display: block;
+    flex-basis: 8.33333%;
+    min-width: 8.33333%;
+    max-width: 8.33333%;
+    width: 8.33333%; }
+  [data-o-grid-colspan~="S2"] {
+    display: block;
+    flex-basis: 16.66667%;
+    min-width: 16.66667%;
+    max-width: 16.66667%;
+    width: 16.66667%; }
+  [data-o-grid-colspan~="S3"] {
+    display: block;
+    flex-basis: 25%;
+    min-width: 25%;
+    max-width: 25%;
+    width: 25%; }
+  [data-o-grid-colspan~="S4"] {
+    display: block;
+    flex-basis: 33.33333%;
+    min-width: 33.33333%;
+    max-width: 33.33333%;
+    width: 33.33333%; }
+  [data-o-grid-colspan~="S5"] {
+    display: block;
+    flex-basis: 41.66667%;
+    min-width: 41.66667%;
+    max-width: 41.66667%;
+    width: 41.66667%; }
+  [data-o-grid-colspan~="S6"] {
+    display: block;
+    flex-basis: 50%;
+    min-width: 50%;
+    max-width: 50%;
+    width: 50%; }
+  [data-o-grid-colspan~="S7"] {
+    display: block;
+    flex-basis: 58.33333%;
+    min-width: 58.33333%;
+    max-width: 58.33333%;
+    width: 58.33333%; }
+  [data-o-grid-colspan~="S8"] {
+    display: block;
+    flex-basis: 66.66667%;
+    min-width: 66.66667%;
+    max-width: 66.66667%;
+    width: 66.66667%; }
+  [data-o-grid-colspan~="S9"] {
+    display: block;
+    flex-basis: 75%;
+    min-width: 75%;
+    max-width: 75%;
+    width: 75%; }
+  [data-o-grid-colspan~="S10"] {
+    display: block;
+    flex-basis: 83.33333%;
+    min-width: 83.33333%;
+    max-width: 83.33333%;
+    width: 83.33333%; }
+  [data-o-grid-colspan~="S11"] {
+    display: block;
+    flex-basis: 91.66667%;
+    min-width: 91.66667%;
+    max-width: 91.66667%;
+    width: 91.66667%; }
+  [data-o-grid-colspan~="S12"] {
+    display: block;
+    flex-basis: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%; } }
+
+@media (min-width: 46.25em) {
+  [data-o-grid-colspan~="M0"] {
+    display: none; }
+  [data-o-grid-colspan~="M1"] {
+    display: block;
+    flex-basis: 8.33333%;
+    min-width: 8.33333%;
+    max-width: 8.33333%;
+    width: 8.33333%; }
+  [data-o-grid-colspan~="M2"] {
+    display: block;
+    flex-basis: 16.66667%;
+    min-width: 16.66667%;
+    max-width: 16.66667%;
+    width: 16.66667%; }
+  [data-o-grid-colspan~="M3"] {
+    display: block;
+    flex-basis: 25%;
+    min-width: 25%;
+    max-width: 25%;
+    width: 25%; }
+  [data-o-grid-colspan~="M4"] {
+    display: block;
+    flex-basis: 33.33333%;
+    min-width: 33.33333%;
+    max-width: 33.33333%;
+    width: 33.33333%; }
+  [data-o-grid-colspan~="M5"] {
+    display: block;
+    flex-basis: 41.66667%;
+    min-width: 41.66667%;
+    max-width: 41.66667%;
+    width: 41.66667%; }
+  [data-o-grid-colspan~="M6"] {
+    display: block;
+    flex-basis: 50%;
+    min-width: 50%;
+    max-width: 50%;
+    width: 50%; }
+  [data-o-grid-colspan~="M7"] {
+    display: block;
+    flex-basis: 58.33333%;
+    min-width: 58.33333%;
+    max-width: 58.33333%;
+    width: 58.33333%; }
+  [data-o-grid-colspan~="M8"] {
+    display: block;
+    flex-basis: 66.66667%;
+    min-width: 66.66667%;
+    max-width: 66.66667%;
+    width: 66.66667%; }
+  [data-o-grid-colspan~="M9"] {
+    display: block;
+    flex-basis: 75%;
+    min-width: 75%;
+    max-width: 75%;
+    width: 75%; }
+  [data-o-grid-colspan~="M10"] {
+    display: block;
+    flex-basis: 83.33333%;
+    min-width: 83.33333%;
+    max-width: 83.33333%;
+    width: 83.33333%; }
+  [data-o-grid-colspan~="M11"] {
+    display: block;
+    flex-basis: 91.66667%;
+    min-width: 91.66667%;
+    max-width: 91.66667%;
+    width: 91.66667%; }
+  [data-o-grid-colspan~="M12"] {
+    display: block;
+    flex-basis: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%; } }
+
+@media (min-width: 61.25em) {
+  [data-o-grid-colspan~="L0"] {
+    display: none; }
+  [data-o-grid-colspan~="L1"] {
+    display: block;
+    flex-basis: 8.33333%;
+    min-width: 8.33333%;
+    max-width: 8.33333%;
+    width: 8.33333%; }
+  [data-o-grid-colspan~="L2"] {
+    display: block;
+    flex-basis: 16.66667%;
+    min-width: 16.66667%;
+    max-width: 16.66667%;
+    width: 16.66667%; }
+  [data-o-grid-colspan~="L3"] {
+    display: block;
+    flex-basis: 25%;
+    min-width: 25%;
+    max-width: 25%;
+    width: 25%; }
+  [data-o-grid-colspan~="L4"] {
+    display: block;
+    flex-basis: 33.33333%;
+    min-width: 33.33333%;
+    max-width: 33.33333%;
+    width: 33.33333%; }
+  [data-o-grid-colspan~="L5"] {
+    display: block;
+    flex-basis: 41.66667%;
+    min-width: 41.66667%;
+    max-width: 41.66667%;
+    width: 41.66667%; }
+  [data-o-grid-colspan~="L6"] {
+    display: block;
+    flex-basis: 50%;
+    min-width: 50%;
+    max-width: 50%;
+    width: 50%; }
+  [data-o-grid-colspan~="L7"] {
+    display: block;
+    flex-basis: 58.33333%;
+    min-width: 58.33333%;
+    max-width: 58.33333%;
+    width: 58.33333%; }
+  [data-o-grid-colspan~="L8"] {
+    display: block;
+    flex-basis: 66.66667%;
+    min-width: 66.66667%;
+    max-width: 66.66667%;
+    width: 66.66667%; }
+  [data-o-grid-colspan~="L9"] {
+    display: block;
+    flex-basis: 75%;
+    min-width: 75%;
+    max-width: 75%;
+    width: 75%; }
+  [data-o-grid-colspan~="L10"] {
+    display: block;
+    flex-basis: 83.33333%;
+    min-width: 83.33333%;
+    max-width: 83.33333%;
+    width: 83.33333%; }
+  [data-o-grid-colspan~="L11"] {
+    display: block;
+    flex-basis: 91.66667%;
+    min-width: 91.66667%;
+    max-width: 91.66667%;
+    width: 91.66667%; }
+  [data-o-grid-colspan~="L12"] {
+    display: block;
+    flex-basis: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%; } }
+
+@media (min-width: 76.25em) {
+  [data-o-grid-colspan~="XL0"] {
+    display: none; }
+  [data-o-grid-colspan~="XL1"] {
+    display: block;
+    flex-basis: 8.33333%;
+    min-width: 8.33333%;
+    max-width: 8.33333%;
+    width: 8.33333%; }
+  [data-o-grid-colspan~="XL2"] {
+    display: block;
+    flex-basis: 16.66667%;
+    min-width: 16.66667%;
+    max-width: 16.66667%;
+    width: 16.66667%; }
+  [data-o-grid-colspan~="XL3"] {
+    display: block;
+    flex-basis: 25%;
+    min-width: 25%;
+    max-width: 25%;
+    width: 25%; }
+  [data-o-grid-colspan~="XL4"] {
+    display: block;
+    flex-basis: 33.33333%;
+    min-width: 33.33333%;
+    max-width: 33.33333%;
+    width: 33.33333%; }
+  [data-o-grid-colspan~="XL5"] {
+    display: block;
+    flex-basis: 41.66667%;
+    min-width: 41.66667%;
+    max-width: 41.66667%;
+    width: 41.66667%; }
+  [data-o-grid-colspan~="XL6"] {
+    display: block;
+    flex-basis: 50%;
+    min-width: 50%;
+    max-width: 50%;
+    width: 50%; }
+  [data-o-grid-colspan~="XL7"] {
+    display: block;
+    flex-basis: 58.33333%;
+    min-width: 58.33333%;
+    max-width: 58.33333%;
+    width: 58.33333%; }
+  [data-o-grid-colspan~="XL8"] {
+    display: block;
+    flex-basis: 66.66667%;
+    min-width: 66.66667%;
+    max-width: 66.66667%;
+    width: 66.66667%; }
+  [data-o-grid-colspan~="XL9"] {
+    display: block;
+    flex-basis: 75%;
+    min-width: 75%;
+    max-width: 75%;
+    width: 75%; }
+  [data-o-grid-colspan~="XL10"] {
+    display: block;
+    flex-basis: 83.33333%;
+    min-width: 83.33333%;
+    max-width: 83.33333%;
+    width: 83.33333%; }
+  [data-o-grid-colspan~="XL11"] {
+    display: block;
+    flex-basis: 91.66667%;
+    min-width: 91.66667%;
+    max-width: 91.66667%;
+    width: 91.66667%; }
+  [data-o-grid-colspan~="XL12"] {
+    display: block;
+    flex-basis: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%; } }
+
+[data-o-grid-colspan~="center"] {
+  margin-left: auto;
+  margin-right: auto;
+  float: none; }
+
+@font-face {
+  src: url("https://www.ft.com/__origami/service/build/v2/files/o-fonts-assets@1.5.0/MetricWeb-Regular.woff2") format("woff2"), url("https://www.ft.com/__origami/service/build/v2/files/o-fonts-assets@1.5.0/MetricWeb-Regular.woff") format("woff");
+  font-family: "MetricWeb";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap; }
+
+@font-face {
+  src: url("https://www.ft.com/__origami/service/build/v2/files/o-fonts-assets@1.5.0/MetricWeb-Semibold.woff2") format("woff2"), url("https://www.ft.com/__origami/service/build/v2/files/o-fonts-assets@1.5.0/MetricWeb-Semibold.woff") format("woff");
+  font-family: "MetricWeb";
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap; }
+
+@font-face {
+  src: url("https://www.ft.com/__origami/service/build/v2/files/o-fonts-assets@1.5.0/FinancierDisplayWeb-Regular.woff2") format("woff2"), url("https://www.ft.com/__origami/service/build/v2/files/o-fonts-assets@1.5.0/FinancierDisplayWeb-Regular.woff") format("woff");
+  font-family: "FinancierDisplayWeb";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap; }
+
+@font-face {
+  src: url("https://www.ft.com/__origami/service/build/v2/files/o-fonts-assets@1.5.0/FinancierDisplayWeb-Bold.woff2") format("woff2"), url("https://www.ft.com/__origami/service/build/v2/files/o-fonts-assets@1.5.0/FinancierDisplayWeb-Bold.woff") format("woff");
+  font-family: "FinancierDisplayWeb";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap; }
+
+@font-face {
+  src: url("https://www.ft.com/__origami/service/build/v2/files/o-fonts-assets@1.5.0/FinancierDisplayWeb-Medium.woff2") format("woff2"), url("https://www.ft.com/__origami/service/build/v2/files/o-fonts-assets@1.5.0/FinancierDisplayWeb-Medium.woff") format("woff");
+  font-family: "FinancierDisplayWeb";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap; }
+
+html {
+  font-family: sans-serif;
+  font-size: 0.8125em; }
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  border-bottom: 0.25ex solid;
+  color: #0d7680;
+  border-bottom-color: #cfd8d1;
+  text-decoration-color: #cfd8d1; }
+  @supports (text-decoration-thickness: 0.25ex) {
+    a {
+      border-bottom: 0;
+      text-decoration-thickness: 0.25ex;
+      text-decoration-line: underline; } }
+  a:hover {
+    color: #08474d;
+    border-bottom-color: #9ec0bd;
+    text-decoration-color: #9ec0bd; }
+  a:focus {
+    border-bottom-color: transparent;
+    text-decoration-color: transparent;
+    color: #08474d; }
+
+.n-ui-hide {
+  display: none; }
+
+@media screen {
+  /* stylelint-disable */
+  .n-ui-hide\@screen {
+    /* stylelint-enable */
+    display: none; } }
+
+@media print {
+  /* stylelint-disable */
+  .n-ui-hide\@print {
+    /* stylelint-enable */
+    display: none; } }
+
+.no-js .n-ui-hide-no-js,
+.js .n-ui-hide-js,
+.core .n-ui-hide-core,
+.enhanced .n-ui-hide-enhanced {
+  display: none; }
+
+.o-normalise-clearfix {
+  zoom: 1; }
+  .o-normalise-clearfix:before, .o-normalise-clearfix:after {
+    content: '';
+    display: table;
+    display: flex; }
+  .o-normalise-clearfix:after {
+    clear: both; }
+
+.o-normalise-visually-hidden {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  clip-path: polygon(0 0, 0 0);
+  margin: -1px;
+  border: 0;
+  overflow: hidden;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  white-space: nowrap; }
+
+@keyframes load-notice {
+  0% {
+    max-height: 0; }
+  100% {
+    max-height: 200px; } }
+
+.n-notification {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10; }
+
+.n-notification__item {
+  position: relative;
+  background-color: rgba(255, 241, 229, 0.95);
+  border-bottom: 3px solid #33302e;
+  color: #33302e;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 14px 0;
+  overflow: hidden;
+  animation: load-notice 200ms forwards; }
+
+.n-notification__content-wrapper {
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  text-align: center;
+  padding: 0 30px;
+  box-sizing: border-box; }
+
+.n-notification__title {
+  font-family: MetricWeb, sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
+  display: inline-block;
+  padding-right: 10px;
+  margin: 0; }
+  .o-typography--loading-sans-bold .n-notification__title {
+    font-size: 16.6px;
+    font-family: sans-serif; }
+
+.n-notification__content {
+  font-family: MetricWeb, sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+  display: inline-block;
+  margin: 0; }
+  .o-typography--loading-sans .n-notification__content {
+    font-size: 17.4px;
+    font-family: sans-serif; }
+  .n-notification__content b,
+  .n-notification__content strong {
+    font-family: MetricWeb, sans-serif;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 600; }
+    .o-typography--loading-sans-bold .n-notification__content b, .o-typography--loading-sans-bold
+    .n-notification__content strong {
+      font-size: 16.6px;
+      font-family: sans-serif; }
+  .n-notification__content a {
+    color: #33302e;
+    border-bottom-color: #33302e; }
+
+.n-notification__close {
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50%;
+  background-color: transparent;
+  vertical-align: baseline;
+  width: 40px;
+  height: 40px;
+  background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:cross?source=n-myft-ui-demo&tint=%2333302E,%2333302E&format=svg");
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: 0;
+  cursor: pointer;
+  background-size: 20px;
+  background-position: 50%;
+  margin-top: 5px;
+  width: 40px;
+  height: 40px;
+  text-indent: -999em; }
+  @media screen and (-ms-high-contrast: active) {
+    .n-notification__close {
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:cross?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+  @media screen and (-ms-high-contrast: black-on-white) {
+    .n-notification__close {
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:cross?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+
+.n-notification--error,
+.n-notification--success {
+  color: #ffffff; }
+  .n-notification--error .n-notification__content a,
+  .n-notification--success .n-notification__content a {
+    color: #ffffff;
+    border-bottom-color: #ffffff; }
+  .n-notification--error .n-notification__close,
+  .n-notification--success .n-notification__close {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    background-color: transparent;
+    vertical-align: baseline;
+    width: 40px;
+    height: 40px;
+    background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:cross?source=n-myft-ui-demo&tint=%23FFFFFF,%23FFFFFF&format=svg");
+    position: absolute;
+    right: 0;
+    top: 0;
+    border: 0;
+    cursor: pointer;
+    background-size: 20px;
+    background-position: 50%;
+    margin-top: 5px;
+    width: 40px;
+    height: 40px;
+    text-indent: -999em; }
+    @media screen and (-ms-high-contrast: active) {
+      .n-notification--error .n-notification__close,
+      .n-notification--success .n-notification__close {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:cross?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+    @media screen and (-ms-high-contrast: black-on-white) {
+      .n-notification--error .n-notification__close,
+      .n-notification--success .n-notification__close {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:cross?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+
+.n-notification--error {
+  background-color: rgba(204, 0, 0, 0.95); }
+
+.n-notification--success {
+  background-color: rgba(0, 153, 77, 0.95); }
+
+.myft-ui__logo {
+  border: 0; }
+
+.myft-ui__icon {
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50%;
+  background-color: transparent;
+  vertical-align: baseline;
+  width: 16px;
+  height: 16px;
+  background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:logo?source=n-myft-ui-demo&tint=%23FFFFFF,%23FFFFFF&format=svg");
+  width: 34px;
+  margin: 0 8px -5px; }
+  @media screen and (-ms-high-contrast: active) {
+    .myft-ui__icon {
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:logo?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+  @media screen and (-ms-high-contrast: black-on-white) {
+    .myft-ui__icon {
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:logo?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+
+.n-notification .myft-ui__icon {
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50%;
+  background-color: transparent;
+  vertical-align: baseline;
+  width: 20px;
+  height: 20px;
+  background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:logo?source=n-myft-ui-demo&tint=%2333302E,%2333302E&format=svg");
+  margin: 0 3px -5px; }
+  @media screen and (-ms-high-contrast: active) {
+    .n-notification .myft-ui__icon {
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:logo?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+  @media screen and (-ms-high-contrast: black-on-white) {
+    .n-notification .myft-ui__icon {
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:logo?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+
+.n-notification--error .myft-ui__icon, .n-notification--success .myft-ui__icon {
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50%;
+  background-color: transparent;
+  vertical-align: baseline;
+  width: 20px;
+  height: 20px;
+  background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:logo?source=n-myft-ui-demo&tint=%23FFFFFF,%23FFFFFF&format=svg"); }
+  @media screen and (-ms-high-contrast: active) {
+    .n-notification--error .myft-ui__icon, .n-notification--success .myft-ui__icon {
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:logo?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+  @media screen and (-ms-high-contrast: black-on-white) {
+    .n-notification--error .myft-ui__icon, .n-notification--success .myft-ui__icon {
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:logo?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+
+.o-header__top-link--myft__container {
+  position: relative; }
+  .o-header__top-link--myft__container .o-tooltip {
+    white-space: normal;
+    text-align: left;
+    min-width: 200px; }
+    @media (min-width: 61.25em) {
+      .o-header__top-link--myft__container .o-tooltip {
+        min-width: 250px; } }
+
+.myft-pin-divider {
+  height: 18px;
+  width: 1px;
+  background: #e6d9ce;
+  margin: 0 1px; }
+
+.myft-pin-button-wrapper .myft-pin-button {
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50%;
+  background-color: transparent;
+  vertical-align: baseline;
+  width: 36px;
+  height: 36px;
+  background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:pin?source=n-myft-ui-demo&tint=%2366605C,%2366605C&format=svg"); }
+  @media screen and (-ms-high-contrast: active) {
+    .myft-pin-button-wrapper .myft-pin-button {
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:pin?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+  @media screen and (-ms-high-contrast: black-on-white) {
+    .myft-pin-button-wrapper .myft-pin-button {
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:pin?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  .myft-pin-button-wrapper .myft-pin-button[aria-pressed=true], .myft-pin-button-wrapper .myft-pin-button:not([disabled]):hover {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    background-color: transparent;
+    vertical-align: baseline;
+    width: 36px;
+    height: 36px;
+    background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:pin?source=n-myft-ui-demo&tint=%23990F3D,%23990F3D&format=svg");
+    background-color: transparent;
+    border: 0; }
+    @media screen and (-ms-high-contrast: active) {
+      .myft-pin-button-wrapper .myft-pin-button[aria-pressed=true], .myft-pin-button-wrapper .myft-pin-button:not([disabled]):hover {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:pin?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+    @media screen and (-ms-high-contrast: black-on-white) {
+      .myft-pin-button-wrapper .myft-pin-button[aria-pressed=true], .myft-pin-button-wrapper .myft-pin-button:not([disabled]):hover {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:pin?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+
+.myft-pin-button__label {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  clip-path: polygon(0 0, 0 0);
+  margin: -1px;
+  border: 0;
+  overflow: hidden;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  white-space: nowrap; }
+
+.myft-pin-button-wrapper .myft-pin-button {
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  min-width: 28px; }
+
+.myft-pin-button-wrapper .o-tooltip--myft-pin-button {
+  min-width: 200px; }
+
+.myft-pin-button-wrapper > form {
+  display: flex; }
+
+.myft-pin-button-wrapper.loading {
+  position: relative; }
+  .myft-pin-button-wrapper.loading form {
+    visibility: hidden; }
+  .myft-pin-button-wrapper.loading:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    content: " ";
+    display: block;
+    width: 12px;
+    height: 12px;
+    margin: 0 auto;
+    border-radius: 50%;
+    border: 3px solid #66605c;
+    border-color: #66605c transparent;
+    animation: lds-dual-ring 1.2s linear infinite; }
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg); }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg); } }
+
+.n-myft-ui--instant {
+  position: relative; }
+  .n-myft-ui--instant .n-myft-ui__button {
+    position: relative;
+    padding-left: 26px;
+    display: inline-block; }
+    .n-myft-ui--instant .n-myft-ui__button::before {
+      display: inline-block;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: 50%;
+      background-color: transparent;
+      vertical-align: baseline;
+      width: 24px;
+      height: 24px;
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:mail?source=n-myft-ui-demo&tint=%230A5E66,%230A5E66&format=svg");
+      content: ' ';
+      position: absolute;
+      top: 50%;
+      left: 1px;
+      margin: -12px 1px 0 0; }
+      @media screen and (-ms-high-contrast: active) {
+        .n-myft-ui--instant .n-myft-ui__button::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:mail?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+      @media screen and (-ms-high-contrast: black-on-white) {
+        .n-myft-ui--instant .n-myft-ui__button::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:mail?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+    .n-myft-ui--instant .n-myft-ui__button[aria-pressed="true"]::before {
+      display: inline-block;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: 50%;
+      background-color: transparent;
+      vertical-align: baseline;
+      width: 24px;
+      height: 24px;
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:mail?source=n-myft-ui-demo&tint=%23FFFFFF,%23FFFFFF&format=svg"); }
+      @media screen and (-ms-high-contrast: active) {
+        .n-myft-ui--instant .n-myft-ui__button[aria-pressed="true"]::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:mail?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+      @media screen and (-ms-high-contrast: black-on-white) {
+        .n-myft-ui--instant .n-myft-ui__button[aria-pressed="true"]::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:mail?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+    .n-myft-ui--instant .n-myft-ui__button[aria-pressed="true"]:hover::before {
+      display: inline-block;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: 50%;
+      background-color: transparent;
+      vertical-align: baseline;
+      width: 24px;
+      height: 24px;
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:mail?source=n-myft-ui-demo&tint=%230A5E66,%230A5E66&format=svg"); }
+      @media screen and (-ms-high-contrast: active) {
+        .n-myft-ui--instant .n-myft-ui__button[aria-pressed="true"]:hover::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:mail?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+      @media screen and (-ms-high-contrast: black-on-white) {
+        .n-myft-ui--instant .n-myft-ui__button[aria-pressed="true"]:hover::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:mail?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+
+.n-myft-ui__button--instant.n-myft-ui__button--instant-light {
+  border: 0;
+  padding-left: 8px;
+  padding-right: 36px;
+  color: #33302e;
+  font-weight: 400;
+  background: transparent; }
+  .n-myft-ui__button--instant.n-myft-ui__button--instant-light:not([disabled]):hover, .n-myft-ui__button--instant.n-myft-ui__button--instant-light:not([disabled]):focus {
+    background: transparent;
+    color: #33302e; }
+  .n-myft-ui__button--instant.n-myft-ui__button--instant-light[aria-pressed="true"] {
+    background: transparent;
+    color: #33302e; }
+  .n-myft-ui__button--instant.n-myft-ui__button--instant-light::before {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    background-color: transparent;
+    vertical-align: baseline;
+    width: 36px;
+    height: 36px;
+    background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:notifications?source=n-myft-ui-demo&tint=%2366605C,%2366605C&format=svg");
+    left: auto;
+    right: 1px;
+    margin-top: -18px; }
+    @media screen and (-ms-high-contrast: active) {
+      .n-myft-ui__button--instant.n-myft-ui__button--instant-light::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:notifications?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+    @media screen and (-ms-high-contrast: black-on-white) {
+      .n-myft-ui__button--instant.n-myft-ui__button--instant-light::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:notifications?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  .n-myft-ui__button--instant.n-myft-ui__button--instant-light:not([disabled]):hover:before, .n-myft-ui__button--instant.n-myft-ui__button--instant-light[aria-pressed="true"]::before {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    background-color: transparent;
+    vertical-align: baseline;
+    width: 36px;
+    height: 36px;
+    background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:notifications?source=n-myft-ui-demo&tint=%23990F3D,%23990F3D&format=svg"); }
+    @media screen and (-ms-high-contrast: active) {
+      .n-myft-ui__button--instant.n-myft-ui__button--instant-light:not([disabled]):hover:before, .n-myft-ui__button--instant.n-myft-ui__button--instant-light[aria-pressed="true"]::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:notifications?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+    @media screen and (-ms-high-contrast: black-on-white) {
+      .n-myft-ui__button--instant.n-myft-ui__button--instant-light:not([disabled]):hover:before, .n-myft-ui__button--instant.n-myft-ui__button--instant-light[aria-pressed="true"]::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:notifications?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  .n-myft-ui--instant--hide-text .n-myft-ui__button--instant.n-myft-ui__button--instant-light {
+    margin-top: 5px;
+    width: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-indent: -110px; }
+
+.o-overlay.o-overlay--instant-alerts-confirmation {
+  font-family: MetricWeb, sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+  background-color: #fff1e5; }
+  .o-typography--loading-sans .o-overlay.o-overlay--instant-alerts-confirmation {
+    font-size: 17.4px;
+    font-family: sans-serif; }
+  .o-overlay.o-overlay--instant-alerts-confirmation .o-overlay__heading {
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-right: 20px;
+    border-bottom: 1px solid #e6d9ce;
+    font-weight: 400; }
+  .o-overlay.o-overlay--instant-alerts-confirmation .o-overlay__title {
+    font-family: MetricWeb, sans-serif;
+    font-size: 28px;
+    line-height: 32px;
+    overflow: visible;
+    line-height: normal;
+    clear: right;
+    margin: 0 0 10px;
+    padding: 0 50px 10px 0; }
+    .o-typography--loading-sans .o-overlay.o-overlay--instant-alerts-confirmation .o-overlay__title {
+      font-size: 24.36px;
+      font-family: sans-serif; }
+  .o-overlay.o-overlay--instant-alerts-confirmation .o-overlay__content {
+    padding-top: 30px; }
+  .o-overlay.o-overlay--instant-alerts-confirmation .myft-ui__icon {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    background-color: transparent;
+    vertical-align: baseline;
+    width: 50px;
+    height: 50px;
+    background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:logo?source=n-myft-ui-demo&tint=%2333302E,%2333302E&format=svg");
+    margin: 0 0 -19px; }
+    @media screen and (-ms-high-contrast: active) {
+      .o-overlay.o-overlay--instant-alerts-confirmation .myft-ui__icon {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:logo?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+    @media screen and (-ms-high-contrast: black-on-white) {
+      .o-overlay.o-overlay--instant-alerts-confirmation .myft-ui__icon {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:logo?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  .o-overlay.o-overlay--instant-alerts-confirmation .o-overlay__close {
+    border: 0;
+    margin: 0; }
+  .o-overlay.o-overlay--instant-alerts-confirmation .o-overlay__close:after {
+    display: none; }
+  .o-overlay.o-overlay--instant-alerts-confirmation .instant-alerts-confirmation__button {
+    min-width: 80px;
+    margin-left: 10px; }
+
+.instant-alerts-confirmation__buttons {
+  float: right;
+  margin-top: 30px; }
+  .instant-alerts-confirmation__buttons .n-myft-ui__button {
+    margin-left: 10px;
+    margin-bottom: 10px; }
+
+.instant-alerts-confirmation__info {
+  display: flex;
+  align-items: center; }
+
+.instant-alerts-confirmation-info__icon {
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50%;
+  background-color: transparent;
+  vertical-align: baseline;
+  width: 42px;
+  height: 42px;
+  background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:notifications?source=n-myft-ui-demo&tint=%23990F3D,%23990F3D&format=svg");
+  margin-left: -8px; }
+  @media screen and (-ms-high-contrast: active) {
+    .instant-alerts-confirmation-info__icon {
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:notifications?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+  @media screen and (-ms-high-contrast: black-on-white) {
+    .instant-alerts-confirmation-info__icon {
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:notifications?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  @media (min-width: 46.25em) {
+    .instant-alerts-confirmation-info__icon {
+      margin-left: -12px; } }
+
+.instant-alerts-confirmation-info__subtext {
+  margin-top: 20px;
+  font-family: MetricWeb, sans-serif;
+  font-size: 16px;
+  line-height: 20px; }
+  .o-typography--loading-sans .instant-alerts-confirmation-info__subtext {
+    font-size: 13.92px;
+    font-family: sans-serif; }
+
+.myft-ui,
+.n-myft-ui {
+  display: inline-block; }
+
+@keyframes myft-flash {
+  25% {
+    opacity: 1; }
+  50% {
+    opacity: 1; } }
+
+@keyframes myft-flash-white {
+  10% {
+    filter: brightness(0) invert(1); }
+  75% {
+    filter: brightness(0) invert(1); } }
+
+.experimental-myft-flash .o-header__top-column--right::before {
+  content: ' ';
+  position: absolute;
+  display: block;
+  background-color: #0d7680;
+  top: 0;
+  right: 0;
+  height: 100%;
+  opacity: 0;
+  animation: myft-flash linear 1.2s;
+  width: 58px; }
+  @media (min-width: 46.25em) {
+    .experimental-myft-flash .o-header__top-column--right::before {
+      width: 88px; } }
+  @media (min-width: 61.25em) {
+    .experimental-myft-flash .o-header__top-column--right::before {
+      width: 100px; } }
+
+.experimental-myft-flash .o-header__top-link--myft::before {
+  animation: myft-flash-white linear 1.2s; }
+
+.myft-ui__button--manage[aria-pressed='true']::before,
+.myft-ui__button--myft-manage[aria-pressed='true']::before {
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50%;
+  background-color: transparent;
+  vertical-align: baseline;
+  width: 28px;
+  height: 28px;
+  background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:cross?source=n-myft-ui-demo&tint=%23FFFFFF,%23FFFFFF&format=svg"); }
+  @media screen and (-ms-high-contrast: active) {
+    .myft-ui__button--manage[aria-pressed='true']::before,
+    .myft-ui__button--myft-manage[aria-pressed='true']::before {
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:cross?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+  @media screen and (-ms-high-contrast: black-on-white) {
+    .myft-ui__button--manage[aria-pressed='true']::before,
+    .myft-ui__button--myft-manage[aria-pressed='true']::before {
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:cross?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+
+.n-myft-ui--article-saved__list-select {
+  margin-bottom: 10px; }
+
+.o-overlay.o-overlay--myft-lists {
+  height: 100%;
+  width: 100%;
+  max-width: 640px; }
+  @media (min-width: 30.625em) {
+    .o-overlay.o-overlay--myft-lists {
+      height: auto; } }
+
+.myft-list-form__wrapper {
+  margin-bottom: 20px; }
+  @media (min-width: 46.25em) {
+    .myft-list-form__wrapper {
+      display: flex; } }
+  .o-overlay__content .myft-list-form__wrapper {
+    margin-bottom: 0; }
+
+.myft-list-form {
+  overflow: hidden; }
+  @media (min-width: 46.25em) {
+    .myft-list-form {
+      flex: 1; } }
+
+.myft-list-form__button {
+  float: right; }
+
+.mypage .myft-list-form__message,
+.o-overlay .myft-list-form__message {
+  font-family: MetricWeb, sans-serif;
+  font-size: 18px;
+  line-height: 20px;
+  background: #fff1e5;
+  border-radius: 0;
+  margin: 3px 0 0;
+  padding: 20px 20px; }
+  .o-typography--loading-sans .mypage .myft-list-form__message, .o-typography--loading-sans
+  .o-overlay .myft-list-form__message {
+    font-size: 15.66px;
+    font-family: sans-serif; }
+  .mypage .myft-list-form__message h3,
+  .o-overlay .myft-list-form__message h3 {
+    font-family: MetricWeb, sans-serif;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 600;
+    margin: 0 5px 0 0; }
+    .o-typography--loading-sans-bold .mypage .myft-list-form__message h3, .o-typography--loading-sans-bold
+    .o-overlay .myft-list-form__message h3 {
+      font-size: 16.6px;
+      font-family: sans-serif; }
+  .mypage .myft-list-form__message p,
+  .o-overlay .myft-list-form__message p {
+    font-family: MetricWeb, sans-serif;
+    font-size: 20px;
+    line-height: 24px;
+    padding: 8px 0;
+    margin: 0; }
+    .o-typography--loading-sans .mypage .myft-list-form__message p, .o-typography--loading-sans
+    .o-overlay .myft-list-form__message p {
+      font-size: 17.4px;
+      font-family: sans-serif; }
+  .mypage .myft-list-form__message h3,
+  .mypage .myft-list-form__message p,
+  .o-overlay .myft-list-form__message h3,
+  .o-overlay .myft-list-form__message p {
+    display: inline-block;
+    padding: 0; }
+
+.myft-list-form__message + .myft-list-form__wrapper {
+  margin-top: 20px; }
+
+.o-overlay .myft-list-form__message {
+  border-top: 1px solid #ccc1b7;
+  margin: 0 -20px; }
+  .o-overlay .myft-list-form__message:first-child {
+    border-top: 0;
+    margin-top: -20px; }
+
+.myft-list-form__message--success h3 {
+  color: #00994d; }
+  .myft-list-form__message--success h3::before {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    background-color: transparent;
+    vertical-align: baseline;
+    width: 14px;
+    height: 14px;
+    background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%2300994D,%2300994D&format=svg");
+    content: '';
+    margin-right: 3px; }
+    @media screen and (-ms-high-contrast: active) {
+      .myft-list-form__message--success h3::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+    @media screen and (-ms-high-contrast: black-on-white) {
+      .myft-list-form__message--success h3::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+
+.myft-list-form-divider {
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 24px 0; }
+  @media (min-width: 46.25em) {
+    .myft-list-form-divider {
+      display: flex;
+      position: relative;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      padding: 0 8px; } }
+  .myft-list-form-divider::after {
+    content: '';
+    display: block;
+    border-top: 1px solid #ccc1b7;
+    margin-top: -10px; }
+    @media (min-width: 46.25em) {
+      .myft-list-form-divider::after {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 1px;
+        margin-top: 0;
+        border-top: 0;
+        border-left: 1px solid #ccc1b7; } }
+
+.myft-list-form-divider__inner {
+  padding: 10px;
+  background-color: #fff9f5; }
+  @media (min-width: 46.25em) {
+    .myft-list-form-divider__inner {
+      z-index: 10; } }
+  .o-overlay__content .myft-list-form-divider__inner {
+    background-color: #ffffff; }
+
+.collection {
+  display: flex;
+  flex: 1 1 auto;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  position: relative;
+  width: auto;
+  padding: 12px;
+  overflow: visible;
+  box-sizing: border-box; }
+
+.collection--regular {
+  background: #b31247; }
+  @media (min-width: 46.25em) {
+    .collection--regular {
+      height: 100%; } }
+
+.collection--lite {
+  background: #fff7ef;
+  border: 1px solid #f2e5da;
+  padding-top: 18px; }
+
+.collection__header {
+  overflow: hidden;
+  word-break: break-word; }
+
+.collection__header--regular {
+  color: #ffffff; }
+
+.collection__header--lite {
+  color: #000000; }
+
+.collection__title {
+  font-family: MetricWeb, sans-serif;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 600;
+  margin: 0; }
+  .o-typography--loading-sans-bold .collection__title {
+    font-size: 14.94px;
+    font-family: sans-serif; }
+
+.collection__concepts {
+  font-family: MetricWeb, sans-serif;
+  font-size: 18px;
+  line-height: 20px;
+  margin: 0;
+  margin-left: -3px;
+  padding: 16px 0 0;
+  flex-grow: 1;
+  list-style: none; }
+  .o-typography--loading-sans .collection__concepts {
+    font-size: 15.66px;
+    font-family: sans-serif; }
+
+.collection__concept {
+  display: inline-block; }
+
+.collection__meta {
+  padding-top: 16px; }
+  .collection__meta .n-myft-follow-button {
+    margin: 0; }
+
+.collection-follow-all__button {
+  font-family: MetricWeb, sans-serif;
+  font-weight: 600;
+  font-family: MetricWeb, sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  line-height: 14px;
+  background-size: 21px 21px;
+  min-height: 28px;
+  min-width: 60px;
+  padding: 6px 8px;
+  display: inline-block;
+  box-sizing: border-box;
+  vertical-align: middle;
+  margin: 0;
+  border-style: solid;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.3s background-color, 0.15s color ease-out, 0.15s border-color ease-out;
+  user-select: none;
+  background-clip: border-box;
+  border-width: 1px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  background-color: transparent;
+  color: #0d7680;
+  border-color: #0d7680; }
+  .o-typography--loading-sans .collection-follow-all__button {
+    font-size: 12.18px;
+    font-family: sans-serif; }
+  .collection-follow-all__button[disabled] {
+    pointer-events: none;
+    opacity: 0.4;
+    cursor: default; }
+  .collection-follow-all__button:hover {
+    background-color: rgba(13, 118, 128, 0.1);
+    color: #0c707a;
+    border-color: #0d7680;
+    text-decoration: none; }
+  .collection-follow-all__button:focus {
+    background-color: rgba(13, 118, 128, 0.1);
+    color: #0c707a;
+    border-color: #0d7680; }
+  .collection-follow-all__button[aria-selected=true], .collection-follow-all__button[aria-current], .collection-follow-all__button[aria-pressed=true], .collection-follow-all__button:active {
+    background-color: #0d7680;
+    color: white;
+    border-color: #0d7680; }
+
+.collection-follow-all__button--regular {
+  background-color: #ffffff;
+  color: #b31247;
+  border-color: transparent; }
+  .collection-follow-all__button--regular:hover {
+    background-color: #cccccc;
+    color: #aa1144;
+    border-color: transparent;
+    text-decoration: none; }
+  .collection-follow-all__button--regular:focus {
+    background-color: #cccccc;
+    color: #aa1144;
+    border-color: transparent; }
+  .collection-follow-all__button--regular[aria-selected=true], .collection-follow-all__button--regular[aria-current], .collection-follow-all__button--regular[aria-pressed=true], .collection-follow-all__button--regular:active {
+    background-color: #a6a6a6;
+    color: #740b2e;
+    border-color: transparent; }
+
+.collection-follow-all__button--lite {
+  background-color: #0d7680;
+  color: white;
+  border-color: transparent; }
+  .collection-follow-all__button--lite:hover {
+    background-color: #095259;
+    color: white;
+    border-color: transparent;
+    text-decoration: none; }
+  .collection-follow-all__button--lite:focus {
+    background-color: #095259;
+    color: white;
+    border-color: transparent; }
+  .collection-follow-all__button--lite[aria-selected=true], .collection-follow-all__button--lite[aria-current], .collection-follow-all__button--lite[aria-pressed=true], .collection-follow-all__button--lite:active {
+    background-color: #052f33;
+    color: white;
+    border-color: transparent; }
+
+.concept-list__title {
+  font-family: MetricWeb, sans-serif;
+  font-size: 18px;
+  line-height: 20px;
+  word-break: break-all; }
+  .o-typography--loading-sans .concept-list__title {
+    font-size: 15.66px;
+    font-family: sans-serif; }
+  .concept-list__title:after {
+    content: '';
+    display: block;
+    width: 60px;
+    margin-top: 5px;
+    border-bottom: 4px solid #000000;
+    position: absolute;
+    z-index: 1; }
+
+.concept-list__list {
+  margin: 24px 0 48px;
+  padding: 0; }
+
+.concept-list__list-item {
+  font-family: MetricWeb, sans-serif;
+  font-size: 18px;
+  line-height: 20px;
+  color: #000000;
+  list-style: none;
+  display: flex;
+  align-items: center; }
+  .o-typography--loading-sans .concept-list__list-item {
+    font-size: 15.66px;
+    font-family: sans-serif; }
+
+.concept-list__concept {
+  word-break: keep-all;
+  font-family: MetricWeb, sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  margin: 4px 12px 4px 0;
+  text-decoration: none;
+  border: 0;
+  color: #000000;
+  flex: 2; }
+  .o-typography--loading-sans-bold .concept-list__concept {
+    font-size: 13.28px;
+    font-family: sans-serif; }
+  .concept-list__concept:hover {
+    color: #45413e; }
+
+.n-myft-concept-pill {
+  background-color: transparent;
+  border: 1px solid #990f3d;
+  color: #990f3d;
+  font-family: MetricWeb, sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 600;
+  border-radius: 100px;
+  box-sizing: content-box;
+  display: block;
+  font-size: 14px;
+  margin: 6px 4px 6px 2px;
+  max-width: 200px;
+  outline-offset: 2px;
+  overflow: hidden;
+  padding: 5px 12px;
+  text-align: left;
+  text-overflow: ellipsis;
+  transition: border-color, background-color 0.5s ease;
+  white-space: nowrap;
+  text-decoration: none; }
+  .n-myft-concept-pill:hover, .n-myft-concept-pill:focus {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: #990f3d;
+    color: #990f3d; }
+  .n-myft-concept-pill[aria-pressed="true"] {
+    background-color: #990f3d;
+    border: 1px solid #990f3d;
+    color: #ffffff; }
+    .n-myft-concept-pill[aria-pressed="true"]:hover, .n-myft-concept-pill[aria-pressed="true"]:focus {
+      background-color: #800d33;
+      border-color: #800d33;
+      color: #ffffff; }
+  .n-myft-concept-pill[disabled]:hover, .n-myft-concept-pill[disabled] {
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0.5); }
+  .o-typography--loading-sans-bold .n-myft-concept-pill {
+    font-size: 11.62px;
+    font-family: sans-serif; }
+  .n-myft-concept-pill:focus {
+    outline: 2px solid #17d4e6; }
+
+.n-myft-concept-pill--standard {
+  background-color: transparent;
+  border: 1px solid #990f3d;
+  color: #990f3d; }
+  .n-myft-concept-pill--standard:hover, .n-myft-concept-pill--standard:focus {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: #990f3d;
+    color: #990f3d; }
+  .n-myft-concept-pill--standard[aria-pressed="true"] {
+    background-color: #990f3d;
+    border: 1px solid #990f3d;
+    color: #ffffff; }
+    .n-myft-concept-pill--standard[aria-pressed="true"]:hover, .n-myft-concept-pill--standard[aria-pressed="true"]:focus {
+      background-color: #800d33;
+      border-color: #800d33;
+      color: #ffffff; }
+  .n-myft-concept-pill--standard[disabled]:hover, .n-myft-concept-pill--standard[disabled] {
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0.5); }
+
+.n-myft-concept-pill--inverse {
+  background-color: transparent;
+  border: 1px solid #ffffff;
+  color: #ffffff; }
+  .n-myft-concept-pill--inverse:hover, .n-myft-concept-pill--inverse:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: #ffffff;
+    color: #ffffff; }
+  .n-myft-concept-pill--inverse[aria-pressed="true"] {
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    color: #990f3d; }
+    .n-myft-concept-pill--inverse[aria-pressed="true"]:hover, .n-myft-concept-pill--inverse[aria-pressed="true"]:focus {
+      background-color: rgba(255, 255, 255, 0.8);
+      border-color: rgba(255, 255, 255, 0.8);
+      color: #990f3d; }
+  .n-myft-concept-pill--inverse[disabled]:hover, .n-myft-concept-pill--inverse[disabled] {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.5); }
+
+.n-myft-concept-pill--opinion {
+  background-color: transparent;
+  border: 1px solid #0a3866;
+  color: #0a3866; }
+  .n-myft-concept-pill--opinion:hover, .n-myft-concept-pill--opinion:focus {
+    background-color: rgba(10, 56, 102, 0.2);
+    border-color: #0a3866;
+    color: #0a3866; }
+  .n-myft-concept-pill--opinion[aria-pressed="true"] {
+    background-color: #0a3866;
+    border: 1px solid #0a3866;
+    color: #ffffff; }
+    .n-myft-concept-pill--opinion[aria-pressed="true"]:hover, .n-myft-concept-pill--opinion[aria-pressed="true"]:focus {
+      background-color: #082a4d;
+      border-color: #082a4d;
+      color: #ffffff; }
+  .n-myft-concept-pill--opinion[disabled]:hover, .n-myft-concept-pill--opinion[disabled] {
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0.5); }
+
+.n-myft-concept-pill--monochrome {
+  background-color: transparent;
+  border: 1px solid #ffffff;
+  color: #ffffff; }
+  .n-myft-concept-pill--monochrome:hover, .n-myft-concept-pill--monochrome:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: #ffffff;
+    color: #ffffff; }
+  .n-myft-concept-pill--monochrome[aria-pressed="true"] {
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    color: #000000; }
+    .n-myft-concept-pill--monochrome[aria-pressed="true"]:hover, .n-myft-concept-pill--monochrome[aria-pressed="true"]:focus {
+      background-color: #fffcfa;
+      border-color: #fffcfa;
+      color: #000000; }
+  .n-myft-concept-pill--monochrome[disabled]:hover, .n-myft-concept-pill--monochrome[disabled] {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.5); }
+
+.n-myft-ui__button {
+  font-family: MetricWeb, sans-serif;
+  font-weight: 600;
+  font-family: MetricWeb, sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  line-height: 14px;
+  background-size: 21px 21px;
+  min-height: 28px;
+  min-width: 60px;
+  padding: 6px 8px;
+  display: inline-block;
+  box-sizing: border-box;
+  vertical-align: middle;
+  margin: 0;
+  border-style: solid;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.3s background-color, 0.15s color ease-out, 0.15s border-color ease-out;
+  user-select: none;
+  background-clip: border-box;
+  border-width: 1px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  background-color: transparent;
+  color: #0d7680;
+  border-color: #0d7680; }
+  .o-typography--loading-sans .n-myft-ui__button {
+    font-size: 12.18px;
+    font-family: sans-serif; }
+  .n-myft-ui__button[disabled] {
+    pointer-events: none;
+    opacity: 0.4;
+    cursor: default; }
+  .n-myft-ui__button:hover {
+    background-color: rgba(13, 118, 128, 0.1);
+    color: #0c707a;
+    border-color: #0d7680;
+    text-decoration: none; }
+  .n-myft-ui__button:focus {
+    background-color: rgba(13, 118, 128, 0.1);
+    color: #0c707a;
+    border-color: #0d7680; }
+  .n-myft-ui__button[aria-selected=true], .n-myft-ui__button[aria-current], .n-myft-ui__button[aria-pressed=true], .n-myft-ui__button:active {
+    background-color: #0d7680;
+    color: white;
+    border-color: #0d7680; }
+  .n-myft-ui__button:focus {
+    outline: 3px solid #0a5e66;
+    outline-offset: 3px; }
+
+.n-myft-ui__button--inverse {
+  background-color: transparent;
+  color: #ffffff;
+  border-color: #ffffff; }
+  .n-myft-ui__button--inverse:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    border-color: #ffffff;
+    text-decoration: none; }
+  .n-myft-ui__button--inverse:focus {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    border-color: #ffffff; }
+  .n-myft-ui__button--inverse[aria-selected=true], .n-myft-ui__button--inverse[aria-current], .n-myft-ui__button--inverse[aria-pressed=true], .n-myft-ui__button--inverse:active {
+    background-color: #ffffff;
+    color: black;
+    border-color: #ffffff; }
+
+.n-myft-ui__button--viewport-large {
+  display: none; }
+  @media (min-width: 61.25em) {
+    .n-myft-ui__button--viewport-large {
+      display: inline-block; } }
+
+.n-myft-ui__save-button-with-icon {
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50%;
+  background-color: transparent;
+  vertical-align: baseline;
+  width: 38px;
+  height: 38px;
+  background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:bookmark-outline?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg");
+  color: #000000;
+  background-position: 0 0;
+  border: 0;
+  min-height: 38px;
+  width: 38px;
+  position: relative; }
+  @media screen and (-ms-high-contrast: active) {
+    .n-myft-ui__save-button-with-icon {
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:bookmark-outline?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+  @media screen and (-ms-high-contrast: black-on-white) {
+    .n-myft-ui__save-button-with-icon {
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:bookmark-outline?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  .n-myft-ui__save-button-with-icon .save-button-with-icon-copy {
+    position: absolute;
+    top: 33px;
+    left: 0;
+    right: 0;
+    font-family: MetricWeb, sans-serif;
+    font-size: 12px;
+    line-height: 16px; }
+    .o-typography--loading-sans .n-myft-ui__save-button-with-icon .save-button-with-icon-copy {
+      font-size: 10.44px;
+      font-family: sans-serif; }
+  .n-myft-ui__save-button-with-icon:not([disabled]):hover {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    background-color: transparent;
+    vertical-align: baseline;
+    width: 38px;
+    height: 38px;
+    background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:bookmark?source=n-myft-ui-demo&tint=%23807973,%23807973&format=svg");
+    background-position: 0 0; }
+    @media screen and (-ms-high-contrast: active) {
+      .n-myft-ui__save-button-with-icon:not([disabled]):hover {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:bookmark?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+    @media screen and (-ms-high-contrast: black-on-white) {
+      .n-myft-ui__save-button-with-icon:not([disabled]):hover {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:bookmark?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  .n-myft-ui__save-button-with-icon[aria-selected='true'], .n-myft-ui__save-button-with-icon[aria-pressed='true'] {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    background-color: transparent;
+    vertical-align: baseline;
+    width: 38px;
+    height: 38px;
+    background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:bookmark?source=n-myft-ui-demo&tint=%23990F3D,%23990F3D&format=svg");
+    background-position: 0 0; }
+    @media screen and (-ms-high-contrast: active) {
+      .n-myft-ui__save-button-with-icon[aria-selected='true'], .n-myft-ui__save-button-with-icon[aria-pressed='true'] {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:bookmark?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+    @media screen and (-ms-high-contrast: black-on-white) {
+      .n-myft-ui__save-button-with-icon[aria-selected='true'], .n-myft-ui__save-button-with-icon[aria-pressed='true'] {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:bookmark?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+
+.n-myft-follow-button {
+  background-color: transparent;
+  border: 1px solid #990f3d;
+  color: #990f3d;
+  font-family: MetricWeb, sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 600;
+  border-radius: 100px;
+  box-sizing: content-box;
+  display: block;
+  font-size: 14px;
+  margin: 6px 4px 6px 2px;
+  max-width: 200px;
+  outline-offset: 2px;
+  overflow: hidden;
+  padding: 5px 12px;
+  text-align: left;
+  text-overflow: ellipsis;
+  transition: border-color, background-color 0.5s ease;
+  white-space: nowrap; }
+  .n-myft-follow-button::before {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    background-color: transparent;
+    vertical-align: baseline;
+    width: 10px;
+    height: 10px;
+    background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23990F3D,%23990F3D&format=svg");
+    content: "";
+    background-size: 25px;
+    margin: 0 6px -1px 0; }
+    @media screen and (-ms-high-contrast: active) {
+      .n-myft-follow-button::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+    @media screen and (-ms-high-contrast: black-on-white) {
+      .n-myft-follow-button::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  .n-myft-follow-button[aria-pressed="true"]::before {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    background-color: transparent;
+    vertical-align: baseline;
+    width: 10px;
+    height: 10px;
+    background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23FFFFFF,%23FFFFFF&format=svg");
+    content: "";
+    background-size: 21px; }
+    @media screen and (-ms-high-contrast: active) {
+      .n-myft-follow-button[aria-pressed="true"]::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+    @media screen and (-ms-high-contrast: black-on-white) {
+      .n-myft-follow-button[aria-pressed="true"]::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  .n-myft-follow-button[disabled], .n-myft-follow-button[disabled]:hover {
+    background: transparent; }
+    .n-myft-follow-button[disabled]::before, .n-myft-follow-button[disabled]:hover::before {
+      display: inline-block;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: 50%;
+      background-color: transparent;
+      vertical-align: baseline;
+      width: 10px;
+      height: 10px;
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg");
+      content: "";
+      background-size: 25px;
+      margin: 0 6px -1px 0;
+      opacity: 0.5; }
+      @media screen and (-ms-high-contrast: active) {
+        .n-myft-follow-button[disabled]::before, .n-myft-follow-button[disabled]:hover::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+      @media screen and (-ms-high-contrast: black-on-white) {
+        .n-myft-follow-button[disabled]::before, .n-myft-follow-button[disabled]:hover::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+    .n-myft-follow-button[disabled][aria-pressed="true"]::before, .n-myft-follow-button[disabled]:hover[aria-pressed="true"]::before {
+      display: inline-block;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: 50%;
+      background-color: transparent;
+      vertical-align: baseline;
+      width: 10px;
+      height: 10px;
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg");
+      content: "";
+      background-size: 21px; }
+      @media screen and (-ms-high-contrast: active) {
+        .n-myft-follow-button[disabled][aria-pressed="true"]::before, .n-myft-follow-button[disabled]:hover[aria-pressed="true"]::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+      @media screen and (-ms-high-contrast: black-on-white) {
+        .n-myft-follow-button[disabled][aria-pressed="true"]::before, .n-myft-follow-button[disabled]:hover[aria-pressed="true"]::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  .n-myft-follow-button:hover, .n-myft-follow-button:focus {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: #990f3d;
+    color: #990f3d; }
+  .n-myft-follow-button[aria-pressed="true"] {
+    background-color: #990f3d;
+    border: 1px solid #990f3d;
+    color: #ffffff; }
+    .n-myft-follow-button[aria-pressed="true"]:hover, .n-myft-follow-button[aria-pressed="true"]:focus {
+      background-color: #800d33;
+      border-color: #800d33;
+      color: #ffffff; }
+  .n-myft-follow-button[disabled]:hover, .n-myft-follow-button[disabled] {
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0.5); }
+  .o-typography--loading-sans-bold .n-myft-follow-button {
+    font-size: 11.62px;
+    font-family: sans-serif; }
+  .n-myft-follow-button:focus {
+    outline: 2px solid #17d4e6; }
+
+.n-myft-follow-button--standard {
+  background-color: transparent;
+  border: 1px solid #990f3d;
+  color: #990f3d; }
+  .n-myft-follow-button--standard::before {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    background-color: transparent;
+    vertical-align: baseline;
+    width: 10px;
+    height: 10px;
+    background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23990F3D,%23990F3D&format=svg");
+    content: "";
+    background-size: 25px;
+    margin: 0 6px -1px 0; }
+    @media screen and (-ms-high-contrast: active) {
+      .n-myft-follow-button--standard::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+    @media screen and (-ms-high-contrast: black-on-white) {
+      .n-myft-follow-button--standard::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  .n-myft-follow-button--standard[aria-pressed="true"]::before {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    background-color: transparent;
+    vertical-align: baseline;
+    width: 10px;
+    height: 10px;
+    background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23FFFFFF,%23FFFFFF&format=svg");
+    content: "";
+    background-size: 21px; }
+    @media screen and (-ms-high-contrast: active) {
+      .n-myft-follow-button--standard[aria-pressed="true"]::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+    @media screen and (-ms-high-contrast: black-on-white) {
+      .n-myft-follow-button--standard[aria-pressed="true"]::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  .n-myft-follow-button--standard[disabled], .n-myft-follow-button--standard[disabled]:hover {
+    background: transparent; }
+    .n-myft-follow-button--standard[disabled]::before, .n-myft-follow-button--standard[disabled]:hover::before {
+      display: inline-block;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: 50%;
+      background-color: transparent;
+      vertical-align: baseline;
+      width: 10px;
+      height: 10px;
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg");
+      content: "";
+      background-size: 25px;
+      margin: 0 6px -1px 0;
+      opacity: 0.5; }
+      @media screen and (-ms-high-contrast: active) {
+        .n-myft-follow-button--standard[disabled]::before, .n-myft-follow-button--standard[disabled]:hover::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+      @media screen and (-ms-high-contrast: black-on-white) {
+        .n-myft-follow-button--standard[disabled]::before, .n-myft-follow-button--standard[disabled]:hover::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+    .n-myft-follow-button--standard[disabled][aria-pressed="true"]::before, .n-myft-follow-button--standard[disabled]:hover[aria-pressed="true"]::before {
+      display: inline-block;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: 50%;
+      background-color: transparent;
+      vertical-align: baseline;
+      width: 10px;
+      height: 10px;
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg");
+      content: "";
+      background-size: 21px; }
+      @media screen and (-ms-high-contrast: active) {
+        .n-myft-follow-button--standard[disabled][aria-pressed="true"]::before, .n-myft-follow-button--standard[disabled]:hover[aria-pressed="true"]::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+      @media screen and (-ms-high-contrast: black-on-white) {
+        .n-myft-follow-button--standard[disabled][aria-pressed="true"]::before, .n-myft-follow-button--standard[disabled]:hover[aria-pressed="true"]::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  .n-myft-follow-button--standard:hover, .n-myft-follow-button--standard:focus {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: #990f3d;
+    color: #990f3d; }
+  .n-myft-follow-button--standard[aria-pressed="true"] {
+    background-color: #990f3d;
+    border: 1px solid #990f3d;
+    color: #ffffff; }
+    .n-myft-follow-button--standard[aria-pressed="true"]:hover, .n-myft-follow-button--standard[aria-pressed="true"]:focus {
+      background-color: #800d33;
+      border-color: #800d33;
+      color: #ffffff; }
+  .n-myft-follow-button--standard[disabled]:hover, .n-myft-follow-button--standard[disabled] {
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0.5); }
+
+.n-myft-follow-button--inverse {
+  background-color: transparent;
+  border: 1px solid #ffffff;
+  color: #ffffff; }
+  .n-myft-follow-button--inverse::before {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    background-color: transparent;
+    vertical-align: baseline;
+    width: 10px;
+    height: 10px;
+    background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23FFFFFF,%23FFFFFF&format=svg");
+    content: "";
+    background-size: 25px;
+    margin: 0 6px -1px 0; }
+    @media screen and (-ms-high-contrast: active) {
+      .n-myft-follow-button--inverse::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+    @media screen and (-ms-high-contrast: black-on-white) {
+      .n-myft-follow-button--inverse::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  .n-myft-follow-button--inverse[aria-pressed="true"]::before {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    background-color: transparent;
+    vertical-align: baseline;
+    width: 10px;
+    height: 10px;
+    background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23990F3D,%23990F3D&format=svg");
+    content: "";
+    background-size: 21px; }
+    @media screen and (-ms-high-contrast: active) {
+      .n-myft-follow-button--inverse[aria-pressed="true"]::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+    @media screen and (-ms-high-contrast: black-on-white) {
+      .n-myft-follow-button--inverse[aria-pressed="true"]::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  .n-myft-follow-button--inverse[disabled], .n-myft-follow-button--inverse[disabled]:hover {
+    background: transparent; }
+    .n-myft-follow-button--inverse[disabled]::before, .n-myft-follow-button--inverse[disabled]:hover::before {
+      display: inline-block;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: 50%;
+      background-color: transparent;
+      vertical-align: baseline;
+      width: 10px;
+      height: 10px;
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23FFFFFF,%23FFFFFF&format=svg");
+      content: "";
+      background-size: 25px;
+      margin: 0 6px -1px 0;
+      opacity: 0.5; }
+      @media screen and (-ms-high-contrast: active) {
+        .n-myft-follow-button--inverse[disabled]::before, .n-myft-follow-button--inverse[disabled]:hover::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+      @media screen and (-ms-high-contrast: black-on-white) {
+        .n-myft-follow-button--inverse[disabled]::before, .n-myft-follow-button--inverse[disabled]:hover::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+    .n-myft-follow-button--inverse[disabled][aria-pressed="true"]::before, .n-myft-follow-button--inverse[disabled]:hover[aria-pressed="true"]::before {
+      display: inline-block;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: 50%;
+      background-color: transparent;
+      vertical-align: baseline;
+      width: 10px;
+      height: 10px;
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23FFFFFF,%23FFFFFF&format=svg");
+      content: "";
+      background-size: 21px; }
+      @media screen and (-ms-high-contrast: active) {
+        .n-myft-follow-button--inverse[disabled][aria-pressed="true"]::before, .n-myft-follow-button--inverse[disabled]:hover[aria-pressed="true"]::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+      @media screen and (-ms-high-contrast: black-on-white) {
+        .n-myft-follow-button--inverse[disabled][aria-pressed="true"]::before, .n-myft-follow-button--inverse[disabled]:hover[aria-pressed="true"]::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  .n-myft-follow-button--inverse:hover, .n-myft-follow-button--inverse:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: #ffffff;
+    color: #ffffff; }
+  .n-myft-follow-button--inverse[aria-pressed="true"] {
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    color: #990f3d; }
+    .n-myft-follow-button--inverse[aria-pressed="true"]:hover, .n-myft-follow-button--inverse[aria-pressed="true"]:focus {
+      background-color: rgba(255, 255, 255, 0.8);
+      border-color: rgba(255, 255, 255, 0.8);
+      color: #990f3d; }
+  .n-myft-follow-button--inverse[disabled]:hover, .n-myft-follow-button--inverse[disabled] {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.5); }
+
+.n-myft-follow-button--opinion {
+  background-color: transparent;
+  border: 1px solid #0a3866;
+  color: #0a3866; }
+  .n-myft-follow-button--opinion::before {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    background-color: transparent;
+    vertical-align: baseline;
+    width: 10px;
+    height: 10px;
+    background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%230A3866,%230A3866&format=svg");
+    content: "";
+    background-size: 25px;
+    margin: 0 6px -1px 0; }
+    @media screen and (-ms-high-contrast: active) {
+      .n-myft-follow-button--opinion::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+    @media screen and (-ms-high-contrast: black-on-white) {
+      .n-myft-follow-button--opinion::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  .n-myft-follow-button--opinion[aria-pressed="true"]::before {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    background-color: transparent;
+    vertical-align: baseline;
+    width: 10px;
+    height: 10px;
+    background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23FFFFFF,%23FFFFFF&format=svg");
+    content: "";
+    background-size: 21px; }
+    @media screen and (-ms-high-contrast: active) {
+      .n-myft-follow-button--opinion[aria-pressed="true"]::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+    @media screen and (-ms-high-contrast: black-on-white) {
+      .n-myft-follow-button--opinion[aria-pressed="true"]::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  .n-myft-follow-button--opinion[disabled], .n-myft-follow-button--opinion[disabled]:hover {
+    background: transparent; }
+    .n-myft-follow-button--opinion[disabled]::before, .n-myft-follow-button--opinion[disabled]:hover::before {
+      display: inline-block;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: 50%;
+      background-color: transparent;
+      vertical-align: baseline;
+      width: 10px;
+      height: 10px;
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg");
+      content: "";
+      background-size: 25px;
+      margin: 0 6px -1px 0;
+      opacity: 0.5; }
+      @media screen and (-ms-high-contrast: active) {
+        .n-myft-follow-button--opinion[disabled]::before, .n-myft-follow-button--opinion[disabled]:hover::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+      @media screen and (-ms-high-contrast: black-on-white) {
+        .n-myft-follow-button--opinion[disabled]::before, .n-myft-follow-button--opinion[disabled]:hover::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+    .n-myft-follow-button--opinion[disabled][aria-pressed="true"]::before, .n-myft-follow-button--opinion[disabled]:hover[aria-pressed="true"]::before {
+      display: inline-block;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: 50%;
+      background-color: transparent;
+      vertical-align: baseline;
+      width: 10px;
+      height: 10px;
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg");
+      content: "";
+      background-size: 21px; }
+      @media screen and (-ms-high-contrast: active) {
+        .n-myft-follow-button--opinion[disabled][aria-pressed="true"]::before, .n-myft-follow-button--opinion[disabled]:hover[aria-pressed="true"]::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+      @media screen and (-ms-high-contrast: black-on-white) {
+        .n-myft-follow-button--opinion[disabled][aria-pressed="true"]::before, .n-myft-follow-button--opinion[disabled]:hover[aria-pressed="true"]::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  .n-myft-follow-button--opinion:hover, .n-myft-follow-button--opinion:focus {
+    background-color: rgba(10, 56, 102, 0.2);
+    border-color: #0a3866;
+    color: #0a3866; }
+  .n-myft-follow-button--opinion[aria-pressed="true"] {
+    background-color: #0a3866;
+    border: 1px solid #0a3866;
+    color: #ffffff; }
+    .n-myft-follow-button--opinion[aria-pressed="true"]:hover, .n-myft-follow-button--opinion[aria-pressed="true"]:focus {
+      background-color: #082a4d;
+      border-color: #082a4d;
+      color: #ffffff; }
+  .n-myft-follow-button--opinion[disabled]:hover, .n-myft-follow-button--opinion[disabled] {
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0.5); }
+
+.n-myft-follow-button--monochrome {
+  background-color: transparent;
+  border: 1px solid #ffffff;
+  color: #ffffff; }
+  .n-myft-follow-button--monochrome::before {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    background-color: transparent;
+    vertical-align: baseline;
+    width: 10px;
+    height: 10px;
+    background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23FFFFFF,%23FFFFFF&format=svg");
+    content: "";
+    background-size: 25px;
+    margin: 0 6px -1px 0; }
+    @media screen and (-ms-high-contrast: active) {
+      .n-myft-follow-button--monochrome::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+    @media screen and (-ms-high-contrast: black-on-white) {
+      .n-myft-follow-button--monochrome::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  .n-myft-follow-button--monochrome[aria-pressed="true"]::before {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    background-color: transparent;
+    vertical-align: baseline;
+    width: 10px;
+    height: 10px;
+    background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg");
+    content: "";
+    background-size: 21px; }
+    @media screen and (-ms-high-contrast: active) {
+      .n-myft-follow-button--monochrome[aria-pressed="true"]::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+    @media screen and (-ms-high-contrast: black-on-white) {
+      .n-myft-follow-button--monochrome[aria-pressed="true"]::before {
+        background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  .n-myft-follow-button--monochrome[disabled], .n-myft-follow-button--monochrome[disabled]:hover {
+    background: transparent; }
+    .n-myft-follow-button--monochrome[disabled]::before, .n-myft-follow-button--monochrome[disabled]:hover::before {
+      display: inline-block;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: 50%;
+      background-color: transparent;
+      vertical-align: baseline;
+      width: 10px;
+      height: 10px;
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23FFFFFF,%23FFFFFF&format=svg");
+      content: "";
+      background-size: 25px;
+      margin: 0 6px -1px 0;
+      opacity: 0.5; }
+      @media screen and (-ms-high-contrast: active) {
+        .n-myft-follow-button--monochrome[disabled]::before, .n-myft-follow-button--monochrome[disabled]:hover::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+      @media screen and (-ms-high-contrast: black-on-white) {
+        .n-myft-follow-button--monochrome[disabled]::before, .n-myft-follow-button--monochrome[disabled]:hover::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:plus?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+    .n-myft-follow-button--monochrome[disabled][aria-pressed="true"]::before, .n-myft-follow-button--monochrome[disabled]:hover[aria-pressed="true"]::before {
+      display: inline-block;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: 50%;
+      background-color: transparent;
+      vertical-align: baseline;
+      width: 10px;
+      height: 10px;
+      background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23FFFFFF,%23FFFFFF&format=svg");
+      content: "";
+      background-size: 21px; }
+      @media screen and (-ms-high-contrast: active) {
+        .n-myft-follow-button--monochrome[disabled][aria-pressed="true"]::before, .n-myft-follow-button--monochrome[disabled]:hover[aria-pressed="true"]::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23ffffff,%23ffffff&format=svg"); } }
+      @media screen and (-ms-high-contrast: black-on-white) {
+        .n-myft-follow-button--monochrome[disabled][aria-pressed="true"]::before, .n-myft-follow-button--monochrome[disabled]:hover[aria-pressed="true"]::before {
+          background-image: url("https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:tick?source=n-myft-ui-demo&tint=%23000000,%23000000&format=svg"); } }
+  .n-myft-follow-button--monochrome:hover, .n-myft-follow-button--monochrome:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: #ffffff;
+    color: #ffffff; }
+  .n-myft-follow-button--monochrome[aria-pressed="true"] {
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    color: #000000; }
+    .n-myft-follow-button--monochrome[aria-pressed="true"]:hover, .n-myft-follow-button--monochrome[aria-pressed="true"]:focus {
+      background-color: #fffcfa;
+      border-color: #fffcfa;
+      color: #000000; }
+  .n-myft-follow-button--monochrome[disabled]:hover, .n-myft-follow-button--monochrome[disabled] {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.5); }
+
+.n-myft-onboarding-cta {
+  font-family: MetricWeb, sans-serif;
+  font-weight: 600;
+  font-family: MetricWeb, sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  line-height: 14px;
+  background-size: 21px 21px;
+  min-height: 28px;
+  min-width: 60px;
+  padding: 6px 8px;
+  display: inline-block;
+  box-sizing: border-box;
+  vertical-align: middle;
+  margin: 0;
+  border-style: solid;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.3s background-color, 0.15s color ease-out, 0.15s border-color ease-out;
+  user-select: none;
+  background-clip: border-box;
+  border-width: 1px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  background-color: transparent;
+  color: #ffffff;
+  border-color: #ffffff; }
+  .o-typography--loading-sans .n-myft-onboarding-cta {
+    font-size: 12.18px;
+    font-family: sans-serif; }
+  .n-myft-onboarding-cta[disabled] {
+    pointer-events: none;
+    opacity: 0.4;
+    cursor: default; }
+  .n-myft-onboarding-cta:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    border-color: #ffffff;
+    text-decoration: none; }
+  .n-myft-onboarding-cta:focus {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    border-color: #ffffff; }
+  .n-myft-onboarding-cta[aria-selected=true], .n-myft-onboarding-cta[aria-current], .n-myft-onboarding-cta[aria-pressed=true], .n-myft-onboarding-cta:active {
+    background-color: #ffffff;
+    color: black;
+    border-color: #ffffff; }
+
+.demo-container {
+  margin-bottom: 400px; }
+
+.concept-collection {
+  padding: 1em; }
+
+.concept-collection__title {
+  margin-top: 0; }
+
+.concept-collection__list {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none; }
+
+.concept-collection--standard {
+  background-color: #fff1e5; }
+
+.concept-collection--inverse {
+  background-color: #990f3d;
+  color: #ffffff; }
+
+.concept-collection--opinion {
+  background-color: #cce6ff;
+  color: #0f5499; }
+
+.concept-collection--monochrome {
+  background-color: #000000;
+  color: #ffffff; }
+
+.demo-section {
+  padding-bottom: 1em;
+  font-family: MetricWeb, sans-serif; }
+
+.demo-section__title {
+  padding-top: 0.2em; }
+
+.demo-section__description {
+  font-style: italic;
+  font-size: 1.2em;
+  margin: 12px 0;
+  color: #4d4845; }
