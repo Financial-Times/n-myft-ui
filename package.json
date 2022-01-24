@@ -83,7 +83,7 @@
     "lolex": "5.1.1",
     "mocha": "6.2.2",
     "mockery": "2.1.0",
-    "node-fetch": "2.6.0",
+    "node-fetch": "2.6.1",
     "node-sass": "4.13.0",
     "nodemon": "^1.9.2",
     "npm-prepublish": "^1.2.1",
