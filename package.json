@@ -56,7 +56,7 @@
     "fetch-mock": "^5.0.3",
     "handlebars": "^4.0.6",
     "handlebars-loader": "^1.4.0",
-    "http-server": "^0.11.1",
+    "http-server": "^0.13.0",
     "hyperons": "^0.4.1",
     "imports-loader": "0.8.0",
     "inject-loader": "^3.0.0",
