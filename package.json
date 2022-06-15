@@ -93,7 +93,7 @@
     "@financial-times/o-normalise": "^3.0.0",
     "@financial-times/o-overlay": "^4.0.0",
     "@financial-times/o-spacing": "^3.0.0",
-    "@financial-times/o-tooltip": "^5.0.0",
+    "@financial-times/o-tooltip": "^5.2.4",
     "@financial-times/o-topper": "^5.2.3",
     "n-ui-foundations": "^9.0.0"
   },
