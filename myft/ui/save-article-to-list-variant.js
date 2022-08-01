@@ -89,7 +89,11 @@ export default async function openSaveArticleToListVariant (name, contentId) {
 
 	function outsideClickHandler (e) {
 		const overlayContent = document.querySelector('.o-overlay__content');
-		if(createListOverlay.visible && (!overlayContent || !overlayContent.contains(e.target))) {
+		const overlayContainer = document.querySelector('.o-overlay');
+		// we don't want to close the overlay if the click happened inside the
+		// overlay, except if the click happened on the overlay close button
+		const isTargetInsideOverlay = overlayContainer.contains(e.target) && !e.target.classList.contains('o-overlay__close');
+		if(createListOverlay.visible && (!overlayContent || !isTargetInsideOverlay)) {
 			createListOverlay.close();
 		}
 	}
