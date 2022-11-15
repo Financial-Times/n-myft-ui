@@ -14,7 +14,7 @@ const delegate = new Delegate(document.body);
 const csrfToken = getToken();
 
 
-function openOverlay (html, { name = 'myft-ui', title = '&nbsp;', shaded = false }) {
+function openOverlay (html, { name = 'myft-ui', title = '&nbsp;', shaded = false, trigger = false }) {
 	// If an overlay already exists of the same name destroy it.
 	const overlays = Overlay.getOverlays();
 	const existingOverlay = overlays[name];
@@ -24,10 +24,14 @@ function openOverlay (html, { name = 'myft-ui', title = '&nbsp;', shaded = false
 	// Create a new overlay.
 	const overlay = new Overlay(name, {
 		heading: { title, shaded },
-		html
+		html,
 	});
 
 	overlay.open();
+
+	if (trigger) {
+		document.body.addEventListener('oOverlay.destroy', () => trigger.focus(), true);
+	}
 
 	return new Promise(resolve => {
 		document.body.addEventListener('oOverlay.ready', () => resolve(overlay));
@@ -143,7 +147,7 @@ function setUpCreateListListeners (overlay, contentId) {
 }
 
 
-function showListsOverlay (overlayTitle, formHtmlUrl, contentId) {
+function showListsOverlay (overlayTitle, formHtmlUrl, contentId, trigger) {
 	myFtClient.personaliseUrl(formHtmlUrl)
 		.then(url => fetch(url, {
 			credentials: 'same-origin'
@@ -155,7 +159,7 @@ function showListsOverlay (overlayTitle, formHtmlUrl, contentId) {
 				throw new Error(`Unexpected response: ${res.statusText}`);
 			}
 		})
-		.then(html => openOverlay(html, { name: 'myft-lists', title: overlayTitle }))
+		.then(html => openOverlay(html, { name: 'myft-lists', title: overlayTitle, trigger }))
 		.then(overlay => {
 			oForms.init(overlay.content);
 			setUpSaveToExistingListListeners(overlay, contentId);
@@ -171,12 +175,12 @@ function showListsOverlay (overlayTitle, formHtmlUrl, contentId) {
 
 }
 
-function showCopyToListOverlay (contentId, excludeList) {
-	showListsOverlay('Copy to list', `/myft/list?fragment=true&copy=true&contentId=${contentId}&excludeList=${excludeList}`, contentId);
+function showCopyToListOverlay (contentId, excludeList, trigger) {
+	showListsOverlay('Copy to list', `/myft/list?fragment=true&copy=true&contentId=${contentId}&excludeList=${excludeList}`, contentId, trigger);
 }
 
-function showCreateListOverlay () {
-	showListsOverlay('Create list', '/myft/list?fragment=true');
+function showCreateListOverlay (trigger) {
+	showListsOverlay('Create list', '/myft/list?fragment=true', null, trigger);
 }
 
 function showArticleSavedOverlay (contentId) {
@@ -313,11 +317,11 @@ function initialEventListeners () {
 
 	delegate.on('click', '[data-myft-ui="copy-to-list"]', event => {
 		event.preventDefault();
-		showCopyToListOverlay(event.target.getAttribute('data-content-id'), event.target.getAttribute('data-actor-id'));
+		showCopyToListOverlay(event.target.getAttribute('data-content-id'), event.target.getAttribute('data-actor-id'), event.target);
 	});
-	delegate.on('click', '[data-myft-ui="create-list"]', ev => {
-		ev.preventDefault();
-		showCreateListOverlay();
+	delegate.on('click', '[data-myft-ui="create-list"]', event => {
+		event.preventDefault();
+		showCreateListOverlay(event.target);
 	});
 
 	delegate.on('submit', '[data-myft-ui="contained"]', handleRemoveToggleSubmit);
