@@ -56,36 +56,45 @@
 
 	@include withTheme($theme) {
 		background-color: transparent;
-		border: 1px solid getThemeColor(background);
-		color: getThemeColor(background);
+		border: 1px solid getValue(background);
+		color: getValue(background);
 
-		@include focusOutlineColor(getThemeColor(focus-outline));
+		@include focusOutlineColor(getValue(focus-outline));
 
 		&:hover,
 		&:focus {
-			background-color: getThemeColor(pressed-highlight);
-			border-color: getThemeColor(background);
-			color: getThemeColor(background);
+			background-color: getValue(pressed-highlight);
+			border-color: getValue(background);
+			color: getValue(background);
 		}
 
 		&[aria-pressed="true"] {
-			background-color: getThemeColor(background);
-			border: 1px solid getThemeColor(background);
-			color: getThemeColor(text);
+			background-color: getValue(background);
+			border: 1px solid getValue(background);
+			color: getValue(text);
 
+			@if get(mix-blend-mode) {
+				mix-blend-mode: lighten;
+			}
 			&:hover,
 			&:focus {
-				background-color: getThemeColor(highlight);
-				border-color: getThemeColor(highlight);
-				color: getThemeColor(text);
+				border-color: getValue(highlight);
+				color: getValue(text);
+
+				@if getValue(mix-blend-mode) {
+					mix-blend-mode: getValue(mix-blend-mode);
+					background-color: rgba(getValue(highlight), 0.85);
+				} @else {
+					background-color: getValue(highlight);
+				}
 			}
 		}
 
 		&[disabled]:hover,
 		&[disabled] {
 			background: transparent;
-			border: 1px solid getThemeColor(disabled);
-			color: getThemeColor(disabled);
+			border: 1px solid getValue(disabled);
+			color: getValue(disabled);
 		}
 	}
 }
