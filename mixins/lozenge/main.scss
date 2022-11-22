@@ -73,7 +73,7 @@
 			border: 1px solid getValue(background);
 			color: getValue(text);
 
-			@if get(mix-blend-mode) {
+			@if getValue(mix-blend-mode) {
 				mix-blend-mode: lighten;
 			}
 			&:hover,
