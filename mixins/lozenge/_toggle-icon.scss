@@ -24,12 +24,12 @@
 @mixin myftToggleIcon($theme: standard) {
 	@include withTheme($theme) {
 		&::before {
-			@include plusIcon(getValue(background));
+			@include plusIcon(getThemeColor(background));
 		}
 
 		&[aria-pressed="true"] {
 			&::before {
-				@include tickIcon(getValue(text));
+				@include tickIcon(getThemeColor(text));
 			}
 		}
 
@@ -38,12 +38,12 @@
 			background: transparent;
 
 			&::before {
-				@include plusIcon(getValue(disabled));
+				@include plusIcon(getThemeColor(disabled));
 				opacity: 0.5;
 			}
 
 			&[aria-pressed="true"]::before {
-				@include tickIcon(getValue(disabled));
+				@include tickIcon(getThemeColor(disabled));
 			}
 		}
 	}
