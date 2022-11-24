@@ -73,11 +73,20 @@
 			border: 1px solid getThemeColor(background);
 			color: getThemeColor(text);
 
+			@if getThemeColor(mix-blend-mode) {
+				mix-blend-mode: lighten;
+			}
 			&:hover,
 			&:focus {
-				background-color: getThemeColor(highlight);
 				border-color: getThemeColor(highlight);
 				color: getThemeColor(text);
+
+				@if getThemeColor(mix-blend-mode) {
+					mix-blend-mode: getThemeColor(mix-blend-mode);
+					background-color: rgba(getThemeColor(highlight), 0.85);
+				} @else {
+					background-color: getThemeColor(highlight);
+				}
 			}
 		}
 

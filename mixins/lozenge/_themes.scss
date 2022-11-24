@@ -13,7 +13,8 @@ $myft-lozenge-themes: (
 		highlight: rgba(white, 0.8),
 		pressed-highlight: rgba(white, 0.2),
 		disabled: rgba(oColorsByName('white'), 0.5),
-		focus-outline: oColorsByName('white')
+		focus-outline: oColorsByName('white'),
+		mix-blend-mode: lighten
 	),
 	opinion: (
 		background: oColorsByName('oxford-40'),
