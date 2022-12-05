@@ -24,17 +24,6 @@ $spacing-unit: 20px;
 	display: inline-block;
 }
 
-// article lists modal
-@include oForms($opts: (
-	'elements': ('text', 'checkbox', 'toggle')
-));
-
-@include oButtons($opts: (
-	'sizes': ('big'),
-	'types': ('primary', 'secondary'),
-	'themes': ('inverse')
-));
-
 // experimental flash animation on header icon
 @include myftHeaderIconFlash;
 
@@ -205,6 +194,16 @@ $spacing-unit: 20px;
 }
 
 .myft-ui-create-list-variant {
+	@include oButtons($opts: (
+		'sizes': ('big'),
+		'types': ('primary', 'secondary'),
+		'themes': ('inverse')
+	));
+
+	@include oForms($opts: (
+		'elements': ('text', 'checkbox', 'toggle')
+	));
+
 	border-radius: 10px;
 	border: 1px solid oColorsByName('black-5');
 	background: oColorsByName('white-80');
