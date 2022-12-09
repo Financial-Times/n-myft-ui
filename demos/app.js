@@ -42,6 +42,7 @@ app.engine('.html', new PageKitHandlebars({
 app.use('/public', nExpress.static(path.join(__dirname, '../public'), { redirect: false }));
 
 app.get('/', (req, res) => {
+	res.locals.cacheablePersonalisedUrl = true;
 	res.render('demo', Object.assign({
 		title: 'n-myft-ui demo',
 		flags: {
