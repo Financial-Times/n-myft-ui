@@ -28,7 +28,7 @@
 			{{#ifAll setFollowButtonStateToSelected @root.cacheablePersonalisedUrl}}
 				aria-label="Added {{name}} to myFT: click to remove"
 				title="Remove {{name}} from myFT"
-				data-alternate-label="Add {{name}} to myFT"
+				data-alternate-label="Add to myFT: {{name}}"
 				aria-pressed="true"
 				{{#if alternateText}}
 					data-alternate-text="{{alternateText}}"
@@ -43,7 +43,7 @@
 				aria-pressed="false"
 				aria-label="Add to myFT: {{name}}"
 				title="Add {{name}} to myFT"
-				data-alternate-label="Remove {{name}} from myFT"
+				data-alternate-label="Added {{name}} to myFT: click to remove"
 				{{#if alternateText}}
 					data-alternate-text="{{alternateText}}"
 				{{else}}
