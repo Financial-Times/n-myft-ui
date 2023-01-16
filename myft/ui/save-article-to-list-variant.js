@@ -125,9 +125,10 @@ export default async function openSaveArticleToListVariant (contentId, options =
 	const resizeHandler = getResizeHandler(createListOverlay.wrapper);
 
 	createListOverlay.wrapper.addEventListener('oOverlay.ready', (data) => {
-		if (lists.length) {
-			const overlayContent = document.querySelector('.o-overlay__content');
-			overlayContent.insertAdjacentElement('afterbegin', listElement);
+		const overlayContent = document.querySelector('.o-overlay__content');
+		overlayContent.insertAdjacentElement('afterbegin', listElement);
+		if (!lists.length) {
+			hideListElement();
 		}
 
 		if (!modal) {
