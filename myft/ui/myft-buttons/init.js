@@ -8,9 +8,16 @@ import Delegate from 'ftdomdelegate';
 import personaliseLinks from '../personalise-links';
 import doFormSubmit from './do-form-submit';
 import enhanceActionUrls from './enhance-action-urls';
+import readyState from 'ready-state';
 
-const delegate = new Delegate(document.body);
 let initialised;
+
+function createDelegate (action, selector, cb) {
+	readyState.domready.then(() => {
+		const delegate = new Delegate(document.body);
+		delegate.on(action, selector, cb);
+	});
+}
 
 function getInteractionHandler (relationshipName) {
 	return (ev, formEl) => {
@@ -29,7 +36,7 @@ function anonEventListeners () {
 	};
 
 	['followed', 'saved'].forEach(action => {
-		delegate.on('submit', relationshipConfig[action].uiSelector, event => {
+		createDelegate('submit', relationshipConfig[action].uiSelector, event => {
 			event.preventDefault();
 			nNotification.show({
 				content: messages[action],
@@ -77,7 +84,7 @@ function signedInEventListeners () {
 					});
 				});
 
-			delegate.on('submit', uiSelector, getInteractionHandler(relationshipName));
+			createDelegate('submit', uiSelector, getInteractionHandler(relationshipName));
 		}
 	});
 }

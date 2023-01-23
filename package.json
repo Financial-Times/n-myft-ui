@@ -106,6 +106,7 @@
     "js-cookie": "^2.2.1",
     "next-myft-client": "^10.3.0",
     "next-session-client": "^4.0.0",
+    "ready-state": "^2.0.5",
     "superstore-sync": "^2.1.1"
   },
   "volta": {
