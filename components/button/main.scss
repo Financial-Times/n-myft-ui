@@ -4,11 +4,6 @@
 	@include oButtonsContent($opts: (
 		'type': 'secondary'
 	));
-
-	&:focus {
-		outline: 3px solid oColorsByName('teal-40');
-		outline-offset: 3px;
-	}
 }
 
 .n-myft-ui__button--inverse {
