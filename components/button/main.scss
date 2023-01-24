@@ -38,7 +38,7 @@
 	color: oColorsByName('black');
 	background-position: 0 0;
 	border: 0;
-	min-height: $icon-size;
+	min-height: $icon-size + 16px; // add line-height for 'save' text
 	width: $icon-size;
 	position: relative;
 
