@@ -1,5 +1,6 @@
 $myft-lozenge-themes: (
 	standard: (
+		toggle-button-theme: ('color': 'claret'),
 		background: oColorsByName('claret'),
 		text: oColorsByName('white'),
 		highlight: oColorsByName('claret-50'),
@@ -7,6 +8,7 @@ $myft-lozenge-themes: (
 		disabled: rgba(oColorsByName('black'), 0.5),
 	),
 	inverse: (
+		toggle-button-theme: 'inverse',
 		background: oColorsByName('white'),
 		text: oColorsByName('black'),
 		highlight: rgba(white, 0.8),
@@ -15,6 +17,7 @@ $myft-lozenge-themes: (
 		mix-blend-mode: lighten
 	),
 	opinion: (
+		toggle-button-theme: ('color': 'oxford-40'),
 		background: oColorsByName('oxford-40'),
 		text: oColorsByName('white'),
 		highlight: oColorsByName('oxford-30'),
@@ -22,6 +25,7 @@ $myft-lozenge-themes: (
 		disabled: rgba(oColorsByName('black'), 0.5),
 	),
 	monochrome: (
+		toggle-button-theme: 'inverse',
 		background: oColorsByName('white'),
 		text: oColorsByName('black'),
 		highlight: oColorsByName('white-80'),
@@ -29,6 +33,7 @@ $myft-lozenge-themes: (
 		disabled: rgba(oColorsByName('white'), 0.5),
 	),
 	alphaville: (
+		toggle-button-theme: 'inverse',
 		background: oColorsByName('white'),
 		text: oColorsByName('matisse'),
 		highlight: rgba(white, 0.8),
