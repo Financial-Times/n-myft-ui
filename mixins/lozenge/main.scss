@@ -5,11 +5,30 @@
 	'elements': ('forms', 'text', 'links')
 ));
 
-@mixin myftLozengeTheme($theme: standard, $with-toggle-icon: false) {
-	@if $with-toggle-icon != false {
-		@include myftToggleIcon($theme);
-	}
+@mixin commonMyftLozengeStyles {
+	border-radius: 100px;
+	box-sizing: content-box;
+	display: block;
+	font-size: 14px;
+	margin: 6px 4px 6px 2px;
+	max-width: 200px;
+	outline-offset: 2px;
+	overflow: hidden;
+	text-align: left;
+	text-overflow: ellipsis;
+	transition: border-color, background-color 0.5s ease;
+	white-space: nowrap;
 
+	&[disabled]:hover,
+	&[disabled] {
+		background: transparent;
+		border: 1px solid getThemeColor(disabled);
+		color: getThemeColor(disabled);
+		opacity: unset;
+	}
+}
+
+@mixin myftLozengeTheme($theme: standard) {
 	@include withTheme($theme) {
 		background-color: transparent;
 		border: 1px solid getThemeColor(background);
@@ -22,14 +41,30 @@
 			color: getThemeColor(background);
 		}
 
-		&[aria-pressed="true"] {
-			background-color: getThemeColor(background);
-			border: 1px solid getThemeColor(background);
-			color: getThemeColor(text);
+		@include commonMyftLozengeStyles;
+		padding: 5px 12px;
+	}
+}
 
+@mixin myftLozenge($theme: standard) {
+	@include myftLozengeTheme($theme);
+	@include oTypographySans($weight: 'semibold', $scale: -1);
+}
+
+@mixin myftLozengeToggleButton($theme: standard) {
+	@include myftToggleIcon($theme);
+	@include withTheme($theme) {
+		@include oButtonsContent($opts: (
+			'type': 'secondary',
+			'theme': getThemeColor(toggle-button-theme)
+		));
+
+		&[aria-pressed="true"] {
+			color: getThemeColor(text);
 			@if getThemeColor(mix-blend-mode) {
-				mix-blend-mode: lighten;
+				mix-blend-mode: getThemeColor(mix-blend-mode);
 			}
+
 			&:hover,
 			&:focus {
 				border-color: getThemeColor(highlight);
@@ -44,30 +79,7 @@
 			}
 		}
 
-		&[disabled]:hover,
-		&[disabled] {
-			background: transparent;
-			border: 1px solid getThemeColor(disabled);
-			color: getThemeColor(disabled);
-		}
+		@include commonMyftLozengeStyles;
+		padding: 0 12px;
 	}
-}
-
-@mixin myftLozenge($theme: standard, $with-toggle-icon: false) {
-	@include myftLozengeTheme($theme, $with-toggle-icon);
-	@include oTypographySans($weight: 'semibold', $scale: -1);
-
-	border-radius: 100px;
-	box-sizing: content-box;
-	display: block;
-	font-size: 14px;
-	margin: 6px 4px 6px 2px;
-	max-width: 200px;
-	outline-offset: 2px;
-	overflow: hidden;
-	padding: 5px 12px;
-	text-align: left;
-	text-overflow: ellipsis;
-	transition: border-color, background-color 0.5s ease;
-	white-space: nowrap;
 }
