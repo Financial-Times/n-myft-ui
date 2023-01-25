@@ -46,6 +46,15 @@ $myft-lozenge-themes: (
 	@return map-get($theme-map, $key);
 }
 
+// to avoid creating --standard styles
+@function getThemeModifier ($theme) {
+	@if $theme == 'standard' {
+		@return '';
+	} @else {
+		@return '--#{$theme}';
+	}
+}
+
 @mixin withTheme($theme) {
 	@if type-of($theme) == 'map' {
 		$theme-map: $theme !global;

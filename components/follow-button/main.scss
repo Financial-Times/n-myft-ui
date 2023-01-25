@@ -1,11 +1,7 @@
 @import '../../mixins/lozenge/main';
 
-.n-myft-follow-button {
-	@include myftLozengeToggleButton();
-}
-
 @each $theme in map-keys($myft-lozenge-themes) {
-	.n-myft-follow-button--#{$theme} {
+	.n-myft-follow-button#{getThemeModifier($theme)} {
 		@include myftLozengeToggleButton($theme);
 	}
 }

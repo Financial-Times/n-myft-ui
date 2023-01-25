@@ -6,7 +6,7 @@
 }
 
 @each $theme in map-keys($myft-lozenge-themes) {
-	.n-myft-concept-pill--#{$theme} {
+	.n-myft-concept-pill#{getThemeModifier($theme)} {
 		@include myftLozengeTheme($theme);
 	}
 }
