@@ -230,7 +230,6 @@ function FormElement (createList, attachDescription, onListCreated, onCancel, mo
 	function handleCancelClick (event) {
 		event.preventDefault();
 		event.stopPropagation();
-		triggerCancelEvent();
 		formElement.remove();
 		if (!lists.length) attachDescription();
 		onCancel();
@@ -248,7 +247,6 @@ function addPublicToggleListener (formElement) {
 	function onPublicToggleClick (event) {
 		event.target.setAttribute('data-trackable', event.target.checked ? 'private-link' : 'public-link');
 		event.target.setAttribute('text', event.target.checked ? 'private' : 'public');
-		triggerPublicToggleEvent(event.target.checked);
 	}
 
 	formElement.querySelector('input[name="is-public"]').addEventListener('click', onPublicToggleClick);
@@ -485,39 +483,11 @@ function triggerCreateListEvent (contentId, listId) {
 
 // Temporary event on the public toggle feature.
 // These will be used to build a sanity check dashboard, and will be removed after we get clean-up this test.
-function triggerPublicToggleEvent (isPublic) {
-	document.body.dispatchEvent(new CustomEvent('oTracking.event', {
-		detail: {
-			category: 'publicToggle',
-			action: `${isPublic ? 'setPublic' : 'setPrivate'}`,
-			teamName: 'customer-products-us-growth',
-			amplitudeExploratory: true
-		},
-		bubbles: true
-	}));
-}
-
-// Temporary event on the public toggle feature.
-// These will be used to build a sanity check dashboard, and will be removed after we get clean-up this test.
 function triggerAddToNewListEvent () {
 	document.body.dispatchEvent(new CustomEvent('oTracking.event', {
 		detail: {
 			category: 'publicToggle',
 			action: 'addToNewList',
-			teamName: 'customer-products-us-growth',
-			amplitudeExploratory: true
-		},
-		bubbles: true
-	}));
-}
-
-// Temporary event on the public toggle feature.
-// These will be used to build a sanity check dashboard, and will be removed after we get clean-up this test.
-function triggerCancelEvent () {
-	document.body.dispatchEvent(new CustomEvent('oTracking.event', {
-		detail: {
-			category: 'publicToggle',
-			action: 'cancel ',
 			teamName: 'customer-products-us-growth',
 			amplitudeExploratory: true
 		},
