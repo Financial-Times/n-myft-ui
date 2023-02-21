@@ -32,6 +32,14 @@ $myft-lozenge-themes: (
 		pressed-highlight: rgba(oColorsByName('white'), 0.2),
 		disabled: rgba(oColorsByName('white'), 0.5),
 	),
+	inverse-monochrome: (
+		toggle-button-theme: ('color': 'black'),
+		background: oColorsByName('black'),
+		text: oColorsByName('white'),
+		highlight: oColorsByName('black-80'),
+		pressed-highlight: rgba(oColorsByName('black'), 0.2),
+		disabled: rgba(oColorsByName('black'), 0.5),
+	),
 	alphaville: (
 		toggle-button-theme: 'inverse',
 		background: oColorsByName('white'),
