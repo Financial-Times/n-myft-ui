@@ -187,9 +187,10 @@ function showArticleSavedOverlay (contentId) {
 	showListsOverlay('Article saved', `/myft/list?fragment=true&fromArticleSaved=true&contentId=${contentId}`, contentId);
 }
 
-function showCreateListAndAddArticleOverlay (contentId) {
+function showCreateListAndAddArticleOverlay (contentId, config) {
 	const options = {
 		name: 'myft-ui-create-list-variant',
+		...config
 	};
 
 	return openSaveArticleToListVariant(contentId, options);
@@ -205,11 +206,11 @@ function handleArticleSaved (contentId) {
 		});
 }
 
-function openCreateListAndAddArticleOverlay (contentId) {
+function openCreateListAndAddArticleOverlay (contentId, config) {
 	return myFtClient.getAll('created', 'list')
 		.then(createdLists => createdLists.filter(list => !list.isRedirect))
 		.then(() => {
-			return showCreateListAndAddArticleOverlay(contentId);
+			return showCreateListAndAddArticleOverlay(contentId, config);
 		});
 }
 
@@ -283,6 +284,8 @@ function initialEventListeners () {
 		// otherwise it will show the classic overlay
 		const newListDesign = event.currentTarget.querySelector('[data-myft-ui-save-new="manageArticleLists"]');
 		if (newListDesign) {
+			const configKeys = newListDesign.dataset.myftUiSaveNewConfig.split(',');
+			const config = configKeys.reduce((configObj, key) => (key ? { ...configObj, [key]: true} : configObj), {});
 
 			// Temporary events on the public toggle feature.
 			// These will be used to build a sanity check dashboard, and will be removed after we get clean-up this test.
@@ -297,7 +300,7 @@ function initialEventListeners () {
 				bubbles: true
 			}));
 
-			return openCreateListAndAddArticleOverlay(contentId);
+			return openCreateListAndAddArticleOverlay(contentId, config);
 		}
 
 		handleArticleSaved(contentId);
