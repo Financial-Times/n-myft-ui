@@ -42,6 +42,12 @@ $system-code: "n-myft-ui-demo";
 	background-color: oColorsByName('claret-60');
 	color: oColorsByName('white');
 }
+
+.concept-collection--inverse-monochrome {
+	background-color: oColorsByName('white');
+	color: oColorsByName('black');
+}
+
 .concept-collection--alphaville {
 	background-color: oColorsByName('matisse');
 	color: oColorsByName('white');
