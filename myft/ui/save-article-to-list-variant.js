@@ -177,20 +177,20 @@ function FormElement (createList, attachDescription, onListCreated, onCancel, mo
 		</label>
 
 		<div class="myft-ui-create-list-variant-form-public o-forms-field" role="group">
-				<span class="o-forms-input o-forms-input--toggle">
-					<label>
-						<input class="myft-ui-create-list-variant-form-toggle" type="checkbox" name="is-public" value="public" checked data-trackable="private-link" text="private">
-						<span class="myft-ui-create-list-variant-form-toggle-label o-forms-input__label">
-							<span class="o-forms-input__label__main">
-								Public
-							</span>
-							<span id="myft-ui-create-list-variant-form-public-description" class="o-forms-input__label__prompt">
-								Your profession & list will be visible to others
-							</span>
+			<span class="o-forms-input o-forms-input--toggle">
+				<label>
+					<input class="myft-ui-create-list-variant-form-toggle" type="checkbox" name="is-public" value="public" checked data-trackable="private-link" text="private">
+					<span class="myft-ui-create-list-variant-form-toggle-label o-forms-input__label">
+						<span class="o-forms-input__label__main">
+							Public
 						</span>
-					</label>
-				</span>
-			</div>
+						<span id="myft-ui-create-list-variant-form-public-description" class="o-forms-input__label__prompt">
+							Your profession & list will be visible to others
+						</span>
+					</span>
+				</label>
+			</span>
+		</div>
 
 		<div class="myft-ui-create-list-variant-form-buttons">
 			<button class="o-buttons o-buttons--primary o-buttons--inverse o-buttons--big" type="button" data-trackable="cancel-link" text="cancel">
