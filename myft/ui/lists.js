@@ -291,7 +291,7 @@ function initialEventListeners () {
 			// These will be used to build a sanity check dashboard, and will be removed after we get clean-up this test.
 			document.body.dispatchEvent(new CustomEvent('oTracking.event', {
 				detail: {
-					category: 'publicToggle',
+					category: 'lists',
 					action: 'savedArticle',
 					article_id: contentId,
 					teamName: 'customer-products-us-growth',

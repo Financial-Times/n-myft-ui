@@ -14,7 +14,7 @@ let scrolledOnOpen;
 let listOverlayBottom;
 
 export default async function openSaveArticleToListVariant (contentId, options = {}) {
-	const { name, showPublicToggle = false, modal = false } = options;
+	const { name, modal = false } = options;
 
 	function createList (newList, cb) {
 		if(!newList || !newList.name) {
@@ -112,7 +112,7 @@ export default async function openSaveArticleToListVariant (contentId, options =
 
 	function openFormHandler () {
 		hideListElement();
-		const formElement = FormElement(createList, showPublicToggle, attachDescription, onFormListCreated, onFormCancel, modal);
+		const formElement = FormElement(createList, attachDescription, onFormListCreated, onFormCancel, modal);
 		const overlayContent = document.querySelector('.o-overlay__content');
 		removeDescription();
 		overlayContent.insertAdjacentElement('beforeend', formElement);
@@ -166,7 +166,7 @@ function getResizeHandler (target) {
 	};
 }
 
-function FormElement (createList, showPublicToggle, attachDescription, onListCreated, onCancel, modal=false) {
+function FormElement (createList, attachDescription, onListCreated, onCancel, modal=false) {
 	const formString = `
 	<form class="myft-ui-create-list-variant-form">
 		<label class="myft-ui-create-list-variant-form-name o-forms-field">
@@ -176,24 +176,21 @@ function FormElement (createList, showPublicToggle, attachDescription, onListCre
 			</span>
 		</label>
 
-		${showPublicToggle ?
-		`<div class="myft-ui-create-list-variant-form-public o-forms-field" role="group">
-				<span class="o-forms-input o-forms-input--toggle">
-					<label>
-						<input class="myft-ui-create-list-variant-form-toggle" type="checkbox" name="is-public" value="public" checked data-trackable="private-link" text="private">
-						<span class="myft-ui-create-list-variant-form-toggle-label o-forms-input__label">
-							<span class="o-forms-input__label__main">
-								Public
-							</span>
-							<span id="myft-ui-create-list-variant-form-public-description" class="o-forms-input__label__prompt">
-								Your profession & list will be visible to others
-							</span>
+		<div class="myft-ui-create-list-variant-form-public o-forms-field" role="group">
+			<span class="o-forms-input o-forms-input--toggle">
+				<label>
+					<input class="myft-ui-create-list-variant-form-toggle" type="checkbox" name="is-public" value="public" checked data-trackable="private-link" text="private">
+					<span class="myft-ui-create-list-variant-form-toggle-label o-forms-input__label">
+						<span class="o-forms-input__label__main">
+							Public
 						</span>
-					</label>
-				</span>
-			</div>` :
-		''
-}
+						<span id="myft-ui-create-list-variant-form-public-description" class="o-forms-input__label__prompt">
+							Your profession & list will be visible to others
+						</span>
+					</span>
+				</label>
+			</span>
+		</div>
 
 		<div class="myft-ui-create-list-variant-form-buttons">
 			<button class="o-buttons o-buttons--primary o-buttons--inverse o-buttons--big" type="button" data-trackable="cancel-link" text="cancel">
@@ -233,7 +230,6 @@ function FormElement (createList, showPublicToggle, attachDescription, onListCre
 	function handleCancelClick (event) {
 		event.preventDefault();
 		event.stopPropagation();
-		triggerCancelEvent();
 		formElement.remove();
 		if (!lists.length) attachDescription();
 		onCancel();
@@ -242,9 +238,7 @@ function FormElement (createList, showPublicToggle, attachDescription, onListCre
 	formElement.querySelector('button[type="submit"]').addEventListener('click', handleSubmit);
 	formElement.querySelector('button[type="button"]').addEventListener('click', handleCancelClick);
 
-	if (showPublicToggle) {
-		addPublicToggleListener(formElement);
-	}
+	addPublicToggleListener(formElement);
 
 	return formElement;
 }
@@ -253,7 +247,6 @@ function addPublicToggleListener (formElement) {
 	function onPublicToggleClick (event) {
 		event.target.setAttribute('data-trackable', event.target.checked ? 'private-link' : 'public-link');
 		event.target.setAttribute('text', event.target.checked ? 'private' : 'public');
-		triggerPublicToggleEvent(event.target.checked);
 	}
 
 	formElement.querySelector('input[name="is-public"]').addEventListener('click', onPublicToggleClick);
@@ -490,39 +483,11 @@ function triggerCreateListEvent (contentId, listId) {
 
 // Temporary event on the public toggle feature.
 // These will be used to build a sanity check dashboard, and will be removed after we get clean-up this test.
-function triggerPublicToggleEvent (isPublic) {
-	document.body.dispatchEvent(new CustomEvent('oTracking.event', {
-		detail: {
-			category: 'publicToggle',
-			action: `${isPublic ? 'setPublic' : 'setPrivate'}`,
-			teamName: 'customer-products-us-growth',
-			amplitudeExploratory: true
-		},
-		bubbles: true
-	}));
-}
-
-// Temporary event on the public toggle feature.
-// These will be used to build a sanity check dashboard, and will be removed after we get clean-up this test.
 function triggerAddToNewListEvent () {
 	document.body.dispatchEvent(new CustomEvent('oTracking.event', {
 		detail: {
 			category: 'publicToggle',
 			action: 'addToNewList',
-			teamName: 'customer-products-us-growth',
-			amplitudeExploratory: true
-		},
-		bubbles: true
-	}));
-}
-
-// Temporary event on the public toggle feature.
-// These will be used to build a sanity check dashboard, and will be removed after we get clean-up this test.
-function triggerCancelEvent () {
-	document.body.dispatchEvent(new CustomEvent('oTracking.event', {
-		detail: {
-			category: 'publicToggle',
-			action: 'cancel ',
 			teamName: 'customer-products-us-growth',
 			amplitudeExploratory: true
 		},
