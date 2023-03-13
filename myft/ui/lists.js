@@ -10,8 +10,6 @@ const csrfToken = getToken();
 let lists = [];
 let haveLoadedLists = false;
 let createListOverlay;
-let scrolledOnOpen;
-let listOverlayBottom;
 
 async function openSaveArticleToListVariant (contentId, options = {}) {
 	const { name, modal = false } = options;
@@ -119,8 +117,7 @@ async function openSaveArticleToListVariant (contentId, options = {}) {
 	}
 
 	createListOverlay.open();
-	scrolledOnOpen = window.scrollY;
-
+	
 	const scrollHandler = getScrollHandler(createListOverlay.wrapper);
 	const resizeHandler = getResizeHandler(createListOverlay.wrapper);
 
@@ -137,8 +134,6 @@ async function openSaveArticleToListVariant (contentId, options = {}) {
 			window.addEventListener('oViewport.resize', resizeHandler);
 			window.addEventListener('scroll', scrollHandler);
 		}
-
-		listOverlayBottom = document.querySelector('.myft-ui-create-list-variant').getBoundingClientRect().bottom;
 
 		restoreFormHandler();
 
@@ -270,9 +265,6 @@ function ContentElement (hasDescription, onClick) {
 	`;
 
 	const contentElement = stringToHTMLElement(content);
-
-	contentElement.querySelector('.myft-ui-create-list-variant-add').addEventListener('click', checkScrollToAdd);
-	contentElement.querySelector('.myft-ui-create-list-variant-add').addEventListener('click', triggerAddToNewListEvent);
 
 	function removeDescription () {
 		const descriptionElement = contentElement.querySelector('.myft-ui-create-list-variant-add-description');
@@ -481,36 +473,6 @@ function triggerCreateListEvent (contentId, listId) {
 	}));
 }
 
-// Temporary event on the public toggle feature.
-// These will be used to build a sanity check dashboard, and will be removed after we get clean-up this test.
-function triggerAddToNewListEvent () {
-	document.body.dispatchEvent(new CustomEvent('oTracking.event', {
-		detail: {
-			category: 'publicToggle',
-			action: 'addToNewList',
-			teamName: 'customer-products-us-growth',
-			amplitudeExploratory: true
-		},
-		bubbles: true
-	}));
-}
-
-//Temporary event to determine whether users need to scroll to add to a list
-function checkScrollToAdd () {
-	//if the bottom of the overlay was not showing and scrolling has occurred since it was opened
-	if(listOverlayBottom > window.innerHeight && window.scrollY > scrolledOnOpen) {
-		document.body.dispatchEvent(new CustomEvent('oTracking.event', {
-			detail: {
-				category: 'publicToggle',
-				action: 'scrollToAdd',
-				teamName: 'customer-products-us-growth',
-				amplitudeExploratory: true
-			},
-			bubbles: true
-		}));
-	}
-}
-
 function showCreateListAndAddArticleOverlay (contentId, config) {
 	const options = {
 		name: 'myft-ui-create-list-variant',
@@ -540,19 +502,6 @@ function initialEventListeners () {
 		if (saveToListEl) {
 			const configKeys = saveToListEl.dataset.myftUiSaveNewConfig.split(',');
 			const config = configKeys.reduce((configObj, key) => (key ? { ...configObj, [key]: true} : configObj), {});
-			// Temporary events on the public toggle feature.
-			// These will be used to build a sanity check dashboard, and will be removed after we get clean-up this test.
-			document.body.dispatchEvent(new CustomEvent('oTracking.event', {
-				detail: {
-					category: 'lists',
-					action: 'savedArticle',
-					article_id: contentId,
-					teamName: 'customer-products-us-growth',
-					amplitudeExploratory: true
-				},
-				bubbles: true
-			}));
-
 			return openCreateListAndAddArticleOverlay(contentId, config);
 		}
 
