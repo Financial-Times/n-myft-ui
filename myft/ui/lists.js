@@ -494,26 +494,18 @@ function initialEventListeners () {
 
 	document.body.addEventListener('myft.user.saved.content.add', event => {
 		const contentId = event.detail.subject;
-
-		// Checks if the createListAndSaveArticle variant is active
-		// and will show the variant overlay if the user has no lists,
-		// otherwise it will show the classic overlay
-		const saveToListEl = event.currentTarget.querySelector('[data-myft-ui-save-new="manageArticleLists"]');
-		if (saveToListEl) {
-			const configKeys = saveToListEl.dataset.myftUiSaveNewConfig.split(',');
-			const config = configKeys.reduce((configObj, key) => (key ? { ...configObj, [key]: true} : configObj), {});
-			return openCreateListAndAddArticleOverlay(contentId, config);
+		const configSet = event.currentTarget.querySelector('[data-myft-ui-save-config]');
+		let config = {};
+		if (configSet) {
+			const configKeys = configSet.dataset.myftUiSaveConfig.split(',');
+			config = configKeys.reduce((configObj, key) => (key ? { ...configObj, [key]: true} : configObj), {});
 		}
-
+		return openCreateListAndAddArticleOverlay(contentId, config);
 	});
 
 	document.body.addEventListener('myft.user.saved.content.remove', event => {
 		const contentId = event.detail.subject;
-
-		const saveToListEl = event.currentTarget.querySelector('[data-myft-ui-save-new="manageArticleLists"]');
-		if (saveToListEl) {
-			return showUnsavedNotification(contentId);
-		}
+		return showUnsavedNotification(contentId);
 	});
 }
 
