@@ -11,7 +11,7 @@ let lists = [];
 let haveLoadedLists = false;
 let createListOverlay;
 
-async function openSaveArticleToListVariant (contentId, options = {}) {
+async function openSaveArticleToList (contentId, options = {}) {
 	const { name, modal = false } = options;
 
 	function createList (newList, cb) {
@@ -24,7 +24,7 @@ async function openSaveArticleToListVariant (contentId, options = {}) {
 				myFtClient.add('list', detail.subject, 'contained', 'content', contentId, { token: csrfToken }).then((data) => {
 					const createdList = { name: newList.name, uuid: data.actorId, checked: true, isPublic: !!newList.isPublic };
 					lists.unshift(createdList);
-					const announceListContainer = document.querySelector('.myft-ui-create-list-variant-announcement');
+					const announceListContainer = document.querySelector('.myft-ui-create-list-announcement');
 					announceListContainer.textContent = `${newList.name} created`;
 					cb(contentId, createdList);
 				});
@@ -83,7 +83,7 @@ async function openSaveArticleToListVariant (contentId, options = {}) {
 		html: contentElement,
 		heading: { title: headingElement.outerHTML },
 		parentnode: isMobile() ? '.o-share--horizontal' : '.o-share--vertical',
-		class: 'myft-ui-create-list-variant',
+		class: 'myft-ui-create-list',
 	});
 
 	function outsideClickHandler (e) {
@@ -117,7 +117,7 @@ async function openSaveArticleToListVariant (contentId, options = {}) {
 	}
 
 	createListOverlay.open();
-	
+
 	const scrollHandler = getScrollHandler(createListOverlay.wrapper);
 	const resizeHandler = getResizeHandler(createListOverlay.wrapper);
 
@@ -163,23 +163,23 @@ function getResizeHandler (target) {
 
 function FormElement (createList, attachDescription, onListCreated, onCancel, modal=false) {
 	const formString = `
-	<form class="myft-ui-create-list-variant-form">
-		<label class="myft-ui-create-list-variant-form-name o-forms-field">
+	<form class="myft-ui-create-list-form">
+		<label class="myft-ui-create-list-form-name o-forms-field">
 			<span class="o-forms-input o-forms-input--text">
-				<input class="myft-ui-create-list-variant-text" type="text" name="list-name">
-				<div class="myft-ui-create-list-variant-label">List name</div>
+				<input class="myft-ui-create-list-text" type="text" name="list-name">
+				<div class="myft-ui-create-list-label">List name</div>
 			</span>
 		</label>
 
-		<div class="myft-ui-create-list-variant-form-public o-forms-field" role="group">
+		<div class="myft-ui-create-list-form-public o-forms-field" role="group">
 			<span class="o-forms-input o-forms-input--toggle">
 				<label>
-					<input class="myft-ui-create-list-variant-form-toggle" type="checkbox" name="is-public" value="public" checked data-trackable="private-link" text="private">
-					<span class="myft-ui-create-list-variant-form-toggle-label o-forms-input__label">
+					<input class="myft-ui-create-list-form-toggle" type="checkbox" name="is-public" value="public" checked data-trackable="private-link" text="private">
+					<span class="myft-ui-create-list-form-toggle-label o-forms-input__label">
 						<span class="o-forms-input__label__main">
 							Public
 						</span>
-						<span id="myft-ui-create-list-variant-form-public-description" class="o-forms-input__label__prompt">
+						<span id="myft-ui-create-list-form-public-description" class="o-forms-input__label__prompt">
 							Your profession & list will be visible to others
 						</span>
 					</span>
@@ -187,7 +187,7 @@ function FormElement (createList, attachDescription, onListCreated, onCancel, mo
 			</span>
 		</div>
 
-		<div class="myft-ui-create-list-variant-form-buttons">
+		<div class="myft-ui-create-list-form-buttons">
 			<button class="o-buttons o-buttons--primary o-buttons--inverse o-buttons--big" type="button" data-trackable="cancel-link" text="cancel">
 			Cancel
 			</button>
@@ -248,16 +248,16 @@ function addPublicToggleListener (formElement) {
 }
 
 function ContentElement (hasDescription, onClick) {
-	const description = '<p class="myft-ui-create-list-variant-add-description">Lists are a simple way to curate your content</p>';
+	const description = '<p class="myft-ui-create-list-add-description">Lists are a simple way to curate your content</p>';
 
 	const content = `
-		<div class="myft-ui-create-list-variant-footer">
-			<button class="myft-ui-create-list-variant-add myft-ui-create-list-variant-add-collapsed" aria-expanded=false data-trackable="add-to-new-list" text="add to new list">Add to a new list</button>
+		<div class="myft-ui-create-list-footer">
+			<button class="myft-ui-create-list-add myft-ui-create-list-add-collapsed" aria-expanded=false data-trackable="add-to-new-list" text="add to new list">Add to a new list</button>
 			${hasDescription ? `
 			${description}
 		` : ''}
 			<span
-			class="myft-ui-create-list-variant-announcement o-normalise-visually-hidden"
+			class="myft-ui-create-list-announcement o-normalise-visually-hidden"
 			role="region"
 			aria-live="assertive"
 			/>
@@ -267,7 +267,7 @@ function ContentElement (hasDescription, onClick) {
 	const contentElement = stringToHTMLElement(content);
 
 	function removeDescription () {
-		const descriptionElement = contentElement.querySelector('.myft-ui-create-list-variant-add-description');
+		const descriptionElement = contentElement.querySelector('.myft-ui-create-list-add-description');
 		if (descriptionElement) {
 			descriptionElement.remove();
 		}
@@ -279,14 +279,14 @@ function ContentElement (hasDescription, onClick) {
 	}
 
 	function restoreFormHandler () {
-		contentElement.querySelector('.myft-ui-create-list-variant-add').classList.add('myft-ui-create-list-variant-add-collapsed');
-		contentElement.querySelector('.myft-ui-create-list-variant-add').setAttribute('aria-expanded', false);
+		contentElement.querySelector('.myft-ui-create-list-add').classList.add('myft-ui-create-list-add-collapsed');
+		contentElement.querySelector('.myft-ui-create-list-add').setAttribute('aria-expanded', false);
 		return contentElement.addEventListener('click', clickHandler, { once: true });
 	}
 
 	function clickHandler (event) {
-		contentElement.querySelector('.myft-ui-create-list-variant-add').classList.remove('myft-ui-create-list-variant-add-collapsed');
-		contentElement.querySelector('.myft-ui-create-list-variant-add').setAttribute('aria-expanded', true);
+		contentElement.querySelector('.myft-ui-create-list-add').classList.remove('myft-ui-create-list-add-collapsed');
+		contentElement.querySelector('.myft-ui-create-list-add').setAttribute('aria-expanded', true);
 		onClick(event);
 	}
 
@@ -295,14 +295,14 @@ function ContentElement (hasDescription, onClick) {
 
 function HeadingElement () {
 	const heading = `
-		<span class="myft-ui-create-list-variant-heading">Added to <a href="https://www.ft.com/myft/saved-articles" data-trackable="saved-articles">saved articles</a> in <span class="myft-ui-create-list-variant-icon"><span class="myft-ui-create-list-variant-icon-visually-hidden">my FT</span></span></span>
+		<span class="myft-ui-create-list-heading">Added to <a href="https://www.ft.com/myft/saved-articles" data-trackable="saved-articles">saved articles</a> in <span class="myft-ui-create-list-icon"><span class="myft-ui-create-list-icon-visually-hidden">my FT</span></span></span>
 		`;
 
 	return stringToHTMLElement(heading);
 }
 
 function ListsElement (lists, addToList, removeFromList) {
-	const currentList = document.querySelector('.myft-ui-create-list-variant-lists');
+	const currentList = document.querySelector('.myft-ui-create-list-lists');
 	if (currentList) {
 		currentList.remove();
 	}
@@ -310,15 +310,15 @@ function ListsElement (lists, addToList, removeFromList) {
 	const listCheckboxElement = ListCheckboxElement(addToList, removeFromList);
 
 	const listsTemplate = `
-	<div class="myft-ui-create-list-variant-lists o-forms-field o-forms-field--optional" role="group">
-		<span class="myft-ui-create-list-variant-lists-text">Add to list</span>
-		<span class="myft-ui-create-list-variant-lists-container o-forms-input o-forms-input--checkbox">
+	<div class="myft-ui-create-list-lists o-forms-field o-forms-field--optional" role="group">
+		<span class="myft-ui-create-list-lists-text">Add to list</span>
+		<span class="myft-ui-create-list-lists-container o-forms-input o-forms-input--checkbox">
 		</span>
 	</div>
 	`;
 	const listsElement = stringToHTMLElement(listsTemplate);
 
-	const listsElementContainer = listsElement.querySelector('.myft-ui-create-list-variant-lists-container');
+	const listsElementContainer = listsElement.querySelector('.myft-ui-create-list-lists-container');
 
 	function refresh () {
 		listsElementContainer.replaceChildren(...lists.map(list => listCheckboxElement(list)));
@@ -475,11 +475,11 @@ function triggerCreateListEvent (contentId, listId) {
 
 function showCreateListAndAddArticleOverlay (contentId, config) {
 	const options = {
-		name: 'myft-ui-create-list-variant',
+		name: 'myft-ui-create-list',
 		...config
 	};
 
-	return openSaveArticleToListVariant(contentId, options);
+	return openSaveArticleToList(contentId, options);
 }
 
 function openCreateListAndAddArticleOverlay (contentId, config) {
