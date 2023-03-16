@@ -12,8 +12,8 @@ let haveLoadedLists = false;
 let createListOverlay;
 
 async function openSaveArticleToList (contentId, options = {}) {
-	const { name, modal = false } = options;
-
+	const { name, nonModal = false } = options;
+	const modal = !nonModal;
 	function createList (newList, cb) {
 		if(!newList || !newList.name) {
 			return restoreContent();
@@ -161,7 +161,7 @@ function getResizeHandler (target) {
 	};
 }
 
-function FormElement (createList, attachDescription, onListCreated, onCancel, modal=false) {
+function FormElement (createList, attachDescription, onListCreated, onCancel, modal=true) {
 	const formString = `
 	<form class="myft-ui-create-list-form">
 		<label class="myft-ui-create-list-form-name o-forms-field">

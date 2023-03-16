@@ -4,7 +4,7 @@
 	data-myft-ui="saved"
 	action="/myft/save/{{contentId}}"
 	data-js-action="/__myft/api/core/saved/content/{{contentId}}?method=put"
-	data-myft-ui-save-config="{{#if modal}}modal{{/if}}">
+	data-myft-ui-save-config="{{#if nonModal}}nonModal{{/if}}">
 	{{> n-myft-ui/components/csrf-token/input}}
 	<div
 		class="n-myft-ui__announcement o-normalise-visually-hidden"
