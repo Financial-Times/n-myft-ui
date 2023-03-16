@@ -493,6 +493,7 @@ function openCreateListAndAddArticleOverlay (contentId, config) {
 function initialEventListeners () {
 
 	document.body.addEventListener('myft.user.saved.content.add', event => {
+		event.stopPropagation();
 		const contentId = event.detail.subject;
 		const configSet = event.currentTarget.querySelector('[data-myft-ui-save-config]');
 		let config = {};
@@ -504,6 +505,7 @@ function initialEventListeners () {
 	});
 
 	document.body.addEventListener('myft.user.saved.content.remove', event => {
+		event.stopPropagation();
 		const contentId = event.detail.subject;
 		return showUnsavedNotification(contentId);
 	});
