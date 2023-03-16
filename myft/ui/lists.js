@@ -496,11 +496,11 @@ function initialEventListeners () {
 		event.stopPropagation();
 		const contentId = event.detail.subject;
 		const configSet = event.currentTarget.querySelector('[data-myft-ui-save-config]');
-		let config = {};
-		if (configSet) {
-			const configKeys = configSet.dataset.myftUiSaveConfig.split(',');
-			config = configKeys.reduce((configObj, key) => (key ? { ...configObj, [key]: true} : configObj), {});
+		if (!configSet) {
+			return openCreateListAndAddArticleOverlay(contentId);
 		}
+		const configKeys = configSet.dataset.myftUiSaveConfig.split(',');
+		const config = configKeys.reduce((configObj, key) => (key ? { ...configObj, [key]: true} : configObj), {});
 		return openCreateListAndAddArticleOverlay(contentId, config);
 	});
 
