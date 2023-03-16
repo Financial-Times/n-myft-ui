@@ -484,7 +484,6 @@ function showCreateListAndAddArticleOverlay (contentId, config) {
 
 function openCreateListAndAddArticleOverlay (contentId, config) {
 	return myFtClient.getAll('created', 'list')
-		.then(createdLists => createdLists.filter(list => !list.isRedirect))
 		.then(() => {
 			return showCreateListAndAddArticleOverlay(contentId, config);
 		});
