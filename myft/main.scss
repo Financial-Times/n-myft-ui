@@ -174,7 +174,7 @@ $spacing-unit: 20px;
 
 }
 
-.myft-ui-create-list-variant-message {
+.myft-ui-create-list {
 	border-radius: 10px;
 	border: 1px solid oColorsByName('black-5');
 	background: oColorsByName('white-80');
@@ -193,7 +193,7 @@ $spacing-unit: 20px;
 	}
 }
 
-.myft-ui-create-list-variant {
+.myft-ui-create-list {
 	@include oButtons($opts: (
 		'sizes': ('big'),
 		'types': ('primary', 'secondary'),

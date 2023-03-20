@@ -1,330 +1,513 @@
 import myFtClient from 'next-myft-client';
-import Delegate from 'ftdomdelegate';
+import isMobile from './lib/is-mobile';
 import Overlay from '@financial-times/o-overlay';
-import * as myFtUiButtonStates from './lib/button-states';
-import nNotification from '@financial-times/n-notification';
 import { uuid } from 'n-ui-foundations';
 import getToken from './lib/get-csrf-token';
-import isMobile from './lib/is-mobile';
-import oForms from '@financial-times/o-forms';
-import openSaveArticleToListVariant from './save-article-to-list-variant';
 import stringToHTMLElement from './lib/convert-string-to-html-element';
 
-const delegate = new Delegate(document.body);
 const csrfToken = getToken();
 
+let lists = [];
+let haveLoadedLists = false;
+let createListOverlay;
 
-function openOverlay (html, { name = 'myft-ui', title = '&nbsp;', shaded = false, trigger = false }) {
-	// If an overlay already exists of the same name destroy it.
+async function openSaveArticleToList (contentId, options = {}) {
+	const { name, nonModal = false } = options;
+	const modal = !nonModal;
+	function createList (newList, cb) {
+		if(!newList || !newList.name) {
+			return restoreContent();
+		}
+
+		myFtClient.add('user', null, 'created', 'list', uuid(), { name: newList.name,	token: csrfToken, isPublic: newList.isPublic })
+			.then(detail => {
+				myFtClient.add('list', detail.subject, 'contained', 'content', contentId, { token: csrfToken }).then((data) => {
+					const createdList = { name: newList.name, uuid: data.actorId, checked: true, isPublic: !!newList.isPublic };
+					lists.unshift(createdList);
+					const announceListContainer = document.querySelector('.myft-ui-create-list-announcement');
+					announceListContainer.textContent = `${newList.name} created`;
+					cb(contentId, createdList);
+				});
+			})
+			.catch(() => {
+				return restoreContent();
+			});
+	}
+
+	function addToList (list, cb) {
+		if(!list) {
+			return;
+		}
+
+		myFtClient.add('list', list.uuid, 'contained', 'content', contentId, { token: csrfToken }).then((addedList) => {
+			cb();
+			triggerAddToListEvent(contentId, addedList.actorId);
+		});
+	}
+
+	function removeFromList (list, cb) {
+		if(!list) {
+			return;
+		}
+
+		myFtClient.remove('list', list.uuid, 'contained', 'content', contentId, { token: csrfToken }).then((removedList) => {
+			cb();
+			triggerRemoveFromListEvent(contentId, removedList.actorId);
+		});
+	}
+
+	function restoreContent () {
+		if (!lists.length) attachDescription();
+		refreshListElement();
+		showListElement();
+		return restoreFormHandler();
+	}
+
+	if (!haveLoadedLists) {
+		lists = await getLists(contentId);
+		haveLoadedLists = true;
+	}
+
 	const overlays = Overlay.getOverlays();
 	const existingOverlay = overlays[name];
 	if (existingOverlay) {
 		existingOverlay.destroy();
 	}
-	// Create a new overlay.
-	const overlay = new Overlay(name, {
-		heading: { title, shaded },
-		html,
+
+	const headingElement = HeadingElement();
+	let [contentElement, removeDescription, attachDescription, restoreFormHandler] = ContentElement(!lists.length, openFormHandler);
+	const [listElement, refreshListElement, hideListElement, showListElement] = ListsElement(lists, addToList, removeFromList);
+
+	createListOverlay = new Overlay(name, {
+		modal,
+		html: contentElement,
+		heading: { title: headingElement.outerHTML },
+		parentnode: isMobile() ? '.o-share--horizontal' : '.o-share--vertical',
+		class: 'myft-ui-create-list',
 	});
 
-	overlay.open();
-
-	if (trigger) {
-		document.body.addEventListener('oOverlay.destroy', () => trigger.focus(), true);
+	function outsideClickHandler (e) {
+		const overlayContent = document.querySelector('.o-overlay__content');
+		const overlayContainer = document.querySelector('.o-overlay');
+		// we don't want to close the overlay if the click happened inside the
+		// overlay, except if the click happened on the overlay close button
+		const isTargetInsideOverlay = overlayContainer.contains(e.target) && !e.target.classList.contains('o-overlay__close');
+		if(createListOverlay.visible && (!overlayContent || !isTargetInsideOverlay)) {
+			createListOverlay.close();
+		}
 	}
 
-	return new Promise(resolve => {
-		document.body.addEventListener('oOverlay.ready', () => resolve(overlay));
+	function onFormCancel () {
+		showListElement();
+		restoreFormHandler();
+	}
+
+	function onFormListCreated () {
+		refreshListElement();
+		showListElement();
+		restoreFormHandler();
+	}
+
+	function openFormHandler () {
+		hideListElement();
+		const formElement = FormElement(createList, attachDescription, onFormListCreated, onFormCancel, modal);
+		const overlayContent = document.querySelector('.o-overlay__content');
+		removeDescription();
+		overlayContent.insertAdjacentElement('beforeend', formElement);
+	}
+
+	createListOverlay.open();
+
+	const scrollHandler = getScrollHandler(createListOverlay.wrapper);
+	const resizeHandler = getResizeHandler(createListOverlay.wrapper);
+
+	createListOverlay.wrapper.addEventListener('oOverlay.ready', (data) => {
+		const overlayContent = document.querySelector('.o-overlay__content');
+		overlayContent.insertAdjacentElement('afterbegin', listElement);
+		if (!lists.length) {
+			hideListElement();
+		}
+
+		if (!modal) {
+			positionOverlay(data.currentTarget);
+
+			window.addEventListener('oViewport.resize', resizeHandler);
+			window.addEventListener('scroll', scrollHandler);
+		}
+
+		restoreFormHandler();
+
+		document.body.addEventListener('click', outsideClickHandler);
+
+
+	});
+
+	createListOverlay.wrapper.addEventListener('oOverlay.destroy', () => {
+		window.removeEventListener('scroll', scrollHandler);
+
+		window.removeEventListener('oViewport.resize', resizeHandler);
+
+		document.body.removeEventListener('click', outsideClickHandler);
 	});
 }
 
-function updateAfterAddToList (listId, contentId, wasAdded) {
-
-	myFtUiButtonStates.setStateOfButton('contained', contentId, wasAdded);
-
-	return myFtClient.personaliseUrl(`/myft/list/${listId}`)
-		.then(personalisedUrl => {
-			const message = `
-				<a href="/myft" class="myft-ui__logo" data-trackable="myft-logo"><abbr title="myFT" class="myft-ui__icon"></abbr></a>
-					${wasAdded ? `Article added to your list.
-				<a href="${personalisedUrl}" data-trackable="alerts">View list</a>` : 'Article removed from your list'}
-			`;
-
-			if (!message) {
-				return;
-			}
-			nNotification.show({
-				content: message,
-				trackable: 'myft-feedback-notification'
-			});
-
-			document.body.dispatchEvent(new CustomEvent('oTracking.event', {
-				detail: {
-					category: 'list',
-					action: 'copy-success',
-					article_id: contentId,
-					list_id: listId,
-					content: {
-						uuid: contentId
-					},
-					teamName: 'customer-products-us-growth',
-					amplitudeExploratory: true
-				},
-				bubbles: true
-			}));
-		});
+function getScrollHandler (target) {
+	return realignOverlay(window.scrollY, target);
 }
 
-
-function setUpSaveToExistingListListeners (overlay, contentId) {
-
-	const saveToExistingListButton = overlay.content.querySelector('.js-save-to-existing-list');
-	const listSelect = overlay.content.querySelector('.js-list-select');
-
-	if (saveToExistingListButton) {
-		saveToExistingListButton.addEventListener('click', event => {
-			event.preventDefault();
-
-			if (!listSelect.value) {
-				return;
-			}
-
-			const listId = listSelect.options[listSelect.selectedIndex].value;
-			myFtClient.add('list', listId, 'contained', 'content', contentId, { token: csrfToken })
-				.then(detail => {
-					updateAfterAddToList(detail.actorId, detail.subject, !!detail.results);
-					overlay.close();
-				});
-		});
-	}
+function getResizeHandler (target) {
+	return function resizeHandler () {
+		positionOverlay(target);
+	};
 }
 
-function setUpCreateListListeners (overlay, contentId) {
+function FormElement (createList, attachDescription, onListCreated, onCancel, modal=true) {
+	const formString = `
+	<form class="myft-ui-create-list-form">
+		<label class="myft-ui-create-list-form-name o-forms-field">
+			<span class="o-forms-input o-forms-input--text">
+				<input class="myft-ui-create-list-text" type="text" name="list-name">
+				<div class="myft-ui-create-list-label">List name</div>
+			</span>
+		</label>
 
-	const createListButton = overlay.content.querySelector('.js-create-list');
-	const nameInput = overlay.content.querySelector('.js-name');
+		<div class="myft-ui-create-list-form-public o-forms-field" role="group">
+			<span class="o-forms-input o-forms-input--toggle">
+				<label>
+					<input class="myft-ui-create-list-form-toggle" type="checkbox" name="is-public" value="public" checked data-trackable="private-link" text="private">
+					<span class="myft-ui-create-list-form-toggle-label o-forms-input__label">
+						<span class="o-forms-input__label__main">
+							Public
+						</span>
+						<span id="myft-ui-create-list-form-public-description" class="o-forms-input__label__prompt">
+							Your profession & list will be visible to others
+						</span>
+					</span>
+				</label>
+			</span>
+		</div>
 
-	if (!createListButton) {
-		return;
-	}
+		<div class="myft-ui-create-list-form-buttons">
+			<button class="o-buttons o-buttons--primary o-buttons--inverse o-buttons--big" type="button" data-trackable="cancel-link" text="cancel">
+			Cancel
+			</button>
+			<button class="o-buttons o-buttons--big o-buttons--secondary" type="submit">
+			Add
+			</button>
+		</div>
+	</form>
+	`;
 
-	createListButton.addEventListener('click', event => {
+	const formElement = stringToHTMLElement(formString);
+
+	function handleSubmit (event) {
 		event.preventDefault();
+		event.stopPropagation();
+		const inputListName = formElement.querySelector('input[name="list-name"]');
+		const inputIsPublic = formElement.querySelector('input[name="is-public"]');
 
-		if (!nameInput.value) {
+		const newList = {
+			name: inputListName.value,
+			isPublic: inputIsPublic ? inputIsPublic.checked : false
+		};
+
+		createList(newList, ((contentId, createdList) => {
+			triggerCreateListEvent(contentId, createdList.uuid);
+			triggerAddToListEvent(contentId, createdList.uuid);
+			if (!modal) {
+				positionOverlay(createListOverlay.wrapper);
+			}
+			onListCreated();
+		}));
+		formElement.remove();
+	}
+
+	function handleCancelClick (event) {
+		event.preventDefault();
+		event.stopPropagation();
+		formElement.remove();
+		if (!lists.length) attachDescription();
+		onCancel();
+	}
+
+	formElement.querySelector('button[type="submit"]').addEventListener('click', handleSubmit);
+	formElement.querySelector('button[type="button"]').addEventListener('click', handleCancelClick);
+
+	addPublicToggleListener(formElement);
+
+	return formElement;
+}
+
+function addPublicToggleListener (formElement) {
+	function onPublicToggleClick (event) {
+		event.target.setAttribute('data-trackable', event.target.checked ? 'private-link' : 'public-link');
+		event.target.setAttribute('text', event.target.checked ? 'private' : 'public');
+	}
+
+	formElement.querySelector('input[name="is-public"]').addEventListener('click', onPublicToggleClick);
+}
+
+function ContentElement (hasDescription, onClick) {
+	const description = '<p class="myft-ui-create-list-add-description">Lists are a simple way to curate your content</p>';
+
+	const content = `
+		<div class="myft-ui-create-list-footer">
+			<button class="myft-ui-create-list-add myft-ui-create-list-add-collapsed" aria-expanded=false data-trackable="add-to-new-list" text="add to new list">Add to a new list</button>
+			${hasDescription ? `
+			${description}
+		` : ''}
+			<span
+			class="myft-ui-create-list-announcement o-normalise-visually-hidden"
+			role="region"
+			aria-live="assertive"
+			/>
+		</div>
+	`;
+
+	const contentElement = stringToHTMLElement(content);
+
+	function removeDescription () {
+		const descriptionElement = contentElement.querySelector('.myft-ui-create-list-add-description');
+		if (descriptionElement) {
+			descriptionElement.remove();
+		}
+	}
+
+	function attachDescription () {
+		const descriptionElement = stringToHTMLElement(description);
+		contentElement.insertAdjacentElement('beforeend', descriptionElement);
+	}
+
+	function restoreFormHandler () {
+		contentElement.querySelector('.myft-ui-create-list-add').classList.add('myft-ui-create-list-add-collapsed');
+		contentElement.querySelector('.myft-ui-create-list-add').setAttribute('aria-expanded', false);
+		return contentElement.addEventListener('click', clickHandler, { once: true });
+	}
+
+	function clickHandler (event) {
+		contentElement.querySelector('.myft-ui-create-list-add').classList.remove('myft-ui-create-list-add-collapsed');
+		contentElement.querySelector('.myft-ui-create-list-add').setAttribute('aria-expanded', true);
+		onClick(event);
+	}
+
+	return [contentElement, removeDescription, attachDescription, restoreFormHandler];
+}
+
+function HeadingElement () {
+	const heading = `
+		<span class="myft-ui-create-list-heading">Added to <a href="https://www.ft.com/myft/saved-articles" data-trackable="saved-articles">saved articles</a> in <span class="myft-ui-create-list-icon"><span class="myft-ui-create-list-icon-visually-hidden">my FT</span></span></span>
+		`;
+
+	return stringToHTMLElement(heading);
+}
+
+function ListsElement (lists, addToList, removeFromList) {
+	const currentList = document.querySelector('.myft-ui-create-list-lists');
+	if (currentList) {
+		currentList.remove();
+	}
+
+	const listCheckboxElement = ListCheckboxElement(addToList, removeFromList);
+
+	const listsTemplate = `
+	<div class="myft-ui-create-list-lists o-forms-field o-forms-field--optional" role="group">
+		<span class="myft-ui-create-list-lists-text">Add to list</span>
+		<span class="myft-ui-create-list-lists-container o-forms-input o-forms-input--checkbox">
+		</span>
+	</div>
+	`;
+	const listsElement = stringToHTMLElement(listsTemplate);
+
+	const listsElementContainer = listsElement.querySelector('.myft-ui-create-list-lists-container');
+
+	function refresh () {
+		listsElementContainer.replaceChildren(...lists.map(list => listCheckboxElement(list)));
+	}
+
+	function hide () {
+		listsElement.style.display = 'none';
+	}
+
+	function show () {
+		listsElement.style.display = 'flex';
+	}
+
+	refresh();
+
+	return [listsElement, refresh, hide, show];
+}
+
+function ListCheckboxElement (addToList, removeFromList) {
+	return function (list) {
+
+		const listCheckbox = `<label>
+		<input type="checkbox" name="default" value="${list.uuid}" ${list.checked ? 'checked' : ''}>
+		<span class="o-forms-input__label">
+			<span class="o-normalise-visually-hidden">
+			${list.checked ? 'Remove article from ' : 'Add article to ' }
+			</span>
+			${list.name}
+		</span>
+	</label>
+	`;
+
+		const listCheckboxElement = stringToHTMLElement(listCheckbox);
+
+		const [ input ] = listCheckboxElement.children;
+
+		function handleCheck (event) {
+			event.preventDefault();
+			const isChecked = event.target.checked;
+
+			function onListUpdated () {
+				const indexToUpdate = lists.indexOf(list);
+				lists[indexToUpdate] = { ...lists[indexToUpdate], checked: isChecked };
+				listCheckboxElement.querySelector('input').checked = isChecked;
+			}
+
+			return isChecked ? addToList(list, onListUpdated) : removeFromList(list, onListUpdated);
+		}
+
+		input.addEventListener('click', handleCheck);
+
+		return listCheckboxElement;
+	};
+}
+
+function realignOverlay (originalScrollPosition, target) {
+	return function () {
+		const currentScrollPosition = window.scrollY;
+
+		if(Math.abs(currentScrollPosition - originalScrollPosition) < 120) {
 			return;
 		}
 
-		const createListData = {
-			token: csrfToken,
-			name: nameInput.value
-		};
+		if (currentScrollPosition) {
+			originalScrollPosition = currentScrollPosition;;
+		}
 
-		myFtClient.add('user', null, 'created', 'list', uuid(), createListData)
-			.then(detail => {
-				if (contentId) {
-					return myFtClient.add('list', detail.subject, 'contained', 'content', contentId, { token: csrfToken });
-				} else {
-					return detail;
-				}
-
-			})
-			.then(detail => {
-				if (contentId) {
-					updateAfterAddToList(detail.actorId, contentId, !!detail.results);
-				}
-				overlay.close();
-			})
-			.catch(err => {
-				nNotification.show({
-					content: contentId ? 'Error adding article to new list' : 'Error creating new list',
-					type: 'error'
-				});
-				throw err;
-			});
-	});
-
+		positionOverlay(target);
+	};
 }
 
+function positionOverlay (target) {
+	target.style['min-width'] = '340px';
+	target.style['width'] = '100%';
+	target.style['margin-top'] = 0;
+	target.style['left'] = 0;
+	target.style['top'] = 0;
 
-function showListsOverlay (overlayTitle, formHtmlUrl, contentId, trigger) {
-	myFtClient.personaliseUrl(formHtmlUrl)
-		.then(url => fetch(url, {
-			credentials: 'same-origin'
-		}))
-		.then(res => {
-			if (res.ok) {
-				return res.text();
-			} else {
-				throw new Error(`Unexpected response: ${res.statusText}`);
-			}
-		})
-		.then(html => openOverlay(html, { name: 'myft-lists', title: overlayTitle, trigger }))
-		.then(overlay => {
-			oForms.init(overlay.content);
-			setUpSaveToExistingListListeners(overlay, contentId);
-			setUpCreateListListeners(overlay, contentId);
-		})
-		.catch(err => {
-			nNotification.show({
-				content: 'Sorry, something went wrong',
-				type: 'error'
-			});
-			throw err;
-		});
-
+	if (isMobile()) {
+		const shareNavComponent = document.querySelector('.share-nav__horizontal');
+		const topHalfOffset = target.clientHeight + 10;
+		target.style['position'] = 'absolute';
+		target.style['margin-left'] = 0;
+		target.style['top'] = calculateLargerScreenHalf(shareNavComponent) === 'ABOVE' ? `-${topHalfOffset}px` : '50px';
+	} else {
+		target.style['position'] = 'absolute';
+		target.style['margin-left'] = '45px';
+	}
 }
 
-function showCopyToListOverlay (contentId, excludeList, trigger) {
-	showListsOverlay('Copy to list', `/myft/list?fragment=true&copy=true&contentId=${contentId}&excludeList=${excludeList}`, contentId, trigger);
+function calculateLargerScreenHalf (target) {
+	if (!target) {
+		return 'BELOW';
+	}
+
+	const vh = Math.min(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+
+	const targetBox = target.getBoundingClientRect();
+	const spaceAbove = targetBox.top;
+	const spaceBelow = vh - targetBox.bottom;
+
+	return spaceBelow < spaceAbove ? 'ABOVE' : 'BELOW';
 }
 
-function showCreateListOverlay (trigger) {
-	showListsOverlay('Create list', '/myft/list?fragment=true', null, trigger);
+async function getLists (contentId) {
+	return myFtClient.getListsContent()
+		.then(results => results.items.map(list => {
+			const isChecked = Array.isArray(list.content) && list.content.some(content => content.uuid === contentId);
+			return { name: list.name, uuid: list.uuid, checked: isChecked, content: list.content, isPublic: list.isPublic };
+		}));
 }
 
-function showArticleSavedOverlay (contentId) {
-	showListsOverlay('Article saved', `/myft/list?fragment=true&fromArticleSaved=true&contentId=${contentId}`, contentId);
+function triggerAddToListEvent (contentId, listId) {
+	return document.body.dispatchEvent(new CustomEvent('oTracking.event', {
+		detail: {
+			category: 'list',
+			action: 'add-success',
+			article_id: contentId,
+			list_id: listId,
+			teamName: 'customer-products-us-growth',
+			amplitudeExploratory: true
+		},
+		bubbles: true
+	}));
+}
+
+function triggerRemoveFromListEvent (contentId, listId) {
+	return document.body.dispatchEvent(new CustomEvent('oTracking.event', {
+		detail: {
+			category: 'list',
+			action: 'remove-success',
+			article_id: contentId,
+			list_id: listId,
+			teamName: 'customer-products-us-growth',
+			amplitudeExploratory: true
+		},
+		bubbles: true
+	}));
+}
+
+function triggerCreateListEvent (contentId, listId) {
+	document.body.dispatchEvent(new CustomEvent('oTracking.event', {
+		detail: {
+			category: 'list',
+			action: 'create-success',
+			article_id: contentId,
+			list_id: listId,
+			teamName: 'customer-products-us-growth',
+			amplitudeExploratory: true
+		},
+		bubbles: true
+	}));
 }
 
 function showCreateListAndAddArticleOverlay (contentId, config) {
 	const options = {
-		name: 'myft-ui-create-list-variant',
+		name: 'myft-ui-create-list',
 		...config
 	};
 
-	return openSaveArticleToListVariant(contentId, options);
-}
-
-function handleArticleSaved (contentId) {
-	return myFtClient.getAll('created', 'list')
-		.then(createdLists => createdLists.filter(list => !list.isRedirect))
-		.then(createdLists => {
-			if (createdLists.length) {
-				showArticleSavedOverlay(contentId);
-			}
-		});
+	return openSaveArticleToList(contentId, options);
 }
 
 function openCreateListAndAddArticleOverlay (contentId, config) {
 	return myFtClient.getAll('created', 'list')
-		.then(createdLists => createdLists.filter(list => !list.isRedirect))
 		.then(() => {
 			return showCreateListAndAddArticleOverlay(contentId, config);
-		});
-}
-
-function handleRemoveToggleSubmit (event) {
-	event.preventDefault();
-
-	const formEl = event.target;
-	const submitBtnEl = formEl.querySelector('button[type="submit"]');
-
-	if (submitBtnEl.hasAttribute('disabled')) {
-		return;
-	}
-
-	const isSubmitBtnPressed = submitBtnEl.getAttribute('aria-pressed') === 'true';
-	const action = isSubmitBtnPressed ? 'remove' : 'add';
-	const contentId = formEl.dataset.contentId;
-	const listId = formEl.dataset.actorId;
-	const csrfToken = formEl.elements.token;
-
-	if (!csrfToken || !csrfToken.value) {
-		document.body.dispatchEvent(new CustomEvent('oErrors.log', {
-			bubbles: true,
-			detail: {
-				error: new Error('myFT form submitted without a CSRF token'),
-				info: {
-					action,
-					actorType: 'list',
-					actorId: listId,
-					relationshipName: 'contained',
-					subjectType: 'content',
-					subjectId: contentId,
-				},
-			},
-		}));
-	}
-
-	submitBtnEl.setAttribute('disabled', '');
-
-	myFtClient[action]('list', listId, 'contained', 'content', contentId, { token: csrfToken.value })
-		.then(() => {
-			myFtUiButtonStates.toggleButton(submitBtnEl, !isSubmitBtnPressed);
-
-			document.body.dispatchEvent(new CustomEvent('oTracking.event', {
-				detail: {
-					category: 'list',
-					action: action === 'add' ? 'add-success' : 'remove-success',
-					article_id: contentId,
-					list_id: listId,
-					content: {
-						uuid: contentId
-					},
-					teamName: 'customer-products-us-growth',
-					amplitudeExploratory: true
-				},
-				bubbles: true
-			}));
-		})
-		.catch(error => {
-			setTimeout(() => submitBtnEl.removeAttribute('disabled'));
-			throw error;
 		});
 }
 
 function initialEventListeners () {
 
 	document.body.addEventListener('myft.user.saved.content.add', event => {
+		event.stopPropagation();
 		const contentId = event.detail.subject;
-
-		// Checks if the createListAndSaveArticle variant is active
-		// and will show the variant overlay if the user has no lists,
-		// otherwise it will show the classic overlay
-		const newListDesign = event.currentTarget.querySelector('[data-myft-ui-save-new="manageArticleLists"]');
-		if (newListDesign) {
-			const configKeys = newListDesign.dataset.myftUiSaveNewConfig.split(',');
-			const config = configKeys.reduce((configObj, key) => (key ? { ...configObj, [key]: true} : configObj), {});
-
-			// Temporary events on the public toggle feature.
-			// These will be used to build a sanity check dashboard, and will be removed after we get clean-up this test.
-			document.body.dispatchEvent(new CustomEvent('oTracking.event', {
-				detail: {
-					category: 'lists',
-					action: 'savedArticle',
-					article_id: contentId,
-					teamName: 'customer-products-us-growth',
-					amplitudeExploratory: true
-				},
-				bubbles: true
-			}));
-
-			return openCreateListAndAddArticleOverlay(contentId, config);
+		const configSet = event.currentTarget.querySelector('[data-myft-ui-save-config]');
+		if (!configSet) {
+			return openCreateListAndAddArticleOverlay(contentId);
 		}
-
-		handleArticleSaved(contentId);
+		const configKeys = configSet.dataset.myftUiSaveConfig.split(',');
+		const config = configKeys.reduce((configObj, key) => (key ? { ...configObj, [key]: true} : configObj), {});
+		return openCreateListAndAddArticleOverlay(contentId, config);
 	});
 
 	document.body.addEventListener('myft.user.saved.content.remove', event => {
+		event.stopPropagation();
 		const contentId = event.detail.subject;
-
-		const newListDesign = event.currentTarget.querySelector('[data-myft-ui-save-new="manageArticleLists"]');
-		if (newListDesign) {
-			return showUnsavedNotification(contentId);
-		}
+		return showUnsavedNotification(contentId);
 	});
-
-	delegate.on('click', '[data-myft-ui="copy-to-list"]', event => {
-		event.preventDefault();
-		showCopyToListOverlay(event.target.getAttribute('data-content-id'), event.target.getAttribute('data-actor-id'), event.target);
-	});
-	delegate.on('click', '[data-myft-ui="create-list"]', event => {
-		event.preventDefault();
-		showCreateListOverlay(event.target);
-	});
-
-	delegate.on('submit', '[data-myft-ui="contained"]', handleRemoveToggleSubmit);
 }
 
 function showUnsavedNotification () {
