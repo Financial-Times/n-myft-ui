@@ -1,5 +1,6 @@
 import myFtClient from 'next-myft-client';
 import isMobile from './lib/is-mobile';
+import escapeText from './lib/escape-text';
 import Overlay from '@financial-times/o-overlay';
 import { uuid } from 'n-ui-foundations';
 import getToken from './lib/get-csrf-token';
@@ -346,7 +347,7 @@ function ListCheckboxElement (addToList, removeFromList) {
 			<span class="o-normalise-visually-hidden">
 			${list.checked ? 'Remove article from ' : 'Add article to ' }
 			</span>
-			${list.name}
+			${escapeText(list.name)}
 		</span>
 	</label>
 	`;
