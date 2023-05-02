@@ -89,7 +89,7 @@ async function openSaveArticleToList (contentId, options = {}) {
 
 	function addCloseButtonDataTrackable () {
 		const closeBtn = document.querySelector('.o-overlay__close');
-		closeBtn.setAttribute('data-trackable', 'close-button'); 
+		closeBtn.setAttribute('data-trackable', 'close-button');
 	}
 
 	function outsideClickHandler (e) {
@@ -156,7 +156,7 @@ async function openSaveArticleToList (contentId, options = {}) {
 		document.body.removeEventListener('click', outsideClickHandler);
 	});
 
-	addCloseButtonDataTrackable()
+	addCloseButtonDataTrackable();
 }
 
 function getScrollHandler (target) {
