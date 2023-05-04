@@ -87,6 +87,11 @@ async function openSaveArticleToList (contentId, options = {}) {
 		class: 'myft-ui-create-list',
 	});
 
+	function addCloseButtonDataTrackable () {
+		const closeBtn = document.querySelector('.o-overlay__close');
+		closeBtn.setAttribute('data-trackable', 'close-button');
+	}
+
 	function outsideClickHandler (e) {
 		const overlayContent = document.querySelector('.o-overlay__content');
 		const overlayContainer = document.querySelector('.o-overlay');
@@ -150,6 +155,8 @@ async function openSaveArticleToList (contentId, options = {}) {
 
 		document.body.removeEventListener('click', outsideClickHandler);
 	});
+
+	addCloseButtonDataTrackable();
 }
 
 function getScrollHandler (target) {
@@ -192,7 +199,7 @@ function FormElement (createList, attachDescription, onListCreated, onCancel, mo
 			<button class="o-buttons o-buttons--primary o-buttons--inverse o-buttons--big" type="button" data-trackable="cancel-link" text="cancel">
 			Cancel
 			</button>
-			<button class="o-buttons o-buttons--big o-buttons--secondary" type="submit">
+			<button class="o-buttons o-buttons--big o-buttons--secondary" type="submit" data-trackable="add-button">
 			Add
 			</button>
 		</div>
