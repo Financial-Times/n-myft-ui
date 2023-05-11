@@ -26,13 +26,19 @@ function getInteractionHandler (relationshipName) {
 	};
 }
 
-function anonEventListeners () {
+function anonEventListeners (flags = {}) {
 	const currentPath = window.location.pathname;
 	const subscribeUrl = '/products?segID=400863&segmentID=190b4443-dc03-bd53-e79b-b4b6fbd04e64';
 	const signInLink = `/login${currentPath.length ? `?location=${currentPath}` : ''}`;
 	const messages = {
 		followed: `Please <a href="${subscribeUrl}" class="myft-ui-subscribe" data-trackable="Subscribe">subscribe</a> or <a href="${signInLink}" data-trackable="Sign In">sign in</a> to add this topic to myFT.`,
 		saved: `Please <a href="${subscribeUrl}" class="myft-ui-subscribe" data-trackable="Subscribe">subscribe</a> or <a href="${signInLink}" data-trackable="Sign In">sign in</a> to save this article.`
+	};
+
+	// 11/5/23 - US Growth test for Free Article Demand, see https://financialtimes.atlassian.net/browse/UG-1191
+	// This will be cleaned up after the test as part of https://financialtimes.atlassian.net/browse/UG-1221
+	if (flags.get('podcastReferral')) {
+		messages.saved = `<a href="/register/access?multistepRegForm=multistep" data-trackable="Register">Register</a> for free or  <a href="${signInLink}" data-trackable="Sign In">sign in</a> in to save this article`;
 	};
 
 	['followed', 'saved'].forEach(action => {
@@ -99,7 +105,7 @@ export default function (opts) {
 		enhanceActionUrls();
 
 		if (opts && opts.anonymous) {
-			anonEventListeners();
+			anonEventListeners(opts.flags);
 		} else {
 			signedInEventListeners();
 			personaliseLinks();
