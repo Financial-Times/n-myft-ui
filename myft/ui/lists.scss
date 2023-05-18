@@ -9,6 +9,8 @@
 }
 
 .n-notification {
+	z-index: 105; //bring notifications in front of the sticky header
+
 	.myft-ui__icon {
 		@include oIconsContent('logo', oColorsByName('black-80'), 20);
 		margin: 0 3px -5px;
