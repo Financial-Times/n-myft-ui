@@ -37,8 +37,8 @@ function anonEventListeners (flags = {}) {
 
 	// 11/5/23 - US Growth test for Free Article Demand, see https://financialtimes.atlassian.net/browse/UG-1191
 	// This will be cleaned up after the test as part of https://financialtimes.atlassian.net/browse/UG-1221
-	if (flags.get('podcastReferral')) {
-		messages.saved = `<a href="/register/access?multistepRegForm=multistep" data-trackable="Register">Register</a> for free or  <a href="${signInLink}" data-trackable="Sign In">sign in</a> in to save this article`;
+	if (flags.get && flags.get('podcastReferral')) {
+		messages.saved = `<a href="/register/access?multistepRegForm=multistep" data-trackable="Register">Register</a> for free or  <a href="${signInLink}" data-trackable="Sign In">sign in</a> to save this article`;
 	};
 
 	['followed', 'saved'].forEach(action => {
