@@ -114,8 +114,8 @@
     "npm": "7.24.2"
   },
   "engines": {
-    "node": "14.x || 16.x",
-    "npm": "7.x || 8.x"
+    "node": "16.x",
+    "npm": "7.x || 8.x || 9.x"
   },
   "x-dash": {
     "engine": {
