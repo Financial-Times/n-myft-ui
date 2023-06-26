@@ -25,7 +25,7 @@ As of August 2017, The following apps use n-myft-ui:
 - next-video-page
 - next-search-page
 
-When you merge to main, you should make a new release and then roll it out to the apps, plus n-topic-card which contains a reference to this so that there aren't missing dependencies.
+When you merge to main, you should make a new release and then roll it out to the apps so that there aren't missing dependencies.
 
 If you are making a major change, you will need to update the package.json files for the above apps. For minor and patch updates, you can rebuild without cache from CircleCI.
 
