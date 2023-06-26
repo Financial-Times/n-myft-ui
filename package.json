@@ -115,7 +115,7 @@
   },
   "engines": {
     "node": "14.x || 16.x",
-    "npm": "7.x || 8.x"
+    "npm": "9.x"
   },
   "x-dash": {
     "engine": {
