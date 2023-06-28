@@ -20,12 +20,12 @@
   },
   "homepage": "https://github.com/Financial-Times/n-myft-ui#readme",
   "devDependencies": {
-    "@financial-times/dotcom-build-base": "^7.2.7",
-    "@financial-times/dotcom-build-code-splitting": "^7.2.7",
-    "@financial-times/dotcom-build-js": "^7.2.7",
-    "@financial-times/dotcom-build-sass": "^7.2.7",
-    "@financial-times/dotcom-server-handlebars": "^7.2.7",
-    "@financial-times/n-express": "^23.0.1",
+    "@financial-times/dotcom-build-base": "^8.1.0",
+    "@financial-times/dotcom-build-code-splitting": "^8.1.0",
+    "@financial-times/dotcom-build-js": "^8.1.0",
+    "@financial-times/dotcom-build-sass": "^8.1.0",
+    "@financial-times/dotcom-server-handlebars": "^8.1.0",
+    "@financial-times/n-express": "^27.5.0",
     "@financial-times/n-gage": "^8.3.2",
     "ascii-table": "0.0.9",
     "autoprefixer": "9.7.0",
@@ -114,8 +114,8 @@
     "npm": "7.24.2"
   },
   "engines": {
-    "node": "14.x || 16.x",
-    "npm": "7.x || 8.x"
+    "node": "16.x",
+    "npm": "7.x || 8.x || 9.x"
   },
   "x-dash": {
     "engine": {
