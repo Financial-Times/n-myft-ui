@@ -42,6 +42,22 @@
 						{{> n-myft-ui/components/follow-button/follow-button setFollowButtonStateToSelected=true }}
 					{{/followButton}}
 
+					{{#followPlusInstantAlertsButton}}
+						<h2
+							class="demo-section__title">
+							Follow plus instant alerts button (no different to default follow)
+						</h2>
+						{{> n-myft-ui/components/follow-plus-instant-alerts-button/follow-plus-instant-alerts-button }}
+					{{/followPlusInstantAlertsButton}}
+
+					{{#followPlusInstantAlertsButton}}
+						<h2
+							class="demo-section__title">
+							Unfollow plus instant alerts button
+						</h2>
+						{{> n-myft-ui/components/follow-plus-instant-alerts-button/follow-plus-instant-alerts-button setFollowButtonStateToSelected=true }}
+					{{/followPlusInstantAlertsButton}}
+
 					{{#saveButton}}
 						<h2 class="demo-section__title">
 							Save button

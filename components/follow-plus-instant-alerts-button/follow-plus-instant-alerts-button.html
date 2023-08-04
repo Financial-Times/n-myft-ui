@@ -1,0 +1,48 @@
+{{#if @root.flags.myFtApiWrite}}
+	<form
+		class="n-myft-ui n-myft-ui--follow"
+		method="GET"
+		data-myft-ui="follow"
+		data-concept-id="{{conceptId}}"
+		{{#ifAll setFollowButtonStateToSelected @root.cacheablePersonalisedUrl}}
+			action="/myft/remove/{{conceptId}}"
+			data-js-action="/__myft/api/core/followed/concept/{{conceptId}}?method=delete"
+		{{else}}
+			action="/myft/add/{{conceptId}}"
+			data-js-action="/__myft/api/core/followed/concept/{{conceptId}}?method=put"
+		{{/ifAll}}
+		{{> n-myft-ui/components/csrf-token/input}}
+		<div
+			class="n-myft-ui__announcement o-normalise-visually-hidden"
+			aria-live="assertive"
+			data-pressed-text="Now following {{name}}."
+			data-unpressed-text="No longer following {{name}}."
+		></div>
+		<button
+			{{#ifAll setFollowButtonStateToSelected @root.cacheablePersonalisedUrl}}
+				aria-label="Added {{name}} to myFT: click to remove"
+				title="Remove {{name}} from myFT"
+				data-alternate-label="Add to myFT: {{name}}"
+				aria-pressed="true"
+				data-alternate-text="Add to myFT"
+			{{else}}
+				aria-pressed="false"
+				aria-label="Add to myFT: {{name}}"
+				title="Add {{name}} to myFT"
+				data-alternate-label="Added {{name}} to myFT: click to remove"
+				data-alternate-text="Added"
+			{{/ifAll}}
+			class="n-myft-follow-button n-myft-follow-button--instant-alerts"
+			data-concept-id="{{conceptId}}" {{! duplicated here for tracking}}
+			data-trackable="follow"
+			type="submit">
+			{{~#ifAll setFollowButtonStateToSelected @root.cacheablePersonalisedUrl~}}
+				Added
+			{{~else~}}
+				Add to myFT
+			{{~/ifAll~}}
+		</button>
+	</form>
+{{else}}
+	<!-- Add to myFT button hidden due to myFtApiWrite being off -->
+{{/if}}

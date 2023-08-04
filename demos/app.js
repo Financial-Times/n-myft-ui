@@ -8,6 +8,7 @@ const { PageKitHandlebars, helpers } = require('@financial-times/dotcom-server-h
 
 const fixtures = {
 	followButton: require('./fixtures/follow-button'),
+	followPlusInstantAlertsButton: require('./fixtures/follow-plus-instant-alerts-button'),
 	saveButton: require('./fixtures/save-button'),
 	collections: require('./fixtures/collections'),
 	conceptList: require('./fixtures/concept-list'),
