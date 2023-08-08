@@ -21,11 +21,31 @@
 	<div class="o-grid-container o-grid-container--snappy demo-container">
 		<h1>{{title}}</h1>
 
+
+		<section
+			id="example-component"
+			class="demo-section">
+			<div class="o-grid-row">
+
+				<div data-o-grid-colspan="12">
+					<h2>JSX components</h2>
+					{{#exampleJsx}}
+						<h3
+							class="demo-section__title">
+							Example component
+						</h3>
+
+						{{{renderReactComponent localPath="components/jsx/example/example.jsx"}}}
+					{{/exampleJsx}}
+				</div>
+			</div>
+		</section>
 		<section
 			id="follow-button"
 			class="demo-section">
 			<div class="o-grid-row">
 				<div data-o-grid-colspan="12">
+					<h2>Handlebars components</h2>
 					{{#followButton}}
 						<h2
 							class="demo-section__title">
