@@ -15,7 +15,8 @@ const fixtures = {
 	conceptList: require('./fixtures/concept-list'),
 	pinButton: require('./fixtures/pin-button'),
 	instantAlert: require('./fixtures/instant-alert'),
-	followPlusInstantAlerts: require('./fixtures/jsx/follow-plus-instant-alerts')
+	followPlusInstantAlerts: require('./fixtures/jsx/follow-plus-instant-alerts'),
+	instantAlertsPreferencesModal: require('./fixtures/jsx/preferences-modal'),
 };
 
 const app = module.exports = nExpress({

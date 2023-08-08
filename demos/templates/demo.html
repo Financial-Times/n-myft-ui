@@ -29,6 +29,16 @@
 
 				<div data-o-grid-colspan="12">
 					<h2>JSX components</h2>
+
+					{{#instantAlertsPreferencesModal}}
+						<h3
+							class="demo-section__title">
+							Instant alerts popup to manage preferences
+						</h3>
+
+						{{{renderReactComponent localPath="components/jsx/preferences-modal/preferences-modal.jsx" flags=@root.flags}}}
+					{{/instantAlertsPreferencesModal}}
+
 					{{#followPlusInstantAlerts}}
 						<h3
 							class="demo-section__title">
