@@ -46,6 +46,15 @@
 
 						{{{renderReactComponent localPath="components/jsx/follow-plus-instant-alerts/follow-plus-instant-alerts.jsx" conceptId=this.conceptId name=this.name setFollowButtonStateToSelected=true cacheablePersonalisedUrl=true flags=@root.flags}}}
 					{{/followPlusInstantAlerts}}
+
+					{{#followPlusInstantAlerts}}
+						<h3
+							class="demo-section__title">
+							Unfollow plus instant alerts button (instant alerts turned on)
+						</h3>
+
+						{{{renderReactComponent localPath="components/jsx/follow-plus-instant-alerts/follow-plus-instant-alerts.jsx" conceptId=this.conceptId name=this.name setFollowButtonStateToSelected=true cacheablePersonalisedUrl=true setInstantAlertsOn=true flags=@root.flags}}}
+					{{/followPlusInstantAlerts}}
 				</div>
 			</div>
 		</section>

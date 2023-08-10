@@ -10,6 +10,8 @@ import React from 'react';
  * 	An indicator to state whether the button state should be set to selected on the server side
  * @property {boolean} cacheablePersonalisedUrl
  * 	An indicator to decide whether its safe to set the button state on the server side. eg. there is no cache or the cache is personalised
+ * @property {boolean} setInstantAlertsOn
+ * 	An indicator to switch the rendering to show instant alerts as turned on
  * @property {object.<string, boolean>} flags
  * 	FT.com feature flags
  */
@@ -21,8 +23,7 @@ import React from 'react';
  * @returns {React.ReactElement}
 */
 
-
-export default function FollowPlusInstantAlerts({ conceptId, name, setFollowButtonStateToSelected, cacheablePersonalisedUrl, flags }) {
+export default function FollowPlusInstantAlerts({ conceptId, name, setFollowButtonStateToSelected, cacheablePersonalisedUrl, setInstantAlertsOn, flags }) {
 	if (!flags.myFtApiWrite) {
 		return null;
 	}
@@ -68,7 +69,7 @@ export default function FollowPlusInstantAlerts({ conceptId, name, setFollowButt
 			></div>
 			<button
 				{...dynamicButtonAttributes}
-				className="n-myft-follow-button n-myft-follow-button--instant-alerts"
+				className={`n-myft-follow-button n-myft-follow-button--instant-alerts ${setInstantAlertsOn ? 'n-myft-follow-button--instant-alerts--on' : ''}`}
 				data-concept-id={conceptId}
 				data-trackable="follow"
 				type="submit">

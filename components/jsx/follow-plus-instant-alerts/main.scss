@@ -11,3 +11,12 @@
 	);
 	background-size: 21px;
 }
+
+.n-myft-follow-button--instant-alerts--on[aria-pressed=true]::before {
+	@include oIconsContent(
+		$icon-name: 'notifications',
+		$color: oColorsByName('white'),
+		$size: 10
+	);
+	background-size: 21px;
+}
