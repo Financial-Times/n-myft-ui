@@ -20,3 +20,15 @@
 	);
 	background-size: 21px;
 }
+
+.n-myft-follow-button--instant-alerts[aria-pressed=true]::after {
+	content: "";
+	@include oIconsContent(
+		$icon-name: 'arrow-down',
+		$color: oColorsByName('white'),
+		$size: 10
+	);
+	background-size: 21px;
+	background-position: 50% 41%;
+	margin-left: 12px;
+}
