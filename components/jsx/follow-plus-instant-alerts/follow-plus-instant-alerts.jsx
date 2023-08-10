@@ -37,15 +37,15 @@ export default function FollowPlusInstantAlerts({ conceptId, name, setFollowButt
 	};
 
 	const dynamicButtonAttributes = setFollowButtonStateToSelected && cacheablePersonalisedUrl ? {
-		'aria-label': `Added ${name} to myFT: click to remove`,
-		'title': `Remove ${name} from myFT`,
+		'aria-label': `Added ${name} to myFT: click to manage alert preferences or remove from myFT`,
+		'title': `Manage ${name} alert preferences or remove from myFT`,
 		'data-alternate-label': `Add to myFT: ${name}`,
 		'aria-pressed': true,
 		'data-alternate-text': 'Add to myFT'
 	} : {
 		'aria-label': `Add ${name} to myFT`,
 		'title': `Add ${name} to myFT`,
-		'data-alternate-label': `Added ${name} to myFT: click to remove`,
+		'data-alternate-label': `Added ${name} to myFT: click to manage alert preferences or remove from myFT`,
 		'aria-pressed': false,
 		'data-alternate-text': 'Added'
 	};
