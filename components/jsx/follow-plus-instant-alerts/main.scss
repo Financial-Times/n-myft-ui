@@ -1,1 +1,13 @@
 @import '../../../mixins/lozenge/main.scss';
+
+@import "@financial-times/o-icons/main";
+@import "@financial-times/o-colors/main";
+
+.n-myft-follow-button--instant-alerts[aria-pressed=true]::before {
+	@include oIconsContent(
+		$icon-name: 'mute-notifications',
+		$color: oColorsMix($color: 'white', $background: 'claret', $percentage: 60),
+		$size: 10
+	);
+	background-size: 21px;
+}
