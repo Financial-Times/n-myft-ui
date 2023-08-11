@@ -7,13 +7,13 @@ import CsrfToken from '../csrf-token/input';
  * 	The ID for the concept
  * @property {string} name
  * 	The user facing label for the concept
-  * @property {string} csrfToken
+  * @property {string} [csrfToken]
  * 	A token to mitigate Cross Site Request Forgery
- * @property {boolean} setFollowButtonStateToSelected
+ * @property {boolean} [setFollowButtonStateToSelected]
  * 	An indicator to state whether the button state should be set to selected on the server side
- * @property {boolean} cacheablePersonalisedUrl
+ * @property {boolean} [cacheablePersonalisedUrl]
  * 	An indicator to decide whether its safe to set the button state on the server side. eg. there is no cache or the cache is personalised
- * @property {boolean} setInstantAlertsOn
+ * @property {boolean} [setInstantAlertsOn]
  * 	An indicator to switch the rendering to show instant alerts as turned on
  * @property {object.<string, boolean>} flags
  * 	FT.com feature flags

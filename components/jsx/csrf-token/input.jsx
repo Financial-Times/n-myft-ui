@@ -2,9 +2,9 @@ import React from 'react';
 
 /**
  * @typedef {object} CsrfInputProperties
- * @property {string} csrfToken
+ * @property {string} [csrfToken]
  * 	A token to mitigate Cross Site Request Forgery
- * @property {boolean} cacheablePersonalisedUrl
+ * @property {boolean} [cacheablePersonalisedUrl]
  * 	An indicator to decide whether its safe to set the button state on the server side. eg. there is no cache or the cache is personalised
  */
 
