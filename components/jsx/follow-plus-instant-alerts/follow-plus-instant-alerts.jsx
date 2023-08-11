@@ -1,4 +1,5 @@
 import React from 'react';
+import CsrfToken from '../csrf-token/input';
 
 /**
  * @typedef {object} FollowProperties
@@ -6,6 +7,8 @@ import React from 'react';
  * 	The ID for the concept
  * @property {string} name
  * 	The user facing label for the concept
+  * @property {string} csrfToken
+ * 	A token to mitigate Cross Site Request Forgery
  * @property {boolean} setFollowButtonStateToSelected
  * 	An indicator to state whether the button state should be set to selected on the server side
  * @property {boolean} cacheablePersonalisedUrl
@@ -23,7 +26,7 @@ import React from 'react';
  * @returns {React.ReactElement}
 */
 
-export default function FollowPlusInstantAlerts({ conceptId, name, setFollowButtonStateToSelected, cacheablePersonalisedUrl, setInstantAlertsOn, flags }) {
+export default function FollowPlusInstantAlerts({ conceptId, name, csrfToken, setFollowButtonStateToSelected, cacheablePersonalisedUrl, setInstantAlertsOn, flags }) {
 	if (!flags.myFtApiWrite) {
 		return null;
 	}
@@ -67,6 +70,10 @@ export default function FollowPlusInstantAlerts({ conceptId, name, setFollowButt
 				data-pressed-text={`Now following ${name}.`}
 				data-unpressed-text={`No longer following ${name}.`}
 			></div>
+			<CsrfToken
+				cacheablePersonalisedUrl={cacheablePersonalisedUrl}
+				csrfToken={csrfToken}
+			/>
 			<button
 				{...dynamicButtonAttributes}
 				className={`n-myft-follow-button n-myft-follow-button--instant-alerts ${setInstantAlertsOn ? 'n-myft-follow-button--instant-alerts--on' : ''}`}
