@@ -1,3 +1,5 @@
+require('sucrase/register');
+
 const nExpress = require('@financial-times/n-express');
 const chalk = require('chalk');
 const errorHighlight = chalk.bold.red;
@@ -12,7 +14,8 @@ const fixtures = {
 	collections: require('./fixtures/collections'),
 	conceptList: require('./fixtures/concept-list'),
 	pinButton: require('./fixtures/pin-button'),
-	instantAlert: require('./fixtures/instant-alert')
+	instantAlert: require('./fixtures/instant-alert'),
+	followPlusInstantAlerts: require('./fixtures/jsx/follow-plus-instant-alerts')
 };
 
 const app = module.exports = nExpress({
