@@ -15,6 +15,8 @@ $n-notification-is-silent: false !default;
 @import './ui/lists';
 @import '../components/pin-button/main';
 @import '../components/instant-alert/main';
+@import '../components/jsx/follow-plus-instant-alerts/main';
+@import '../components/jsx/preferences-modal/main';
 
 // TODO Fix below
 $spacing-unit: 20px;

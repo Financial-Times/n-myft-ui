@@ -9,6 +9,13 @@
 	width: 275px;
 }
 
+//this class needs to be active in prod but cannot be used in the demo as it the position absolute makes it render on top of other components
+.n-myft-ui__preferences-modal-live {
+	position: absolute;
+	margin-top: 50px;
+	z-index: 999;
+}
+
 .n-myft-ui__preferences-modal__content {
 	position: relative;
 	margin: 20px 20px 24px;
@@ -39,4 +46,9 @@
 	border: 2px solid oColorsByName('claret-60');
 	background-color: oColorsMix($color: 'claret-60', $percentage: 20);
 	color: oColorsByName('claret-60');
+}
+
+.n-myft-ui__preferences-modal__hide {
+	visibility: hidden;
+	display: none;
 }

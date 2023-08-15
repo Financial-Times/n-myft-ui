@@ -77,6 +77,7 @@ export default function FollowPlusInstantAlerts({ conceptId, name, csrfToken, se
 			<button
 				{...dynamicButtonAttributes}
 				className={`n-myft-follow-button n-myft-follow-button--instant-alerts ${setInstantAlertsOn ? 'n-myft-follow-button--instant-alerts--on' : ''}`}
+				data-component-id="follow-plus-instant-alerts"
 				data-concept-id={conceptId}
 				data-trackable="follow"
 				type="submit">
