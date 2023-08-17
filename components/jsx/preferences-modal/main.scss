@@ -7,8 +7,11 @@
 	border-radius: 10px;
 	border: 2px solid oColorsByName('black-5');
 	width: 275px;
-	position: absolute; //is on top of other jsx components in the demo
-	margin-top: 5px;
+}
+
+.n-myft-ui__preferences-modal-live {
+	position: absolute;
+	margin-top: 50px;
 	z-index: 999;
 }
 

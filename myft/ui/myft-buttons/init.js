@@ -9,8 +9,6 @@ import personaliseLinks from '../personalise-links';
 import doFormSubmit from './do-form-submit';
 import enhanceActionUrls from './enhance-action-urls';
 import readyState from 'ready-state';
-import instantAlertsOnboarding from './instant-alerts-onboarding';
-
 
 let initialised;
 
@@ -101,7 +99,6 @@ export default function (opts) {
 	if (!opts.anonymous) {
 		setTokens();
 	}
-	instantAlertsOnboarding();
 
 	if (!initialised) {
 		initialised = true;
