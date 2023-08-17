@@ -1,0 +1,42 @@
+@import '@financial-times/o-colors/main';
+@import '@financial-times/o-forms/main';
+@include oForms();
+
+.n-myft-ui__preferences-modal {
+	background-color: oColorsByName('white-80');
+	border-radius: 10px;
+	border: 2px solid oColorsByName('black-5');
+	width: 275px;
+}
+
+.n-myft-ui__preferences-modal__content {
+	position: relative;
+	margin: 20px 20px 24px;
+}
+
+.n-myft-ui__preferences-modal__checkbox__message {
+	@include oTypographySans($scale: 0, $weight: 'semibold', $style: 'normal');
+}
+
+.n-myft-ui__preferences-modal__text {
+	@include oTypographySans($scale: -1, $weight: 'regular', $style: 'normal');
+	margin-bottom: 0;
+}
+
+.n-myft-ui__preferences-modal__remove-button {
+	margin-top: 20px;
+	height: 32px;
+	width: 100%;
+	border-radius: 20px;
+	border: 2px solid oColorsByName('black-20');
+	background-color: oColorsByName('white-80');
+	@include oTypographySans($scale: -1, $weight: 'regular', $style: 'normal');
+	color: oColorsByName('black-80');
+}
+
+.n-myft-ui__preferences-modal__remove-button:hover,
+.n-myft-ui__preferences-modal__remove-button:focus {
+	border: 2px solid oColorsByName('claret-60');
+	background-color: oColorsMix($color: 'claret-60', $percentage: 20);
+	color: oColorsByName('claret-60');
+}
