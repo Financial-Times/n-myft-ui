@@ -1,5 +1,8 @@
 import FollowPlusInstantAlerts from './follow-plus-instant-alerts';
 
+// Add client side behaviour
+import { init } from './main.js';
+
 // Add component styles
 import './main.scss';
 
@@ -21,6 +24,14 @@ export default {
 		cacheablePersonalisedUrl: { control: 'boolean' },
 		flags: { control: 'object' },
 	},
+	play: () => {
+		/**
+		 * Slight hack
+		 * Take advantage of the play option here to load the client side behaviour
+		 * This works because the play command is run after the component has been rendered
+		 */
+		init();
+	}
 };
 
 export const Button = {
