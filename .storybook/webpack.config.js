@@ -23,6 +23,7 @@ module.exports = ({ config }) => {
 			{
 				loader: require.resolve('sass-loader'),
 				options: {
+					prependData: '$system-code: "n-myft-ui";',
 					sassOptions: {
 						includePaths: glob.sync('./components/*/node_modules', { absolute: true })
 					}
