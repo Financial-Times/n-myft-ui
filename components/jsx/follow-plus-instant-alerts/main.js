@@ -7,6 +7,11 @@ export const init = () => {
 
 	button.addEventListener('click', (event) => {
 		event.preventDefault();
-		alert('clicked');
+		alert('Follow button clicked');
+		const preferenceModalEvent = new CustomEvent('n-myft-ui.load-preference-modal', {
+			bubbles: true
+		});
+
+		event.target.dispatchEvent(preferenceModalEvent);
 	});
 };
