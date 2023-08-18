@@ -1,8 +1,12 @@
-@import '../../../mixins/lozenge/main.scss';
-
+@import "@financial-times/o-normalise/main";
 @import "@financial-times/o-icons/main";
 @import "@financial-times/o-colors/main";
+@import "@financial-times/o-buttons/main";
 
+// Borrow the styles from the standard follow button
+@import "../../follow-button/main";
+
+// Override the standard follow button with additional styles
 .n-myft-follow-button--instant-alerts[aria-pressed=true]::before {
 	@include oIconsContent(
 		$icon-name: 'mute-notifications',
