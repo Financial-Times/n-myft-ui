@@ -18,6 +18,9 @@ demo-build:
 demo: demo-build
 	@node demos/app
 
+demo-storybook:
+	@npm run storybook
+
 static-demo: demo-build
 	@scripts/make-static-demo.sh
 
