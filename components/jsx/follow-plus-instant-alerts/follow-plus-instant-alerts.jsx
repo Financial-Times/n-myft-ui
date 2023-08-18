@@ -26,7 +26,7 @@ import CsrfToken from '../csrf-token/input';
  * @returns {React.ReactElement}
 */
 
-export default function FollowPlusInstantAlerts({ conceptId, name, csrfToken, setFollowButtonStateToSelected, cacheablePersonalisedUrl, setInstantAlertsOn, flags }) {
+export default function FollowPlusInstantAlerts ({ conceptId, name, csrfToken, setFollowButtonStateToSelected, cacheablePersonalisedUrl, setInstantAlertsOn, flags }) {
 	if (!flags.myFtApiWrite) {
 		return null;
 	}
@@ -79,8 +79,9 @@ export default function FollowPlusInstantAlerts({ conceptId, name, csrfToken, se
 				className={`n-myft-follow-button n-myft-follow-button--instant-alerts ${setInstantAlertsOn ? 'n-myft-follow-button--instant-alerts--on' : ''}`}
 				data-concept-id={conceptId}
 				data-trackable="follow"
-				type="submit">
-					{buttonText}
+				type="submit"
+				data-component="myft-follow-plus-instant-alert">
+				{buttonText}
 			</button>
 		</form>
 	);
