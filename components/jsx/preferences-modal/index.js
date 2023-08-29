@@ -6,9 +6,10 @@ export default () => {
 	preferencesModal.classList.add('n-myft-ui__preferences-modal-live');
 
 	const instantAlertsToggle = document.querySelector('[data-component-id="receive-instant-alerts"]');
-
-	const conceptId = document.querySelector('[name="conceptId"]');
 	const removeFromMyFTButton = document.querySelector('[data-component-id="remove-from-myft"]');
+
+	//TODO: make sure the concept Id and the CSRF token have better targetting
+	const conceptId = document.querySelector('[name="conceptId"]');
 	const token = document.querySelector('[data-myft-csrf-token="true"]');
 
 	//toggle instant alerts when clicking on the instant alerts toggle checkbox
