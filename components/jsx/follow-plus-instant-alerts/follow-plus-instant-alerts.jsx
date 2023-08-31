@@ -63,7 +63,8 @@ export default function FollowPlusInstantAlerts({ conceptId, name, csrfToken, se
 			className="n-myft-ui n-myft-ui--follow"
 			method="GET"
 			data-myft-ui="follow"
-			data-concept-id={conceptId}>
+			data-concept-id={conceptId}
+			data-myft-ui-variant="followPlusInstantAlerts">
 			<div
 				className="n-myft-ui__announcement o-normalise-visually-hidden"
 				aria-live="assertive"
