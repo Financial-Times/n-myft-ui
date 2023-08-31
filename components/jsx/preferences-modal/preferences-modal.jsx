@@ -21,7 +21,7 @@ export default function InstantAlertsPreferencesModal({ flags, currentPreference
 
 	const formattedCurrentPreferences = currentPreferences.join(', ')
 	return (
-		<div className="n-myft-ui__preferences-modal">
+		<div className="n-myft-ui__preferences-modal" data-component-id="myft-preferences-modal">
 			<div className="n-myft-ui__preferences-modal__content">
 					<span className="o-forms-input o-forms-input--checkbox">
 						<label htmlFor="receive-instant-alerts">
