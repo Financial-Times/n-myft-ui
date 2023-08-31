@@ -13,5 +13,6 @@ export default () => {
 	const preferenceModalToggleEvent = new CustomEvent('myft.preference-modal.show-hide.toggle', { bubbles: true });
 	followPlusInstantAlerts.addEventListener('click', () => {
 		followPlusInstantAlerts.dispatchEvent(preferenceModalToggleEvent);
+		followPlusInstantAlerts.classList.toggle('n-myft-follow-button--instant-alerts--open');
 	});
 };
