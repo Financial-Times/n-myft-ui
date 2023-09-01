@@ -49,3 +49,11 @@
 	display: block;
 	visibility: visible;
 }
+
+.n-myft-ui__preferences-modal-error {
+	display: block;
+	margin-top: 10px;
+	@include oTypographySans($scale: -1, $weight: 'regular', $style: 'normal');
+	color: oColorsByName('claret');
+	text-align: center;
+}
