@@ -1,3 +1,8 @@
+import myFtClient from 'next-myft-client';
+import getToken from '../../../myft/ui/lib/get-csrf-token';
+
+const csrfToken = getToken();
+
 /**
  * This preference modal is part of a test
  * Therefore we have built the positioning function to work within the known parameters of that test
@@ -40,6 +45,13 @@ const preferenceModalShowAndHide = ({ event, preferencesModal }) => {
 	}
 };
 
+const removeTopic = async ({ event, conceptId }) => {
+	try {
+		await myFtClient.remove('user', null, 'followed', 'concept', conceptId, { token: csrfToken });
+	} catch (error) {
+	}
+}
+
 export default () => {
 	/**
 	 * This feature is part of a test
@@ -48,10 +60,15 @@ export default () => {
 	 * If this was to be used in other locations it would need some additional work to avoid being singleton
 	 */
 	const preferencesModal = document.querySelector('[data-component-id="myft-preferences-modal"]');
+	const conceptId = preferencesModal.dataset.conceptId;
 
-	if (!preferencesModal) {
+	if (!preferencesModal || !conceptId) {
 		return;
 	}
+
+	const removeTopicButton = preferencesModal.querySelector('[data-component-id="myft-preference-modal-remove"]');
+
+	removeTopicButton.addEventListener('click', event => removeTopic({ event, conceptId }));
 
 	document.addEventListener('myft.preference-modal.show-hide.toggle', event => preferenceModalShowAndHide({ event, preferencesModal }));
 };
