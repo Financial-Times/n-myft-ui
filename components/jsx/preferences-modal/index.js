@@ -48,6 +48,8 @@ const preferenceModalShowAndHide = ({ event, preferencesModal }) => {
 };
 
 const removeTopic = async ({ event, conceptId, preferencesModal }) => {
+	event.target.setAttribute('disabled', true);
+
 	try {
 		await myFtClient.remove('user', null, 'followed', 'concept', conceptId, { token: csrfToken });
 
@@ -55,6 +57,9 @@ const removeTopic = async ({ event, conceptId, preferencesModal }) => {
 
 	} catch (error) {
 	}
+
+	event.target.removeAttribute('disabled');
+
 }
 
 export default () => {
