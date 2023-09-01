@@ -56,11 +56,18 @@ const removeTopic = async ({ event, conceptId, preferencesModal }) => {
 		preferenceModalShowAndHide({ preferencesModal });
 
 	} catch (error) {
+		const parentNode = event.target.parentNode;
+		const errorElement = document.createElement('span');
+		errorElement.innerHTML = 'Sorry, we are unable to remove this topic. Please try again later or try from ft.com/myft';
+		errorElement.setAttribute('aria-live', 'polite');
+		errorElement.classList.add('n-myft-ui__preferences-modal-error');
+
+		parentNode.insertBefore(errorElement, event.target);
 	}
 
 	event.target.removeAttribute('disabled');
 
-}
+};
 
 export default () => {
 	/**
