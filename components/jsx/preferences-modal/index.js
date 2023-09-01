@@ -9,7 +9,13 @@ const csrfToken = getToken();
  * For example we know it will only appear next to the primary add button on articles
  * If this was to be used in other locations this function would need further improvements
  */
-const positionModal = ({ eventTrigger, preferencesModal }) => {
+const positionModal = ({ event, preferencesModal } = {}) => {
+	const eventTrigger = event.target;
+
+	if (!eventTrigger) {
+		return;
+	}
+
 	const modalHorizontalCentering = (eventTrigger.offsetLeft + (eventTrigger.offsetWidth / 2)) - (preferencesModal.offsetWidth / 2);
 	const verticalPadding = 16;
 	const leftPadding = '5px';
@@ -34,20 +40,19 @@ const positionModal = ({ eventTrigger, preferencesModal }) => {
 };
 
 const preferenceModalShowAndHide = ({ event, preferencesModal }) => {
-	if (!event.target) {
-		return;
-	}
-
 	preferencesModal.classList.toggle('n-myft-ui__preferences-modal--show');
 
 	if (preferencesModal.classList.contains('n-myft-ui__preferences-modal--show')) {
-		positionModal({ eventTrigger: event.target, preferencesModal });
+		positionModal({ event, preferencesModal });
 	}
 };
 
-const removeTopic = async ({ event, conceptId }) => {
+const removeTopic = async ({ event, conceptId, preferencesModal }) => {
 	try {
 		await myFtClient.remove('user', null, 'followed', 'concept', conceptId, { token: csrfToken });
+
+		preferenceModalShowAndHide({ preferencesModal });
+
 	} catch (error) {
 	}
 }
@@ -68,7 +73,8 @@ export default () => {
 
 	const removeTopicButton = preferencesModal.querySelector('[data-component-id="myft-preference-modal-remove"]');
 
-	removeTopicButton.addEventListener('click', event => removeTopic({ event, conceptId }));
+	removeTopicButton.addEventListener('click', event => removeTopic({ event, conceptId, preferencesModal }));
 
 	document.addEventListener('myft.preference-modal.show-hide.toggle', event => preferenceModalShowAndHide({ event, preferencesModal }));
+
 };
