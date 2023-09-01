@@ -98,6 +98,12 @@ const toggleInstantAlerts = async (event) => {
 		await myFtClient.updateRelationship('user', null, 'followed', 'concept', conceptId, data);
 	} catch (error) {
 		renderError( 'Sorry, we are unable to change your instant alert preference. Please try again later or try from ft.com/myft');
+
+		if (instantAlertsToggle.checked) {
+			instantAlertsToggle.checked = false;
+		} else {
+			instantAlertsToggle.checked = true;
+		}
 	}
 
 	instantAlertsToggle.removeAttribute('disabled');
