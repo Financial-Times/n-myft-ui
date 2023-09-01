@@ -14,14 +14,14 @@ import React from 'react';
  * @param {PreferencesProperties}
  * @returns {React.ReactElement}
 */
-export default function InstantAlertsPreferencesModal({ flags, currentPreferences, visible }) {
+export default function InstantAlertsPreferencesModal({ conceptId, flags, currentPreferences, visible }) {
 	if (!flags.myFtApiWrite) {
 		return null;
 	}
 
 	const formattedCurrentPreferences = currentPreferences.join(', ')
 	return (
-		<div className={`n-myft-ui__preferences-modal ${visible ? 'n-myft-ui__preferences-modal--show' : ''}`} data-component-id="myft-preferences-modal">
+		<div className={`n-myft-ui__preferences-modal ${visible ? 'n-myft-ui__preferences-modal--show' : ''}`} data-component-id="myft-preferences-modal" data-concept-id={conceptId}>
 			<div className="n-myft-ui__preferences-modal__content">
 				<span className="o-forms-input o-forms-input--checkbox">
 					<label htmlFor="receive-instant-alerts">
@@ -34,7 +34,7 @@ export default function InstantAlertsPreferencesModal({ flags, currentPreference
 
 				<p className="n-myft-ui__preferences-modal__text">Your alerts are currently: {formattedCurrentPreferences}.</p>
 				<a className="n-myft-ui__preferences-modal__text" href="/myft/alerts">Manage your preferences here</a>
-				<button className="n-myft-ui__preferences-modal__remove-button">Remove from myFT</button>
+				<button className="n-myft-ui__preferences-modal__remove-button" data-component-id="myft-preference-modal-remove">Remove from myFT</button>
 			</div>
 		</div>
 	);
