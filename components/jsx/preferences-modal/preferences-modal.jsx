@@ -14,14 +14,18 @@ import React from 'react';
  * @param {PreferencesProperties}
  * @returns {React.ReactElement}
 */
-export default function InstantAlertsPreferencesModal({ flags, currentPreferences, visible }) {
+export default function InstantAlertsPreferencesModal({ flags, conceptId, currentPreferences, visible }) {
 	if (!flags.myFtApiWrite) {
 		return null;
 	}
 
 	const formattedCurrentPreferences = currentPreferences.join(', ')
 	return (
-		<div className={`n-myft-ui__preferences-modal ${visible ? 'n-myft-ui__preferences-modal--show' : ''}`} data-component-id="myft-preferences-modal">
+		<div
+			className={`n-myft-ui__preferences-modal ${visible ? 'n-myft-ui__preferences-modal--show' : ''}`}
+			data-component-id="myft-preferences-modal"
+			data-concept-id={conceptId}
+		>
 			<div className="n-myft-ui__preferences-modal__content">
 				<span className="o-forms-input o-forms-input--checkbox">
 					<label htmlFor="receive-instant-alerts">
