@@ -25,7 +25,7 @@ export default function InstantAlertsPreferencesModal({ conceptId, flags, curren
 			<div className="n-myft-ui__preferences-modal__content">
 				<span className="o-forms-input o-forms-input--checkbox">
 					<label htmlFor="receive-instant-alerts">
-						<input id="receive-instant-alerts" type="checkbox" name="receive-instant-alerts" value="receive-instant-alerts"/>
+						<input id="receive-instant-alerts" type="checkbox" name="receive-instant-alerts" value="receive-instant-alerts" data-component-id="myft-preference-modal-instant-alerts"/>
 						<span className="o-forms-input__label n-myft-ui__preferences-modal__checkbox__message">
 							Get instant alerts for this topic
 						</span>

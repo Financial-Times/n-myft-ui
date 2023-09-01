@@ -76,14 +76,39 @@ const removeTopic = async (event) => {
 
 };
 
+const toggleInstantAlerts = async (event) => {
+	const instantAlertsToggle = event.target;
+
+	instantAlertsToggle.setAttribute('disabled', true);
+
+	const data = {
+		token: csrfToken
+	};
+
+	if (instantAlertsToggle.checked) {
+		data._rel = {instant: 'true'};
+	} else {
+		data._rel = {instant: 'false'};
+	}
+
+	try {
+		await myFtClient.updateRelationship('user', null, 'followed', 'concept', conceptId, data);
+	} catch (error) {
+	}
+
+	instantAlertsToggle.removeAttribute('disabled');
+};
+
 export default () => {
 	if (!preferencesModal || !conceptId) {
 		return;
 	}
 
 	const removeTopicButton = preferencesModal.querySelector('[data-component-id="myft-preference-modal-remove"]');
+	const instantAlertsCheckbox = preferencesModal.querySelector('[data-component-id="myft-preference-modal-instant-alerts"]');
 
 	removeTopicButton.addEventListener('click', removeTopic);
+	instantAlertsCheckbox.addEventListener('change', toggleInstantAlerts);
 
 	document.addEventListener('myft.preference-modal.show-hide.toggle', preferenceModalShowAndHide);
 };
