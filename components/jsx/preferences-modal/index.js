@@ -18,7 +18,11 @@ const conceptId = preferencesModal.dataset.conceptId;
  * For example we know it will only appear next to the primary add button on articles
  * If this was to be used in other locations this function would need further improvements
  */
-const positionModal = (eventTrigger) => {
+const positionModal = (event) => {
+	if (!event.target) {
+		return;
+	}
+	const eventTrigger = event.target;
 	const modalHorizontalCentering = (eventTrigger.offsetLeft + (eventTrigger.offsetWidth / 2)) - (preferencesModal.offsetWidth / 2);
 	const verticalPadding = 20;
 	const leftPadding = '5px';
@@ -43,20 +47,19 @@ const positionModal = (eventTrigger) => {
 };
 
 const preferenceModalShowAndHide = (event) => {
-	if (!event.target) {
-		return;
-	}
-
 	preferencesModal.classList.toggle('n-myft-ui__preferences-modal--show');
 
 	if (preferencesModal.classList.contains('n-myft-ui__preferences-modal--show')) {
-		positionModal(event.target);
+		positionModal(event);
 	}
 };
 
 const removeTopic = async (event) => {
 	try {
 		await myFtClient.remove('user', null, 'followed', 'concept', conceptId, { token: csrfToken });
+
+		preferenceModalShowAndHide();
+
 	} catch (error) {
 	}
 }
