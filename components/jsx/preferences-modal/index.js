@@ -54,6 +54,15 @@ const preferenceModalShowAndHide = (event) => {
 	}
 };
 
+const renderError = ( message ) => {
+	const errorElement = document.createElement('span');
+	errorElement.innerHTML = message;
+	errorElement.setAttribute('aria-live', 'polite');
+	errorElement.classList.add('n-myft-ui__preferences-modal-error');
+
+	preferencesModal.insertBefore(errorElement, preferencesModal.firstChild);
+};
+
 const removeTopic = async (event) => {
 	event.target.setAttribute('disabled', true);
 
@@ -63,13 +72,7 @@ const removeTopic = async (event) => {
 		preferenceModalShowAndHide();
 
 	} catch (error) {
-		const parentNode = event.target.parentNode;
-		const errorElement = document.createElement('span');
-		errorElement.innerHTML = 'Sorry, we are unable to remove this topic. Please try again later or try from ft.com/myft';
-		errorElement.setAttribute('aria-live', 'polite');
-		errorElement.classList.add('n-myft-ui__preferences-modal-error');
-
-		parentNode.insertBefore(errorElement, event.target);
+		renderError( 'Sorry, we are unable to remove this topic. Please try again later or try from ft.com/myft');
 	}
 
 	event.target.removeAttribute('disabled');
@@ -94,6 +97,7 @@ const toggleInstantAlerts = async (event) => {
 	try {
 		await myFtClient.updateRelationship('user', null, 'followed', 'concept', conceptId, data);
 	} catch (error) {
+		renderError( 'Sorry, we are unable to change your instant alert preference. Please try again later or try from ft.com/myft');
 	}
 
 	instantAlertsToggle.removeAttribute('disabled');
