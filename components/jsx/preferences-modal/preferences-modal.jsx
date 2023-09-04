@@ -1,11 +1,15 @@
 import React from 'react';
 
 /**
- * @typedef {object} PreferencesProperties
+ * @typedef {Object} PreferencesProperties
  * @property {string[]} currentPreferences
  * Current alert preferences the user has set up.
- * @property {object.<string, boolean>} flags
- * 	FT.com feature flags
+ * @property {string} conceptId
+ * Concept id of the concept which the modal controls
+ * @property {Record<string, boolean>} flags
+ * FT.com feature flags
+ * @property {boolean} visible
+ * Flag to control the visibility of the modal
  */
 
 /**
