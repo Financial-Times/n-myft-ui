@@ -14,23 +14,23 @@ import React from 'react';
  * @param {PreferencesProperties}
  * @returns {React.ReactElement}
 */
-export default function InstantAlertsPreferencesModal({ flags, currentPreferences }) {
+export default function InstantAlertsPreferencesModal({ flags, currentPreferences, visible }) {
 	if (!flags.myFtApiWrite) {
 		return null;
 	}
 
 	const formattedCurrentPreferences = currentPreferences.join(', ')
 	return (
-		<div className="n-myft-ui__preferences-modal">
+		<div className={`n-myft-ui__preferences-modal ${visible ? 'n-myft-ui__preferences-modal--show' : ''}`} data-component-id="myft-preferences-modal">
 			<div className="n-myft-ui__preferences-modal__content">
-					<span className="o-forms-input o-forms-input--checkbox">
-						<label htmlFor="receive-instant-alerts">
-							<input id="receive-instant-alerts" type="checkbox" name="receive-instant-alerts" value="receive-instant-alerts"/>
-							<span className="o-forms-input__label n-myft-ui__preferences-modal__checkbox__message">
-								Get instant alerts for this topic
-							</span>
-						</label>
-					</span>
+				<span className="o-forms-input o-forms-input--checkbox">
+					<label htmlFor="receive-instant-alerts">
+						<input id="receive-instant-alerts" type="checkbox" name="receive-instant-alerts" value="receive-instant-alerts"/>
+						<span className="o-forms-input__label n-myft-ui__preferences-modal__checkbox__message">
+							Get instant alerts for this topic
+						</span>
+					</label>
+				</span>
 
 				<p className="n-myft-ui__preferences-modal__text">Your alerts are currently: {formattedCurrentPreferences}.</p>
 				<a className="n-myft-ui__preferences-modal__text" href="/myft/alerts">Manage your preferences here</a>

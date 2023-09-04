@@ -36,7 +36,9 @@
 							Instant alerts popup to manage preferences
 						</h3>
 
-						{{{renderReactComponent localPath="components/jsx/preferences-modal/preferences-modal.jsx" flags=@root.flags}}}
+						<div style="height:200px">
+							{{{renderReactComponent localPath="components/jsx/preferences-modal/preferences-modal.jsx" flags=@root.flags visible=true}}}
+						</div>
 					{{/instantAlertsPreferencesModal}}
 
 					{{#followPlusInstantAlerts}}

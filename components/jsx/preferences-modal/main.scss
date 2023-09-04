@@ -3,10 +3,14 @@
 @include oForms();
 
 .n-myft-ui__preferences-modal {
+	display: none;
+	visibility: hidden;
+	position: absolute;
 	background-color: oColorsByName('white-80');
 	border-radius: 10px;
 	border: 2px solid oColorsByName('black-5');
 	width: 275px;
+	z-index: 9999999;
 }
 
 .n-myft-ui__preferences-modal__content {
@@ -39,4 +43,9 @@
 	border: 2px solid oColorsByName('claret-60');
 	background-color: oColorsMix($color: 'claret-60', $percentage: 20);
 	color: oColorsByName('claret-60');
+}
+
+.n-myft-ui__preferences-modal--show {
+	display: block;
+	visibility: visible;
 }

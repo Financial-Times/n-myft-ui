@@ -43,13 +43,20 @@ function getTrackingInfo (formEl) {
 }
 
 export default function (relationshipName, formEl) {
+	const action = getAction(formEl);
+
 	if (formButtonIsDisabled(formEl)) {
+		return;
+	} else if (formEl.getAttribute('data-myft-ui-variant') === 'followPlusInstantAlerts' && action === 'remove') {
+		/**
+		 * The follow + instant alerts button has a 2 click user journey for unfollows
+		 * When the user clicks on a followed button it opens a menu modal
+		 * Amongst other options the menu modal has a "remove" option within it
+		 */
 		return;
 	} else {
 		formEl.querySelector('button').setAttribute('disabled', '');
 	}
-
-	const action = getAction(formEl);
 
 	// note that where the actor is a user, the actorId may be null, in which case myFT client will fill
 	// in the userId from the session 😕
