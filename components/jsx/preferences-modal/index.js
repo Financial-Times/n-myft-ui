@@ -40,6 +40,29 @@ const preferenceModalShowAndHide = ({ event, preferencesModal }) => {
 	}
 };
 
+const getAlertsPreferences = ({ event, preferencesModal }) => {
+	const preferencesList = preferencesModal.querySelector('[data-component-id="myft-preferences-modal-list"]');
+
+	if (!preferencesList) {
+		return;
+	}
+	const addedTextBuffer = [];
+
+	event.detail.items.forEach(item => {
+		if (item.uuid === 'email-instant') {
+			addedTextBuffer.push(' email');
+		}
+		else if (item.uuid === 'app-instant') {
+			addedTextBuffer.push(' app');
+		}
+	});
+
+	const alertsEnabledText = 'Your alerts are currently:' + preferencesList.innerHTML + addedTextBuffer.join(',') + '.';
+	const alertsDisabledText = 'You have disabled all instant alerts';
+
+	preferencesList.innerHTML = addedTextBuffer.length > 0 ? alertsEnabledText : alertsDisabledText;
+};
+
 export default () => {
 	/**
 	 * This feature is part of a test
@@ -54,6 +77,8 @@ export default () => {
 	}
 
 	document.addEventListener('myft.preference-modal.show-hide.toggle', event => preferenceModalShowAndHide({ event, preferencesModal }));
+
+	document.addEventListener('myft.user.preferred.preference.load', event => getAlertsPreferences({ event, preferencesModal }));
 
 	document.body.addEventListener('myft.user.followed.concept.load', (event) => {
 		const conceptId = preferencesModal.dataset.conceptId;
