@@ -2,8 +2,6 @@ import React from 'react';
 
 /**
  * @typedef {Object} PreferencesProperties
- * @property {string[]} currentPreferences
- * Current alert preferences the user has set up.
  * @property {string} conceptId
  * Concept id of the concept which the modal controls
  * @property {Record<string, boolean>} flags
@@ -18,12 +16,11 @@ import React from 'react';
  * @param {PreferencesProperties}
  * @returns {React.ReactElement}
 */
-export default function InstantAlertsPreferencesModal({ flags, conceptId, currentPreferences, visible }) {
+export default function InstantAlertsPreferencesModal({ flags, conceptId, visible }) {
 	if (!flags.myFtApiWrite) {
 		return null;
 	}
 
-	const formattedCurrentPreferences = currentPreferences.join(', ')
 	return (
 		<div
 			className={`n-myft-ui__preferences-modal ${visible ? 'n-myft-ui__preferences-modal--show' : ''}`}
@@ -46,7 +43,7 @@ export default function InstantAlertsPreferencesModal({ flags, conceptId, curren
 					</label>
 				</span>
 
-				<p className="n-myft-ui__preferences-modal__text">Your alerts are currently: {formattedCurrentPreferences}.</p>
+				<p data-component-id="myft-preferences-modal-list" className="n-myft-ui__preferences-modal__text">Your alerts are currently:</p>
 				<a className="n-myft-ui__preferences-modal__text" href="/myft/alerts">Manage your preferences here</a>
 				<button className="n-myft-ui__preferences-modal__remove-button">Remove from myFT</button>
 			</div>
