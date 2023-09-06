@@ -46,7 +46,10 @@ const preferenceModalShowAndHide = ({ event, preferencesModal }) => {
 		positionModal({ event, preferencesModal });
 	} else {
 		// Remove existing errors when hiding the modal
-		renderError('');
+		renderError({
+			message: '',
+			preferencesModal,
+		});
 	}
 };
 
