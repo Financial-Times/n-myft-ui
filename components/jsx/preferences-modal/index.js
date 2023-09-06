@@ -23,7 +23,7 @@ const positionModal = ({ event, preferencesModal } = {}) => {
 	}
 
 	const modalHorizontalCentering = (eventTrigger.offsetLeft + (eventTrigger.offsetWidth / 2)) - (preferencesModal.offsetWidth / 2);
-	const verticalPadding = 16;
+	const verticalPadding = 15;
 	const leftPadding = '5px';
 
 	preferencesModal.style.top = `${eventTrigger.offsetTop + eventTrigger.offsetHeight + verticalPadding}px`;
@@ -91,10 +91,25 @@ const getAlertsPreferences = ({ event, preferencesModal }) => {
 		}
 	});
 
-	const alertsEnabledText = 'Your alerts are currently:' + preferencesList.innerHTML + addedTextBuffer.join(',') + '.';
+	const alertsEnabledText = preferencesList.innerHTML + addedTextBuffer.join(',') + '.';
 	const alertsDisabledText = 'You have disabled all instant alerts';
 
 	preferencesList.innerHTML = addedTextBuffer.length > 0 ? alertsEnabledText : alertsDisabledText;
+}
+
+const setCheckboxForAlertConcept = ({ event, preferencesModal }) => {
+	const conceptId = preferencesModal.dataset.conceptId;
+	const instantAlertsCheckbox = preferencesModal.querySelector('[data-component-id="myft-preferences-modal-checkbox"]');
+	// search through all the concepts that the user has followed and check whether
+	// 1. the concept which this instant alert modal controls is within them, AND;
+	// 2. the said concept has instant alert enabled
+	// if so, check the checkbox within the modal
+	const currentConcept = event.detail.items.find(item => item && item.uuid === conceptId);
+	if (currentConcept && currentConcept._rel && currentConcept._rel.instant) {
+		instantAlertsCheckbox.checked = true;
+	} else {
+		instantAlertsCheckbox.checked = false;
+	}
 };
 
 export default () => {
@@ -119,18 +134,5 @@ export default () => {
 
 	document.addEventListener('myft.user.preferred.preference.load', event => getAlertsPreferences({ event, preferencesModal }));
 
-	document.body.addEventListener('myft.user.followed.concept.load', (event) => {
-		const conceptId = preferencesModal.dataset.conceptId;
-		const instantAlertsCheckbox = preferencesModal.querySelector('[data-component-id="myft-preferences-modal-checkbox"]');
-		// search through all the concepts that the user has followed and check whether
-		// 1. the concept which this instant alert modal controls is within them, AND;
-		// 2. the said concept has instant alert enabled
-		// if so, check the checkbox within the modal
-		const currentConcept = event.detail.items.find(item => item && item.uuid === conceptId);
-		if (currentConcept && currentConcept._rel && currentConcept._rel.instant) {
-			instantAlertsCheckbox.checked = true;
-		} else {
-			instantAlertsCheckbox.checked = false;
-		}
-	});
+	document.body.addEventListener('myft.user.followed.concept.load', (event) => setCheckboxForAlertConcept({ event, preferencesModal }));
 };
