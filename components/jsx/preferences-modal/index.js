@@ -3,6 +3,12 @@ import getToken from '../../../myft/ui/lib/get-csrf-token';
 
 const csrfToken = getToken();
 
+const renderError = ({ message, preferencesModal }) => {
+	const errorElement = preferencesModal.querySelector('[data-component-id="myft-preference-modal-error"]');
+
+	errorElement.innerHTML = message;
+};
+
 /**
  * This preference modal is part of a test
  * Therefore we have built the positioning function to work within the known parameters of that test
@@ -53,12 +59,6 @@ const preferenceModalShowAndHide = ({ event, preferencesModal }) => {
 	}
 };
 
-const renderError = ({ message, preferencesModal }) => {
-	const errorElement = preferencesModal.querySelector('[data-component-id="myft-preference-modal-error"]');
-
-	errorElement.innerHTML = message;
-};
-
 const removeTopic = async ({ event, conceptId, preferencesModal }) => {
 	event.target.setAttribute('disabled', true);
 
@@ -72,7 +72,29 @@ const removeTopic = async ({ event, conceptId, preferencesModal }) => {
 	}
 
 	event.target.removeAttribute('disabled');
+};
 
+const getAlertsPreferences = ({ event, preferencesModal }) => {
+	const preferencesList = preferencesModal.querySelector('[data-component-id="myft-preferences-modal-list"]');
+
+	if (!preferencesList) {
+		return;
+	}
+	const addedTextBuffer = [];
+
+	event.detail.items.forEach(item => {
+		if (item.uuid === 'email-instant') {
+			addedTextBuffer.push(' email');
+		}
+		else if (item.uuid === 'app-instant') {
+			addedTextBuffer.push(' app');
+		}
+	});
+
+	const alertsEnabledText = 'Your alerts are currently:' + preferencesList.innerHTML + addedTextBuffer.join(',') + '.';
+	const alertsDisabledText = 'You have disabled all instant alerts';
+
+	preferencesList.innerHTML = addedTextBuffer.length > 0 ? alertsEnabledText : alertsDisabledText;
 };
 
 export default () => {
@@ -95,4 +117,20 @@ export default () => {
 
 	document.addEventListener('myft.preference-modal.show-hide.toggle', event => preferenceModalShowAndHide({ event, preferencesModal }));
 
+	document.addEventListener('myft.user.preferred.preference.load', event => getAlertsPreferences({ event, preferencesModal }));
+
+	document.body.addEventListener('myft.user.followed.concept.load', (event) => {
+		const conceptId = preferencesModal.dataset.conceptId;
+		const instantAlertsCheckbox = preferencesModal.querySelector('[data-component-id="myft-preferences-modal-checkbox"]');
+		// search through all the concepts that the user has followed and check whether
+		// 1. the concept which this instant alert modal controls is within them, AND;
+		// 2. the said concept has instant alert enabled
+		// if so, check the checkbox within the modal
+		const currentConcept = event.detail.items.find(item => item && item.uuid === conceptId);
+		if (currentConcept && currentConcept._rel && currentConcept._rel.instant) {
+			instantAlertsCheckbox.checked = true;
+		} else {
+			instantAlertsCheckbox.checked = false;
+		}
+	});
 };
