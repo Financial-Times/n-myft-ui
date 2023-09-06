@@ -44,7 +44,16 @@ const preferenceModalShowAndHide = ({ event, preferencesModal }) => {
 
 	if (preferencesModal.classList.contains('n-myft-ui__preferences-modal--show')) {
 		positionModal({ event, preferencesModal });
+	} else {
+		// Remove existing errors when hiding the modal
+		renderError('');
 	}
+};
+
+const renderError = ({ message, preferencesModal }) => {
+	const errorElement = preferencesModal.querySelector('[data-component-id="myft-preference-modal-error"]');
+
+	errorElement.innerHTML = message;
 };
 
 const removeTopic = async ({ event, conceptId, preferencesModal }) => {
@@ -56,13 +65,7 @@ const removeTopic = async ({ event, conceptId, preferencesModal }) => {
 		preferenceModalShowAndHide({ preferencesModal });
 
 	} catch (error) {
-		const parentNode = event.target.parentNode;
-		const errorElement = document.createElement('span');
-		errorElement.innerHTML = 'Sorry, we are unable to remove this topic. Please try again later or try from ft.com/myft';
-		errorElement.setAttribute('aria-live', 'polite');
-		errorElement.classList.add('n-myft-ui__preferences-modal-error');
-
-		parentNode.insertBefore(errorElement, event.target);
+		renderError({ message: 'Sorry, we are unable to remove this topic. Please try again later or try from <a href="/myft">myFT</a>', preferencesModal });
 	}
 
 	event.target.removeAttribute('disabled');
