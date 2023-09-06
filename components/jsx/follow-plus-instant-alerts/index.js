@@ -16,4 +16,18 @@ export default () => {
 		followPlusInstantAlerts.dispatchEvent(preferenceModalToggleEvent);
 		followPlusInstantAlerts.classList.toggle('n-myft-follow-button--instant-alerts--open');
 	});
+
+	document.body.addEventListener('myft.user.followed.concept.load', (event) => {
+		const conceptId = followPlusInstantAlerts.dataset.conceptId;
+		// search through all the concepts that the user has followed and check whether
+		// 1. the concept which this instant alert modal controls is within them, AND;
+		// 2. the said concept has instant alert enabled
+		// if so, set the bell on in the button
+		const currentConcept = event.detail.items.find(item => item && item.uuid === conceptId);
+		if (currentConcept && currentConcept._rel && currentConcept._rel.instant) {
+			followPlusInstantAlerts.classList.add('n-myft-follow-button--instant-alerts--on');
+		} else {
+			followPlusInstantAlerts.classList.remove('n-myft-follow-button--instant-alerts--on');
+		}
+	});
 };

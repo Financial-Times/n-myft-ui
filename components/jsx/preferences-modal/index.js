@@ -54,4 +54,19 @@ export default () => {
 	}
 
 	document.addEventListener('myft.preference-modal.show-hide.toggle', event => preferenceModalShowAndHide({ event, preferencesModal }));
+
+	document.body.addEventListener('myft.user.followed.concept.load', (event) => {
+		const conceptId = preferencesModal.dataset.conceptId;
+		const instantAlertsCheckbox = preferencesModal.querySelector('[data-component-id="myft-preferences-modal-checkbox"]');
+		// search through all the concepts that the user has followed and check whether
+		// 1. the concept which this instant alert modal controls is within them, AND;
+		// 2. the said concept has instant alert enabled
+		// if so, check the checkbox within the modal
+		const currentConcept = event.detail.items.find(item => item && item.uuid === conceptId);
+		if (currentConcept && currentConcept._rel && currentConcept._rel.instant) {
+			instantAlertsCheckbox.checked = true;
+		} else {
+			instantAlertsCheckbox.checked = false;
+		}
+	});
 };
