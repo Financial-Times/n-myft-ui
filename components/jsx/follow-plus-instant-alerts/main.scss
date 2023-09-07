@@ -48,7 +48,7 @@
 		}
 
 		&.n-myft-follow-button--instant-alerts[aria-pressed=true]::after {
-			@include arrowIcon('arrow-down', getThemeColor(text))
+			@include arrowIcon('arrow-down', getThemeColor(text));
 		}
 
 		&.n-myft-follow-button--instant-alerts--open[aria-pressed=true]::after {
