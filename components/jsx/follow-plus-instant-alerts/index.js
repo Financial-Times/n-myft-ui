@@ -1,11 +1,34 @@
 const setBellForAlertConcept = ({ event, followPlusInstantAlerts }) => {
-	const conceptId = followPlusInstantAlerts.dataset.conceptId;
-	// search through all the concepts that the user has followed and check whether
-	// 1. the concept which this instant alert modal controls is within them, AND;
-	// 2. the said concept has instant alert enabled
-	// if so, set the bell on in the button
-	const currentConcept = event.detail.items.find(item => item && item.uuid === conceptId);
-	if (currentConcept && currentConcept._rel && currentConcept._rel.instant) {
+
+	if (!event) {
+		return;
+	}
+
+	/**
+	 * There are two types of event we receive
+	 * update - happens when the user changes their follows/instant alert
+	 * load - happens when the page loads and contains all follow data
+	 * The payload of those events are different so we need to handle them differently
+	 */
+	const isUpdateEvent = event.type === 'myft.user.followed.concept.update';
+	const modalConceptId = followPlusInstantAlerts.dataset.conceptId;
+
+	// Search through the event payload to see if any data relates to this modal
+	const currentConcept = isUpdateEvent
+		? event.detail.results.find(item => item && item.subject && item.subject.properties.uuid === modalConceptId)
+		: event.detail.items.find(item => item && item.uuid === modalConceptId);
+
+	if (!currentConcept) {
+		return;
+	}
+
+	// Does the event indicate that instant alerts are turned on
+	const isTurningAlertsOn = isUpdateEvent
+		? currentConcept.rel && currentConcept.rel.properties && currentConcept.rel.properties.instant
+		: currentConcept._rel && currentConcept._rel.instant;
+
+	// Update the button icon to reflect the instant alert preference
+	if (isTurningAlertsOn) {
 		followPlusInstantAlerts.classList.add('n-myft-follow-button--instant-alerts--on');
 	} else {
 		followPlusInstantAlerts.classList.remove('n-myft-follow-button--instant-alerts--on');
@@ -36,4 +59,5 @@ export default () => {
 	followPlusInstantAlerts.addEventListener('click', () => sendModalToggleEvent({followPlusInstantAlerts}));
 
 	document.body.addEventListener('myft.user.followed.concept.load', (event) => setBellForAlertConcept({event, followPlusInstantAlerts}));
+	document.body.addEventListener('myft.user.followed.concept.update', (event) => setBellForAlertConcept({event, followPlusInstantAlerts}));
 };
