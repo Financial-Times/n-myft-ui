@@ -3,29 +3,33 @@
 @import "@financial-times/o-icons/main";
 @import "@financial-times/o-colors/main";
 
-.n-myft-follow-button--instant-alerts[aria-pressed=true]::before {
+@mixin bellOffIcon($color, $background) {
 	@include oIconsContent(
 		$icon-name: 'mute-notifications',
-		$color: oColorsMix($color: 'white', $background: 'claret', $percentage: 60),
+		$color: oColorsMix(
+			$color: $color,
+			$background: $background,
+			$percentage: 60,
+		),
 		$size: 10
 	);
 	background-size: 21px;
 }
 
-.n-myft-follow-button--instant-alerts--on[aria-pressed=true]::before {
+@mixin bellOnIcon($color) {
 	@include oIconsContent(
 		$icon-name: 'notifications',
-		$color: oColorsByName('white'),
+		$color: $color,
 		$size: 10
 	);
 	background-size: 21px;
 }
 
-.n-myft-follow-button--instant-alerts[aria-pressed=true]::after {
+@mixin arrowIcon($icon-name, $color) {
 	content: "";
 	@include oIconsContent(
-		$icon-name: 'arrow-down',
-		$color: oColorsByName('white'),
+		$icon-name: $icon-name,
+		$color: $color,
 		$size: 10
 	);
 	background-size: 21px;
@@ -33,14 +37,28 @@
 	margin-left: 12px;
 }
 
-.n-myft-follow-button--instant-alerts--open[aria-pressed=true]::after {
-	content: "";
-	@include oIconsContent(
-		$icon-name: 'arrow-up',
-		$color: oColorsByName('white'),
-		$size: 10
-	);
-	background-size: 21px;
-	background-position: 50% 41%;
-	margin-left: 12px;
+@mixin myftFollowButtonPlusToggleIcons($theme: standard) {
+	@include withTheme($theme) {
+		&.n-myft-follow-button--instant-alerts[aria-pressed=true]::before {
+			@include bellOffIcon(getThemeColor(text), getThemeColor(background));
+		}
+
+		&.n-myft-follow-button--instant-alerts--on[aria-pressed=true]::before {
+			@include bellOnIcon(getThemeColor(text));
+		}
+
+		&.n-myft-follow-button--instant-alerts[aria-pressed=true]::after {
+			@include arrowIcon('arrow-down', getThemeColor(text));
+		}
+
+		&.n-myft-follow-button--instant-alerts--open[aria-pressed=true]::after {
+			@include arrowIcon('arrow-up', getThemeColor(text));
+		}
+	}
+}
+
+@each $theme in map-keys($myft-lozenge-themes) {
+	.n-myft-follow-button#{getThemeModifier($theme)} {
+		@include myftFollowButtonPlusToggleIcons($theme);
+	}
 }

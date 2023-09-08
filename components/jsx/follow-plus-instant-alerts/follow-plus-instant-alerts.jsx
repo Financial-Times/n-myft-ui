@@ -17,6 +17,8 @@ import CsrfToken from '../csrf-token/input';
  * 	An indicator to switch the rendering to show instant alerts as turned on
  * @property {object.<string, boolean>} flags
  * 	FT.com feature flags
+ * @property {string} variant
+ * 	color variant of the follow button
  */
 
 /**
@@ -26,7 +28,7 @@ import CsrfToken from '../csrf-token/input';
  * @returns {React.ReactElement}
 */
 
-export default function FollowPlusInstantAlerts({ conceptId, name, csrfToken, setFollowButtonStateToSelected, cacheablePersonalisedUrl, setInstantAlertsOn, flags }) {
+export default function FollowPlusInstantAlerts({ conceptId, name, csrfToken, setFollowButtonStateToSelected, cacheablePersonalisedUrl, setInstantAlertsOn, flags, variant }) {
 	if (!flags.myFtApiWrite) {
 		return null;
 	}
@@ -77,7 +79,11 @@ export default function FollowPlusInstantAlerts({ conceptId, name, csrfToken, se
 			/>
 			<button
 				{...dynamicButtonAttributes}
-				className={`n-myft-follow-button n-myft-follow-button--instant-alerts ${setInstantAlertsOn ? 'n-myft-follow-button--instant-alerts--on' : ''}`}
+				className={
+					`n-myft-follow-button n-myft-follow-button--instant-alerts
+						${setInstantAlertsOn ? 'n-myft-follow-button--instant-alerts--on' : ''}
+						${variant ? `n-myft-follow-button--${variant}` : ''}`
+				}
 				data-concept-id={conceptId}
 				data-trackable="follow"
 				type="submit"
