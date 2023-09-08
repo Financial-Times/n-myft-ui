@@ -106,7 +106,6 @@ const getAlertsPreferences = async ({ event, preferencesModal }) => {
 	const alertsEnabledText = `Your delivery channels: ${addedTextBuffer.join(', ')}.`;
 	const alertsDisabledText = 'You have previously disabled all delivery channels';
 	preferencesList.innerHTML = addedTextBuffer.length > 0 ? alertsEnabledText : alertsDisabledText;
-
 };
 
 const setCheckboxForAlertConcept = ({ event, preferencesModal }) => {
@@ -146,6 +145,10 @@ const toggleInstantAlertsPreference = async ({ event, conceptId, preferencesModa
 			message: 'Sorry, we are unable to change your instant alert preference. Please try again later or try from <a href="/myft">myFT</a>',
 			preferencesModal
 		});
+
+		instantAlertsToggle.checked = instantAlertsToggle.checked
+			? false
+			: true;
 	}
 
 	instantAlertsToggle.removeAttribute('disabled');
