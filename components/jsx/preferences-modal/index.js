@@ -127,6 +127,8 @@ const setCheckboxForAlertConcept = ({ event, preferencesModal }) => {
 const toggleInstantAlertsPreference = async ({ event, conceptId, preferencesModal }) => {
 	const instantAlertsToggle = event.target;
 
+	instantAlertsToggle.setAttribute('disabled', true);
+
 	const data = {
 		token: csrfToken
 	};
@@ -145,6 +147,8 @@ const toggleInstantAlertsPreference = async ({ event, conceptId, preferencesModa
 			preferencesModal
 		});
 	}
+
+	instantAlertsToggle.removeAttribute('disabled');
 };
 
 export default () => {
