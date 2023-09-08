@@ -124,7 +124,7 @@ const setCheckboxForAlertConcept = ({ event, preferencesModal }) => {
 	}
 };
 
-const toggleInstantAlertsPreference = async ({ event, conceptId }) => {
+const toggleInstantAlertsPreference = async ({ event, conceptId, preferencesModal }) => {
 	const instantAlertsToggle = event.target;
 
 	const data = {
@@ -140,6 +140,10 @@ const toggleInstantAlertsPreference = async ({ event, conceptId }) => {
 	try {
 		await myFtClient.updateRelationship('user', null, 'followed', 'concept', conceptId, data);
 	} catch (error) {
+		renderError({
+			message: 'Sorry, we are unable to change your instant alert preference. Please try again later or try from <a href="/myft">myFT</a>',
+			preferencesModal
+		});
 	}
 };
 
@@ -161,7 +165,7 @@ export default () => {
 	const instantAlertsCheckbox = preferencesModal.querySelector('[data-component-id="myft-preferences-modal-checkbox"]');
 
 	removeTopicButton.addEventListener('click', event => removeTopic({ event, conceptId, preferencesModal }));
-	instantAlertsCheckbox.addEventListener('change', event => toggleInstantAlertsPreference({ event, conceptId }));
+	instantAlertsCheckbox.addEventListener('change', event => toggleInstantAlertsPreference({ event, conceptId, preferencesModal }));
 
 	document.addEventListener('myft.preference-modal.show-hide.toggle', event => preferenceModalShowAndHide({ event, preferencesModal }));
 
