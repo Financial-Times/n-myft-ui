@@ -74,7 +74,7 @@ const removeTopic = async ({ event, conceptId, preferencesModal }) => {
 	event.target.removeAttribute('disabled');
 };
 
-const getAlertsPreferences = ({ event, preferencesModal }) => {
+const getAlertsPreferences = async ({ event, preferencesModal }) => {
 	const preferencesList = preferencesModal.querySelector('[data-component-id="myft-preferences-modal-list"]');
 
 	if (!preferencesList) {
@@ -91,11 +91,23 @@ const getAlertsPreferences = ({ event, preferencesModal }) => {
 		}
 	});
 
-	const alertsEnabledText = preferencesList.innerHTML + addedTextBuffer.join(',') + '.';
-	const alertsDisabledText = 'You have disabled all instant alerts';
+	try {
+		// We need the service worker registration to check for a subscription
+		const serviceWorkerRegistration = await navigator.serviceWorker.ready;
+		const subscription = await serviceWorkerRegistration.pushManager.getSubscription();
+		if (subscription) {
+			addedTextBuffer.push('browser');
+		}
 
+	} catch (error) {
+		// eslint-disable-next-line no-console
+		console.warn('There was an error fetching the browser notification preferences', error);
+	}
+	const alertsEnabledText = `Your delivery channels: ${addedTextBuffer.join(', ')}.`;
+	const alertsDisabledText = 'You have previously disabled all delivery channels';
 	preferencesList.innerHTML = addedTextBuffer.length > 0 ? alertsEnabledText : alertsDisabledText;
-}
+
+};
 
 const setCheckboxForAlertConcept = ({ event, preferencesModal }) => {
 	const conceptId = preferencesModal.dataset.conceptId;
@@ -132,7 +144,7 @@ export default () => {
 
 	document.addEventListener('myft.preference-modal.show-hide.toggle', event => preferenceModalShowAndHide({ event, preferencesModal }));
 
-	document.addEventListener('myft.user.preferred.preference.load', event => getAlertsPreferences({ event, preferencesModal }));
+	document.addEventListener('myft.user.preferred.preference.load', (event) => getAlertsPreferences({ event, preferencesModal }));
 
 	document.body.addEventListener('myft.user.followed.concept.load', (event) => setCheckboxForAlertConcept({ event, preferencesModal }));
 };
