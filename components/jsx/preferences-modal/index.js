@@ -124,6 +124,25 @@ const setCheckboxForAlertConcept = ({ event, preferencesModal }) => {
 	}
 };
 
+const toggleInstantAlertsPreference = async ({ event, conceptId }) => {
+	const instantAlertsToggle = event.target;
+
+	const data = {
+		token: csrfToken
+	};
+
+	if (instantAlertsToggle.checked) {
+		data._rel = {instant: 'true'};
+	} else {
+		data._rel = {instant: 'false'};
+	}
+
+	try {
+		await myFtClient.updateRelationship('user', null, 'followed', 'concept', conceptId, data);
+	} catch (error) {
+	}
+};
+
 export default () => {
 	/**
 	 * This feature is part of a test
@@ -139,8 +158,10 @@ export default () => {
 	}
 
 	const removeTopicButton = preferencesModal.querySelector('[data-component-id="myft-preference-modal-remove"]');
+	const instantAlertsCheckbox = preferencesModal.querySelector('[data-component-id="myft-preferences-modal-checkbox"]');
 
 	removeTopicButton.addEventListener('click', event => removeTopic({ event, conceptId, preferencesModal }));
+	instantAlertsCheckbox.addEventListener('change', event => toggleInstantAlertsPreference({ event, conceptId }));
 
 	document.addEventListener('myft.preference-modal.show-hide.toggle', event => preferenceModalShowAndHide({ event, preferencesModal }));
 
