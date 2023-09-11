@@ -1,5 +1,6 @@
 import myFtClient from 'next-myft-client';
 import getToken from '../../../myft/ui/lib/get-csrf-token';
+import oTracking from '@financial-times/o-tracking';
 
 const csrfToken = getToken();
 
@@ -50,6 +51,20 @@ const preferenceModalShowAndHide = ({ event, preferencesModal }) => {
 
 	if (preferencesModal.classList.contains('n-myft-ui__preferences-modal--show')) {
 		positionModal({ event, preferencesModal });
+		const opts = {
+			category: 'component',
+			selector: '[data-component-id="myft-preferences-modal"]',
+			getContextData: () => {
+				return {
+					component: {
+						type: 'component',
+						name: 'popup-box',
+						id: '72de123e-5082-11ee-be56-0242ac120002',
+					},
+				};
+			},
+		};
+		oTracking.view.init(opts);
 	} else {
 		// Remove existing errors when hiding the modal
 		renderError({

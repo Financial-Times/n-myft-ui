@@ -104,6 +104,7 @@
     "react": "^16.14.0"
   },
   "dependencies": {
+    "@financial-times/o-tracking": "^4.5.0",
     "date-fns": "2.16.1",
     "fetchres": "^1.7.2",
     "form-serialize": "^0.7.2",

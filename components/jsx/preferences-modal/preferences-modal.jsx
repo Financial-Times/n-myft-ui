@@ -26,6 +26,7 @@ export default function InstantAlertsPreferencesModal({ flags, conceptId, visibl
 			className={`n-myft-ui__preferences-modal ${visible ? 'n-myft-ui__preferences-modal--show' : ''}`}
 			data-component-id="myft-preferences-modal"
 			data-concept-id={conceptId}
+			data-o-tracking-view="true"
 		>
 			<div className="n-myft-ui__preferences-modal__content">
 				<span className="o-forms-input o-forms-input--checkbox">
