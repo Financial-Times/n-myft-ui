@@ -58,7 +58,7 @@ const preferenceModalShowAndHide = ({ event, preferencesModal }) => {
 				return {
 					component: {
 						type: 'component',
-						name: 'popup-box',
+						name: 'pop-up-box',
 						id: '72de123e-5082-11ee-be56-0242ac120002',
 					},
 				};
