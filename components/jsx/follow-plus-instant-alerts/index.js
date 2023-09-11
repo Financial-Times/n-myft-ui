@@ -1,39 +1,52 @@
-const setBellForAlertConcept = ({ event, followPlusInstantAlerts }) => {
-
-	if (!event) {
-		return;
-	}
-
-	/**
-	 * There are two types of event we receive
-	 * update - happens when the user changes their follows/instant alert
-	 * load - happens when the page loads and contains all follow data
-	 * The payload of those events are different so we need to handle them differently
-	 */
-	const isUpdateEvent = event.type === 'myft.user.followed.concept.update';
-	const modalConceptId = followPlusInstantAlerts.dataset.conceptId;
-
-	// Search through the event payload to see if any data relates to this modal
-	const currentConcept = isUpdateEvent
-		? event.detail.results.find(item => item && item.subject && item.subject.properties.uuid === modalConceptId)
-		: event.detail.items.find(item => item && item.uuid === modalConceptId);
-
-	if (!currentConcept) {
-		return;
-	}
-
-	// Does the event indicate that instant alerts are turned on
-	const isTurningAlertsOn = isUpdateEvent
-		? currentConcept.rel && currentConcept.rel.properties && currentConcept.rel.properties.instant
-		: currentConcept._rel && currentConcept._rel.instant;
-
+const toggleInstantAlertsClass = ({ instantAlertsOn,followPlusInstantAlerts }) => {
 	// Update the button icon to reflect the instant alert preference
-	if (isTurningAlertsOn) {
+	if (instantAlertsOn) {
 		followPlusInstantAlerts.classList.add('n-myft-follow-button--instant-alerts--on');
 	} else {
 		followPlusInstantAlerts.classList.remove('n-myft-follow-button--instant-alerts--on');
 	}
 };
+
+const instantAlertsIconLoad = ({ event, followPlusInstantAlerts }) => {
+	const modalConceptId = followPlusInstantAlerts.dataset.conceptId;
+
+	if (!event || !modalConceptId) {
+		return;
+	}
+
+	const currentConcept = event.detail.items
+		.find(item => item && item.uuid === modalConceptId);
+
+	if (!currentConcept) {
+		return;
+	}
+
+
+	const instantAlertsOn = Boolean(currentConcept && currentConcept._rel && currentConcept._rel.instant);
+	toggleInstantAlertsClass({instantAlertsOn, followPlusInstantAlerts });
+};
+
+const instantAlertsIconUpdate = ({ event, followPlusInstantAlerts }) => {
+	const modalConceptId = followPlusInstantAlerts.dataset.conceptId;
+
+	if (!event || !modalConceptId) {
+		return;
+	}
+
+	const currentConcept = event.detail.results
+		.find(item => item && item.subject && item.subject.properties && item.subject.properties.uuid === modalConceptId);
+
+	if (!currentConcept) {
+		return;
+	}
+
+
+	const instantAlertsOn = Boolean(currentConcept && currentConcept.rel && currentConcept.rel.properties && currentConcept.rel.properties.instant);
+	toggleInstantAlertsClass({instantAlertsOn, followPlusInstantAlerts });
+};
+
+
+
 
 const sendModalToggleEvent = ({ followPlusInstantAlerts }) => {
 	const preferenceModalToggleEvent = new CustomEvent('myft.preference-modal.show-hide.toggle', { bubbles: true });
@@ -58,6 +71,6 @@ export default () => {
 
 	followPlusInstantAlerts.addEventListener('click', () => sendModalToggleEvent({followPlusInstantAlerts}));
 
-	document.body.addEventListener('myft.user.followed.concept.load', (event) => setBellForAlertConcept({event, followPlusInstantAlerts}));
-	document.body.addEventListener('myft.user.followed.concept.update', (event) => setBellForAlertConcept({event, followPlusInstantAlerts}));
+	document.body.addEventListener('myft.user.followed.concept.load', (event) => instantAlertsIconLoad({event, followPlusInstantAlerts}));
+	document.body.addEventListener('myft.user.followed.concept.update', (event) => instantAlertsIconUpdate({event, followPlusInstantAlerts}));
 };
