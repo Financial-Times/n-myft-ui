@@ -1,16 +1,52 @@
-const setBellForAlertConcept = ({ event, followPlusInstantAlerts }) => {
-	const conceptId = followPlusInstantAlerts.dataset.conceptId;
-	// search through all the concepts that the user has followed and check whether
-	// 1. the concept which this instant alert modal controls is within them, AND;
-	// 2. the said concept has instant alert enabled
-	// if so, set the bell on in the button
-	const currentConcept = event.detail.items.find(item => item && item.uuid === conceptId);
-	if (currentConcept && currentConcept._rel && currentConcept._rel.instant) {
+const toggleInstantAlertsClass = ({ instantAlertsOn,followPlusInstantAlerts }) => {
+	// Update the button icon to reflect the instant alert preference
+	if (instantAlertsOn) {
 		followPlusInstantAlerts.classList.add('n-myft-follow-button--instant-alerts--on');
 	} else {
 		followPlusInstantAlerts.classList.remove('n-myft-follow-button--instant-alerts--on');
 	}
 };
+
+const instantAlertsIconLoad = ({ event, followPlusInstantAlerts }) => {
+	const modalConceptId = followPlusInstantAlerts.dataset.conceptId;
+
+	if (!event || !modalConceptId) {
+		return;
+	}
+
+	const currentConcept = event.detail.items
+		.find(item => item && item.uuid === modalConceptId);
+
+	if (!currentConcept) {
+		return;
+	}
+
+
+	const instantAlertsOn = Boolean(currentConcept && currentConcept._rel && currentConcept._rel.instant);
+	toggleInstantAlertsClass({instantAlertsOn, followPlusInstantAlerts });
+};
+
+const instantAlertsIconUpdate = ({ event, followPlusInstantAlerts }) => {
+	const modalConceptId = followPlusInstantAlerts.dataset.conceptId;
+
+	if (!event || !modalConceptId) {
+		return;
+	}
+
+	const currentConcept = event.detail.results
+		.find(item => item && item.subject && item.subject.properties && item.subject.properties.uuid === modalConceptId);
+
+	if (!currentConcept) {
+		return;
+	}
+
+
+	const instantAlertsOn = Boolean(currentConcept && currentConcept.rel && currentConcept.rel.properties && currentConcept.rel.properties.instant);
+	toggleInstantAlertsClass({instantAlertsOn, followPlusInstantAlerts });
+};
+
+
+
 
 const sendModalToggleEvent = ({ followPlusInstantAlerts }) => {
 	const preferenceModalToggleEvent = new CustomEvent('myft.preference-modal.show-hide.toggle', { bubbles: true });
@@ -35,5 +71,6 @@ export default () => {
 
 	followPlusInstantAlerts.addEventListener('click', () => sendModalToggleEvent({followPlusInstantAlerts}));
 
-	document.body.addEventListener('myft.user.followed.concept.load', (event) => setBellForAlertConcept({event, followPlusInstantAlerts}));
+	document.body.addEventListener('myft.user.followed.concept.load', (event) => instantAlertsIconLoad({event, followPlusInstantAlerts}));
+	document.body.addEventListener('myft.user.followed.concept.update', (event) => instantAlertsIconUpdate({event, followPlusInstantAlerts}));
 };
