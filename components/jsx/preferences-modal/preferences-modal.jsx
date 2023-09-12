@@ -1,4 +1,4 @@
-import React from 'react';
+const React = require('react');
 
 /**
  * @typedef {Object} PreferencesProperties
@@ -16,7 +16,7 @@ import React from 'react';
  * @param {PreferencesProperties}
  * @returns {React.ReactElement}
 */
-export default function InstantAlertsPreferencesModal({ flags, conceptId, visible }) {
+module.exports = ({ flags, conceptId, visible }) => {
 	if (!flags.myFtApiWrite) {
 		return null;
 	}

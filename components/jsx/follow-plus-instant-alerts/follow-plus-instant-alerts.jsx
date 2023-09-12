@@ -1,5 +1,6 @@
-import React from 'react';
-import CsrfToken from '../csrf-token/input';
+const React = require('react');
+const ReactDOM = require('react-dom/server')
+const CsrfToken = require('../csrf-token/input');
 
 /**
  * @typedef {object} FollowProperties
@@ -28,7 +29,7 @@ import CsrfToken from '../csrf-token/input';
  * @returns {React.ReactElement}
 */
 
-export default function FollowPlusInstantAlerts({ conceptId, name, csrfToken, setFollowButtonStateToSelected, cacheablePersonalisedUrl, setInstantAlertsOn, flags, variant }) {
+module.exports = ({ conceptId, name, csrfToken, setFollowButtonStateToSelected, cacheablePersonalisedUrl, setInstantAlertsOn, flags, variant }) => {
 	if (!flags.myFtApiWrite) {
 		return null;
 	}
@@ -59,7 +60,7 @@ export default function FollowPlusInstantAlerts({ conceptId, name, csrfToken, se
 		'Added' :
 		'Add to myFT';
 
-	return (
+	return ReactDOM.renderToStaticMarkup(
 		<form
 			{...dynamicFormAttributes}
 			className="n-myft-ui n-myft-ui--follow"

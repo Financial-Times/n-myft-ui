@@ -1,4 +1,4 @@
-import React from 'react';
+const React = require('react');
 
 /**
  * @typedef {object} CsrfInputProperties
@@ -15,7 +15,7 @@ import React from 'react';
  * @returns {React.ReactElement}
 */
 
-export default function CsrfToken({ csrfToken, cacheablePersonalisedUrl }) {
+module.exports = ({ csrfToken, cacheablePersonalisedUrl }) => {
 
 	const token = cacheablePersonalisedUrl ? csrfToken : '';
 	return (
@@ -24,5 +24,5 @@ export default function CsrfToken({ csrfToken, cacheablePersonalisedUrl }) {
 			value={token}
 			type="hidden"
 			name="token" />
-	)
+	);
 }
