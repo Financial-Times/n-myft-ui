@@ -37,3 +37,6 @@ test:
 	make test-unit
 	make test-build
 	make a11y
+
+transpile-jsx:
+	@npx babel components/jsx --out-dir dist --extensions .jsx
