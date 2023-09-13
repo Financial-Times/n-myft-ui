@@ -20,6 +20,10 @@
   },
   "homepage": "https://github.com/Financial-Times/n-myft-ui#readme",
   "devDependencies": {
+    "@babel/cli": "^7.22.15",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.22.15",
+    "@babel/preset-react": "^7.22.15",
     "@financial-times/dotcom-build-base": "^8.1.0",
     "@financial-times/dotcom-build-code-splitting": "^8.1.0",
     "@financial-times/dotcom-build-js": "^8.1.0",
