@@ -56,7 +56,7 @@ module.exports = function (karma) {
 								cacheDirectory: true,
 								presets: ['env'],
 								plugins: [
-									['transform-runtime'],
+									['babel-plugin-transform-runtime'],
 									['add-module-exports', { loose: true }],
 									['transform-es2015-classes', { loose: true }]
 								]

@@ -35,7 +35,7 @@
     "autoprefixer": "9.7.0",
     "aws-sdk-mock": "4.5.0",
     "babel-core": "^6.2.1",
-    "babel-loader": "7.1.4",
+    "babel-loader": "^8.3.0",
     "babel-plugin-add-module-exports": "^0.3.0",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-plugin-transform-es2015-classes": "^6.8.0",
