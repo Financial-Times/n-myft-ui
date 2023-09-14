@@ -37,3 +37,6 @@ test:
 	make test-unit
 	make test-build
 	make a11y
+
+transpile-jsx:
+	@npx cross-env BABEL_ENV=custom babel components/jsx --out-dir dist --extensions .jsx
