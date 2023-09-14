@@ -78,6 +78,9 @@ jobs:
           name: Install project dependencies
           command: make install
       - run:
+          name: Transpile JSX to JS
+          command: make transpile-jsx
+      - run:
           name: shared-helper / generate-build-state-artifacts
           command: .circleci/shared-helpers/helper-generate-build-state-artifacts
           when: always
