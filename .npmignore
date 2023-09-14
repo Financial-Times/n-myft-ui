@@ -1,0 +1,12 @@
+*.env*
+/.sass-cache/
+/node_modules/
+/npm-debug.log*
+.DS_Store
+.editorconfig
+.eslintrc.js
+.stylelintrc
+public/
+pa11y_screenCapture/
+.idea/
+.vscode/
