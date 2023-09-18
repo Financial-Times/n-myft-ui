@@ -166,7 +166,7 @@ export default () => {
 	if (!preferencesModal) {
 		return;
 	}
-	const conceptId = preferencesModal.dataset && preferencesModal.dataset.conceptId;
+	const conceptId = preferencesModal.dataset.conceptId;
 
 	if (!conceptId) {
 		return;
@@ -175,7 +175,12 @@ export default () => {
 	const removeTopicButton = preferencesModal.querySelector('[data-component-id="myft-preference-modal-remove"]');
 	const instantAlertsCheckbox = preferencesModal.querySelector('[data-component-id="myft-preferences-modal-checkbox"]');
 
+	if (!removeTopicButton || !instantAlertsCheckbox) {
+		return;
+	}
+
 	removeTopicButton.addEventListener('click', event => removeTopic({ event, conceptId, preferencesModal }));
+
 	instantAlertsCheckbox.addEventListener('change', event => toggleInstantAlertsPreference({ event, conceptId, preferencesModal }));
 
 	document.addEventListener('myft.preference-modal.show-hide.toggle', event => preferenceModalShowAndHide({ event, preferencesModal }));
