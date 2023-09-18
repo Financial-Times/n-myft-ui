@@ -74,6 +74,12 @@ const removeTopic = async ({ event, conceptId, preferencesModal }) => {
 	event.target.removeAttribute('disabled');
 };
 
+const getAlertsPreferenceText = (addedTextBuffer) => {
+	const alertsEnabledText = `Your delivery channels: ${addedTextBuffer.join(', ')}.`;
+	const alertsDisabledText = 'You have previously disabled all delivery channels';
+	return Array.isArray(addedTextBuffer) && addedTextBuffer.length > 0 ? alertsEnabledText : alertsDisabledText;
+};
+
 const getAlertsPreferences = async ({ event, preferencesModal }) => {
 	const preferencesList = preferencesModal.querySelector('[data-component-id="myft-preferences-modal-list"]');
 
@@ -91,6 +97,8 @@ const getAlertsPreferences = async ({ event, preferencesModal }) => {
 		}
 	});
 
+	preferencesList.innerHTML = getAlertsPreferenceText(addedTextBuffer);
+
 	try {
 		// We need the service worker registration to check for a subscription
 		const serviceWorkerRegistration = await navigator.serviceWorker.ready;
@@ -98,14 +106,12 @@ const getAlertsPreferences = async ({ event, preferencesModal }) => {
 		if (subscription) {
 			addedTextBuffer.push('browser');
 		}
-
 	} catch (error) {
 		// eslint-disable-next-line no-console
 		console.warn('There was an error fetching the browser notification preferences', error);
 	}
-	const alertsEnabledText = `Your delivery channels: ${addedTextBuffer.join(', ')}.`;
-	const alertsDisabledText = 'You have previously disabled all delivery channels';
-	preferencesList.innerHTML = addedTextBuffer.length > 0 ? alertsEnabledText : alertsDisabledText;
+
+	preferencesList.innerHTML = getAlertsPreferenceText(addedTextBuffer);
 };
 
 const setCheckboxForAlertConcept = ({ event, preferencesModal }) => {
