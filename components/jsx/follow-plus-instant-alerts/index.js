@@ -8,7 +8,7 @@ const toggleInstantAlertsClass = ({ instantAlertsOn,followPlusInstantAlerts }) =
 };
 
 const instantAlertsIconLoad = ({ event, followPlusInstantAlerts }) => {
-	const modalConceptId = followPlusInstantAlerts.dataset.conceptId;
+	const modalConceptId = followPlusInstantAlerts.dataset && followPlusInstantAlerts.dataset.conceptId;
 
 	if (!event || !modalConceptId) {
 		return;
@@ -27,7 +27,7 @@ const instantAlertsIconLoad = ({ event, followPlusInstantAlerts }) => {
 };
 
 const instantAlertsIconUpdate = ({ event, followPlusInstantAlerts }) => {
-	const modalConceptId = followPlusInstantAlerts.dataset.conceptId;
+	const modalConceptId = followPlusInstantAlerts.dataset && followPlusInstantAlerts.dataset.conceptId;
 
 	if (!event || !modalConceptId) {
 		return;
@@ -39,7 +39,6 @@ const instantAlertsIconUpdate = ({ event, followPlusInstantAlerts }) => {
 	if (!currentConcept) {
 		return;
 	}
-
 
 	const instantAlertsOn = Boolean(currentConcept && currentConcept.rel && currentConcept.rel.properties && currentConcept.rel.properties.instant);
 	toggleInstantAlertsClass({instantAlertsOn, followPlusInstantAlerts });
