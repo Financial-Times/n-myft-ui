@@ -40,7 +40,6 @@ const instantAlertsIconUpdate = ({ event, followPlusInstantAlerts }) => {
 		return;
 	}
 
-
 	const instantAlertsOn = Boolean(currentConcept && currentConcept.rel && currentConcept.rel.properties && currentConcept.rel.properties.instant);
 	toggleInstantAlertsClass({instantAlertsOn, followPlusInstantAlerts });
 };
@@ -72,5 +71,6 @@ export default () => {
 	followPlusInstantAlerts.addEventListener('click', () => sendModalToggleEvent({followPlusInstantAlerts}));
 
 	document.body.addEventListener('myft.user.followed.concept.load', (event) => instantAlertsIconLoad({event, followPlusInstantAlerts}));
+
 	document.body.addEventListener('myft.user.followed.concept.update', (event) => instantAlertsIconUpdate({event, followPlusInstantAlerts}));
 };
