@@ -162,9 +162,9 @@ export default () => {
 	 * If this was to be used in other locations it would need some additional work to avoid being singleton
 	 */
 	const preferencesModal = document.querySelector('[data-component-id="myft-preferences-modal"]');
-	const conceptId = preferencesModal.dataset.conceptId;
+	const conceptId = preferencesModal?.dataset?.conceptId;
 
-	if (!preferencesModal || !conceptId) {
+	if (!conceptId) {
 		return;
 	}
 
