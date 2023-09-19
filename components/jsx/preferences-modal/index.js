@@ -1,5 +1,6 @@
 import myFtClient from 'next-myft-client';
 import getToken from '../../../myft/ui/lib/get-csrf-token';
+import oTracking from '@financial-times/o-tracking';
 
 const csrfToken = getToken();
 
@@ -50,6 +51,20 @@ const preferenceModalShowAndHide = ({ event, preferencesModal }) => {
 
 	if (preferencesModal.classList.contains('n-myft-ui__preferences-modal--show')) {
 		positionModal({ event, preferencesModal });
+		const opts = {
+			category: 'component',
+			selector: '[data-component-id="myft-preferences-modal"]',
+			getContextData: () => {
+				return {
+					component: {
+						type: 'component',
+						name: 'pop-up-box',
+						id: '72de123e-5082-11ee-be56-0242ac120002',
+					},
+				};
+			},
+		};
+		oTracking.view.init(opts);
 	} else {
 		// Remove existing errors when hiding the modal
 		renderError({
@@ -117,30 +132,39 @@ const getAlertsPreferences = async ({ event, preferencesModal }) => {
 const setCheckboxForAlertConcept = ({ event, preferencesModal }) => {
 	const conceptId = preferencesModal.dataset.conceptId;
 	const instantAlertsCheckbox = preferencesModal.querySelector('[data-component-id="myft-preferences-modal-checkbox"]');
+
 	// search through all the concepts that the user has followed and check whether
 	// 1. the concept which this instant alert modal controls is within them, AND;
 	// 2. the said concept has instant alert enabled
 	// if so, check the checkbox within the modal
 	const currentConcept = event.detail.items.find(item => item && item.uuid === conceptId);
 	if (currentConcept && currentConcept._rel && currentConcept._rel.instant) {
+		instantAlertsCheckbox.dataset.trackable = 'pop-up-box|set-instant-alert-off';
 		instantAlertsCheckbox.checked = true;
 	} else {
+		instantAlertsCheckbox.dataset.trackable = 'pop-up-box|set-instant-alert-on';
 		instantAlertsCheckbox.checked = false;
 	}
 };
 
 const toggleInstantAlertsPreference = async ({ event, conceptId, preferencesModal }) => {
-	const instantAlertsToggle = event.target;
+	const instantAlertsCheckbox = event.target;
 
-	instantAlertsToggle.setAttribute('disabled', true);
+	if (!instantAlertsCheckbox) {
+		return;
+	}
+
+	instantAlertsCheckbox.setAttribute('disabled', true);
 
 	const data = {
 		token: csrfToken
 	};
 
-	if (instantAlertsToggle.checked) {
+	if (instantAlertsCheckbox.checked) {
+		instantAlertsCheckbox.dataset.trackable = 'pop-up-box|set-instant-alert-off';
 		data._rel = {instant: 'true'};
 	} else {
+		instantAlertsCheckbox.dataset.trackable = 'pop-up-box|set-instant-alert-on';
 		data._rel = {instant: 'false'};
 	}
 
@@ -152,12 +176,12 @@ const toggleInstantAlertsPreference = async ({ event, conceptId, preferencesModa
 			preferencesModal
 		});
 
-		instantAlertsToggle.checked = instantAlertsToggle.checked
+		instantAlertsCheckbox.checked = instantAlertsCheckbox.checked
 			? false
 			: true;
 	}
 
-	instantAlertsToggle.removeAttribute('disabled');
+	instantAlertsCheckbox.removeAttribute('disabled');
 };
 
 export default () => {
