@@ -79,7 +79,6 @@ const removeTopic = async ({ event, conceptId, preferencesModal }) => {
 
 	try {
 		await myFtClient.remove('user', null, 'followed', 'concept', conceptId, { token: csrfToken });
-
 		preferenceModalShowAndHide({ preferencesModal });
 
 	} catch (error) {
@@ -91,8 +90,7 @@ const removeTopic = async ({ event, conceptId, preferencesModal }) => {
 
 const getAlertsPreferenceText = (addedTextBuffer) => {
 	const alertsEnabledText = `Your delivery channels: ${addedTextBuffer.join(', ')}.`;
-	const alertsDisabledText = 'You have previously disabled all delivery channels';
-	return Array.isArray(addedTextBuffer) && addedTextBuffer.length > 0 ? alertsEnabledText : alertsDisabledText;
+	return Array.isArray(addedTextBuffer) && addedTextBuffer.length > 0 ? alertsEnabledText : '';
 };
 
 const getAlertsPreferences = async ({ event, preferencesModal }) => {
