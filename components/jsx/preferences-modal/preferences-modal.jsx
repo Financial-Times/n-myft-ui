@@ -45,7 +45,7 @@ export default function InstantAlertsPreferencesModal({ flags, conceptId, visibl
 				</span>
 
 				<p data-component-id="myft-preferences-modal-list" className="n-myft-ui__preferences-modal__text"></p>
-				<a className="n-myft-ui__preferences-modal__text" href="/myft/alerts" data-trackable="pop-up-box|contact-preference">Manage your preferences here</a>
+				<a className="n-myft-ui__preferences-modal__text" href="/myft/alerts" data-trackable="pop-up-box|contact-preference">Manage your delivery channels here</a>
 				<span className="n-myft-ui__preferences-modal-error" data-component-id="myft-preference-modal-error"></span>
 				<button className="n-myft-ui__preferences-modal__remove-button" data-component-id="myft-preference-modal-remove" data-trackable="pop-up-box|remove-from-myFT">Remove from myFT</button>
 			</div>
