@@ -22,7 +22,7 @@ static-demo: demo-build
 	@scripts/make-static-demo.sh
 
 test-build:
-	webpack --mode=development
+	NODE_OPTIONS="--openssl-legacy-provider" webpack --mode=development
 
 test-unit:
 	node_modules/karma/bin/karma start

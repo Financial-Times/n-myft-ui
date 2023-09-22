@@ -8,7 +8,7 @@ references:
       - image: cimg/node:<< parameters.node-version >>-browsers
     parameters:
       node-version:
-        default: "16.14"
+        default: "18.18"
         type: string
 
   workspace_root: &workspace_root ~/project
@@ -71,8 +71,8 @@ jobs:
       - run:
           name: Checkout next-ci-shared-helpers
           command: git clone --depth 1
-            git@github.com:Financial-Times/next-ci-shared-helpers.git
-            .circleci/shared-helpers
+            git@github.com:Financial-Times/next-ci-shared-helpers.git --branch
+            unpin-heroku .circleci/shared-helpers
       - *restore_npm_cache
       - run:
           name: Install project dependencies
@@ -145,7 +145,7 @@ workflows:
           name: build-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: ["16.14"]
+              node-version: [ "16.20", "18.18" ]
       - test:
           filters:
             <<: *filters_ignore_tags
@@ -154,12 +154,12 @@ workflows:
           name: test-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: ["16.14"]
+              node-version: [ "16.20", "18.18" ]
       - deploy:
           filters:
             <<: *filters_only_main
           requires:
-            - build-v16.14
+            - build-v18.18
   build-test-publish:
     jobs:
       - build:
@@ -169,7 +169,7 @@ workflows:
           name: build-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: ["16.14"]
+              node-version: [ "16.20", "18.18" ]
       - test:
           filters:
             <<: *filters_version_tag
@@ -178,13 +178,13 @@ workflows:
           name: test-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: ["16.14"]
+              node-version: [ "16.20", "18.18" ]
       - publish:
           context: npm-publish-token
           filters:
             <<: *filters_version_tag
           requires:
-            - test-v16.14
+            - test-v18.18
 
   nightly:
     triggers:
@@ -198,7 +198,7 @@ workflows:
           name: build-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: ["16.14"]
+              node-version: [ "16.20", "18.18" ]
       - test:
           requires:
             - build-v<< matrix.node-version >>
@@ -206,7 +206,7 @@ workflows:
           name: test-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: ["16.14"]
+              node-version: [ "16.20", "18.18" ]
 
 notify:
   webhooks:
