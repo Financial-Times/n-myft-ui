@@ -25,7 +25,7 @@ test-build:
 	NODE_OPTIONS="--openssl-legacy-provider" webpack --mode=development
 
 test-unit:
-	node_modules/karma/bin/karma start
+	NODE_OPTIONS="--openssl-legacy-provider"  node_modules/karma/bin/karma start
 
 a11y: demo-build
 	@node .pa11yci.js
