@@ -1,6 +1,5 @@
 import myFtClient from 'next-myft-client';
 import getToken from '../../../myft/ui/lib/get-csrf-token';
-import oTracking from '@financial-times/o-tracking';
 
 const csrfToken = getToken();
 
@@ -56,25 +55,34 @@ const toggleCheckboxStatus = ({ instantAlertsCheckbox, isChecked }) => {
 	}
 }
 
-const preferenceModalShowAndHide = ({ event = {}, preferencesModal }) => {
+const tracking = (conceptId) => {
+	const trackingData = {
+		category: 'component',
+		action: 'view',
+		concept_id: conceptId,
+		component: {
+			type: 'component',
+			name: 'pop-up-box',
+			id: '72de123e-5082-11ee-be56-0242ac120002',
+		}
+	}
+
+	const trackingEvent = new CustomEvent('oTracking.event', {
+		detail: trackingData,
+		bubbles: true
+	});
+
+	document.body.dispatchEvent(trackingEvent);
+};
+
+const preferenceModalShowAndHide = ({ event, preferencesModal, conceptId }) => {
 	preferencesModal.classList.toggle('n-myft-ui__preferences-modal--show');
 
 	if (preferencesModal.classList.contains('n-myft-ui__preferences-modal--show')) {
 		positionModal({ event, preferencesModal });
-		const opts = {
-			category: 'component',
-			selector: '[data-component-id="myft-preferences-modal"]',
-			getContextData: () => {
-				return {
-					component: {
-						type: 'component',
-						name: 'pop-up-box',
-						id: '72de123e-5082-11ee-be56-0242ac120002',
-					},
-				};
-			},
-		};
-		oTracking.view.init(opts);
+
+		tracking(conceptId);
+
 	} else {
 		// Remove existing errors when hiding the modal
 		renderError({
@@ -235,7 +243,7 @@ export default () => {
 
 	instantAlertsCheckbox.addEventListener('change', event => toggleInstantAlertsPreference({ event, conceptId, preferencesModal }));
 
-	document.addEventListener('myft.preference-modal.show-hide.toggle', event => preferenceModalShowAndHide({ event, preferencesModal }));
+	document.addEventListener('myft.preference-modal.show-hide.toggle', event => preferenceModalShowAndHide({ event, preferencesModal, conceptId }));
 
 	document.addEventListener('myft.user.preferred.preference.load', (event) => getAlertsPreferences({ event, preferencesModal }));
 
