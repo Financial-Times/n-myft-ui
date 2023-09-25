@@ -46,7 +46,17 @@ const positionModal = ({ event, preferencesModal } = {}) => {
 	}
 };
 
-const preferenceModalShowAndHide = ({ event, preferencesModal }) => {
+const toggleCheckboxStatus = ({ instantAlertsCheckbox, isChecked }) => {
+	if (isChecked) {
+		instantAlertsCheckbox.dataset.trackable = 'pop-up-box|set-instant-alert-off';
+		instantAlertsCheckbox.checked = true;
+	} else {
+		instantAlertsCheckbox.dataset.trackable = 'pop-up-box|set-instant-alert-on';
+		instantAlertsCheckbox.checked = false;
+	}
+}
+
+const preferenceModalShowAndHide = ({ event = {}, preferencesModal }) => {
 	preferencesModal.classList.toggle('n-myft-ui__preferences-modal--show');
 
 	if (preferencesModal.classList.contains('n-myft-ui__preferences-modal--show')) {
@@ -80,7 +90,6 @@ const removeTopic = async ({ event, conceptId, preferencesModal }) => {
 	try {
 		await myFtClient.remove('user', null, 'followed', 'concept', conceptId, { token: csrfToken });
 		preferenceModalShowAndHide({ preferencesModal });
-
 	} catch (error) {
 		renderError({ message: 'Sorry, we are unable to remove this topic. Please try again later or try from <a href="/myft">myFT</a>', preferencesModal });
 	}
@@ -136,13 +145,11 @@ const setCheckboxForAlertConcept = ({ event, preferencesModal }) => {
 	// 2. the said concept has instant alert enabled
 	// if so, check the checkbox within the modal
 	const currentConcept = event.detail.items.find(item => item && item.uuid === conceptId);
-	if (currentConcept && currentConcept._rel && currentConcept._rel.instant) {
-		instantAlertsCheckbox.dataset.trackable = 'pop-up-box|set-instant-alert-off';
-		instantAlertsCheckbox.checked = true;
-	} else {
-		instantAlertsCheckbox.dataset.trackable = 'pop-up-box|set-instant-alert-on';
-		instantAlertsCheckbox.checked = false;
-	}
+	const isChecked = currentConcept && currentConcept._rel && currentConcept._rel.instant;
+	toggleCheckboxStatus({
+		instantAlertsCheckbox,
+		isChecked,
+	});
 };
 
 const toggleInstantAlertsPreference = async ({ event, conceptId, preferencesModal }) => {
@@ -158,11 +165,13 @@ const toggleInstantAlertsPreference = async ({ event, conceptId, preferencesModa
 		token: csrfToken
 	};
 
+	toggleCheckboxStatus({
+		instantAlertsCheckbox,
+		isChecked: instantAlertsCheckbox.checked,
+	});
 	if (instantAlertsCheckbox.checked) {
-		instantAlertsCheckbox.dataset.trackable = 'pop-up-box|set-instant-alert-off';
 		data._rel = {instant: 'true'};
 	} else {
-		instantAlertsCheckbox.dataset.trackable = 'pop-up-box|set-instant-alert-on';
 		data._rel = {instant: 'false'};
 	}
 
@@ -181,6 +190,21 @@ const toggleInstantAlertsPreference = async ({ event, conceptId, preferencesModa
 
 	instantAlertsCheckbox.removeAttribute('disabled');
 };
+
+const setCheckboxForAlertConceptToOff =  ({ event, preferencesModal }) => {
+	const conceptId = preferencesModal.dataset.conceptId;
+	const instantAlertsCheckbox = preferencesModal.querySelector('[data-component-id="myft-preferences-modal-checkbox"]');
+
+	const currentConcept = event.detail.subject === conceptId;
+	if (!currentConcept) {
+		return;
+	}
+
+	toggleCheckboxStatus({
+		instantAlertsCheckbox,
+		isChecked: false,
+	});
+}
 
 export default () => {
 	/**
@@ -216,4 +240,5 @@ export default () => {
 	document.addEventListener('myft.user.preferred.preference.load', (event) => getAlertsPreferences({ event, preferencesModal }));
 
 	document.body.addEventListener('myft.user.followed.concept.load', (event) => setCheckboxForAlertConcept({ event, preferencesModal }));
+	document.body.addEventListener('myft.user.followed.concept.remove', (event) => setCheckboxForAlertConceptToOff({ event, preferencesModal }));
 };
