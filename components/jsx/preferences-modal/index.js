@@ -75,6 +75,12 @@ const tracking = (conceptId) => {
 	document.body.dispatchEvent(trackingEvent);
 };
 
+const preferenceModalHide = ({ event, preferencesModal }) => {
+	if (!preferencesModal.contains(event.detail.targetElement)) {
+		preferencesModal.classList.remove('n-myft-ui__preferences-modal--show');
+	}
+};
+
 const preferenceModalShowAndHide = ({ event, preferencesModal, conceptId }) => {
 	preferencesModal.classList.toggle('n-myft-ui__preferences-modal--show');
 
@@ -244,6 +250,8 @@ export default () => {
 	instantAlertsCheckbox.addEventListener('change', event => toggleInstantAlertsPreference({ event, conceptId, preferencesModal }));
 
 	document.addEventListener('myft.preference-modal.show-hide.toggle', event => preferenceModalShowAndHide({ event, preferencesModal, conceptId }));
+
+	document.addEventListener('myft.preference-modal.hide', event => preferenceModalHide({ event, preferencesModal }));
 
 	document.addEventListener('myft.user.preferred.preference.load', (event) => getAlertsPreferences({ event, preferencesModal }));
 
