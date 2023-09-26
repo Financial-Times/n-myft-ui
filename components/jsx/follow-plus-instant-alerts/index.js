@@ -61,14 +61,18 @@ const instantAlertsIconOff = ({ event, followPlusInstantAlerts }) => {
 	});
 };
 
-
 const sendModalToggleEvent = ({ followPlusInstantAlerts }) => {
 	const preferenceModalToggleEvent = new CustomEvent('myft.preference-modal.show-hide.toggle', { bubbles: true });
 	followPlusInstantAlerts.dispatchEvent(preferenceModalToggleEvent);
 	followPlusInstantAlerts.classList.toggle('n-myft-follow-button--instant-alerts--open');
-
 };
 
+const sendModalHideEvent = ({ event, followPlusInstantAlerts }) => {
+	if (event.target !== followPlusInstantAlerts) {
+		const preferenceModalHideEvent = new CustomEvent('myft.preference-modal.hide', { detail: {targetElement: event.target}, bubbles: true });
+		followPlusInstantAlerts.dispatchEvent(preferenceModalHideEvent);
+	}
+};
 
 export default () => {
 	/**
@@ -88,5 +92,8 @@ export default () => {
 	document.body.addEventListener('myft.user.followed.concept.load', (event) => instantAlertsIconLoad({event, followPlusInstantAlerts}));
 
 	document.body.addEventListener('myft.user.followed.concept.update', (event) => instantAlertsIconUpdate({event, followPlusInstantAlerts}));
+
 	document.body.addEventListener('myft.user.followed.concept.remove', (event) => instantAlertsIconOff({ event, followPlusInstantAlerts }));
+
+	document.addEventListener('click', (event) => sendModalHideEvent({event, followPlusInstantAlerts}));
 };
