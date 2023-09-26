@@ -103,7 +103,7 @@
     "react": "^16.14.0"
   },
   "dependencies": {
-    "date-fns": "2.16.1",
+    "date-fns": "2.30.0",
     "fetchres": "^1.7.2",
     "form-serialize": "^0.7.2",
     "ftdomdelegate": "^4.0.6",
