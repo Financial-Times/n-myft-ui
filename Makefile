@@ -4,6 +4,12 @@ node_modules/@financial-times/n-gage/index.mk:
 
 -include node_modules/@financial-times/n-gage/index.mk
 
+NODE_VERSION := $(shell node --version)
+NODE_MAJOR_VERSION := $(shell echo $(NODE_VERSION) | cut -c2-3)
+ifeq ($(NODE_MAJOR_VERSION),18)
+	NODE_OPTS := "--openssl-legacy-provider --dns-result-order=ipv4first"
+endif
+
 run:
 	node _test-server/app
 
@@ -22,10 +28,10 @@ static-demo: demo-build
 	@scripts/make-static-demo.sh
 
 test-build:
-	webpack --mode=development
+	@NODE_OPTIONS=$(NODE_OPTS) webpack --mode=development
 
 test-unit:
-	node_modules/karma/bin/karma start
+	@NODE_OPTIONS=$(NODE_OPTS) karma start
 
 a11y: demo-build
 	@node .pa11yci.js
