@@ -44,7 +44,22 @@ const instantAlertsIconUpdate = ({ event, followPlusInstantAlerts }) => {
 	toggleInstantAlertsClass({instantAlertsOn, followPlusInstantAlerts });
 };
 
+const instantAlertsIconOff = ({ event, followPlusInstantAlerts }) => {
+	const modalConceptId = followPlusInstantAlerts.dataset.conceptId;
+	if (!event || !modalConceptId) {
+		return;
+	}
 
+	const currentConcept = event.detail.subject === modalConceptId;
+	if (!currentConcept) {
+		return;
+	}
+
+	toggleInstantAlertsClass({
+		instantAlertsOn: false,
+		followPlusInstantAlerts,
+	});
+};
 
 
 const sendModalToggleEvent = ({ followPlusInstantAlerts }) => {
@@ -73,4 +88,5 @@ export default () => {
 	document.body.addEventListener('myft.user.followed.concept.load', (event) => instantAlertsIconLoad({event, followPlusInstantAlerts}));
 
 	document.body.addEventListener('myft.user.followed.concept.update', (event) => instantAlertsIconUpdate({event, followPlusInstantAlerts}));
+	document.body.addEventListener('myft.user.followed.concept.remove', (event) => instantAlertsIconOff({ event, followPlusInstantAlerts }));
 };
