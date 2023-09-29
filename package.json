@@ -8,6 +8,9 @@
     "commit": "commit-wizard",
     "prepare": "npx snyk protect || npx snyk protect -d || true"
   },
+  "exports": {
+    "./jsx-components/*": "./dist/*"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Financial-Times/n-myft-ui.git"
