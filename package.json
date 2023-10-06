@@ -101,7 +101,7 @@
     "@financial-times/o-spacing": "^3.0.0",
     "@financial-times/o-tooltip": "^5.2.4",
     "n-ui-foundations": "^9.0.0",
-    "react": "^16.14.0"
+    "react": "^17.0.2"
   },
   "dependencies": {
     "date-fns": "2.30.0",
