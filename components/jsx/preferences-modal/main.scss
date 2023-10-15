@@ -47,14 +47,39 @@
 	color: oColorsByName('claret-60');
 }
 
+.n-myft-ui__preferences-modal__remove-button:disabled {
+	opacity: 0.5;
+}
+
 .n-myft-ui__preferences-modal--show {
 	display: block;
 	visibility: visible;
 }
 
+// reference to the color/BG color of the error message
+// components/o-message/src/scss/_brand.scss#L21 in origami
 .n-myft-ui__preferences-modal-error {
 	display: block;
 	@include oTypographySans($scale: -1, $weight: 'regular', $style: 'normal');
-	color: oColorsByName('claret');
-	text-align: center;
+	color: oColorsMix('black', 'crimson', $percentage: 12.5);
+	background-color: oColorsMix('crimson', $percentage: 10);
+	text-align: left;
+	padding: 8px 12px;
+	margin-top: 16px;
+
+	// use opacity to enforce CSS transition
+	opacity: 1;
+	transition: opacity 0.5s;
+
+	a {
+		@include oTypographySans($scale: -1, $weight: 'semibold', $style: 'normal');
+		color: oColorsMix('black', 'crimson', $percentage: 12.5);
+		text-decoration-color: oColorsMix('black', 'crimson', $percentage: 12.5);
+	}
+}
+
+.n-myft-ui__preferences-modal-error:empty {
+	opacity: 0;
+	padding: 0;
+	margin-top: 0;
 }
