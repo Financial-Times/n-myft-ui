@@ -9,6 +9,13 @@ const renderError = ({ message, preferencesModal }) => {
 	errorElement.innerHTML = message;
 };
 
+const removeError = ({ preferencesModal }) => {
+	renderError({
+		message: "",
+		preferencesModal,
+	});
+}
+
 /**
  * This preference modal is part of a test
  * Therefore we have built the positioning function to work within the known parameters of that test
@@ -78,6 +85,7 @@ const tracking = (conceptId) => {
 const preferenceModalHide = ({ event, preferencesModal }) => {
 	if (!preferencesModal.contains(event.detail.targetElement)) {
 		preferencesModal.classList.remove('n-myft-ui__preferences-modal--show');
+		removeError({ preferencesModal });
 	}
 };
 
@@ -91,23 +99,25 @@ const preferenceModalShowAndHide = ({ event, preferencesModal, conceptId }) => {
 
 	} else {
 		// Remove existing errors when hiding the modal
-		renderError({
-			message: '',
-			preferencesModal,
-		});
+		removeError({ preferencesModal });
 	}
 };
 
 const removeTopic = async ({ event, conceptId, preferencesModal }) => {
 	event.target.setAttribute('disabled', true);
 
+	// remove error message before attempt to remove topic
+	removeError({ preferencesModal });
+
 	try {
 		await myFtClient.remove('user', null, 'followed', 'concept', conceptId, { token: csrfToken });
 		preferenceModalShowAndHide({ preferencesModal });
 	} catch (error) {
-		renderError({ message: 'Sorry, we are unable to remove this topic. Please try again later or try from <a href="/myft">myFT</a>', preferencesModal });
+		renderError({
+			message: 'Sorry, we are unable to remove this topic. Please try again later or try from <a href="/myft">myFT</a>',
+			preferencesModal,
+		});
 	}
-
 	event.target.removeAttribute('disabled');
 };
 
@@ -175,6 +185,9 @@ const toggleInstantAlertsPreference = async ({ event, conceptId, preferencesModa
 
 	instantAlertsCheckbox.setAttribute('disabled', true);
 
+	// remove error message before attempt to toggle instant alert
+	removeError({ preferencesModal });
+
 	const data = {
 		token: csrfToken
 	};
@@ -194,7 +207,7 @@ const toggleInstantAlertsPreference = async ({ event, conceptId, preferencesModa
 	} catch (error) {
 		renderError({
 			message: 'Sorry, we are unable to change your instant alert preference. Please try again later or try from <a href="/myft">myFT</a>',
-			preferencesModal
+			preferencesModal,
 		});
 
 		instantAlertsCheckbox.checked = instantAlertsCheckbox.checked
