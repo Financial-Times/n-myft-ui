@@ -142,19 +142,30 @@ workflows:
           filters:
             <<: *filters_ignore_tags
             <<: *filters_ignore_gh_pages
-          name: build-v<< matrix.node-version >>
-          matrix:
-            parameters:
-              node-version: [ "16.20", "18.18" ]
+          name: build-v18.18
+          node-version: "18.18"
       - test:
           filters:
             <<: *filters_ignore_tags
           requires:
-            - build-v<< matrix.node-version >>
-          name: test-v<< matrix.node-version >>
-          matrix:
-            parameters:
-              node-version: [ "16.20", "18.18" ]
+            - build-v18.18
+          name: test-v18.18
+          node-version: "18.18"
+      - build:
+          filters:
+            <<: *filters_ignore_tags
+            <<: *filters_ignore_gh_pages
+          requires:
+            - test-v18.18
+          name: build-v16.20
+          node-version: "16.20"
+      - test:
+          filters:
+            <<: *filters_ignore_tags
+          requires:
+            - build-v16.20
+          name: test-v16.20
+          node-version: "16.20"
       - deploy:
           filters:
             <<: *filters_only_main
@@ -164,21 +175,32 @@ workflows:
     jobs:
       - build:
           filters:
-            <<: *filters_version_tag
+            <<: *filters_ignore_tags
             <<: *filters_ignore_gh_pages
-          name: build-v<< matrix.node-version >>
-          matrix:
-            parameters:
-              node-version: [ "16.20", "18.18" ]
+          name: build-v18.18
+          node-version: "18.18"
       - test:
           filters:
-            <<: *filters_version_tag
+            <<: *filters_ignore_tags
           requires:
-            - build-v<< matrix.node-version >>
-          name: test-v<< matrix.node-version >>
-          matrix:
-            parameters:
-              node-version: [ "16.20", "18.18" ]
+            - build-v18.18
+          name: test-v18.18
+          node-version: "18.18"
+      - build:
+          filters:
+            <<: *filters_ignore_tags
+            <<: *filters_ignore_gh_pages
+          requires:
+            - test-v18.18
+          name: build-v16.20
+          node-version: "16.20"
+      - test:
+          filters:
+            <<: *filters_ignore_tags
+          requires:
+            - build-v16.20
+          name: test-v16.20
+          node-version: "16.20"
       - publish:
           context: npm-publish-token
           filters:
@@ -194,19 +216,33 @@ workflows:
             <<: *filters_only_main
     jobs:
       - build:
-          context: next-nightly-build
-          name: build-v<< matrix.node-version >>
-          matrix:
-            parameters:
-              node-version: [ "16.20", "18.18" ]
+          filters:
+            <<: *filters_ignore_tags
+            <<: *filters_ignore_gh_pages
+          name: build-v18.18
+          node-version: "18.18"
       - test:
+          filters:
+            <<: *filters_ignore_tags
           requires:
-            - build-v<< matrix.node-version >>
-          context: next-nightly-build
-          name: test-v<< matrix.node-version >>
-          matrix:
-            parameters:
-              node-version: [ "16.20", "18.18" ]
+            - build-v18.18
+          name: test-v18.18
+          node-version: "18.18"
+      - build:
+          filters:
+            <<: *filters_ignore_tags
+            <<: *filters_ignore_gh_pages
+          requires:
+            - test-v18.18
+          name: build-v16.20
+          node-version: "16.20"
+      - test:
+          filters:
+            <<: *filters_ignore_tags
+          requires:
+            - build-v16.20
+          name: test-v16.20
+          node-version: "16.20"
 
 notify:
   webhooks:
