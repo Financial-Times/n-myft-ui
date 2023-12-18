@@ -109,7 +109,7 @@
     "form-serialize": "^0.7.2",
     "ftdomdelegate": "^4.0.6",
     "js-cookie": "^2.2.1",
-    "next-myft-client": "^10.3.0",
+    "next-myft-client": "^12.0.1",
     "next-session-client": "^4.0.0",
     "ready-state": "^2.0.5",
     "superstore-sync": "^2.1.1"
