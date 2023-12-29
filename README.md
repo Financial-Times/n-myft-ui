@@ -34,6 +34,7 @@ If you are making a major change, you will need to update the package.json files
 ```
 make install
 make build
+make transpile-jsx
 make demo
 ```
 
