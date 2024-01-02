@@ -71,7 +71,7 @@
     "karma-webpack": "^4.0.2",
     "lintspaces-cli": "^0.7.0",
     "lolex": "5.1.2",
-    "mocha": "^8.4.0",
+    "mocha": "^9.2.2",
     "mockery": "2.1.0",
     "node-fetch": "2.6.0",
     "nodemon": "^1.9.2",
@@ -118,7 +118,7 @@
     "puppeteer": "$puppeteer"
   },
   "volta": {
-    "node": "18.18.0"
+    "node": "16.2.0"
   },
   "engines": {
     "node": "16.x || 18.x",
