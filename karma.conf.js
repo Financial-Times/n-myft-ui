@@ -155,7 +155,7 @@ module.exports = function (karma) {
 			safari: {
 				base: 'BrowserStack',
 				os: 'OS X',
-				os_version : 'High Sierra',
+				os_version : 'Monterey',
 				browser: 'Safari',
 				browser_version: 'latest'
 			}
