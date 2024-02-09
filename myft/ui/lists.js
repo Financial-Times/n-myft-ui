@@ -503,7 +503,7 @@ function initialEventListeners () {
 		//Only show the create list overlay if the saved article is the main article, this is useful if there are other article listed in the article page
 		//For example having a related articles that can also be saved
 		const currentContentId = document.querySelector('[data-content-id]').dataset.contentId;
-		if (currentContentId !== event.detail.subject) {
+		if (event && event.detail && currentContentId !== event.detail.subject) {
 			return;
 		}
 		event.stopPropagation();
@@ -521,7 +521,7 @@ function initialEventListeners () {
 		//Only show unsave notification if the saved article is the main article, this is useful if there are other article listed in the article page
 		//For example having a related articles that can also be saved
 		const currentContentId = document.querySelector('[data-content-id]').dataset.contentId;
-		if (currentContentId !== event.detail.subject) {
+		if (event && event.detail && currentContentId !== event.detail.subject) {
 			return;
 		}
 		event.stopPropagation();
