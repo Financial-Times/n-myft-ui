@@ -11,10 +11,10 @@ const renderError = ({ message, preferencesModal }) => {
 
 const removeError = ({ preferencesModal }) => {
 	renderError({
-		message: "",
+		message: '',
 		preferencesModal,
 	});
-}
+};
 
 /**
  * This preference modal is part of a test
@@ -60,7 +60,7 @@ const toggleCheckboxStatus = ({ instantAlertsCheckbox, isChecked }) => {
 		instantAlertsCheckbox.dataset.trackable = 'pop-up-box|set-instant-alert-on';
 		instantAlertsCheckbox.checked = false;
 	}
-}
+};
 
 const tracking = (conceptId) => {
 	const trackingData = {
@@ -72,7 +72,7 @@ const tracking = (conceptId) => {
 			name: 'pop-up-box',
 			id: '72de123e-5082-11ee-be56-0242ac120002',
 		}
-	}
+	};
 
 	const trackingEvent = new CustomEvent('oTracking.event', {
 		detail: trackingData,
@@ -218,7 +218,7 @@ const toggleInstantAlertsPreference = async ({ event, conceptId, preferencesModa
 	instantAlertsCheckbox.removeAttribute('disabled');
 };
 
-const setCheckboxForAlertConceptToOff =  ({ event, preferencesModal }) => {
+const setCheckboxForAlertConceptToOff = ({ event, preferencesModal }) => {
 	const conceptId = preferencesModal.dataset.conceptId;
 	const instantAlertsCheckbox = preferencesModal.querySelector('[data-component-id="myft-preferences-modal-checkbox"]');
 
@@ -231,7 +231,7 @@ const setCheckboxForAlertConceptToOff =  ({ event, preferencesModal }) => {
 		instantAlertsCheckbox,
 		isChecked: false,
 	});
-}
+};
 
 export default () => {
 	/**
