@@ -39,6 +39,7 @@ module.exports = function (karma) {
 			'test/**/*.spec.js': ['webpack', 'sourcemap']
 		},
 		webpack: {
+			mode: 'development',
 			resolve: {
 				modules: ['node_modules'],
 				descriptionFiles: ['package.json'],

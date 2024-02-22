@@ -4,10 +4,10 @@
 /npm-debug.log*
 .DS_Store
 .editorconfig
-.eslintrc.js
 .stylelintrc
 public/
 pa11y_screenCapture/
 .idea/
 .vscode/
 dist/
+/.toolkitstate

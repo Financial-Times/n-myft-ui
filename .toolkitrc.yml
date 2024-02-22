@@ -1,0 +1,26 @@
+plugins:
+  - "@dotcom-tool-kit/component"
+  - "@dotcom-tool-kit/mocha"
+  - "@dotcom-tool-kit/eslint"
+  - "@dotcom-tool-kit/pa11y"
+  - "./toolkit/karma"
+  - "./toolkit/demoScripts"
+hooks:
+  publish:tag:
+    - DeployGhPages
+  build:demo:
+    - DemoBuilder
+  test:local:
+    - Eslint
+    - Karma
+    - Pa11y
+  test:ci:
+    - Eslint
+    - Karma
+options:
+  "@dotcom-tool-kit/eslint": {
+    files: "{,!(public)/**/}*.js"
+  }
+  "@dotcom-tool-kit/pa11y": {
+    configFile: "{,!(public)/**/}*.js"
+  }

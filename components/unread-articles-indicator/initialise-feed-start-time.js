@@ -31,7 +31,7 @@ const determineFeedStartTime = (userId, now, previousFeedStartTime) => {
 
 	return fetchUserLastVisitedAt(userId)
 		.then((userLastVisitedAt) =>
-			isToday(userLastVisitedAt) ? userLastVisitedAt : Promise.reject()
+			isToday(userLastVisitedAt) ? userLastVisitedAt : Promise.reject(new Error())
 		)
 		.catch(() => startOfDay(now));
 };
