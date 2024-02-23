@@ -29,9 +29,6 @@ options:
   "@dotcom-tool-kit/eslint": {
     files: "{,!(public)/**/}*.js"
   }
-  "@dotcom-tool-kit/pa11y": {
-    configFile: "{,!(public)/**/}*.js"
-  }
   '@dotcom-tool-kit/vault':
     team: next
     app: n-myft-ui
