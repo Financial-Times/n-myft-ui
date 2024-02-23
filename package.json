@@ -29,6 +29,7 @@
     "@dotcom-tool-kit/component": "^4.1.2",
     "@dotcom-tool-kit/doppler": "^1.1.0",
     "@dotcom-tool-kit/eslint": "^3.2.0",
+    "@dotcom-tool-kit/lint-staged-npm": "^3.2.0",
     "@dotcom-tool-kit/mocha": "^3.2.0",
     "@dotcom-tool-kit/pa11y": "^0.5.2",
     "@financial-times/dotcom-build-base": "^8.2.1",
@@ -143,9 +144,11 @@
   },
   "husky": {
     "hooks": {
-      "commit-msg": "node_modules/.bin/secret-squirrel-commitmsg",
-      "pre-commit": "node_modules/.bin/secret-squirrel",
-      "pre-push": "make verify -j3"
+      "commit-msg": "dotcom-tool-kit git:commitmsg",
+      "pre-commit": "dotcom-tool-kit git:precommit"
     }
+  },
+  "lint-staged": {
+    "**/*.js": "dotcom-tool-kit format:staged test:staged --"
   }
 }

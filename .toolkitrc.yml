@@ -3,6 +3,7 @@ plugins:
   - "@dotcom-tool-kit/mocha"
   - "@dotcom-tool-kit/eslint"
   - "@dotcom-tool-kit/pa11y"
+  - "@dotcom-tool-kit/lint-staged-npm"
   - "./toolkit/karma"
   - "./toolkit/demoScripts"
 hooks:
@@ -18,6 +19,8 @@ hooks:
     - Eslint
     - Karma
 options:
+  "@dotcom-tool-kit/circleci":
+    nodeVersion: "18.17-browsers"
   "@dotcom-tool-kit/eslint": {
     files: "{,!(public)/**/}*.js"
   }
