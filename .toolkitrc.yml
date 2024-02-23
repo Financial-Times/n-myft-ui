@@ -19,8 +19,8 @@ hooks:
     - Eslint
     - Karma
   test:ci:
-    - Eslint
     - Karma
+    - DemoBuilder
     - RunPa11yCi
 options:
   "@dotcom-tool-kit/circleci":

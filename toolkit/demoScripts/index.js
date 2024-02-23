@@ -19,7 +19,7 @@ class DemoBuilder extends ShExcutor {
 	async run () {
 		let command = process.argv[4];
 		if (!['demo-build', 'demo', 'static-demo'].includes(command)) {
-			command = 'demo';
+			command = 'demo-build';
 		}
 
 		return this.executeCommand(`build-demo: ${command}`, 'scripts/build-demo.sh', [command]);
