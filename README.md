@@ -32,8 +32,7 @@ If you are making a major change, you will need to update the package.json files
 ## Running locally
 
 ```
-make install
-make build
+npm install
 make transpile-jsx
 make demo
 ```

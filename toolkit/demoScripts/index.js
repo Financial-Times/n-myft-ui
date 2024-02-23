@@ -31,6 +31,12 @@ class DeployGhPages extends ShExcutor {
 		return this.executeCommand('deploy-gh-pages', 'scripts/deploy-gh-pages.sh');
 	}
 }
+
+class TranspileJsx extends ShExcutor {
+	async run () {
+		return this.executeCommand('transpile-jsx', 'scripts/transpile-jsx.sh');
+	}
+}
 class buildDemo extends Hook {
 	async check () {
 		return true;
@@ -47,4 +53,4 @@ exports.hooks = {
 	'deploy:gh-pages': deployGhPages
 };
 
-exports.tasks = [ DemoBuilder, DeployGhPages ];
+exports.tasks = [ DemoBuilder, DeployGhPages, TranspileJsx ];

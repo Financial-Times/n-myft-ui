@@ -7,6 +7,10 @@ plugins:
   - "./toolkit/karma"
   - "./toolkit/demoScripts"
 hooks:
+  build:local:
+    - TranspileJsx
+  build:ci:
+    - TranspileJsx
   publish:tag:
     - DeployGhPages
   build:demo:
