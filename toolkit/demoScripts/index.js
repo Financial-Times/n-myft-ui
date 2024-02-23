@@ -40,11 +40,32 @@ class TranspileJsx extends ShExcutor {
 
 class RunPa11yCi extends Task {
 	async run () {
-		const serverProcess = spawn('node', ['demos/app.js']);
-		hookFork(this.logger, 'demo', serverProcess);
+		let serverProcess;
+
+		const serverStartedPromise = new Promise((resolve, reject) => {
+			serverProcess = spawn('node', ['demos/app.js']);
+			hookFork(this.logger, 'server', serverProcess);
+
+			serverProcess.stdout.on('data', data => {
+				const message = data.toString();
+				if (message.includes('event: "EXPRESS_START"')) {
+					this.logger.info('Server started successfully.');
+					resolve();
+				}
+			});
+
+			serverProcess.on('error', error => {
+				reject(error);
+			});
+		});
+
+		await serverStartedPromise;
+
 		const pa11yProcess = spawn('pa11y-ci', ['--config', '.pa11yci.js']);
 		hookFork(this.logger, 'pa11y', pa11yProcess);
+
 		await waitOnExit('pa11y', pa11yProcess);
+
 		serverProcess.kill('SIGINT');
 		this.logger.info('Server and related processes stopped.');
 	}
