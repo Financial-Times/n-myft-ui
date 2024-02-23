@@ -17,9 +17,9 @@ class ShExcutor extends Task {
 
 class DemoBuilder extends ShExcutor {
 	async run () {
-		const command = process.argv[4];
+		let command = process.argv[4];
 		if (!['demo-build', 'demo', 'static-demo'].includes(command)) {
-			throw new Error(`Invalid command: ${command}`);
+			command = 'demo';
 		}
 
 		return this.executeCommand(`build-demo: ${command}`, 'scripts/build-demo.sh', [command]);
