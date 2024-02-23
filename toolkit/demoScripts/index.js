@@ -37,6 +37,18 @@ class TranspileJsx extends ShExcutor {
 		return this.executeCommand('transpile-jsx', 'scripts/transpile-jsx.sh');
 	}
 }
+
+class RunPa11yCi extends Task {
+	async run () {
+		const serverProcess = spawn('node', ['demos/app.js']);
+		hookFork(this.logger, 'demo', serverProcess);
+		const pa11yProcess = spawn('pa11y-ci', ['--config', '.pa11yci.js']);
+		hookFork(this.logger, 'pa11y', pa11yProcess);
+		await waitOnExit('pa11y', pa11yProcess);
+		serverProcess.kill('SIGINT');
+		this.logger.info('Server and related processes stopped.');
+	}
+}
 class buildDemo extends Hook {
 	async check () {
 		return true;
@@ -53,4 +65,4 @@ exports.hooks = {
 	'deploy:gh-pages': deployGhPages
 };
 
-exports.tasks = [ DemoBuilder, DeployGhPages, TranspileJsx ];
+exports.tasks = [ DemoBuilder, DeployGhPages, TranspileJsx, RunPa11yCi ];

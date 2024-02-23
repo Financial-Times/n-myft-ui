@@ -18,12 +18,10 @@ hooks:
   test:local:
     - Eslint
     - Karma
-    - Pa11y
   test:ci:
     - Eslint
     - Karma
-    - DemoBuilder
-    - Pa11y
+    - RunPa11yCi
 options:
   "@dotcom-tool-kit/circleci":
     nodeVersion: "18.17-browsers"
