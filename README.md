@@ -33,8 +33,8 @@ If you are making a major change, you will need to update the package.json files
 
 ```
 npm install
-make transpile-jsx
-make demo
+npm run build
+npm run demo
 ```
 
 View the demo on `localhost:5005`
