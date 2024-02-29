@@ -10,7 +10,7 @@ ssh-add -D
 
 git --version
 
-export GIT_SSH="$SCRIPT_DIR/ssh.sh"
+export GIT_SSH="$SCRIPT_DIR/scripts/ssh.sh"
 
 git clone $CIRCLE_REPOSITORY_URL honk --single-branch
 
@@ -18,8 +18,8 @@ cd honk
 
 git checkout -b gh-pages
 
-mv "../node_modules" .
-cp "../scripts/*" scripts/
+mv ../node_modules .
+cp ../scripts/* scripts/
 
 ./make-static-demo.sh
 
