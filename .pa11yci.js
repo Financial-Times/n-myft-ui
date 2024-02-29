@@ -18,7 +18,6 @@ const urls = [
 ];
 
 const config = {
-	exitCode: 0,
 	defaults: {
 		headers: {
 			'Cookie': 'next-flags=ads:off,cookieMessage:off; secure=true'
