@@ -16,8 +16,7 @@ hooks:
   build:demo:
     - DemoBuilder
   test:local:
-    - Eslint
-    - Karma
+    - DeployGhPages
   test:ci:
     - Karma
     - DemoBuilder
