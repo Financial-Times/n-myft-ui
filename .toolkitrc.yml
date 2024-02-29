@@ -1,0 +1,33 @@
+plugins:
+  - "@dotcom-tool-kit/component"
+  - "@dotcom-tool-kit/mocha"
+  - "@dotcom-tool-kit/eslint"
+  - "@dotcom-tool-kit/pa11y"
+  - "@dotcom-tool-kit/lint-staged-npm"
+  - "./toolkit/karma"
+  - "./toolkit/demoScripts"
+hooks:
+  build:local:
+    - TranspileJsx
+  build:ci:
+    - TranspileJsx
+  publish:tag:
+    - DeployGhPages
+  build:demo:
+    - DemoBuilder
+  test:local:
+    - Eslint
+    - Karma
+  test:ci:
+    - Karma
+    - DemoBuilder
+    - RunPa11yCi
+options:
+  "@dotcom-tool-kit/circleci":
+    nodeVersion: "18.17-browsers"
+  "@dotcom-tool-kit/eslint": {
+    files: "{,!(public)/**/}*.js"
+  }
+  '@dotcom-tool-kit/vault':
+    team: next
+    app: n-myft-ui

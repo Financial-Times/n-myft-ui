@@ -18,7 +18,7 @@ git checkout -b gh-pages
 mv ../node_modules .
 cp ../scripts/* scripts/
 
-make static-demo
+./make-static-demo.sh
 
 git add -A .
 
