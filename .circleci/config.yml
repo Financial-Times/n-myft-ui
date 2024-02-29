@@ -7,14 +7,20 @@ executors:
     docker:
       - image: cimg/node:18.17-browsers
 jobs:
+  add-ssh-keys:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "83:b5:09:e4:e5:2e:74:35:c1:1b:99:73:e3:dc:b8:6f"
+      - tool-kit/persist-workspace:
+          path: .
   checkout:
     docker:
       - image: cimg/base:stable
     steps:
       - checkout
-      - add_ssh_keys:
-          fingerprints:
-            - "83:b5:09:e4:e5:2e:74:35:c1:1b:99:73:e3:dc:b8:6f"
       - tool-kit/persist-workspace:
           path: .
 workflows:
@@ -70,6 +76,7 @@ workflows:
               only: /^v\d+\.\d+\.\d+(-.+)?/
       - tool-kit/publish-tag:
           requires:
+            - add-ssh-keys
             - tool-kit/test-node
           name: tool-kit/publish-tag-node
           executor: node
