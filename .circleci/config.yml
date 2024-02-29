@@ -31,6 +31,10 @@ workflows:
           - scheduled_pipeline
           - << pipeline.trigger_source >>
     jobs:
+      - add-ssh-keys:
+          filters:
+            tags:
+              only: /^v\d+\.\d+\.\d+(-.+)?/
       - checkout:
           filters:
             tags:
