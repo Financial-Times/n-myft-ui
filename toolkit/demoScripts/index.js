@@ -26,12 +26,6 @@ class DemoBuilder extends ShExcutor {
 	}
 }
 
-class DeployGhPages extends ShExcutor {
-	async run () {
-		return this.executeCommand('deploy-gh-pages', 'scripts/deploy-gh-pages.sh');
-	}
-}
-
 class TranspileJsx extends ShExcutor {
 	async run () {
 		return this.executeCommand('transpile-jsx', 'scripts/transpile-jsx.sh');
@@ -75,15 +69,9 @@ class buildDemo extends Hook {
 		return true;
 	}
 }
-class deployGhPages extends Hook {
-	async check () {
-		return true;
-	}
-}
 
 exports.hooks = {
 	'build:demo': buildDemo,
-	'deploy:gh-pages': deployGhPages
 };
 
-exports.tasks = [ DemoBuilder, DeployGhPages, TranspileJsx, RunPa11yCi ];
+exports.tasks = [ DemoBuilder, TranspileJsx, RunPa11yCi ];
