@@ -39,6 +39,32 @@ npm run demo
 
 View the demo on `localhost:5005`
 
+
+## Demo tasks
+```
+npm run demo-build
+```
+This task will build the demo and place it in the `demo/dist` folder.
+```
+npm run demo
+```
+This task will run a express server on localhost:5005 serving the builded demo.(it calls demo-build internally).
+```
+npm run static-demo
+```
+This tasks will start a Node.js application located in the "demos/app" directory as a background process, 
+waits for 10 seconds, fetches content from "http://localhost:5005", adjusts the links in the retrieved content, 
+saves it as "index.html" in the "public" directory, moves all files from the "public" directory to the current directory, 
+and finally terminates the Node.js process.
+This is to prepare it to be uploaded to gh static page.
+
 ## Unstable versions
 
 v24, v25, v26 has JSX migration code. They are not stable therefore v27 is released. It is to remove JSX and rollback to handlebars. Please use ^v27.
+
+# RunPa11yCi task
+The default Pa11y plugin is configured to run against a deployed review app on heroku.
+In cases where the project is an npm component without a deployed environment like this project, this task allows for local server setup prior to running Pa11y tests.
+The RunPa11yCi task is a custom task class designed to automate the process of running Pa11y accessibility tests against a local server instance that runs the demo. It utilizes Node.js child processes to manage both the server and Pa11y processes, 
+ensuring proper execution and cleanup.
+
