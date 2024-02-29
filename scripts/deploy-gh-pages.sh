@@ -2,6 +2,7 @@ git config --global user.email "$GITHUB_EMAIL"
 git config --global user.name "$GITHUB_NAME"
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+echo "script dir: $SCRIPT_DIR"
 
 # hackily remove all identities, and later force the specific identity
 # otherwise git keeps using the wrong boi
