@@ -18,8 +18,8 @@ cd honk
 
 git checkout -b gh-pages
 
-mv "$SCRIPT_DIR/../node_modules" .
-cp "$SCRIPT_DIR/../scripts/*" scripts/
+mv "../node_modules" .
+cp "../scripts/*" scripts/
 
 ./make-static-demo.sh
 
