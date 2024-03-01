@@ -10,6 +10,7 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
+      - tool-kit/attach-workspace
       - add_ssh_keys:
           fingerprints:
             - "83:b5:09:e4:e5:2e:74:35:c1:1b:99:73:e3:dc:b8:6f"
@@ -37,8 +38,6 @@ workflows:
           filters:
             tags:
               only: /^v\d+\.\d+\.\d+(-.+)?/
-            branches:
-              ignore: /.*/
       - checkout:
           filters:
             tags:
