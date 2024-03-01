@@ -10,7 +10,7 @@ ssh-add -D
 
 git --version
 
-export GIT_SSH="$SCRIPT_DIR/scripts/ssh.sh"
+export GIT_SSH="$SCRIPT_DIR/ssh.sh"
 
 git clone $CIRCLE_REPOSITORY_URL honk --single-branch
 

@@ -11,8 +11,6 @@ hooks:
     - TranspileJsx
   build:ci:
     - TranspileJsx
-  publish:tag:
-    - DeployGhPages
   build:demo:
     - DemoBuilder
   test:local:
