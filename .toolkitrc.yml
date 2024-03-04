@@ -22,7 +22,9 @@ hooks:
     - RunPa11yCi
 options:
   "@dotcom-tool-kit/circleci":
-    nodeVersion: "18.17-browsers"
+    nodeVersion:
+      - '18.16'
+      - '16.20'
   "@dotcom-tool-kit/eslint": {
     files: "{,!(public)/**/}*.js"
   }

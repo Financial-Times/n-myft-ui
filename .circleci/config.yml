@@ -4,7 +4,10 @@ orbs:
 executors:
   node:
     docker:
-      - image: cimg/node:18.17-browsers
+      - image: cimg/node:18.16
+  node16_20:
+    docker:
+      - image: cimg/node:16.20
 jobs:
   deploy-gh-pages:
     docker:
@@ -58,6 +61,7 @@ workflows:
             parameters:
               executor:
                 - node
+                - node16_20
           filters:
             tags:
               only: /^v\d+\.\d+\.\d+(-.+)?/
@@ -69,6 +73,7 @@ workflows:
             parameters:
               executor:
                 - node
+                - node16_20
           filters:
             tags:
               only: /^v\d+\.\d+\.\d+(-.+)?/
@@ -80,6 +85,7 @@ workflows:
             parameters:
               executor:
                 - node
+                - node16_20
           filters:
             tags:
               only: /^v\d+\.\d+\.\d+(-.+)?/
@@ -114,6 +120,7 @@ workflows:
             parameters:
               executor:
                 - node
+                - node16_20
       - tool-kit/build:
           name: tool-kit/build-<< matrix.executor >>
           requires:
@@ -122,6 +129,7 @@ workflows:
             parameters:
               executor:
                 - node
+                - node16_20
       - tool-kit/test:
           name: tool-kit/test-<< matrix.executor >>
           requires:
@@ -130,3 +138,4 @@ workflows:
             parameters:
               executor:
                 - node
+                - node16_20
