@@ -4,7 +4,12 @@ orbs:
 executors:
   node:
     docker:
-      - image: cimg/node:18.17-browsers
+      - image: cimg/node:18.16-browsers
+    working_directory: /home/circleci/project/node_workspace
+  node16_20-browsers:
+    docker:
+      - image: cimg/node:16.20-browsers
+    working_directory: /home/circleci/project/node16_workspace
 jobs:
   deploy-gh-pages:
     docker:
@@ -58,6 +63,7 @@ workflows:
             parameters:
               executor:
                 - node
+                - node16_20-browsers
           filters:
             tags:
               only: /^v\d+\.\d+\.\d+(-.+)?/
@@ -69,6 +75,7 @@ workflows:
             parameters:
               executor:
                 - node
+                - node16_20-browsers
           filters:
             tags:
               only: /^v\d+\.\d+\.\d+(-.+)?/
@@ -80,6 +87,7 @@ workflows:
             parameters:
               executor:
                 - node
+                - node16_20-browsers
           filters:
             tags:
               only: /^v\d+\.\d+\.\d+(-.+)?/
@@ -114,6 +122,7 @@ workflows:
             parameters:
               executor:
                 - node
+                - node16_20-browsers
       - tool-kit/build:
           name: tool-kit/build-<< matrix.executor >>
           requires:
@@ -122,6 +131,7 @@ workflows:
             parameters:
               executor:
                 - node
+                - node16_20-browsers
       - tool-kit/test:
           name: tool-kit/test-<< matrix.executor >>
           requires:
@@ -130,3 +140,4 @@ workflows:
             parameters:
               executor:
                 - node
+                - node16_20-browsers
