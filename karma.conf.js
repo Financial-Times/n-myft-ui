@@ -1,5 +1,7 @@
 // Karma configuration
 // Generated on Fri Apr 18 2014 18:19:03 GMT+0100 (BST)
+const majorVersion = process.version.split('.')[0].slice(1);
+const port = majorVersion === '18' ? 9877 : 9876;
 module.exports = function (karma) {
 
 
@@ -82,7 +84,7 @@ module.exports = function (karma) {
 
 
 		// web server port
-		port: 9876,
+		port: port,
 
 
 		// enable / disable colors in the output (reporters and logs)
