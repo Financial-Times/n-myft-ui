@@ -28,6 +28,5 @@ options:
   "@dotcom-tool-kit/eslint": {
     files: "{,!(public)/**/}*.js"
   }
-  '@dotcom-tool-kit/vault':
-    team: next
-    app: n-myft-ui
+  '@dotcom-tool-kit/doppler':
+    project: n-myft-ui
