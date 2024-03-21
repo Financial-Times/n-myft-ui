@@ -1,7 +1,7 @@
 // Karma configuration
 // Generated on Fri Apr 18 2014 18:19:03 GMT+0100 (BST)
 const majorVersion = process.version.split('.')[0].slice(1);
-const port = majorVersion === '18' ? 9877 : 9876;
+const port = majorVersion === '18' ? 2000 : 1400;
 module.exports = function (karma) {
 
 
