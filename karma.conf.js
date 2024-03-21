@@ -93,7 +93,7 @@ module.exports = function (karma) {
 
 		// level of logging
 		// possible values: karma.LOG_DISABLE || karma.LOG_ERROR || karma.LOG_WARN || karma.LOG_INFO || karma.LOG_DEBUG
-		logLevel: karma.LOG_INFO,
+		logLevel: karma.LOG_DEBUG,
 
 
 		// enable / disable watching file and executing tests whenever any file changes
@@ -124,16 +124,16 @@ module.exports = function (karma) {
 			}
 		},
 
-		// wait 3 minutes for a browser if we have to...
-		captureTimeout: 180000,
+		// Continuous Integration mode
+		// if true, Karma captures browsers, runs the tests and exits
+		singleRun: true,
+
+		// wait 5 minutes for a browser if we have to...
+		captureTimeout: (60 * 1000) * 5,
 
 		// wait for 1 minute to receive a message from a browser before disconnecting from it (in ms).
 		// The default is 30000ms (30 seconds).
-		browserNoActivityTimeout: 60000,
-
-		// Continuous Integration mode
-		// if true, Karma captures browsers, runs the tests and exits
-		singleRun: true
+		browserNoActivityTimeout: 60000
 	};
 
 	if (process.env.CI) {
