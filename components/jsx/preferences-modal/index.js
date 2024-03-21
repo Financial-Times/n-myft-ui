@@ -144,20 +144,6 @@ const getAlertsPreferences = async ({ event, preferencesModal }) => {
 	});
 
 	preferencesList.innerHTML = getAlertsPreferenceText(addedTextBuffer);
-
-	try {
-		// We need the service worker registration to check for a subscription
-		const serviceWorkerRegistration = await navigator.serviceWorker.ready;
-		const subscription = await serviceWorkerRegistration.pushManager.getSubscription();
-		if (subscription) {
-			addedTextBuffer.push('browser');
-		}
-	} catch (error) {
-		// eslint-disable-next-line no-console
-		console.warn('There was an error fetching the browser notification preferences', error);
-	}
-
-	preferencesList.innerHTML = getAlertsPreferenceText(addedTextBuffer);
 };
 
 const setCheckboxForAlertConcept = ({ event, preferencesModal }) => {
