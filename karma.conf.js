@@ -97,11 +97,6 @@ module.exports = function (karma) {
 		// enable / disable watching file and executing tests whenever any file changes
 		autoWatch: false,
 
-
-		// start these browsers
-		// available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-		browsers: ['Chrome'],
-
 		plugins: [
 			require('karma-mocha'),
 			require('karma-chai'),
@@ -122,8 +117,8 @@ module.exports = function (karma) {
 			}
 		},
 
-		// wait 10 minutes for a browser if we have to...
-		captureTimeout: (1000 * 60) * 10,
+		// wait 5 minutes for a browser if we have to...
+		captureTimeout: (1000 * 60) * 5,
 
 		// How long will Karma wait for a message from a browser before disconnecting from it (in ms).
 		// The default is 30000ms.
@@ -169,6 +164,8 @@ module.exports = function (karma) {
 		config.browsers = Object.keys(config.customLaunchers);
 
 		config.reporters.push('BrowserStack');
+	} else {
+		config.browsers = 'Chrome'
 	}
 
 	karma.set(config);
