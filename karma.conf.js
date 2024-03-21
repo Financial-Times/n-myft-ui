@@ -124,8 +124,12 @@ module.exports = function (karma) {
 			}
 		},
 
-		// wait 10 minutes for a browser if we have to...
-		captureTimeout: (1000 * 60) * 10,
+		// wait 3 minutes for a browser if we have to...
+		captureTimeout: 180000,
+
+		// wait for 1 minute to receive a message from a browser before disconnecting from it (in ms).
+		// The default is 30000ms (30 seconds).
+		browserNoActivityTimeout: 60000,
 
 		// Continuous Integration mode
 		// if true, Karma captures browsers, runs the tests and exits
