@@ -15,25 +15,7 @@ module.exports = function (karma) {
 		frameworks: ['mocha', 'chai', 'sinon', 'sinon-chai', 'viewport'],
 
 		// list of files / patterns to load in the browser
-		files: [
-			'http://cdn.polyfill.io/v2/polyfill.min.js?features=' + [
-				'default',
-				'requestAnimationFrame',
-				'Promise',
-				'matchMedia',
-				'HTMLPictureElement',
-				'fetch',
-				'Array.prototype.find',
-				'Array.prototype.findIndex',
-				'Array.prototype.includes',
-				'IntersectionObserver',
-				'Map',
-				'Array.from',
-				'NodeList.prototype.@@iterator',
-				'Array.prototype.@@iterator'
-			].join(','),
-			'test/**/*.spec.js'
-		],
+		files: [ 'test/**/*.spec.js'],
 
 		// preprocess matching files before serving them to	the browser
 		// available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
@@ -128,8 +110,8 @@ module.exports = function (karma) {
 		// if true, Karma captures browsers, runs the tests and exits
 		singleRun: true,
 
-		// wait 5 minutes for a browser if we have to...
-		captureTimeout: (60 * 1000) * 5,
+		// wait 1 minute for a browser if we have to...
+		captureTimeout: 60000,
 
 		// wait for 1 minute to receive a message from a browser before disconnecting from it (in ms).
 		// The default is 30000ms (30 seconds).
