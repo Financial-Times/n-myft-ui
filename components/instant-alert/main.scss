@@ -27,7 +27,7 @@
 		color: oColorsByName('black-80');
 	}
 	&::before {
-		@include oIconsContent('notifications', oColorsByName('black-60'), $icon-width, $iconset-version: 1);
+		@include oIconsContent('mute-notifications', oColorsByName('black-60'), $icon-width, $iconset-version: 1);
 		left: auto;
 		right: 1px;
 		margin-top: -18px;
