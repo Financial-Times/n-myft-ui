@@ -29,9 +29,9 @@ function toggleButton (buttonEl, state) {
 		nextButtons.toggleState(buttonEl);
 		const name = buttonEl.getAttribute('data-name');
 		if (isPressed) {
-			buttonEl.setAttribute('aria-label', 'Instant alerts disabled for ' + name);
+			buttonEl.setAttribute('aria-label', 'Alerts ' + name + ' disabled, click to enable');
 		} else {
-			buttonEl.setAttribute('aria-label', 'Instant alerts enabled for ' + name);
+			buttonEl.setAttribute('aria-label', 'Alerts ' + name + ' enabled, click to disable');
 		}
 	}
 
