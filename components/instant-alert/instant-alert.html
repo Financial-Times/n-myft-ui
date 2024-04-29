@@ -14,10 +14,10 @@
 	{{/if}}
 	<button
 			{{#ifAll hasInstantAlert @root.cacheablePersonalisedUrl}}
-			aria-label="Alerts {{name}} enabled, click to disable"
+			aria-label="Alerts {{name}} currently enabled, change to disable"
 			aria-pressed="true"
 			{{else}}
-			aria-label="Alerts {{name}} disabled, click to enable"
+			aria-label="Alerts {{name}} currently disabled, change to enable"
 			aria-pressed="false"
 			{{/ifAll}}
 	class="n-myft-ui__button
