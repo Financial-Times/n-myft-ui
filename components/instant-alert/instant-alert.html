@@ -13,10 +13,11 @@
 	<input type="hidden" value="http://www.ft.com/ontology/concept/Concept" name="directType">
 	{{/if}}
 	<button
-			aria-label="Get instant alerts for {{name}}"
 			{{#ifAll hasInstantAlert @root.cacheablePersonalisedUrl}}
+			aria-label="Alerts {{name}} currently enabled, change to disable"
 			aria-pressed="true"
 			{{else}}
+			aria-label="Alerts {{name}} currently disabled, change to enable"
 			aria-pressed="false"
 			{{/ifAll}}
 	class="n-myft-ui__button
@@ -24,7 +25,7 @@
 	{{#size}} n-myft-ui__button--{{this}}{{/size}}
 	n-myft-ui__button--instant
 	n-myft-ui__button--instant-light"
-	data-alternate-label="Stop instant alerts for {{name}}"
+	data-name="{{name}}"
 	{{#if alternateText}}
 	data-alternate-text="{{alternateText}}"
 	{{else}}

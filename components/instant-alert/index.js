@@ -27,7 +27,14 @@ function toggleButton (buttonEl, state) {
 
 	if (state !== isPressed) {
 		nextButtons.toggleState(buttonEl);
+		const name = buttonEl.getAttribute('data-name');
+		if (isPressed) {
+			buttonEl.setAttribute('aria-label', 'Alerts ' + name + ' currently disabled, change to enable');
+		} else {
+			buttonEl.setAttribute('aria-label', 'Alerts ' + name + ' currently enabled, change to disable');
+		}
 	}
+
 	buttonEl.removeAttribute('disabled');
 	buttonEl.setAttribute('value', !state);
 }
