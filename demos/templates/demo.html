@@ -20,56 +20,6 @@
 	</div>
 	<div class="o-grid-container o-grid-container--snappy demo-container">
 		<h1>{{title}}</h1>
-
-
-		<section
-			id="example-component"
-			class="demo-section">
-			<div class="o-grid-row">
-
-				<div data-o-grid-colspan="12">
-					<h2>JSX components</h2>
-
-					{{#instantAlertsPreferencesModal}}
-						<h3
-							class="demo-section__title">
-							Instant alerts popup to manage preferences
-						</h3>
-
-						<div style="height:200px">
-							{{{renderReactComponent localPath="components/jsx/preferences-modal/preferences-modal.jsx" flags=@root.flags visible=true}}}
-						</div>
-					{{/instantAlertsPreferencesModal}}
-
-					{{#followPlusInstantAlerts}}
-						<h3
-							class="demo-section__title">
-							Follow plus instant alerts button (same appearance as normal follow button)
-						</h3>
-
-						{{{renderReactComponent localPath="components/jsx/follow-plus-instant-alerts/follow-plus-instant-alerts.jsx" conceptId=this.conceptId name=this.name flags=@root.flags}}}
-					{{/followPlusInstantAlerts}}
-
-					{{#followPlusInstantAlerts}}
-						<h3
-							class="demo-section__title">
-							Unfollow plus instant alerts button
-						</h3>
-
-						{{{renderReactComponent localPath="components/jsx/follow-plus-instant-alerts/follow-plus-instant-alerts.jsx" conceptId=this.conceptId name=this.name setFollowButtonStateToSelected=true cacheablePersonalisedUrl=true flags=@root.flags}}}
-					{{/followPlusInstantAlerts}}
-
-					{{#followPlusInstantAlerts}}
-						<h3
-							class="demo-section__title">
-							Unfollow plus instant alerts button (instant alerts turned on)
-						</h3>
-
-						{{{renderReactComponent localPath="components/jsx/follow-plus-instant-alerts/follow-plus-instant-alerts.jsx" conceptId=this.conceptId name=this.name setFollowButtonStateToSelected=true cacheablePersonalisedUrl=true setInstantAlertsOn=true flags=@root.flags}}}
-					{{/followPlusInstantAlerts}}
-				</div>
-			</div>
-		</section>
 		<section
 			id="follow-button"
 			class="demo-section">
